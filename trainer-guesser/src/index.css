@@ -1,14 +1,405 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+:root {
+  --green: #4ade80;
+  --green-dark: #16a34a;
+  --green-hover: #22c55e;
+  --red: #f87171;
+  --gold: #fbbf24;
+  --panel-bg: rgba(10, 15, 30, 0.75);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.07);
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+}
+
 body {
-  background-color: #111827;
-  color: white;
-  font-family: sans-serif;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Background ── */
+.app-root {
+  min-height: 100vh;
+  position: relative;
+  background:
+    linear-gradient(135deg, #0d1b2a 0%, #1a2744 40%, #0d2137 70%, #0a1628 100%);
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ── Layout ── */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--green);
+  text-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Trainer Panel ── */
+.trainer-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.trainer-frame {
+  width: 160px;
+  height: 160px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+.trainer-sprite {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  transition: filter 0.4s ease;
+}
+
+.trainer-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 3rem;
+  color: rgba(255,255,255,0.1);
+}
+
+.trainer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.info-pill {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Right Panel ── */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Team Grid ── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 0.75rem;
+}
+
+.pokemon-slot {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: transform 0.2s ease;
+}
+
+.pokemon-slot:hover {
+  transform: translateY(-2px);
+}
+
+.pokemon-slot.empty {
+  opacity: 0.2;
+  min-height: 100px;
+}
+
+.pokemon-sprite {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  transition: filter 0.4s ease;
+}
+
+.pokemon-name {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Guess Section ── */
+.guess-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.guess-counter {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-align: right;
+  padding-right: 0.25rem;
+}
+
+.guess-input-wrapper {
+  width: 100%;
+}
+
+.guess-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-input:focus {
+  border-color: rgba(74, 222, 128, 0.4);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
+}
+
+.search-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.97);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  list-style: none;
+  padding: 0.3rem;
+}
+
+.suggestion-item {
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--green);
+}
+
+.guess-btn {
+  padding: 0.65rem 1.4rem;
+  background: var(--green-dark);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+  letter-spacing: 0.03em;
+}
+
+.guess-btn:hover:not(:disabled) {
+  background: var(--green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.45);
+}
+
+.guess-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.guess-btn:disabled {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Result Banner ── */
+.result-banner {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  animation: slideIn 0.4s ease;
+}
+
+.result-banner.won {
+  background: rgba(74, 222, 128, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: var(--green);
+}
+
+.result-banner.lost {
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: var(--red);
+}
+
+/* ── Guess History ── */
+.guess-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.guess-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  animation: slideIn 0.25s ease;
+}
+
+.guess-chip.correct {
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  color: var(--green);
+}
+
+.guess-chip.wrong {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  color: var(--red);
+}
+
+.guess-chip span {
+  font-size: 0.9rem;
+}
+
+/* ── Scrollbar ── */
+.suggestions-list::-webkit-scrollbar {
+  width: 4px;
+}
+.suggestions-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.suggestions-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
 }

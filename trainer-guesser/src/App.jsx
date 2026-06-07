@@ -3,6 +3,12 @@ import { useDailyTrainer } from './hooks/useDailyTrainer'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
 
+function toTitleCase(str) {
+  return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
+    w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+  )
+}
+
 function App() {
   const trainer = useDailyTrainer()
   const [hintsRevealed, setHintsRevealed] = useState(0)
@@ -18,6 +24,7 @@ function App() {
 
     if (isCorrect) {
       setGameOver('won')
+      setHintsRevealed(5)
       return
     }
 
@@ -29,49 +36,84 @@ function App() {
     }
   }
 
+  // Trainer image: placeholder until hint 3 (silhouette), fully revealed at hint 4
+  const trainerFilter =
+    hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
+  const showTrainer = hintsRevealed >= 3
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-8">
-      <h1 className="text-3xl font-bold mb-8">Who's that Trainer?</h1>
+    <div className="app-root">
+      {/* Background */}
+      <div className="bg-overlay" />
 
-      {/* Trainer sprite */}
-      {hintsRevealed >= 3 && (
-        <div className="mb-8 w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center">
-          <img
-            src={trainer.trainerSpriteUrl}
-            alt="trainer"
-            className="w-full h-full object-contain"
-            style={{ filter: hintsRevealed >= 4 ? 'none' : 'brightness(0)' }}
-          />
-        </div>
-      )}
+      <div className="content-wrapper">
+        <header>
+          <h1 className="title">Who's that Trainer?</h1>
+          <p className="subtitle">Guess the trainer from their team</p>
+        </header>
 
-      {/* Progressive hints */}
-      {hintsRevealed >= 2 && <p className="mb-2 text-yellow-400">Game: {trainer.game}</p>}
-      {hintsRevealed >= 3 && <p className="mb-4 text-yellow-400">Type: {trainer.type.replace('_', ' ')}</p>}
-
-      {/* Game over message */}
-      {gameOver === 'won' && <p className="mb-4 text-green-400 font-bold">You got it! It was {trainer.name}!</p>}
-      {gameOver === 'lost' && <p className="mb-4 text-red-400 font-bold">It was {trainer.name}!</p>}
-
-      {/* Guess UI */}
-      <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
-
-      {/* Previous guesses */}
-      {guesses.length > 0 && (
-        <div className="mb-4 flex flex-col gap-1 w-full max-w-md">
-          {guesses.map((g, i) => (
-            <div
-              key={i}
-              className={`px-4 py-2 rounded-lg text-sm ${g.correct ? 'bg-green-700' : 'bg-red-800'}`}
-            >
-              {g.label} {g.correct ? '✓' : '✗'}
+        <main className="main-layout">
+          {/* LEFT: Trainer panel */}
+          <div className="trainer-panel">
+            <div className="trainer-frame">
+              {showTrainer ? (
+                <img
+                  src={trainer.trainerSpriteUrl}
+                  alt="trainer"
+                  className="trainer-sprite"
+                  style={{ filter: trainerFilter }}
+                />
+              ) : (
+                <div className="trainer-placeholder">
+                  <span>?</span>
+                </div>
+              )}
             </div>
-          ))}
-        </div>
-      )}
 
-      {/* Pokemon team grid */}
-      <TeamGrid team={trainer.team} revealed={hintsRevealed >= 1} />
+            <div className="trainer-info">
+              {hintsRevealed >= 2 && (
+                <div className="info-pill">🎮 {trainer.game}</div>
+              )}
+              {hintsRevealed >= 3 && (
+                <div className="info-pill">🏅 {toTitleCase(trainer.type)}</div>
+              )}
+            </div>
+          </div>
+
+          {/* RIGHT: Team + Guess */}
+          <div className="right-panel">
+            <TeamGrid team={trainer.team} revealed={hintsRevealed >= 1} />
+
+            {/* Guess area */}
+            {!gameOver ? (
+              <div className="guess-section">
+                <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
+                <div className="guess-counter">
+                  {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
+                </div>
+              </div>
+            ) : (
+              <div className={`result-banner ${gameOver}`}>
+                {gameOver === 'won'
+                  ? `⭐ You got it! It was ${trainer.name}!`
+                  : `💀 It was ${trainer.name}!`}
+              </div>
+            )}
+
+            {/* Previous guesses */}
+            {guesses.length > 0 && (
+              <div className="guess-history">
+                {guesses.map((g, i) => (
+                  <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
+                    <span>{g.correct ? '✓' : '✗'}</span>
+                    {g.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

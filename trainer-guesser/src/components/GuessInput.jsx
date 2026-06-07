@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import trainers from '../data/trainers.json'
 
@@ -6,6 +5,7 @@ export default function GuessInput({ onGuess, disabled }) {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [selected, setSelected] = useState(null)
+  const [highlightIndex, setHighlightIndex] = useState(-1)
 
   const allTrainers = trainers.trainers.map(t => ({
     id: t.id,
@@ -16,6 +16,7 @@ export default function GuessInput({ onGuess, disabled }) {
     const val = e.target.value
     setQuery(val)
     setSelected(null)
+    setHighlightIndex(-1)
 
     if (val.trim() === '') {
       setSuggestions([])
@@ -32,6 +33,7 @@ export default function GuessInput({ onGuess, disabled }) {
     setQuery(trainer.label)
     setSelected(trainer)
     setSuggestions([])
+    setHighlightIndex(-1)
   }
 
   function handleGuess() {
@@ -42,48 +44,61 @@ export default function GuessInput({ onGuess, disabled }) {
     setSuggestions([])
   }
 
+  function handleKeyDown(e) {
+    if (suggestions.length === 0) return
+    if (e.key === 'ArrowDown') {
+      setHighlightIndex(i => Math.min(i + 1, suggestions.length - 1))
+    } else if (e.key === 'ArrowUp') {
+      setHighlightIndex(i => Math.max(i - 1, 0))
+    } else if (e.key === 'Enter') {
+      if (highlightIndex >= 0) {
+        handleSelect(suggestions[highlightIndex])
+      } else if (selected) {
+        handleGuess()
+      }
+    } else if (e.key === 'Escape') {
+      setSuggestions([])
+    }
+  }
+
   return (
-    <div className="flex flex-col items-center w-full max-w-md mb-6">
-      {/* Guess button */}
-      <button
-        onClick={handleGuess}
-        disabled={!selected || disabled}
-        className="w-full mb-2 py-2 rounded-lg font-bold text-white
-          bg-green-600 hover:bg-green-500
-          disabled:bg-gray-600 disabled:cursor-not-allowed
-          transition-colors"
-      >
-        Guess
-      </button>
+    <div className="guess-input-wrapper">
+      <div className="guess-row">
+        {/* Search input + dropdown */}
+        <div className="search-container">
+          <input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            placeholder="Search trainer..."
+            className="search-input"
+            autoComplete="off"
+          />
+          {suggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {suggestions.map((t, i) => (
+                <li
+                  key={t.id}
+                  onMouseDown={() => handleSelect(t)}
+                  className={`suggestion-item ${i === highlightIndex ? 'highlighted' : ''}`}
+                >
+                  {t.label}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-      {/* Search input */}
-      <div className="relative w-full">
-        <input
-          type="text"
-          value={query}
-          onChange={handleChange}
-          disabled={disabled}
-          placeholder="Choose a trainer..."
-          className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white
-            placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-500
-            disabled:opacity-50"
-        />
-
-        {/* Dropdown suggestions */}
-        {suggestions.length > 0 && (
-          <ul className="absolute z-10 w-full mt-1 bg-gray-700 rounded-lg
-            overflow-hidden shadow-lg max-h-48 overflow-y-auto">
-            {suggestions.map(t => (
-              <li
-                key={t.id}
-                onClick={() => handleSelect(t)}
-                className="px-4 py-2 cursor-pointer hover:bg-gray-600 text-white"
-              >
-                {t.label}
-              </li>
-            ))}
-          </ul>
-        )}
+        {/* Guess button */}
+        <button
+          onClick={handleGuess}
+          disabled={!selected || disabled}
+          className="guess-btn"
+        >
+          Guess
+        </button>
       </div>
     </div>
   )
