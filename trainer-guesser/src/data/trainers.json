@@ -1,0 +1,16 @@
+
+{
+  "trainers": [
+    {
+      "id": "misty",
+      "name": "Misty",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "team": [
+        { "name": "Staryu", "spriteUrl": "/sprites/pokemon/staryu.png" },
+        { "name": "Starmie", "spriteUrl": "/sprites/pokemon/starmie.png" }
+      ]
+    }
+  ]
+}
