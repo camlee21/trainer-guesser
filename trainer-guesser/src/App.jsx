@@ -72,10 +72,10 @@ function App() {
 
             <div className="trainer-info">
               {hintsRevealed >= 2 && (
-                <div className="info-pill">🎮 {trainer.game}</div>
+                <div className="info-pill">Game: {trainer.game}</div>
               )}
               {hintsRevealed >= 3 && (
-                <div className="info-pill">🏅 {toTitleCase(trainer.type)}</div>
+                <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
               )}
             </div>
           </div>
@@ -95,8 +95,8 @@ function App() {
             ) : (
               <div className={`result-banner ${gameOver}`}>
                 {gameOver === 'won'
-                  ? `⭐ You got it! It was ${trainer.name}!`
-                  : `💀 It was ${trainer.name}!`}
+                  ? `You got it! It was ${trainer.name}!`
+                  : `Oops! It was ${trainer.name}!`}
               </div>
             )}
 

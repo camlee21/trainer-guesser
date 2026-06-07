@@ -1,6 +1,18 @@
 {
   "trainers": [
     {
+      "id": "brock",
+      "name": "Brock",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e2/Spr_RG_Brock.png",
+      "team": [
+        { "name": "Geodude", "pokedexId": 74 },
+        { "name": "Onix", "pokedexId": 95 }
+      ]
+    },
+    {
       "id": "misty",
       "name": "Misty",
       "game": "Red/Blue",
@@ -13,15 +25,162 @@
       ]
     },
     {
-      "id": "brock",
-      "name": "Brock",
+      "id": "surge",
+      "name": "Lt. Surge",
       "game": "Red/Blue",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e2/Spr_RG_Brock.png",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a2/Spr_RG_Lt_Surge.png",
       "team": [
-        { "name": "Geodude", "pokedexId": 74 },
-        { "name": "Onix", "pokedexId": 95 }
+        { "name": "Voltorb", "pokedexId": 100 },
+        { "name": "Pikachu", "pokedexId": 25 },
+        { "name": "Raichu", "pokedexId": 26 }
+      ]
+    },
+    {
+      "id": "erika",
+      "name": "Erika",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ee/Spr_RG_Erika.png",
+      "team": [
+        { "name": "Victreebel", "pokedexId": 71 },
+        { "name": "Tangela", "pokedexId": 114 },
+        { "name": "Vileplume", "pokedexId": 45 }
+      ]
+    },
+    {
+      "id": "koga",
+      "name": "Koga",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b0/Spr_RG_Koga.png",
+      "team": [
+        { "name": "Koffing", "pokedexId": 109 },
+        { "name": "Muk", "pokedexId": 89 },
+        { "name": "Koffing", "pokedexId": 109 },
+        { "name": "Weezing", "pokedexId": 110 }
+      ]
+    },
+    {
+      "id": "sabrina",
+      "name": "Sabrina",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/13/Spr_RG_Sabrina.png",
+      "team": [
+        { "name": "Kadabra", "pokedexId": 64 },
+        { "name": "Mr. Mime", "pokedexId": 122 },
+        { "name": "Venemoth", "pokedexId": 49 },
+        { "name": "Alakazam", "pokedexId": 65 }
+      ]
+    },
+    {
+      "id": "blaine",
+      "name": "Blaine",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6e/Spr_RG_Blaine.png",
+      "team": [
+        { "name": "Growlithe", "pokedexId": 58 },
+        { "name": "Ponyta", "pokedexId": 77 },
+        { "name": "Rapidash", "pokedexId": 78 },
+        { "name": "Arcanine", "pokedexId": 59 }
+      ]
+    },
+    {
+      "id": "giovanni",
+      "name": "Giovanni",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/23/Spr_RG_Giovanni.png",
+      "team": [
+        { "name": "Rhyhorn", "pokedexId": 111 },
+        { "name": "Dugtrio", "pokedexId": 51 },
+        { "name": "Nidoqueen", "pokedexId": 31 },
+        { "name": "Nidoking", "pokedexId": 34 },
+        { "name": "Rhydon", "pokedexId": 112 }
+      ]
+    },
+    {
+      "id": "lorelei",
+      "name": "Lorelei",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/58/Spr_RG_Lorelei.png",
+      "team": [
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Cloyster", "pokedexId": 91 },
+        { "name": "Slowbro", "pokedexId": 80 },
+        { "name": "Jynx", "pokedexId": 124 },
+        { "name": "Lapras", "pokedexId": 131 }
+      ]
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/76/Spr_RG_Bruno.png",
+      "team": [
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    },
+    {
+      "id": "agatha",
+      "name": "Agatha",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f4/Spr_RG_Agatha.png",
+      "team": [
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Golbat", "pokedexId": 42 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Arbok", "pokedexId": 24 },
+        { "name": "Gengar", "pokedexId": 94 }
+      ]
+    },
+    {
+      "id": "lance",
+      "name": "Lance",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/eb/Spr_RG_Lance.png",
+      "team": [
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Dragonite", "pokedexId": 149 }
+      ]
+    },
+    {
+      "id": "blue",
+      "name": "Blue",
+      "game": "Red/Blue",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/51/Spr_RG_Blue_3.png",
+      "team": [
+        { "name": "Pidgeot", "pokedexId": 18 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Rhydon", "pokedexId": 112 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Charizard", "pokedexId": 6 }
       ]
     }
   ]
