@@ -680,6 +680,188 @@
         { "name": "Armaldo", "pokedexId": 348 },
         { "name": "Metagross", "pokedexId": 376 }
       ]
+    },
+    {
+      "id": "roark",
+      "name": "Roark",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/38/Spr_Pt_Roark.png",
+      "team": [
+        { "name": "Geodude", "pokedexId": 74 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Cranidos", "pokedexId": 408 }
+      ]
+    },
+    {
+      "id": "gardenia",
+      "name": "Gardenia",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/07/Spr_Pt_Gardenia.png",
+      "team": [
+        { "name": "Turtwig", "pokedexId": 387 },
+        { "name": "Cherrim", "pokedexId": 421 },
+        { "name": "Roserade", "pokedexId": 407 }
+      ]
+    },
+    {
+      "id": "fantina",
+      "name": "Fantina",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/33/Spr_Pt_Fantina.png",
+      "team": [
+        { "name": "Duskull", "pokedexId": 355 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Mismagius", "pokedexId": 429 }
+      ]
+    },
+    {
+      "id": "maylene",
+      "name": "Maylene",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/52/Spr_Pt_Maylene.png",
+      "team": [
+        { "name": "Meditite", "pokedexId": 307 },
+        { "name": "Machoke", "pokedexId": 67 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "crasherwake",
+      "name": "Crasher Wake",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/06/Spr_Pt_Crasher_Wake.png",
+      "team": [
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Floatzel", "pokedexId": 419 }
+      ]
+    },
+    {
+      "id": "byron",
+      "name": "Byron",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f0/Spr_Pt_Byron.png",
+      "team": [
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Bastiodon", "pokedexId": 411 }
+      ]
+    },
+    {
+      "id": "candice",
+      "name": "Candice",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/88/Spr_Pt_Candice.png",
+      "team": [
+        { "name": "Sneasel", "pokedexId": 215 },
+        { "name": "Piloswine", "pokedexId": 221 },
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Froslass", "pokedexId": 478 }
+      ]
+    },
+    {
+      "id": "volkner",
+      "name": "Volkner",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8a/Spr_Pt_Volkner.png",
+      "team": [
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Electivire", "pokedexId": 466 }
+      ]
+    },
+    {
+      "id": "aaron",
+      "name": "Aaron",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8e/Spr_Pt_Aaron.png",
+      "team": [
+        { "name": "Yanmega", "pokedexId": 469 },
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Vespiquen", "pokedexId": 416 },
+        { "name": "Drapion", "pokedexId": 452 }
+      ]
+    },
+    {
+      "id": "bertha",
+      "name": "Bertha",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fa/Spr_Pt_Bertha.png",
+      "team": [
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Gliscor", "pokedexId": 472 },
+        { "name": "Hippowdon", "pokedexId": 450 },
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Rhyperior", "pokedexId": 464 }
+      ]
+    },
+    {
+      "id": "flint",
+      "name": "Flint",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/97/Spr_Pt_Flint.png",
+      "team": [
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Flareon", "pokedexId": 136 },
+        { "name": "Rapidash", "pokedexId": 78 },
+        { "name": "Infernape", "pokedexId": 392 },
+        { "name": "Magmortar", "pokedexId": 467 }
+      ]
+    },
+    {
+      "id": "lucian",
+      "name": "Lucian",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/99/Spr_Pt_Lucian.png",
+      "team": [
+        { "name": "Mr. Mime", "pokedexId": 122 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Gallade", "pokedexId": 475 }
+      ]
+    },
+    {
+      "id": "cynthia",
+      "name": "Cynthia",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d2/Spr_Pt_Cynthia.png",
+      "team": [
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Togekiss", "pokedexId": 468 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Garchomp", "pokedexId": 445 }
+      ]
     }
   ]
 }
