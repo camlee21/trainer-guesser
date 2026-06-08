@@ -682,6 +682,32 @@
       ]
     },
     {
+      "id": "maxie",
+      "name": "Maxie",
+      "game": "Ruby",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e3/Spr_RS_Maxie.png",
+      "team": [
+        { "name": "Mightyena", "pokedexId": 262 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Camerupt", "pokedexId": 323 }
+      ]
+    },
+    {
+      "id": "archie",
+      "name": "Archie",
+      "game": "Sapphire",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fe/Spr_RS_Archie.png",
+      "team": [
+        { "name": "Mightyena", "pokedexId": 262 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Sharpedo", "pokedexId": 319 }
+      ]
+    },
+    {
       "id": "roark",
       "name": "Roark",
       "game": "Platinum",
