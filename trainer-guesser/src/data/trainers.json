@@ -988,32 +988,6 @@
       ]
     },
     {
-      "id": "drayden",
-      "name": "Drayden",
-      "game": "Black",
-      "difficulty": "medium",
-      "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/drayden.png",
-      "team": [
-        { "name": "Fraxure", "pokedexId": 611 },
-        { "name": "Druddigon", "pokedexId": 621 },
-        { "name": "Haxorus", "pokedexId": 612 }
-      ]
-    },
-    {
-      "id": "iris",
-      "name": "Iris",
-      "game": "White",
-      "difficulty": "medium",
-      "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/iris.png",
-      "team": [
-        { "name": "Fraxure", "pokedexId": 611 },
-        { "name": "Druddigon", "pokedexId": 621 },
-        { "name": "Haxorus", "pokedexId": 612 }
-      ]
-    },
-    {
       "id": "shauntal",
       "name": "Shauntal",
       "game": "Black/White",
