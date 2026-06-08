@@ -1654,6 +1654,217 @@
         { "name": "Tyrantrum", "pokedexId": 697 },
         { "name": "Salamence", "pokedexId": 373 }
       ]
+    },
+    {
+      "id": "ilima",
+      "name": "Ilima",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "trial_captain",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7c/VSIlima.png",
+      "team": [
+        { "name": "Gumshoos", "pokedexId": 735 },
+        { "name": "Smeargle", "pokedexId": 235 }
+      ]
+    },
+    {
+      "id": "lana",
+      "name": "Lana",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "trial_captain",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7e/VSLana.png",
+      "team": [
+        { "name": "Chinchou", "pokedexId": 170 },
+        { "name": "Shellder", "pokedexId": 90 },
+        { "name": "Araquanid", "pokedexId": 752 }
+      ]
+    },
+    {
+      "id": "kiawe",
+      "name": "Kiawe",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "trial_captain",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/34/VSKiawe.png",
+      "team": [
+        { "name": "Growlithe", "pokedexId": 58 },
+        { "name": "Fletchinder", "pokedexId": 662 },
+        { "name": "Alolan-Marowak", "pokedexId": 105 }
+      ]
+    },
+    {
+      "id": "mallow",
+      "name": "Mallow",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "trial_captain",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/92/VSMallow.png",
+      "team": [
+        { "name": "Phantump", "pokedexId": 708 },
+        { "name": "Shiinotic", "pokedexId": 756 },
+        { "name": "Steenee", "pokedexId": 762 }
+      ]
+    },
+    {
+      "id": "mina",
+      "name": "Mina",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "trial_captain",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d6/VSMina_2.png",
+      "team": [
+        { "name": "Klefki", "pokedexId": 707 },
+        { "name": "Granbull", "pokedexId": 210 },
+        { "name": "Shiinotic", "pokedexId": 756 },
+        { "name": "Wigglytuff", "pokedexId": 40 },
+        { "name": "Ribombee", "pokedexId": 743 }
+      ]
+    },
+    {
+      "id": "gladion",
+      "name": "Gladion",
+      "game": "Sun/Moon",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/44/VSGladion_2.png",
+      "team": [
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Porygon-Z", "pokedexId": 474 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Silvally", "pokedexId": 773 }
+      ]
+    },
+    {
+      "id": "guzma",
+      "name": "Guzma",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/71/VSGuzma.png",
+      "team": [
+        { "name": "Golisopod", "pokedexId": 768 },
+        { "name": "Ariados", "pokedexId": 168 },
+        { "name": "Masquerain", "pokedexId": 284 },
+        { "name": "Pinsir", "pokedexId": 127 }
+      ]
+    },
+    {
+      "id": "plumeria",
+      "name": "Plumeria",
+      "game": "Sun/Moon",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/81/VSPlumeria.png",
+      "team": [
+        { "name": "Golbat", "pokedexId": 42 },
+        { "name": "Salazzle", "pokedexId": 758 }
+      ]
+    },
+    {
+      "id": "faba",
+      "name": "Faba",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/06/VSFaba.png",
+      "team": [
+        { "name": "Slowbro", "pokedexId": 80 },
+        { "name": "Bruxish", "pokedexId": 779 },
+        { "name": "Alolan-Raichu", "pokedexId": 26 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Hypno", "pokedexId": 97 }
+      ]
+    },
+    {
+      "id": "hala",
+      "name": "Hala",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6b/VSHala_2.png",
+      "team": [
+        { "name": "Hariyama", "pokedexId": 297 },
+        { "name": "Primeape", "pokedexId": 57 },
+        { "name": "Bewear", "pokedexId": 760 },
+        { "name": "Poliwrath", "pokedexId": 62 },
+        { "name": "Crabominable", "pokedexId": 740 }
+      ]
+    },
+    {
+      "id": "olivia",
+      "name": "Olivia",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/ff/VSOlivia_2.png",
+      "team": [
+        { "name": "Relicanth", "pokedexId": 369 },
+        { "name": "Carbink", "pokedexId": 703 },
+        { "name": "Alolan-Golem", "pokedexId": 76 },
+        { "name": "Probopass", "pokedexId": 476 },
+        { "name": "Lycanroc-Midnight", "pokedexId": 745 }
+      ]
+    },
+    {
+      "id": "acerola",
+      "name": "Acerola",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6c/VSAcerola.png",
+      "team": [
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Dhelmise", "pokedexId": 781 },
+        { "name": "Froslass", "pokedexId": 478 },
+        { "name": "Palossand", "pokedexId": 770 }
+      ]
+    },
+    {
+      "id": "kahili",
+      "name": "Kahili",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/37/VSKahili.png",
+      "team": [
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Oricorio", "pokedexId": 741 },
+        { "name": "Mandibuzz", "pokedexId": 630 },
+        { "name": "Toucannon", "pokedexId": 733 }
+      ]
+    },
+    {
+      "id": "molayne",
+      "name": "Molayne",
+      "game": "Ultra Sun/Ultra Moon",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/c0/VSMolayne.png",
+      "team": [
+        { "name": "Klefki", "pokedexId": 707 },
+        { "name": "Bisharp", "pokedexId": 625 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Alolan-Dugtrio", "pokedexId": 51 }
+      ]
+    },
+    {
+      "id": "gladion2",
+      "name": "Gladion",
+      "game": "Ultra Sun/Ultra Moon",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/00/VSGladion_2_USUM.png",
+      "team": [
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Zoroark", "pokedexId": 571 },
+        { "name": "Silvally", "pokedexId": 773 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
     }
   ]
 }
