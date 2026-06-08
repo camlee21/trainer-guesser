@@ -4,8 +4,6 @@ import { usePersistedGameState } from './hooks/usePersistedGameState'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
 
-import { Analytics } from "@vercel/analytics/next"
-
 function toTitleCase(str) {
   return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
     w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
