@@ -476,6 +476,210 @@
         { "name": "Charizard", "pokedexId": 6 },
         { "name": "Dragonite", "pokedexId": 149 }
       ]
+    },
+    {
+      "id": "roxanne",
+      "name": "Roxanne",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ef/Spr_RS_Roxanne.png",
+      "team": [
+        { "name": "Geodude", "pokedexId": 74 },
+        { "name": "Geodude", "pokedexId": 74 },
+        { "name": "Nosepass", "pokedexId": 299 }
+      ]
+    },
+    {
+      "id": "brawly",
+      "name": "Brawly",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/92/Spr_RS_Brawly.png",
+      "team": [
+        { "name": "Machop", "pokedexId": 66 },
+        { "name": "Machop", "pokedexId": 66 },
+        { "name": "Makuhita", "pokedexId": 296 }
+      ]
+    },
+    {
+      "id": "wattson",
+      "name": "Wattson",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b2/Spr_RS_Wattson.png",
+      "team": [
+        { "name": "Voltorb", "pokedexId": 100 },
+        { "name": "Electrike", "pokedexId": 309 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Manectric", "pokedexId": 310 }
+      ]
+    },
+    {
+      "id": "flannery",
+      "name": "Flannery",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/be/Spr_RS_Flannery.png",
+      "team": [
+        { "name": "Numel", "pokedexId": 322 },
+        { "name": "Slugma", "pokedexId": 218 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Torkoal", "pokedexId": 324 }
+      ]
+    },
+    {
+      "id": "norman",
+      "name": "Norman",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/75/Spr_RS_Norman.png",
+      "team": [
+        { "name": "Spinda", "pokedexId": 327 },
+        { "name": "Vigoroth", "pokedexId": 288 },
+        { "name": "Linoone", "pokedexId": 264 },
+        { "name": "Slaking", "pokedexId": 289 }
+      ]
+    },
+    {
+      "id": "tate&liza",
+      "name": "Tate & Liza",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/38/Spr_RS_Tate_and_Liza.png",
+      "team": [
+        { "name": "Claydol", "pokedexId": 344 },
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Lunatone", "pokedexId": 337 },
+        { "name": "Solrock", "pokedexId": 338 }
+      ]
+    },
+    {
+      "id": "juan",
+      "name": "Juan",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/16/Spr_E_Juan.png",
+      "team": [
+        { "name": "Luvdisc", "pokedexId": 370 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Sealeo", "pokedexId": 364 },
+        { "name": "Crawdaunt", "pokedexId": 342 },
+        { "name": "Kingdra", "pokedexId": 230 }
+      ]
+    },
+    {
+      "id": "wallace",
+      "name": "Wallace",
+      "game": "Ruby/Sapphire",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b1/Spr_RS_Wallace.png",
+      "team": [
+        { "name": "Luvdisc", "pokedexId": 370 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Sealeo", "pokedexId": 364 },
+        { "name": "Seaking", "pokedexId": 119 },
+        { "name": "Milotic", "pokedexId": 350 }
+      ]
+    },
+    {
+      "id": "sidney",
+      "name": "Sidney",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Spr_RS_Sidney.png",
+      "team": [
+        { "name": "Mightyena", "pokedexId": 262 },
+        { "name": "Shiftry", "pokedexId": 275 },
+        { "name": "Cacturne", "pokedexId": 332 },
+        { "name": "Crawdaunt", "pokedexId": 342 },
+        { "name": "Absol", "pokedexId": 359 }
+      ]
+    },
+    {
+      "id": "phoebe",
+      "name": "Phoebe",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e6/Spr_RS_Phoebe.png",
+      "team": [
+        { "name": "Dusclops", "pokedexId": 356 },
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Dusclops", "pokedexId": 356 }
+      ]
+    },
+    {
+      "id": "glacia",
+      "name": "Glacia",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/71/Spr_RS_Glacia.png",
+      "team": [
+        { "name": "Sealeo", "pokedexId": 364 },
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Sealeo", "pokedexId": 364 },
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Walrein", "pokedexId": 365 }
+      ]
+    },
+    {
+      "id": "drake",
+      "name": "Drake",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/04/Spr_RS_Drake.png",
+      "team": [
+        { "name": "Shelgon", "pokedexId": 372 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Salamence", "pokedexId": 373 }
+      ]
+    },
+    {
+      "id": "wallace2",
+      "name": "Wallace",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cc/Spr_E_Wallace.png",
+      "team": [
+        { "name": "Wailord", "pokedexId": 321 },
+        { "name": "Tentacruel", "pokedexId": 73 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Milotic", "pokedexId": 350 }
+      ]
+    },
+    {
+      "id": "steven",
+      "name": "Steven",
+      "game": "Ruby/Sapphire",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/ad/Spr_RS_Steven.png",
+      "team": [
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Claydol", "pokedexId": 344 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Cradily", "pokedexId": 346 },
+        { "name": "Armaldo", "pokedexId": 348 },
+        { "name": "Metagross", "pokedexId": 376 }
+      ]
     }
   ]
 }
