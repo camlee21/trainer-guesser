@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDailyTrainer } from './hooks/useDailyTrainer'
+import { usePersistedGameState } from './hooks/usePersistedGameState'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
 
@@ -11,9 +12,7 @@ function toTitleCase(str) {
 
 function App() {
   const trainer = useDailyTrainer()
-  const [hintsRevealed, setHintsRevealed] = useState(0)
-  const [guesses, setGuesses] = useState([])
-  const [gameOver, setGameOver] = useState(false)
+  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed } = usePersistedGameState()
 
   const MAX_GUESSES = 5
 
