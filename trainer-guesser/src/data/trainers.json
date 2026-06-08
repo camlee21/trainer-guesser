@@ -2118,6 +2118,300 @@
         { "name": "Magmortar", "pokedexId": 467 },
         { "name": "Electivire", "pokedexId": 466 }
       ]
+    },
+    {
+      "id": "katy",
+      "name": "Katy",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ef/Scarlet_Violet_Katy.png",
+      "team": [
+        { "name": "Nymble", "pokedexId": 919 },
+        { "name": "Tarountula", "pokedexId": 917 },
+        { "name": "Teddiursa", "pokedexId": 216 }
+      ]
+    },
+    {
+      "id": "brassius",
+      "name": "Brassius",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fd/Scarlet_Violet_Brassius.png",
+      "team": [
+        { "name": "Petilil", "pokedexId": 548 },
+        { "name": "Smoliv", "pokedexId": 928 },
+        { "name": "Sudowoodo", "pokedexId": 185 }
+      ]
+    },
+    {
+      "id": "iono",
+      "name": "Iono",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/00/Scarlet_Violet_Iono.png",
+      "team": [
+        { "name": "Wattrel", "pokedexId": 940 },
+        { "name": "Bellibolt", "pokedexId": 939 },
+        { "name": "Luxio", "pokedexId": 404 },
+        { "name": "Mismagius", "pokedexId": 429 }
+      ]
+    },
+    {
+      "id": "kofu",
+      "name": "Kofu",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e3/Scarlet_Violet_Kofu.png",
+      "team": [
+        { "name": "Veluza", "pokedexId": 976 },
+        { "name": "Wugtrio", "pokedexId": 961 },
+        { "name": "Crabominable", "pokedexId": 740 }
+      ]
+    },
+    {
+      "id": "larry1",
+      "name": "Larry (Gym)",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/41/Scarlet_Violet_Larry.png",
+      "team": [
+        { "name": "Komala", "pokedexId": 775 },
+        { "name": "Dudunsparce", "pokedexId": 982 },
+        { "name": "Staraptor", "pokedexId": 398 }
+      ]
+    },
+    {
+      "id": "ryme",
+      "name": "Ryme",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/58/Scarlet_Violet_Ryme.png",
+      "team": [
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Mimkyu", "pokedexId": 778 },
+        { "name": "Houndstone", "pokedexId": 972 },
+        { "name": "Toxtricity", "pokedexId": 849 }
+      ]
+    },
+    {
+      "id": "tulip",
+      "name": "Tulip",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d1/Scarlet_Violet_Tulip.png",
+      "team": [
+        { "name": "Farigiraf", "pokedexId": 981 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Espathra", "pokedexId": 956 },
+        { "name": "Florges", "pokedexId": 671 }
+      ]
+    },
+    {
+      "id": "grusha",
+      "name": "Grusha",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/01/Scarlet_Violet_Grusha.png",
+      "team": [
+        { "name": "Frosmoth", "pokedexId": 873 },
+        { "name": "Beartic", "pokedexId": 614 },
+        { "name": "Cetitan", "pokedexId": 975 },
+        { "name": "Altaria", "pokedexId": 334 }
+      ]
+    },
+    {
+      "id": "rika",
+      "name": "Rika",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/63/VSRika.png",
+      "team": [
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Donphan", "pokedexId": 232 },
+        { "name": "Dugtrio", "pokedexId": 51 },
+        { "name": "Clodsire", "pokedexId": 980 }
+      ]
+    },
+    {
+      "id": "poppy",
+      "name": "Poppy",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/ad/VSPoppy.png",
+      "team": [
+        { "name": "Copperajah", "pokedexId": 879 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Corviknight", "pokedexId": 823 },
+        { "name": "Tinkaton", "pokedexId": 959 }
+      ]
+    },
+    {
+      "id": "larry2",
+      "name": "Larry (E4)",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/41/Scarlet_Violet_Larry.png",
+      "team": [
+        { "name": "Tropius", "pokedexId": 357 },
+        { "name": "Oricorio", "pokedexId": 741 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Staraptor", "pokedexId": 398 },
+        { "name": "Flamigo", "pokedexId": 973 }
+      ]
+    },
+    {
+      "id": "hassel",
+      "name": "Hassel",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ee/Scarlet_Violet_Hassel.png",
+      "team": [
+        { "name": "Noivern", "pokedexId": 715 },
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Dragalge", "pokedexId": 691 },
+        { "name": "Flapple", "pokedexId": 841 },
+        { "name": "Baxcalibur", "pokedexId": 998 }
+      ]
+    },
+    {
+      "id": "geeta",
+      "name": "Geeta",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d2/VSGeeta.png",
+      "team": [
+        { "name": "Espathra", "pokedexId": 956 },
+        { "name": "Gogoat", "pokedexId": 673 },
+        { "name": "Veluza", "pokedexId": 976 },
+        { "name": "Avalugg", "pokedexId": 713 },
+        { "name": "Kingambit", "pokedexId": 983 },
+        { "name": "Glimmora", "pokedexId": 970 }
+      ]
+    },
+    {
+      "id": "giacomo",
+      "name": "Giacomo",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/85/Scarlet_Violet_Giacomo.png",
+      "team": [
+        { "name": "Pawniard", "pokedexId": 624 }
+      ]
+    },
+    {
+      "id": "mela",
+      "name": "Mela",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a3/Scarlet_Violet_Mela.png",
+      "team": [
+        { "name": "Torkoal", "pokedexId": 324 }
+      ]
+    },
+    {
+      "id": "atticus",
+      "name": "Atticus",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/30/Scarlet_Violet_Atticus.png",
+      "team": [
+        { "name": "Skuntank", "pokedexId": 435 },
+        { "name": "Muk", "pokedexId": 89 },
+        { "name": "Revavroom", "pokedexId": 966 }
+      ]
+    },
+    {
+      "id": "ortega",
+      "name": "Ortega",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/12/Scarlet_Violet_Ortega.png",
+      "team": [
+        { "name": "Azumarill", "pokedexId": 184 },
+        { "name": "Wigglytuff", "pokedexId": 40 },
+        { "name": "Dachsbun", "pokedexId": 927 }
+      ]
+    },
+    {
+      "id": "eri",
+      "name": "Eri",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/1b/Scarlet_Violet_Eri.png",
+      "team": [
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Passimian", "pokedexId": 766 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Annihilape", "pokedexId": 979 }
+      ]
+    },
+    {
+      "id": "penny",
+      "name": "Penny",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/71/Scarlet_Violet_Penny.png",
+      "team": [
+        { "name": "Umbreon", "pokedexId": 197 },
+        { "name": "Vaporeon", "pokedexId": 134 },
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Flareon", "pokedexId": 136 },
+        { "name": "Leafeon", "pokedexId": 470 },
+        { "name": "Sylveon", "pokedexId": 700 }
+      ]
+    },
+    {
+      "id": "turo",
+      "name": "Professor Turo",
+      "game": "Violet",
+      "difficulty": "easy",
+      "type": "other",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Violet_Turo.png",
+      "team": [
+        { "name": "Iron Moth", "pokedexId": 994 },
+        { "name": "Iron Bundle", "pokedexId": 991 },
+        { "name": "Iron Hands", "pokedexId": 992 },
+        { "name": "Iron Jugulis", "pokedexId": 993 },
+        { "name": "Iron Thorns", "pokedexId": 995 },
+        { "name": "iron Valiant", "pokedexId": 1006 }
+      ]
+    },
+    {
+      "id": "sada",
+      "name": "Professor Sada",
+      "game": "Scarlet",
+      "difficulty": "easy",
+      "type": "other",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Violet_Turo.png",
+      "team": [
+        { "name": "Slither Wing", "pokedexId": 988 },
+        { "name": "Scream Tail", "pokedexId": 985 },
+        { "name": "Brute Bonnet", "pokedexId": 986 },
+        { "name": "Flutter Mane", "pokedexId": 987 },
+        { "name": "Sandy Shocks", "pokedexId": 989 },
+        { "name": "Roaring Moon", "pokedexId": 1005 }
+      ]
     }
   ]
 }
