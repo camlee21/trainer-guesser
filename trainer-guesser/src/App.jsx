@@ -3,6 +3,7 @@ import { useDailyTrainer } from './hooks/useDailyTrainer'
 import { usePersistedGameState } from './hooks/usePersistedGameState'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
+import { Analytics } from '@vercel/analytics/react'
 
 function toTitleCase(str) {
   return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
@@ -132,6 +133,7 @@ function App() {
           </div>
         </main>
       </div>
+      <Analytics />
     </div>
   )
 }
