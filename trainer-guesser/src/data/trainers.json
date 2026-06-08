@@ -862,6 +862,487 @@
         { "name": "Milotic", "pokedexId": 350 },
         { "name": "Garchomp", "pokedexId": 445 }
       ]
+    },
+    {
+      "id": "chili",
+      "name": "Chili",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Spr_BW_Chili.png",
+      "team": [
+        { "name": "Lillipup", "pokedexId": 506 },
+        { "name": "Pansear", "pokedexId": 513 }
+      ]
+    },
+    {
+      "id": "cilan",
+      "name": "Cilan",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bd/Spr_BW_Cilan.png",
+      "team": [
+        { "name": "Lillipup", "pokedexId": 506 },
+        { "name": "Pansage", "pokedexId": 511 }
+      ]
+    },
+    {
+      "id": "cress",
+      "name": "Cress",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/57/Spr_BW_Cress.png",
+      "team": [
+        { "name": "Lillipup", "pokedexId": 506 },
+        { "name": "Panpour", "pokedexId": 515 }
+      ]
+    },
+    {
+      "id": "lenora",
+      "name": "Lenora",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a3/Spr_BW_Lenora.png",
+      "team": [
+        { "name": "Herdier", "pokedexId": 507 },
+        { "name": "Watchog", "pokedexId": 505 }
+      ]
+    },
+    {
+      "id": "burgh",
+      "name": "Burgh",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3a/Spr_BW_Burgh.png",
+      "team": [
+        { "name": "Whirlipede", "pokedexId": 544 },
+        { "name": "Dwebble", "pokedexId": 557 },
+        { "name": "Leavanny", "pokedexId": 542 }
+      ]
+    },
+    {
+      "id": "elesa",
+      "name": "Elesa",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7c/Spr_BW_Elesa.png",
+      "team": [
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Zebstrika", "pokedexId": 523 }
+      ]
+    },
+    {
+      "id": "clay",
+      "name": "Clay",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/31/Spr_BW_Clay.png",
+      "team": [
+        { "name": "Krokorok", "pokedexId": 552 },
+        { "name": "Palpitoad", "pokedexId": 536 },
+        { "name": "Excadrill", "pokedexId": 530 }
+      ]
+    },
+    {
+      "id": "skyla",
+      "name": "Skyla",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/c2/Spr_BW_Skyla.png",
+      "team": [
+        { "name": "Swoobat", "pokedexId": 528 },
+        { "name": "Unfezant", "pokedexId": 521 },
+        { "name": "Swanna", "pokedexId": 581 }
+      ]
+    },
+    {
+      "id": "brycen",
+      "name": "Brycen",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/91/Spr_BW_Brycen.png",
+      "team": [
+        { "name": "Vanillish", "pokedexId": 583 },
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Beartic", "pokedexId": 614 }
+      ]
+    },
+    {
+      "id": "drayden",
+      "name": "Drayden",
+      "game": "Black",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d7/Spr_BW_Drayden.png",
+      "team": [
+        { "name": "Fraxure", "pokedexId": 611 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Haxorus", "pokedexId": 612 }
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "game": "White",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f8/Spr_BW_Iris.png",
+      "team": [
+        { "name": "Fraxure", "pokedexId": 611 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Haxorus", "pokedexId": 612 }
+      ]
+    },
+    {
+      "id": "shauntal",
+      "name": "Shauntal",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/28/Spr_BW_Shauntal.png",
+      "team": [
+        { "name": "Cofagrigus", "pokedexId": 563 },
+        { "name": "Jellicent", "pokedexId": 593 },
+        { "name": "Golurk", "pokedexId": 623 },
+        { "name": "Chandelure", "pokedexId": 609 }
+      ]
+    },
+    {
+      "id": "grimsley",
+      "name": "Grimsley",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bf/Spr_BW_Grimsley.png",
+      "team": [
+        { "name": "Scrafty", "pokedexId": 560 },
+        { "name": "Liepard", "pokedexId": 510 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Bisharp", "pokedexId": 625 }
+      ]
+    },
+    {
+      "id": "caitlin",
+      "name": "Caitlin",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Spr_BW_Caitlin.png",
+      "team": [
+        { "name": "Reuniclus", "pokedexId": 579 },
+        { "name": "Musharna", "pokedexId": 518 },
+        { "name": "Sigilyph", "pokedexId": 561 },
+        { "name": "Gothitelle", "pokedexId": 576 }
+      ]
+    },
+    {
+      "id": "marshal",
+      "name": "Marshal",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/2e/Spr_BW_Marshal.png",
+      "team": [
+        { "name": "Throh", "pokedexId": 538 },
+        { "name": "Sawk", "pokedexId": 539 },
+        { "name": "Conkeldurr", "pokedexId": 534 },
+        { "name": "Mienshao", "pokedexId": 620 }
+      ]
+    },
+    {
+      "id": "alder",
+      "name": "Alder",
+      "game": "Black/White",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3f/Spr_BW_Alder.png",
+      "team": [
+        { "name": "Accelgor", "pokedexId": 617 },
+        { "name": "Bouffalant", "pokedexId": 626 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Vanilluxe", "pokedexId": 584 },
+        { "name": "Escavalier", "pokedexId": 589 },
+        { "name": "Volcarona", "pokedexId": 637 }
+      ]
+    },
+    {
+      "id": "n1",
+      "name": "N",
+      "game": "Black",
+      "difficulty": "easy",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a0/Spr_BW_N.png",
+      "team": [
+        { "name": "Zekrom", "pokedexId": 644 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Vanilluxe", "pokedexId": 584 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Zoroark", "pokedexId": 571 },
+        { "name": "Klinklang", "pokedexId": 601 }
+      ]
+    },
+    {
+      "id": "n2",
+      "name": "N",
+      "game": "White",
+      "difficulty": "easy",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a0/Spr_BW_N.png",
+      "team": [
+        { "name": "Reshiram", "pokedexId": 643 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Vanilluxe", "pokedexId": 584 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Zoroark", "pokedexId": 571 },
+        { "name": "Klinklang", "pokedexId": 601 }
+      ]
+    },
+    {
+      "id": "ghetsis",
+      "name": "Ghetsis",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/de/Spr_BW_Ghetsis.png",
+      "team": [
+        { "name": "Cofagrigus", "pokedexId": 563 },
+        { "name": "Bouffalant", "pokedexId": 626 },
+        { "name": "Seismitoad", "pokedexId": 537 },
+        { "name": "Bisharp", "pokedexId": 625 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Hydreigon", "pokedexId": 635 }
+      ]
+    },
+    {
+      "id": "cynthia2",
+      "name": "Cynthia",
+      "game": "Black/White",
+      "difficulty": "medium",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bd/Spr_BW_Cynthia.png",
+      "team": [
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Braviary", "pokedexId": 628 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Garchomp", "pokedexId": 445 }
+      ]
+    },
+    {
+      "id": "cheren",
+      "name": "Cheren",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/1d/Spr_B2W2_Cheren.png",
+      "team": [
+        { "name": "Patrat", "pokedexId": 504 },
+        { "name": "Lillipup", "pokedexId": 506 }
+      ]
+    },
+    {
+      "id": "roxie",
+      "name": "Roxie",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/22/Spr_B2W2_Roxie.png",
+      "team": [
+        { "name": "Koffing", "pokedexId": 109 },
+        { "name": "Whirlipede", "pokedexId": 544 }
+      ]
+    },
+    {
+      "id": "burgh2",
+      "name": "Burgh",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/35/Spr_B2W2_Burgh.png",
+      "team": [
+        { "name": "Swadloon", "pokedexId": 541 },
+        { "name": "Dwebble", "pokedexId": 557 },
+        { "name": "Leavanny", "pokedexId": 542 }
+      ]
+    },
+    {
+      "id": "elesa2",
+      "name": "Elesa",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/97/Spr_B2W2_Elesa.png",
+      "team": [
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Flaaffy", "pokedexId": 180 },
+        { "name": "Zebstrika", "pokedexId": 523 }
+      ]
+    },
+    {
+      "id": "clay2",
+      "name": "Clay",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bb/Spr_B2W2_Clay.png",
+      "team": [
+        { "name": "Krokorok", "pokedexId": 552 },
+        { "name": "Sandslash", "pokedexId": 28 },
+        { "name": "Excadrill", "pokedexId": 530 }
+      ]
+    },
+    {
+      "id": "skyla2",
+      "name": "Skyla",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/5a/Spr_B2W2_Skyla.png",
+      "team": [
+        { "name": "Swoobat", "pokedexId": 528 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Swanna", "pokedexId": 581 }
+      ]
+    },
+    {
+      "id": "drayden2",
+      "name": "Drayden",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b6/Spr_B2W2_Drayden.png",
+      "team": [
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Haxorus", "pokedexId": 612 }
+      ]
+    },
+    {
+      "id": "marlon",
+      "name": "Marlon",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/57/Spr_B2W2_Marlon.png",
+      "team": [
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Wailord", "pokedexId": 321 },
+        { "name": "Jellicent", "pokedexId": 593 }
+      ]
+    },
+    {
+      "id": "shauntal2",
+      "name": "Shauntal",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b6/Spr_B2W2_Shauntal.png",
+      "team": [
+        { "name": "Cofagrigus", "pokedexId": 563 },
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Golurk", "pokedexId": 623 },
+        { "name": "Chandelure", "pokedexId": 609 }
+      ]
+    },
+    {
+      "id": "iris2",
+      "name": "Iris",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6c/Spr_B2W2_Iris.png",
+      "team": [
+        { "name": "Hydreigon", "pokedexId": 635 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Haxorus", "pokedexId": 612 }
+      ]
+    },
+    {
+      "id": "colress",
+      "name": "Colress",
+      "game": "Black2/White2",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e6/Spr_B2W2_Colress.png",
+      "team": [
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Rotom-Wash", "pokedexId": 479 },
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Beheeyem", "pokedexId": 606 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Klinklang", "pokedexId": 601 }
+      ]
+    },
+    {
+      "id": "ghetsis2",
+      "name": "Ghetsis",
+      "game": "Black2/White2",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a2/Spr_B2W2_Ghetsis.png",
+      "team": [
+        { "name": "Cofagrigus", "pokedexId": 563 },
+        { "name": "Seismitoad", "pokedexId": 537 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Drapion", "pokedexId": 452 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Hydreigon", "pokedexId": 635 }
+      ]
+    },
+    {
+      "id": "cynthia3",
+      "name": "Cynthia",
+      "game": "Black2/White2",
+      "difficulty": "medium",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/83/Spr_B2W2_Cynthia.png",
+      "team": [
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Togekiss", "pokedexId": 468 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Glaceon", "pokedexId": 471 },
+        { "name": "Garchomp", "pokedexId": 445 }
+      ]
+    },
+    {
+      "id": "benga1",
+      "name": "Benga",
+      "game": "Black2",
+      "difficulty": "hard",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f7/Spr_B2W2_Benga.png",
+      "team": [
+        { "name": "Latios", "pokedexId": 381 },
+        { "name": "Garchomp", "pokedexId": 445 },
+        { "name": "Volcarona", "pokedexId": 637 }
+      ]
+    },
+    {
+      "id": "benga2",
+      "name": "Benga",
+      "game": "White2",
+      "difficulty": "hard",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f7/Spr_B2W2_Benga.png",
+      "team": [
+        { "name": "Latias", "pokedexId": 380 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Volcarona", "pokedexId": 637 }
+      ]
     }
   ]
 }
