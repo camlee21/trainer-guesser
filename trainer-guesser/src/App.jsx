@@ -36,6 +36,16 @@ function App() {
     }
   }
 
+  function handlePass() {
+    const newGuesses = [...guesses, { id: '__pass__', label: 'Passed', correct: false }]
+    setGuesses(newGuesses)
+    const newHints = newGuesses.length
+    setHintsRevealed(newHints)
+    if (newGuesses.length >= MAX_GUESSES) {
+      setGameOver('lost')
+    }
+  }
+
   // Trainer image: placeholder until hint 3 (silhouette), fully revealed at hint 4
   const trainerFilter =
     hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
@@ -88,7 +98,12 @@ function App() {
             {/* Guess area */}
             {!gameOver ? (
               <div className="guess-section">
-                <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button className="pass-btn" onClick={handlePass}>
+                    Pass
+                  </button>
+                  <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
+                </div>
                 <div className="guess-counter">
                   {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
                 </div>
@@ -97,7 +112,7 @@ function App() {
               <div className={`result-banner ${gameOver}`}>
                 {gameOver === 'won'
                   ? `You got it! It was ${trainer.name}!`
-                  : `Oops! It was ${trainer.name}!`}
+                  : `Game Over! It was ${trainer.name}!`}
               </div>
             )}
 

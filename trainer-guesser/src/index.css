@@ -80,7 +80,7 @@ header {
 
 .main-layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 320px 1fr;
   gap: 1.5rem;
   align-items: start;
 }
@@ -100,8 +100,8 @@ header {
 }
 
 .trainer-frame {
-  width: 160px;
-  height: 160px;
+  width: 312px;
+  height: 312px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
@@ -114,8 +114,8 @@ header {
 }
 
 .trainer-sprite {
-  width: 120px;
-  height: 120px;
+  width: 240px;
+  height: 240px;
   object-fit: contain;
   image-rendering: pixelated;
   transition: filter 0.4s ease;
@@ -334,6 +334,34 @@ header {
   color: var(--text-dim);
   cursor: not-allowed;
   box-shadow: none;
+}
+
+/* ── Pass Button ── */
+.pass-btn {
+  padding: 0.65rem 1.4rem;
+  background: #dc2626;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.pass-btn:hover:not(:disabled) {
+  background: #ef4444;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.45);
+}
+
+.pass-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 /* ── Result Banner ── */
