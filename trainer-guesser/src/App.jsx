@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { useDailyTrainer } from './hooks/useDailyTrainer'
 import { usePersistedGameState } from './hooks/usePersistedGameState'
 import TeamGrid from './components/TeamGrid'
@@ -47,9 +48,7 @@ function App() {
     }
   }
 
-  // Trainer image: placeholder until hint 3 (silhouette), fully revealed at hint 4
-  const trainerFilter =
-    hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
+  const trainerFilter = hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = hintsRevealed >= 3
 
   return (
@@ -58,9 +57,50 @@ function App() {
       <div className="bg-overlay" />
 
       <div className="content-wrapper">
-        <header>
-          <h1 className="title">Who's that Trainer?</h1>
-          <p className="subtitle">Guess the trainer from their team</p>
+        {/* Header container with flex layout to keep title left and button right */}
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px', marginBottom: '20px' }}>
+          <div>
+            <h1 className="title" style={{ margin: 0 }}>Who's that Trainer?</h1>
+            <p className="subtitle" style={{ margin: '5px 0 0 0' }}>Guess the trainer from their team</p>
+          </div>
+          
+          {/* React Native-Style Native Ko-fi Link Button */}
+          <a 
+            href="https://ko-fi.com/I8P7210YG4" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              backgroundColor: '#72a4f2',
+              color: '#ffffff',
+              textDecoration: 'none',
+              fontFamily: '"Quicksand", "Nunito", "Segoe UI", sans-serif',
+              fontWeight: '700',
+              padding: '10px 16px',
+              borderRadius: '100px',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              fontSize: '15px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.03)';
+              e.currentTarget.style.boxShadow = '0px 6px 12px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+            }}
+          >
+            {/* Embedded Ko-fi Mug Icon */}
+            <img 
+              src="https://storage.ko-fi.com/cdn/cup-border.png" 
+              alt="Ko-fi cup" 
+              style={{ height: '18px', width: 'auto', display: 'initial' }}
+            />
+            <span>Support me on Ko-fi</span>
+          </a>
         </header>
 
         <main className="main-layout">
