@@ -2413,5 +2413,23 @@
         { "name": "Roaring Moon", "pokedexId": 1005 }
       ]
     }
+  ],
+  "hack-trainers": [
+    {
+      "id": "roark_pk",
+      "name": "Roark",
+      "game": "Platinum Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/hack-trainers/roark_pk.png",
+      "team": [
+        { "name": "Bonsly", "pokedexId": 438 },
+        { "name": "Lileep", "pokedexId": 345 },
+        { "name": "Gible", "pokedexId": 443 },
+        { "name": "Corsola", "pokedexId": 222 },
+        { "name": "Shuckle", "pokedexId": 213 },
+        { "name": "Cranidos", "pokedexId": 408 }
+      ]
+    }
   ]
 }

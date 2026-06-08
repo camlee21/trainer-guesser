@@ -7,13 +7,6 @@
   padding: 0;
 }
 
-.kofi-button-container {
-  position: fixed !important;
-  bottom: 1.5rem !important;
-  right: 1.5rem !important;
-  z-index: 9999 !important;
-}
-
 :root {
   --green: #4ade80;
   --green-dark: #16a34a;
