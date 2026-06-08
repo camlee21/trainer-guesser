@@ -1343,6 +1343,207 @@
         { "name": "Dragonite", "pokedexId": 149 },
         { "name": "Volcarona", "pokedexId": 637 }
       ]
+    },
+    {
+      "id": "viola",
+      "name": "Viola",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/87/VSViola.png",
+      "team": [
+        { "name": "Surskit", "pokedexId": 283 },
+        { "name": "Vivillon", "pokedexId": 666 }
+      ]
+    },
+    {
+      "id": "grant",
+      "name": "Grant",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/03/VSGrant.png",
+      "team": [
+        { "name": "Tyrunt", "pokedexId": 696 },
+        { "name": "Amaura", "pokedexId": 698 }
+      ]
+    },
+    {
+      "id": "korrina",
+      "name": "Korrina",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/4c/VSKorrina.png",
+      "team": [
+        { "name": "Mienfoo", "pokedexId": 619 },
+        { "name": "Hawlucha", "pokedexId": 701 },
+        { "name": "Machoke", "pokedexId": 67 }
+      ]
+    },
+    {
+      "id": "ramos",
+      "name": "Ramos",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/06/VSRamos.png",
+      "team": [
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Gogoat", "pokedexId": 673 },
+        { "name": "Weepinbell", "pokedexId": 70 }
+      ]
+    },
+    {
+      "id": "clemont",
+      "name": "Clemont",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e7/VSClemont.png",
+      "team": [
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Heliolisk", "pokedexId": 695 }
+      ]
+    },
+    {
+      "id": "valerie",
+      "name": "Valerie",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/22/VSValerie.png",
+      "team": [
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Mr. Mime", "pokedexId": 122 },
+        { "name": "Sylveon", "pokedexId": 700 }
+      ]
+    },
+    {
+      "id": "olympia",
+      "name": "Olympia",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7f/VSOlympia.png",
+      "team": [
+        { "name": "Sigilyph", "pokedexId": 561 },
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Meowstic", "pokedexId": 678 }
+      ]
+    },
+    {
+      "id": "wulfric",
+      "name": "Wulfric",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f0/VSWulfric.png",
+      "team": [
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Avalugg", "pokedexId": 713 }
+      ]
+    },
+    {
+      "id": "malva",
+      "name": "Malva",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/5d/VSMalva.png",
+      "team": [
+        { "name": "Pyroar", "pokedexId": 668 },
+        { "name": "Torkoal", "pokedexId": 324 },
+        { "name": "Chandelure", "pokedexId": 609 },
+        { "name": "Talonflame", "pokedexId": 663 }
+      ]
+    },
+    {
+      "id": "wikstrom",
+      "name": "Wikstrom",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/54/VSWikstrom.png",
+      "team": [
+        { "name": "Klefki", "pokedexId": 707 },
+        { "name": "Probopass", "pokedexId": 476 },
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Aegislash", "pokedexId": 681 }
+      ]
+    },
+    {
+      "id": "drasna",
+      "name": "Drasna",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e1/VSDrasna.png",
+      "team": [
+        { "name": "Dragalge", "pokedexId": 691 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Noivern", "pokedexId": 715 }
+      ]
+    },
+    {
+      "id": "siebold",
+      "name": "Siebold",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/81/VSSiebold.png",
+      "team": [
+        { "name": "Clawitzer", "pokedexId": 693 },
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Barbaracle", "pokedexId": 689 }
+      ]
+    },
+    {
+      "id": "diantha",
+      "name": "Diantha",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b6/VSDiantha.png",
+      "team": [
+        { "name": "Hawlucha", "pokedexId": 701 },
+        { "name": "Tyrantrum", "pokedexId": 697 },
+        { "name": "Aurorus", "pokedexId": 699 },
+        { "name": "Gourgeist", "pokedexId": 711 },
+        { "name": "Goodra", "pokedexId": 706 },
+        { "name": "Gardevoir", "pokedexId": 282 }
+      ]
+    },
+    {
+      "id": "lysandre",
+      "name": "Lysandre",
+      "game": "X/Y",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/13/VSLysandre_2.png",
+      "team": [
+        { "name": "Mienshao", "pokedexId": 620 },
+        { "name": "Pyroar", "pokedexId": 668 },
+        { "name": "Honchkrow", "pokedexId": 430 },
+        { "name": "Gyarados", "pokedexId": 130 }
+      ]
+    },
+    {
+      "id": "az",
+      "name": "AZ",
+      "game": "X/Y",
+      "difficulty": "medium",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/12/XY_AZ.png",
+      "team": [
+        { "name": "Torkoal", "pokedexId": 324 },
+        { "name": "Golurk", "pokedexId": 623 },
+        { "name": "Sigilyph", "pokedexId": 561 }
+      ]
     }
   ]
 }
