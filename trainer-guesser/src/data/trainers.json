@@ -1570,6 +1570,90 @@
         { "name": "Golurk", "pokedexId": 623 },
         { "name": "Sigilyph", "pokedexId": 561 }
       ]
+    },
+    {
+      "id": "red",
+      "name": "Red",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e8/Spr_HGSS_Red.png",
+      "team": [
+        { "name": "Pikachu", "pokedexId": 25 },
+        { "name": "Venusaur", "pokedexId": 3 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Blastoise", "pokedexId": 9 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Snorlax", "pokedexId": 143 }
+      ]
+    },
+    {
+      "id": "archer",
+      "name": "Rocket Executive Archer",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3b/Spr_HGSS_Archer.png",
+      "team": [
+        { "name": "Houndour", "pokedexId": 228 },
+        { "name": "Koffing", "pokedexId": 109 },
+        { "name": "Houndoom", "pokedexId": 229 }
+      ]
+    },
+    {
+      "id": "ariana",
+      "name": "Rocket Executive Ariana",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/20/Spr_HGSS_Ariana.png",
+      "team": [
+        { "name": "Arbok", "pokedexId": 24 },
+        { "name": "Vileplume", "pokedexId": 45 },
+        { "name": "Murkrow", "pokedexId": 198 }
+      ]
+    },
+    {
+      "id": "proton",
+      "name": "Rocket Executive Proton",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8f/Spr_HGSS_Proton.png",
+      "team": [
+        { "name": "Golbat", "pokedexId": 42 },
+        { "name": "Weezing", "pokedexId": 110 }
+      ]
+    },
+    {
+      "id": "wally",
+      "name": "Wally",
+      "game": "Omega Ruby/Alpha Sapphire",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/87/Spr_RS_Wally.png",
+      "team": [
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Delcatty", "pokedexId": 301 },
+        { "name": "Roselia", "pokedexId": 315 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Gallade", "pokedexId": 475 }
+      ]
+    },
+    {
+      "id": "zinnia",
+      "name": "Zinnia",
+      "game": "Omega Ruby/Alpha Sapphire",
+      "difficulty": "medium",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e5/Omega_Ruby_Alpha_Sapphire_Zinnia.png",
+      "team": [
+        { "name": "Goodra", "pokedexId": 706 },
+        { "name": "Noivern", "pokedexId": 715 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Tyrantrum", "pokedexId": 697 },
+        { "name": "Salamence", "pokedexId": 373 }
+      ]
     }
   ]
 }
