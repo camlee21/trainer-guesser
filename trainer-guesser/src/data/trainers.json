@@ -1865,6 +1865,259 @@
         { "name": "Silvally", "pokedexId": 773 },
         { "name": "Lucario", "pokedexId": 448 }
       ]
+    },
+    {
+      "id": "milo",
+      "name": "Milo",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bd/Milo_TW.png",
+      "team": [
+        { "name": "Gossifleur", "pokedexId": 829 },
+        { "name": "Eldegoss", "pokedexId": 830 }
+      ]
+    },
+    {
+      "id": "nessa",
+      "name": "Nessa",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/0e/Sword_Shield_Nessa.png",
+      "team": [
+        { "name": "Goldeen", "pokedexId": 118 },
+        { "name": "Arrokuda", "pokedexId": 846 },
+        { "name": "Drednaw", "pokedexId": 834 }
+      ]
+    },
+    {
+      "id": "kabu",
+      "name": "Kabu",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3e/Sword_Shield_Kabu.png",
+      "team": [
+        { "name": "Ninetales", "pokedexId": 38 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Centiskorch", "pokedexId": 851 }
+      ]
+    },
+    {
+      "id": "bea",
+      "name": "Bea",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/02/Sword_Shield_Bea.png",
+      "team": [
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Pangoro", "pokedexId": 675 },
+        { "name": "Sirfetch'd", "pokedexId": 865 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    },
+    {
+      "id": "allister",
+      "name": "Allister",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b1/Sword_Shield_Allister.png",
+      "team": [
+        { "name": "Galarian-Yamask", "pokedexId": 562 },
+        { "name": "Mimikyu", "pokedexId": 778 },
+        { "name": "Cursola", "pokedexId": 864 },
+        { "name": "Gengar", "pokedexId": 94 }
+      ]
+    },
+    {
+      "id": "opal",
+      "name": "Opal",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a7/Sword_Shield_Opal.png",
+      "team": [
+        { "name": "Galarian-Weezing", "pokedexId": 110 },
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Togekiss", "pokedexId": 468 },
+        { "name": "Alcremie", "pokedexId": 869 }
+      ]
+    },
+    {
+      "id": "gordie",
+      "name": "Gordie",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/5e/Sword_Shield_Gordie.png",
+      "team": [
+        { "name": "Barbaracle", "pokedexId": 689 },
+        { "name": "Shuckle", "pokedexId": 213 },
+        { "name": "Stonjourner", "pokedexId": 874 },
+        { "name": "Coalossal", "pokedexId": 839 }
+      ]
+    },
+    {
+      "id": "melony",
+      "name": "Melony",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8f/Sword_Shield_Melony.png",
+      "team": [
+        { "name": "Frosmoth", "pokedexId": 873 },
+        { "name": "Galarian-Darmanitan", "pokedexId": 555 },
+        { "name": "Eiscue", "pokedexId": 875 },
+        { "name": "Lapras", "pokedexId": 131 }
+      ]
+    },
+    {
+      "id": "piers",
+      "name": "Piers",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fd/Sword_Shield_Piers.png",
+      "team": [
+        { "name": "Scrafty", "pokedexId": 560 },
+        { "name": "Malamar", "pokedexId": 687 },
+        { "name": "Skuntank", "pokedexId": 435 },
+        { "name": "Obstagoon", "pokedexId": 862 }
+      ]
+    },
+    {
+      "id": "raihan",
+      "name": "Raihan",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/45/Sword_Shield_Raihan.png",
+      "team": [
+        { "name": "Gigalith", "pokedexId": 526 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Sandaconda", "pokedexId": 844 },
+        { "name": "Duraludon", "pokedexId": 884 }
+      ]
+    },
+    {
+      "id": "marnie",
+      "name": "Marnie",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/30/Sword_Shield_Marnie.png",
+      "team": [
+        { "name": "Liepard", "pokedexId": 510 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Scrafty", "pokedexId": 560 },
+        { "name": "Morpeko", "pokedexId": 877 }
+      ]
+    },
+    {
+      "id": "bede",
+      "name": "Bede",
+      "game": "Sword/Shield",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/af/Sword_Shield_Bede.png",
+      "team": [
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Galarian-Rapidash", "pokedexId": 78 },
+        { "name": "Hatterene", "pokedexId": 858 }
+      ]
+    },
+    {
+      "id": "volo",
+      "name": "Volo",
+      "game": "Legends Arceus",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6d/Legends_Arceus_Volo.png",
+      "team": [
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Togekiss", "pokedexId": 468 },
+        { "name": "Hisuian-Arcanine", "pokedexId": 59 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Garchomp", "pokedexId": 445 }
+      ]
+    },
+    {
+      "id": "mai",
+      "name": "Mai",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d8/Legends_Arceus_Mai.png",
+      "team": [
+        { "name": "Munchlax", "pokedexId": 446 }
+      ]
+    },
+    {
+      "id": "lian",
+      "name": "Lian",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/99/Legends_Arceus_Lian.png",
+      "team": [
+        { "name": "Goomy", "pokedexId": 704 }
+      ]
+    },
+    {
+      "id": "ingo",
+      "name": "Ingo",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/99/Legends_Arceus_Ingo.png",
+      "team": [
+        { "name": "Machoke", "pokedexId": 67 },
+        { "name": "Tangela", "pokedexId": 114 },
+        { "name": "Gliscor", "pokedexId": 472 }
+      ]
+    },
+    {
+      "id": "melli",
+      "name": "Melli",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cb/Legends_Arceus_Melli.png",
+      "team": [
+        { "name": "Skuntank", "pokedexId": 435 },
+        { "name": "Zubat", "pokedexId": 41 },
+        { "name": "Skorupi", "pokedexId": 451 }
+      ]
+    },
+    {
+      "id": "gaeric",
+      "name": "Gaeric",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/80/Legends_Arceus_Gaeric.png",
+      "team": [
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Froslass", "pokedexId": 478 }
+      ]
+    },
+    {
+      "id": "sabi",
+      "name": "Sabi",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "warden",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/75/Legends_Arceus_Sabi.png",
+      "team": [
+        { "name": "Rhyperior", "pokedexId": 464 },
+        { "name": "Magmortar", "pokedexId": 467 },
+        { "name": "Electivire", "pokedexId": 466 }
+      ]
     }
   ]
 }
