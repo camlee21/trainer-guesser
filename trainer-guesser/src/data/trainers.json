@@ -182,6 +182,300 @@
         { "name": "Exeggutor", "pokedexId": 103 },
         { "name": "Charizard", "pokedexId": 6 }
       ]
+    },
+    {
+      "id": "falkner",
+      "name": "Falkner",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b0/Spr_GS_Falkner.png",
+      "team": [
+        { "name": "Pidgey", "pokedexId": 16 },
+        { "name": "Pidgeotto", "pokedexId": 17 }
+      ]
+    },
+    {
+      "id": "bugsy",
+      "name": "Bugsy",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bf/Spr_GS_Bugsy.png",
+      "team": [
+        { "name": "Metapod", "pokedexId": 11 },
+        { "name": "Kakuna", "pokedexId": 12 },
+        { "name": "Scyther", "pokedexId": 123 }
+      ]
+    },
+    {
+      "id": "whitney",
+      "name": "Whitney",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7b/Spr_GS_Whitney.png",
+      "team": [
+        { "name": "Clefairy", "pokedexId": 35 },
+        { "name": "Miltank", "pokedexId": 241 }
+      ]
+    },
+    {
+      "id": "morty",
+      "name": "Morty",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/65/Spr_GS_Morty.png",
+      "team": [
+        { "name": "Gastly", "pokedexId": 92 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Gengar", "pokedexId": 94 }
+      ]
+    },
+    {
+      "id": "chuck",
+      "name": "Chuck",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cf/Spr_GS_Chuck.png",
+      "team": [
+        { "name": "Primeape", "pokedexId": 57 },
+        { "name": "Poliwrath", "pokedexId": 62 }
+      ]
+    },
+    {
+      "id": "jasmine",
+      "name": "Jasmine",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b8/Spr_GS_Jasmine.png",
+      "team": [
+        { "name": "Magnemite", "pokedexId": 81 },
+        { "name": "Magnemite", "pokedexId": 81 },
+        { "name": "Steelix", "pokedexId": 208 }
+      ]
+    },
+    {
+      "id": "pryce",
+      "name": "Pryce",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/66/Spr_GS_Pryce.png",
+      "team": [
+        { "name": "Seel", "pokedexId": 86 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Piloswine", "pokedexId": 221 }
+      ]
+    },
+    {
+      "id": "clair",
+      "name": "Clair",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/f5/Spr_GS_Clair.png",
+      "team": [
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Kingdra", "pokedexId": 230 }
+      ]
+    },
+    {
+      "id": "surge2",
+      "name": "Lt. Surge",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ea/Spr_GS_Lt_Surge.png",
+      "team": [
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Electabuzz", "pokedexId": 125 }
+      ]
+    },
+    {
+      "id": "sabrina2",
+      "name": "Sabrina",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/44/Spr_GS_Sabrina.png",
+      "team": [
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Mr. Mime", "pokedexId": 122 },
+        { "name": "Alakazam", "pokedexId": 65 }
+      ]
+    },
+    {
+      "id": "erika2",
+      "name": "Erika",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8e/Spr_GS_Erika.png",
+      "team": [
+        { "name": "Tangela", "pokedexId": 114 },
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Victreebel", "pokedexId": 71 },
+        { "name": "Bellossom", "pokedexId": 182 }
+      ]
+    },
+    {
+      "id": "janine",
+      "name": "Janine",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b8/Spr_GS_Janine.png",
+      "team": [
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Weezing", "pokedexId": 110 },
+        { "name": "Weezing", "pokedexId": 110 },
+        { "name": "Ariados", "pokedexId": 168 },
+        { "name": "Venemoth", "pokedexId": 49 }
+      ]
+    },
+    {
+      "id": "misty2",
+      "name": "Misty",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/01/Spr_GS_Misty.png",
+      "team": [
+        { "name": "Golduck", "pokedexId": 55 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Starmie", "pokedexId": 121 }
+      ]
+    },
+    {
+      "id": "brock2",
+      "name": "Brock",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/dd/Spr_GS_Brock.png",
+      "team": [
+        { "name": "Graveler", "pokedexId": 75 },
+        { "name": "Rhyhorn", "pokedexId": 111 },
+        { "name": "Omastar", "pokedexId": 139 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Kabutops", "pokedexId": 141 }
+      ]
+    },
+    {
+      "id": "blaine2",
+      "name": "Blaine",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cb/Spr_GS_Blaine.png",
+      "team": [
+        { "name": "Magcargo", "pokedexId": 219 },
+        { "name": "Magmar", "pokedexId": 126 },
+        { "name": "Rapidash", "pokedexId": 78 }
+      ]
+    },
+    {
+      "id": "blue2",
+      "name": "Blue",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b7/Spr_GS_Blue.png",
+      "team": [
+        { "name": "Pidgeot", "pokedexId": 18 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Rhydon", "pokedexId": 112 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Arcanine", "pokedexId": 59 }
+      ]
+    },
+    {
+      "id": "will",
+      "name": "Will",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/23/Spr_GS_Will.png",
+      "team": [
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Jynx", "pokedexId": 124 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Slowbro", "pokedexId": 80 },
+        { "name": "Xatu", "pokedexId": 178 }
+      ]
+    },
+    {
+      "id": "koga2",
+      "name": "Koga",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/36/Spr_GS_Koga.png",
+      "team": [
+        { "name": "Ariados", "pokedexId": 168 },
+        { "name": "Venemoth", "pokedexId": 49 },
+        { "name": "Forretress", "pokedexId": 205 },
+        { "name": "Muk", "pokedexId": 89 },
+        { "name": "Crobat", "pokedexId": 169 }
+      ]
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/ba/Spr_GS_Bruno.png",
+      "team": [
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    },
+    {
+      "id": "karen",
+      "name": "Karen",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cd/Spr_GS_Karen.png",
+      "team": [
+        { "name": "Umbreon", "pokedexId": 197 },
+        { "name": "Vileplume", "pokedexId": 45 },
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Murkrow", "pokedexId": 198 },
+        { "name": "Houndoom", "pokedexId": 229 }
+      ]
+    },
+    {
+      "id": "lance2",
+      "name": "Lance",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/54/Spr_GS_Lance.png",
+      "team": [
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Dragonite", "pokedexId": 149 }
+      ]
     }
   ]
 }
