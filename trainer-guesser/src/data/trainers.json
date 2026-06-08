@@ -1376,7 +1376,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/2a/XY_Viola.png",
+      "trainerSpriteUrl": "/sprites/trainers/viola.png",
       "team": [
         { "name": "Surskit", "pokedexId": 283 },
         { "name": "Vivillon", "pokedexId": 666 }
@@ -1388,7 +1388,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/37/XY_Grant.png",
+      "trainerSpriteUrl": "/sprites/trainers/grant.png",
       "team": [
         { "name": "Tyrunt", "pokedexId": 696 },
         { "name": "Amaura", "pokedexId": 698 }
@@ -1400,7 +1400,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/2b/XY_Korrina.png",
+      "trainerSpriteUrl": "/sprites/trainers/korina.png",
       "team": [
         { "name": "Mienfoo", "pokedexId": 619 },
         { "name": "Hawlucha", "pokedexId": 701 },
@@ -1413,7 +1413,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b8/XY_Ramos.png",
+      "trainerSpriteUrl": "/sprites/trainers/ramos.png",
       "team": [
         { "name": "Jumpluff", "pokedexId": 189 },
         { "name": "Gogoat", "pokedexId": 673 },
@@ -1426,7 +1426,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d1/XY_Clemont.png",
+      "trainerSpriteUrl": "/sprites/trainers/clemont.png",
       "team": [
         { "name": "Emolga", "pokedexId": 587 },
         { "name": "Magneton", "pokedexId": 82 },
@@ -1439,7 +1439,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/18/XY_Valerie.png",
+      "trainerSpriteUrl": "/sprites/trainers/valerie.png",
       "team": [
         { "name": "Mawile", "pokedexId": 303 },
         { "name": "Mr. Mime", "pokedexId": 122 },
@@ -1452,7 +1452,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/53/XY_Olympia.png",
+      "trainerSpriteUrl": "/sprites/trainers/olympia.png",
       "team": [
         { "name": "Sigilyph", "pokedexId": 561 },
         { "name": "Slowking", "pokedexId": 199 },
@@ -1465,7 +1465,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/c7/XY_Wulfric.png",
+      "trainerSpriteUrl": "/sprites/trainers/wulfric.png",
       "team": [
         { "name": "Abomasnow", "pokedexId": 460 },
         { "name": "Cryogonal", "pokedexId": 615 },
@@ -1478,7 +1478,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/1e/XY_Malva.png",
+      "trainerSpriteUrl": "/sprites/trainers/malva.png",
       "team": [
         { "name": "Pyroar", "pokedexId": 668 },
         { "name": "Torkoal", "pokedexId": 324 },
@@ -1492,7 +1492,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7a/XY_Wikstrom.png",
+      "trainerSpriteUrl": "/sprites/trainers/wikstrom.png",
       "team": [
         { "name": "Klefki", "pokedexId": 707 },
         { "name": "Probopass", "pokedexId": 476 },
@@ -1506,7 +1506,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fa/XY_Drasna.png",
+      "trainerSpriteUrl": "/sprites/trainers/drasna.png",
       "team": [
         { "name": "Dragalge", "pokedexId": 691 },
         { "name": "Altaria", "pokedexId": 334 },
@@ -1520,7 +1520,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/84/XY_Siebold.png",
+      "trainerSpriteUrl": "/sprites/trainers/siebold.png",
       "team": [
         { "name": "Clawitzer", "pokedexId": 693 },
         { "name": "Starmie", "pokedexId": 121 },
@@ -1534,7 +1534,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "champion",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ea/XY_Diantha.png",
+      "trainerSpriteUrl": "/sprites/trainers/diantha.png",
       "team": [
         { "name": "Hawlucha", "pokedexId": 701 },
         { "name": "Tyrantrum", "pokedexId": 697 },
@@ -1550,7 +1550,7 @@
       "game": "X/Y",
       "difficulty": "medium",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/89/Lysandre_XY_anime.png",
+      "trainerSpriteUrl": "/sprites/trainers/lysandre.png",
       "team": [
         { "name": "Mienshao", "pokedexId": 620 },
         { "name": "Pyroar", "pokedexId": 668 },
@@ -1564,7 +1564,7 @@
       "game": "X/Y",
       "difficulty": "medium",
       "type": "post_game_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/12/XY_AZ.png",
+      "trainerSpriteUrl": "/sprites/trainers/az.png",
       "team": [
         { "name": "Torkoal", "pokedexId": 324 },
         { "name": "Golurk", "pokedexId": 623 },
@@ -1577,7 +1577,7 @@
       "game": "HeartGold/SoulSilver",
       "difficulty": "easy",
       "type": "post_game_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e8/Spr_HGSS_Red.png",
+      "trainerSpriteUrl": "/sprites/trainers/red.png",
       "team": [
         { "name": "Pikachu", "pokedexId": 25 },
         { "name": "Venusaur", "pokedexId": 3 },
@@ -1593,7 +1593,7 @@
       "game": "HeartGold/SoulSilver",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3b/Spr_HGSS_Archer.png",
+      "trainerSpriteUrl": "/sprites/trainers/archer.png",
       "team": [
         { "name": "Houndour", "pokedexId": 228 },
         { "name": "Koffing", "pokedexId": 109 },
@@ -1606,7 +1606,7 @@
       "game": "HeartGold/SoulSilver",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/2/20/Spr_HGSS_Ariana.png",
+      "trainerSpriteUrl": "/sprites/trainers/ariana.png",
       "team": [
         { "name": "Arbok", "pokedexId": 24 },
         { "name": "Vileplume", "pokedexId": 45 },
@@ -1619,7 +1619,7 @@
       "game": "HeartGold/SoulSilver",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8f/Spr_HGSS_Proton.png",
+      "trainerSpriteUrl": "/sprites/trainers/proton.png",
       "team": [
         { "name": "Golbat", "pokedexId": 42 },
         { "name": "Weezing", "pokedexId": 110 }
@@ -1631,7 +1631,7 @@
       "game": "Omega Ruby/Alpha Sapphire",
       "difficulty": "medium",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/87/Spr_RS_Wally.png",
+      "trainerSpriteUrl": "/sprites/trainers/wally.png",
       "team": [
         { "name": "Altaria", "pokedexId": 334 },
         { "name": "Delcatty", "pokedexId": 301 },
@@ -1646,7 +1646,7 @@
       "game": "Omega Ruby/Alpha Sapphire",
       "difficulty": "medium",
       "type": "post_game_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e5/Omega_Ruby_Alpha_Sapphire_Zinnia.png",
+      "trainerSpriteUrl": "/sprites/trainers/zinnia.png",
       "team": [
         { "name": "Goodra", "pokedexId": 706 },
         { "name": "Noivern", "pokedexId": 715 },
@@ -1661,7 +1661,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "trial_captain",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7c/VSIlima.png",
+      "trainerSpriteUrl": "/sprites/trainers/ilima.png",
       "team": [
         { "name": "Gumshoos", "pokedexId": 735 },
         { "name": "Smeargle", "pokedexId": 235 }
@@ -1673,7 +1673,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "trial_captain",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/7e/VSLana.png",
+      "trainerSpriteUrl": "/sprites/trainers/lana.png",
       "team": [
         { "name": "Chinchou", "pokedexId": 170 },
         { "name": "Shellder", "pokedexId": 90 },
@@ -1686,7 +1686,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "trial_captain",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/34/VSKiawe.png",
+      "trainerSpriteUrl": "/sprites/trainers/kiawe.png",
       "team": [
         { "name": "Growlithe", "pokedexId": 58 },
         { "name": "Fletchinder", "pokedexId": 662 },
@@ -1699,7 +1699,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "trial_captain",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/92/VSMallow.png",
+      "trainerSpriteUrl": "/sprites/trainers/mallow.png",
       "team": [
         { "name": "Phantump", "pokedexId": 708 },
         { "name": "Shiinotic", "pokedexId": 756 },
@@ -1712,7 +1712,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "trial_captain",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d6/VSMina_2.png",
+      "trainerSpriteUrl": "/sprites/trainers/mina.png",
       "team": [
         { "name": "Klefki", "pokedexId": 707 },
         { "name": "Granbull", "pokedexId": 210 },
@@ -1727,7 +1727,7 @@
       "game": "Sun/Moon",
       "difficulty": "easy",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/44/VSGladion_2.png",
+      "trainerSpriteUrl": "/sprites/trainers/gladion.png",
       "team": [
         { "name": "Crobat", "pokedexId": 169 },
         { "name": "Weavile", "pokedexId": 461 },
@@ -1742,7 +1742,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/71/VSGuzma.png",
+      "trainerSpriteUrl": "/sprites/trainers/guzma.png",
       "team": [
         { "name": "Golisopod", "pokedexId": 768 },
         { "name": "Ariados", "pokedexId": 168 },
@@ -1756,7 +1756,7 @@
       "game": "Sun/Moon",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/81/VSPlumeria.png",
+      "trainerSpriteUrl": "/sprites/trainers/plumeria.png",
       "team": [
         { "name": "Golbat", "pokedexId": 42 },
         { "name": "Salazzle", "pokedexId": 758 }
@@ -1768,7 +1768,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/06/VSFaba.png",
+      "trainerSpriteUrl": "/sprites/trainers/faba.png",
       "team": [
         { "name": "Slowbro", "pokedexId": 80 },
         { "name": "Bruxish", "pokedexId": 779 },
@@ -1783,7 +1783,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6b/VSHala_2.png",
+      "trainerSpriteUrl": "/sprites/trainers/hala.png",
       "team": [
         { "name": "Hariyama", "pokedexId": 297 },
         { "name": "Primeape", "pokedexId": 57 },
@@ -1798,7 +1798,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/ff/VSOlivia_2.png",
+      "trainerSpriteUrl": "/sprites/trainers/olivia.png",
       "team": [
         { "name": "Relicanth", "pokedexId": 369 },
         { "name": "Carbink", "pokedexId": 703 },
@@ -1813,7 +1813,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6c/VSAcerola.png",
+      "trainerSpriteUrl": "/sprites/trainers/acerola.png",
       "team": [
         { "name": "Sableye", "pokedexId": 302 },
         { "name": "Drifblim", "pokedexId": 426 },
@@ -1828,7 +1828,7 @@
       "game": "Sun/Moon",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/37/VSKahili.png",
+      "trainerSpriteUrl": "/sprites/trainers/kahili.png",
       "team": [
         { "name": "Skarmory", "pokedexId": 227 },
         { "name": "Crobat", "pokedexId": 169 },
@@ -1843,7 +1843,7 @@
       "game": "Ultra Sun/Ultra Moon",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/c0/VSMolayne.png",
+      "trainerSpriteUrl": "/sprites/trainers/molayne.png",
       "team": [
         { "name": "Klefki", "pokedexId": 707 },
         { "name": "Bisharp", "pokedexId": 625 },
@@ -1858,7 +1858,7 @@
       "game": "Ultra Sun/Ultra Moon",
       "difficulty": "medium",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/00/VSGladion_2_USUM.png",
+      "trainerSpriteUrl": "/sprites/trainers/gladion.png",
       "team": [
         { "name": "Crobat", "pokedexId": 169 },
         { "name": "Zoroark", "pokedexId": 571 },
@@ -1872,7 +1872,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/bd/Milo_TW.png",
+      "trainerSpriteUrl": "/sprites/trainers/milo.png",
       "team": [
         { "name": "Gossifleur", "pokedexId": 829 },
         { "name": "Eldegoss", "pokedexId": 830 }
@@ -1884,7 +1884,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/0e/Sword_Shield_Nessa.png",
+      "trainerSpriteUrl": "/sprites/trainers/nessa.png",
       "team": [
         { "name": "Goldeen", "pokedexId": 118 },
         { "name": "Arrokuda", "pokedexId": 846 },
@@ -1897,7 +1897,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/3e/Sword_Shield_Kabu.png",
+      "trainerSpriteUrl": "/sprites/trainers/kabu.png",
       "team": [
         { "name": "Ninetales", "pokedexId": 38 },
         { "name": "Arcanine", "pokedexId": 59 },
@@ -1910,7 +1910,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/02/Sword_Shield_Bea.png",
+      "trainerSpriteUrl": "/sprites/trainers/bea.png",
       "team": [
         { "name": "Hitmontop", "pokedexId": 237 },
         { "name": "Pangoro", "pokedexId": 675 },
@@ -1924,7 +1924,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/b1/Sword_Shield_Allister.png",
+      "trainerSpriteUrl": "/sprites/trainers/allister.png",
       "team": [
         { "name": "Galarian-Yamask", "pokedexId": 562 },
         { "name": "Mimikyu", "pokedexId": 778 },
@@ -1938,7 +1938,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a7/Sword_Shield_Opal.png",
+      "trainerSpriteUrl": "/sprites/trainers/opal.png",
       "team": [
         { "name": "Galarian-Weezing", "pokedexId": 110 },
         { "name": "Mawile", "pokedexId": 303 },
@@ -1952,7 +1952,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/5e/Sword_Shield_Gordie.png",
+      "trainerSpriteUrl": "/sprites/trainers/gordie.png",
       "team": [
         { "name": "Barbaracle", "pokedexId": 689 },
         { "name": "Shuckle", "pokedexId": 213 },
@@ -1966,7 +1966,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/8f/Sword_Shield_Melony.png",
+      "trainerSpriteUrl": "/sprites/trainers/melony.png",
       "team": [
         { "name": "Frosmoth", "pokedexId": 873 },
         { "name": "Galarian-Darmanitan", "pokedexId": 555 },
@@ -1980,7 +1980,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fd/Sword_Shield_Piers.png",
+      "trainerSpriteUrl": "/sprites/trainers/piers.png",
       "team": [
         { "name": "Scrafty", "pokedexId": 560 },
         { "name": "Malamar", "pokedexId": 687 },
@@ -1994,7 +1994,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/45/Sword_Shield_Raihan.png",
+      "trainerSpriteUrl": "/sprites/trainers/raihan.png",
       "team": [
         { "name": "Gigalith", "pokedexId": 526 },
         { "name": "Flygon", "pokedexId": 330 },
@@ -2008,7 +2008,7 @@
       "game": "Sword/Shield",
       "difficulty": "easy",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/30/Sword_Shield_Marnie.png",
+      "trainerSpriteUrl": "/sprites/trainers/marnie.png",
       "team": [
         { "name": "Liepard", "pokedexId": 510 },
         { "name": "Toxicroak", "pokedexId": 454 },
@@ -2022,7 +2022,7 @@
       "game": "Sword/Shield",
       "difficulty": "medium",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/af/Sword_Shield_Bede.png",
+      "trainerSpriteUrl": "/sprites/trainers/bede.png",
       "team": [
         { "name": "Mawile", "pokedexId": 303 },
         { "name": "Gardevoir", "pokedexId": 282 },
@@ -2036,7 +2036,7 @@
       "game": "Legends Arceus",
       "difficulty": "medium",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/6d/Legends_Arceus_Volo.png",
+      "trainerSpriteUrl": "/sprites/trainers/volo.png",
       "team": [
         { "name": "Spiritomb", "pokedexId": 442 },
         { "name": "Roserade", "pokedexId": 407 },
@@ -2052,7 +2052,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d8/Legends_Arceus_Mai.png",
+      "trainerSpriteUrl": "/sprites/trainers/mai.png",
       "team": [
         { "name": "Munchlax", "pokedexId": 446 }
       ]
@@ -2063,7 +2063,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/99/Legends_Arceus_Lian.png",
+      "trainerSpriteUrl": "/sprites/trainers/lian.png",
       "team": [
         { "name": "Goomy", "pokedexId": 704 }
       ]
@@ -2074,7 +2074,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/9/99/Legends_Arceus_Ingo.png",
+      "trainerSpriteUrl": "/sprites/trainers/ingo.png",
       "team": [
         { "name": "Machoke", "pokedexId": 67 },
         { "name": "Tangela", "pokedexId": 114 },
@@ -2087,7 +2087,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/c/cb/Legends_Arceus_Melli.png",
+      "trainerSpriteUrl": "/sprites/trainers/melli.png",
       "team": [
         { "name": "Skuntank", "pokedexId": 435 },
         { "name": "Zubat", "pokedexId": 41 },
@@ -2100,7 +2100,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/80/Legends_Arceus_Gaeric.png",
+      "trainerSpriteUrl": "/sprites/trainers/gaeric.png",
       "team": [
         { "name": "Glalie", "pokedexId": 362 },
         { "name": "Froslass", "pokedexId": 478 }
@@ -2112,7 +2112,7 @@
       "game": "Legends Arceus",
       "difficulty": "hard",
       "type": "warden",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/75/Legends_Arceus_Sabi.png",
+      "trainerSpriteUrl": "/sprites/trainers/sabi.png",
       "team": [
         { "name": "Rhyperior", "pokedexId": 464 },
         { "name": "Magmortar", "pokedexId": 467 },
@@ -2125,7 +2125,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ef/Scarlet_Violet_Katy.png",
+      "trainerSpriteUrl": "/sprites/trainers/katy.png",
       "team": [
         { "name": "Nymble", "pokedexId": 919 },
         { "name": "Tarountula", "pokedexId": 917 },
@@ -2138,7 +2138,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/f/fd/Scarlet_Violet_Brassius.png",
+      "trainerSpriteUrl": "/sprites/trainers/brassius.png",
       "team": [
         { "name": "Petilil", "pokedexId": 548 },
         { "name": "Smoliv", "pokedexId": 928 },
@@ -2151,7 +2151,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/00/Scarlet_Violet_Iono.png",
+      "trainerSpriteUrl": "/sprites/trainers/iono.png",
       "team": [
         { "name": "Wattrel", "pokedexId": 940 },
         { "name": "Bellibolt", "pokedexId": 939 },
@@ -2165,7 +2165,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/e3/Scarlet_Violet_Kofu.png",
+      "trainerSpriteUrl": "/sprites/trainers/kofu.png",
       "team": [
         { "name": "Veluza", "pokedexId": 976 },
         { "name": "Wugtrio", "pokedexId": 961 },
@@ -2178,7 +2178,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/41/Scarlet_Violet_Larry.png",
+      "trainerSpriteUrl": "/sprites/trainers/larry.png",
       "team": [
         { "name": "Komala", "pokedexId": 775 },
         { "name": "Dudunsparce", "pokedexId": 982 },
@@ -2191,7 +2191,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/5/58/Scarlet_Violet_Ryme.png",
+      "trainerSpriteUrl": "/sprites/trainers/ryme.png",
       "team": [
         { "name": "Banette", "pokedexId": 354 },
         { "name": "Mimkyu", "pokedexId": 778 },
@@ -2205,7 +2205,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d1/Scarlet_Violet_Tulip.png",
+      "trainerSpriteUrl": "/sprites/trainers/tulip.png",
       "team": [
         { "name": "Farigiraf", "pokedexId": 981 },
         { "name": "Gardevoir", "pokedexId": 282 },
@@ -2219,7 +2219,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/0/01/Scarlet_Violet_Grusha.png",
+      "trainerSpriteUrl": "/sprites/trainers/grusha.png",
       "team": [
         { "name": "Frosmoth", "pokedexId": 873 },
         { "name": "Beartic", "pokedexId": 614 },
@@ -2233,7 +2233,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/6/63/VSRika.png",
+      "trainerSpriteUrl": "/sprites/trainers/rika.png",
       "team": [
         { "name": "Whiscash", "pokedexId": 340 },
         { "name": "Camerupt", "pokedexId": 323 },
@@ -2263,7 +2263,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/4/41/Scarlet_Violet_Larry.png",
+      "trainerSpriteUrl": "/sprites/trainers/larry.png",
       "team": [
         { "name": "Tropius", "pokedexId": 357 },
         { "name": "Oricorio", "pokedexId": 741 },
@@ -2278,7 +2278,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/e/ee/Scarlet_Violet_Hassel.png",
+      "trainerSpriteUrl": "/sprites/trainers/hassel.png",
       "team": [
         { "name": "Noivern", "pokedexId": 715 },
         { "name": "Haxorus", "pokedexId": 612 },
@@ -2293,7 +2293,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "champion",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/d/d2/VSGeeta.png",
+      "trainerSpriteUrl": "/sprites/trainers/geeta.png",
       "team": [
         { "name": "Espathra", "pokedexId": 956 },
         { "name": "Gogoat", "pokedexId": 673 },
@@ -2309,7 +2309,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/85/Scarlet_Violet_Giacomo.png",
+      "trainerSpriteUrl": "/sprites/trainers/giacomo.png",
       "team": [
         { "name": "Pawniard", "pokedexId": 624 }
       ]
@@ -2320,7 +2320,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/a3/Scarlet_Violet_Mela.png",
+      "trainerSpriteUrl": "/sprites/trainers/mela.png",
       "team": [
         { "name": "Torkoal", "pokedexId": 324 }
       ]
@@ -2331,7 +2331,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/3/30/Scarlet_Violet_Atticus.png",
+      "trainerSpriteUrl": "/sprites/trainers/atticus.png",
       "team": [
         { "name": "Skuntank", "pokedexId": 435 },
         { "name": "Muk", "pokedexId": 89 },
@@ -2344,7 +2344,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "hard",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/12/Scarlet_Violet_Ortega.png",
+      "trainerSpriteUrl": "/sprites/trainers/ortega.png",
       "team": [
         { "name": "Azumarill", "pokedexId": 184 },
         { "name": "Wigglytuff", "pokedexId": 40 },
@@ -2357,7 +2357,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "evil_team_boss",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/1/1b/Scarlet_Violet_Eri.png",
+      "trainerSpriteUrl": "/sprites/trainers/eri.png",
       "team": [
         { "name": "Toxicroak", "pokedexId": 454 },
         { "name": "Passimian", "pokedexId": 766 },
@@ -2371,7 +2371,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "easy",
       "type": "rival",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/7/71/Scarlet_Violet_Penny.png",
+      "trainerSpriteUrl": "/sprites/trainers/penny.png",
       "team": [
         { "name": "Umbreon", "pokedexId": 197 },
         { "name": "Vaporeon", "pokedexId": 134 },
@@ -2387,7 +2387,7 @@
       "game": "Violet",
       "difficulty": "easy",
       "type": "other",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Violet_Turo.png",
+      "trainerSpriteUrl": "/sprites/trainers/turo.png",
       "team": [
         { "name": "Iron Moth", "pokedexId": 994 },
         { "name": "Iron Bundle", "pokedexId": 991 },
@@ -2403,7 +2403,7 @@
       "game": "Scarlet",
       "difficulty": "easy",
       "type": "other",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/8/86/Violet_Turo.png",
+      "trainerSpriteUrl": "/sprites/trainers/sada.png",
       "team": [
         { "name": "Slither Wing", "pokedexId": 988 },
         { "name": "Scream Tail", "pokedexId": 985 },
