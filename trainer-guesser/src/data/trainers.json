@@ -432,21 +432,6 @@
       ]
     },
     {
-      "id": "bruno",
-      "name": "Bruno",
-      "game": "Gold/Silver",
-      "difficulty": "easy",
-      "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/b/ba/Spr_GS_Bruno.png",
-      "team": [
-        { "name": "Hitmontop", "pokedexId": 237 },
-        { "name": "Hitmonlee", "pokedexId": 106 },
-        { "name": "Hitmonchan", "pokedexId": 107 },
-        { "name": "Onix", "pokedexId": 95 },
-        { "name": "Machamp", "pokedexId": 68 }
-      ]
-    },
-    {
       "id": "karen",
       "name": "Karen",
       "game": "Gold/Silver",
