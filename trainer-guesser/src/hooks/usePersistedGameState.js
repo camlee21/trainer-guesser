@@ -2,7 +2,11 @@
 import { useState, useEffect } from 'react'
 
 function getTodayKey() {
-  return `wtt-game-${new Date().toISOString().slice(0, 10)}` // e.g. "wtt-game-2026-06-08"
+  const now = new Date()
+  const yyyy = now.getUTCFullYear()
+  const mm = String(now.getUTCMonth() + 1).padStart(2, '0')
+  const dd = String(now.getUTCDate()).padStart(2, '0')
+  return `wtt-game-${yyyy}-${mm}-${dd}` // e.g. "wtt-game-2026-06-08"
 }
 
 export function usePersistedGameState() {

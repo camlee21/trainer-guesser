@@ -81,6 +81,9 @@ function App() {
             </div>
 
             <div className="trainer-info">
+              <div className={`difficulty-badge ${trainer.difficulty}`}>
+                Difficulty: {trainer.difficulty.charAt(0).toUpperCase() + trainer.difficulty.slice(1)}
+              </div>
               {hintsRevealed >= 2 && (
                 <div className="info-pill">Game: {trainer.game}</div>
               )}

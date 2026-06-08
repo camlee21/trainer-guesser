@@ -1,9 +1,12 @@
+
 import trainers from '../data/trainers.json'
 
 function getDailyIndex(listLength) {
-  const today = new Date().toISOString().slice(0, 10)
+  const now = new Date()
+  const utcDate = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-${String(now.getUTCDate()).padStart(2, '0')}`
+  
   let hash = 0
-  for (const char of today) {
+  for (const char of utcDate) {
     hash = (hash * 31 + char.charCodeAt(0)) >>> 0
   }
   return hash % listLength
