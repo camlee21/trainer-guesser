@@ -403,3 +403,9 @@ header {
   background: rgba(255,255,255,0.1);
   border-radius: 2px;
 }
+
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}

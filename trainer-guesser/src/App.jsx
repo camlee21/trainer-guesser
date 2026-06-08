@@ -58,6 +58,7 @@ function App() {
             <div className="trainer-frame">
               {showTrainer ? (
                 <img
+                  draggable="false"
                   src={trainer.trainerSpriteUrl}
                   alt="trainer"
                   className="trainer-sprite"
