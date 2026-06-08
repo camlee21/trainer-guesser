@@ -2248,7 +2248,7 @@
       "game": "Scarlet/Violet",
       "difficulty": "medium",
       "type": "elite_four",
-      "trainerSpriteUrl": "https://archives.bulbagarden.net/media/upload/a/ad/VSPoppy.png",
+      "trainerSpriteUrl": "/sprites/trainers/poppy.png",
       "team": [
         { "name": "Copperajah", "pokedexId": 879 },
         { "name": "Magnezone", "pokedexId": 462 },
