@@ -4,6 +4,7 @@ import { usePersistedGameState } from './hooks/usePersistedGameState'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function toTitleCase(str) {
   return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
@@ -134,6 +135,7 @@ function App() {
         </main>
       </div>
       <Analytics />
+      <SpeedInsights />
     </div>
   )
 }
