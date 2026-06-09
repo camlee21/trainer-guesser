@@ -390,7 +390,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       fontFamily: 'inherit'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-        <span style={{ fontWeight: '700', fontSize: '15px', color: '#ffffff' }}>Filter Layout Pool</span>
+        <span style={{ fontWeight: '700', fontSize: '15px', color: '#ffffff' }}>Filter Games</span>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
             onClick={selectAllGames}
@@ -460,7 +460,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       </div>
 
       <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.4)', fontWeight: '5px' }}>
-        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available in current pool
+        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current selections
       </div>
     </div>
   )
