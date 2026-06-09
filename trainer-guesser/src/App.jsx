@@ -687,8 +687,6 @@ function InfiniteMode({ onResetSession }) {
         </div>
         <div style={{ height: '60px' }} />
       </div>
-      <Analytics />
-      <SpeedInsights />
     </div>
   )
 }
