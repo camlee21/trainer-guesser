@@ -123,7 +123,6 @@ function DailyMode() {
 
 export default function App() {
   const [mode, setMode] = useState('daily')
-  // Dynamic session index used to force-remount custom hook instances
   const [infiniteKey, setInfiniteKey] = useState(0)
 
   const handleResetInfiniteSession = () => {
@@ -355,6 +354,16 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
 
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
+    
+    // If the group is active and turning it off leaves 0 items selected, block it completely.
+    if (isCurrentlyActive) {
+      const activeCount = selectedGames.size
+      const groupCount = group.originals.length
+      if (activeCount - groupCount <= 0) {
+        return; // Guard statement to protect against empty pools
+      }
+    }
+
     group.originals.forEach(g => {
       const active = selectedGames.has(g)
       if (isCurrentlyActive && active) {
@@ -432,6 +441,9 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
         {visibleButtons.map(group => {
           const isActive = group.originals.every(g => selectedGames.has(g))
+          // Calculate if this individual button's total deselection will break selection validation rules
+          const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0);
+
           return (
             <button
               key={group.label}
@@ -447,7 +459,8 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
                 padding: '6px 14px',
                 fontSize: '13px',
                 fontWeight: '600',
-                cursor: 'pointer',
+                cursor: isDisableCandidate ? 'not-allowed' : 'pointer',
+                opacity: isDisableCandidate ? 0.7 : 1,
                 transition: 'all 0.2s ease',
                 boxShadow: isActive ? '0 2px 8px rgba(114, 164, 242, 0.3)' : 'none'
               }}
@@ -466,6 +479,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
   )
 }
 
+/* ... Remaining InfiniteMode subcomponent stays cleanly preserved below ... */
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, selectAllGames, activePool,
@@ -488,7 +502,6 @@ function InfiniteMode({ onResetSession }) {
   const handleStartGame = () => {
     if (activePool.length === 0) return
     
-    // Explicitly select a fresh trainer using the updated filter snapshot right on click
     if (typeof resetGame === 'function') {
       resetGame()
     }
@@ -674,6 +687,8 @@ function InfiniteMode({ onResetSession }) {
         </div>
         <div style={{ height: '60px' }} />
       </div>
+      <Analytics />
+      <SpeedInsights />
     </div>
   )
 }
