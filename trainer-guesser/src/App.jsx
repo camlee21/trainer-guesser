@@ -13,8 +13,6 @@ function toTitleCase(str) {
   )
 }
 
-// ── Colour utilities ──────────────────────────────────────────────────────────
-
 function hexToRgb(hex) {
   const h = hex.replace('#', '')
   return {
@@ -36,7 +34,7 @@ function isDark(hex) {
   return luminance(hexToRgb(hex)) < 0.35
 }
 
-function applyBackground(hex) {
+function applyBackground(hex, accentHex) {
   const { r, g, b } = hexToRgb(hex)
   const dark = isDark(hex)
 
@@ -45,12 +43,19 @@ function applyBackground(hex) {
   const g2 = Math.min(255, Math.round(g * factor))
   const b2 = Math.min(255, Math.round(b * factor))
 
-  const text     = dark ? '#e2e8f0' : '#1e293b'
-  const textDim  = dark ? '#94a3b8' : '#475569'
-  const green    = dark ? '#4ade80' : '#16a34a'
-  const greenDk  = dark ? '#16a34a' : '#166534'
+  const text = dark ? '#e2e8f0' : '#1e293b'
+  const textDim = dark ? '#94a3b8' : '#475569'
+  const green = dark ? '#4ade80' : '#16a34a'
+  const greenDk = dark ? '#16a34a' : '#166534'
   const greenHov = dark ? '#22c55e' : '#15803d'
-  const gold     = dark ? '#fbbf24' : '#b45309'
+  const gold = dark ? '#fbbf24' : '#b45309'
+
+  // Derive accent glow & hover shades
+  const { r: ar, g: ag, b: ab } = hexToRgb(accentHex)
+  const accentGlow = `rgba(${ar},${ag},${ab},0.35)`
+  const accentHover = accentHex  // callers can override with a lighter variant if desired
+  const accentBg = `rgba(${ar},${ag},${ab},0.15)`
+  const accentBorder = `rgba(${ar},${ag},${ab},0.35)`
 
   const root = document.documentElement
   root.style.setProperty('--bg-main', `rgb(${r},${g},${b})`)
@@ -65,13 +70,31 @@ function applyBackground(hex) {
   root.style.setProperty('--green-hover', greenHov)
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
+
+  root.style.setProperty('--accent', accentHex)
+  root.style.setProperty('--accent-glow', accentGlow)
+  root.style.setProperty('--accent-hover', accentHover)
+  root.style.setProperty('--accent-bg', accentBg)
+  root.style.setProperty('--accent-border', accentBorder)
+  root.style.setProperty('--accent-text', dark ? '#ffffff' : '#ffffff')
 }
 
 const DEFAULT_COLOR = '#0d1b2a'
+const DEFAULT_ACCENT = '#72a4f2'
 
-// ── ColourPicker ──────────────────────────────────────────────────────────────
+// Each preset bg colour paired with a complementary accent colour
+const PRESETS = [
+  { bg: '#0d1b2a', accent: '#72a4f2', label: 'Navy' },
+  { bg: '#ffffffcb', accent: '#000000', label: 'White' },
+  { bg: '#121212', accent: '#a855f7', label: 'Black' },
+  { bg: '#122b6e', accent: '#4391be', label: 'Blue' },
+  { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
+  { bg: '#4d0f0f', accent: '#c97028', label: 'Red' },
+  { bg: '#fff28d', accent: '#685800c9', label: 'Yellow' },
+  { bg: '#4c1d95', accent: '#ee8aff', label: 'Purple' },
+]
 
-function ColourPicker({ color, onChange }) {
+function ColourPicker({ color, accent, onBgChange, onAccentChange }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -83,21 +106,10 @@ function ColourPicker({ color, onChange }) {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const presets = [
-    '#0d1b2a', // Default Navy
-    '#ffffff', // White
-    '#121212', // Black
-    '#1e3a8a', // Blue
-    '#064e3b', // Green
-    '#7f1d1d', // Red
-    '#fef08a', // Yellow
-    '#4c1d95', // Purple
-  ]
-
   return (
     <div ref={ref} style={{ position: 'relative' }}>
       <button
-        title="Choose background colour"
+        title="Choose background & accent colour"
         onClick={() => setOpen(o => !o)}
         style={{
           display: 'flex',
@@ -142,15 +154,15 @@ function ColourPicker({ color, onChange }) {
           })}
           <circle cx="11" cy="11" r="2" fill="var(--text)" opacity="0.6"/>
         </svg>
-        {/* Live swatch dot */}
+        {/* Live swatch dots — bg & accent split */}
         <span style={{
           position: 'absolute',
-          bottom: '5px',
-          right: '5px',
-          width: '8px',
-          height: '8px',
+          bottom: '4px',
+          right: '4px',
+          width: '10px',
+          height: '10px',
           borderRadius: '50%',
-          background: color,
+          background: `linear-gradient(135deg, ${color} 50%, ${accent} 50%)`,
           border: '1.5px solid rgba(255,255,255,0.5)',
         }} />
       </button>
@@ -166,79 +178,92 @@ function ColourPicker({ color, onChange }) {
           backdropFilter: 'blur(16px)',
           border: '1px solid rgba(255,255,255,0.12)',
           borderRadius: '14px',
-          padding: '14px',
+          padding: '16px',
           boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '10px',
-          minWidth: '176px',
+          gap: '14px',
+          minWidth: '210px',
         }}>
-          <span style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Background Colour
+
+          {/* Preset pairs */}
+          <span style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', alignSelf: 'flex-start' }}>
+            Theme Presets
           </span>
-
-          {/* Big round colour input */}
-          <label style={{
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '3px solid rgba(255,255,255,0.2)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-            cursor: 'pointer',
-            display: 'block',
-            position: 'relative',
-          }}>
-            <input
-              type="color"
-              value={color}
-              onChange={e => onChange(e.target.value)}
-              style={{
-                position: 'absolute',
-                inset: '-10px',
-                width: 'calc(100% + 20px)',
-                height: 'calc(100% + 20px)',
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer',
-              }}
-            />
-          </label>
-
-          {/* Preset swatches */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
-            {presets.map(c => (
-              <button
-                key={c}
-                title={c}
-                onClick={() => onChange(c)}
-                style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '6px',
-                  background: c,
-                  border: color === c ? '2px solid #72a4f2' : '1.5px solid rgba(255,255,255,0.2)',
-                  cursor: 'pointer',
-                  boxShadow: color === c ? '0 0 8px rgba(114,164,242,0.5)' : 'none',
-                  transition: 'transform 0.1s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.15)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-              />
-            ))}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '7px', width: '100%' }}>
+            {PRESETS.map(p => {
+              const isSelected = color === p.bg
+              return (
+                <button
+                  key={p.bg}
+                  title={p.label}
+                  onClick={() => { onBgChange(p.bg); onAccentChange(p.accent) }}
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '8px',
+                    background: `linear-gradient(135deg, ${p.bg} 55%, ${p.accent} 55%)`,
+                    border: isSelected ? '2.5px solid #fff' : '1.5px solid rgba(255,255,255,0.2)',
+                    cursor: 'pointer',
+                    boxShadow: isSelected ? `0 0 10px rgba(255,255,255,0.4)` : 'none',
+                    transition: 'transform 0.1s',
+                    position: 'relative',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.12)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                />
+              )
+            })}
           </div>
 
-          <span style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', fontFamily: 'monospace' }}>
-            {color.toUpperCase()}
+          {/* Divider */}
+          <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+
+          {/* Custom pickers */}
+          <span style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', alignSelf: 'flex-start' }}>
+            Custom
           </span>
+
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center', width: '100%', justifyContent: 'center' }}>
+            {/* Background */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BG</span>
+              <label style={{
+                width: '44px', height: '44px', borderRadius: '50%', overflow: 'hidden',
+                border: '3px solid rgba(255,255,255,0.2)', boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                cursor: 'pointer', display: 'block', position: 'relative',
+              }}>
+                <input type="color" value={color} onChange={e => onBgChange(e.target.value)}
+                  style={{ position: 'absolute', inset: '-10px', width: 'calc(100% + 20px)', height: 'calc(100% + 20px)', border: 'none', padding: 0, cursor: 'pointer' }}
+                />
+              </label>
+              <span style={{ fontSize: '10px', color: '#94a3b8', fontFamily: 'monospace' }}>{color.toUpperCase()}</span>
+            </div>
+
+            {/* Arrow */}
+            <span style={{ color: '#475569', fontSize: '16px', marginTop: '4px' }}>⇄</span>
+
+            {/* Accent */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Accent</span>
+              <label style={{
+                width: '44px', height: '44px', borderRadius: '50%', overflow: 'hidden',
+                border: `3px solid ${accent}`, boxShadow: `0 4px 16px rgba(0,0,0,0.3), 0 0 10px ${accent}55`,
+                cursor: 'pointer', display: 'block', position: 'relative',
+              }}>
+                <input type="color" value={accent} onChange={e => onAccentChange(e.target.value)}
+                  style={{ position: 'absolute', inset: '-10px', width: 'calc(100% + 20px)', height: 'calc(100% + 20px)', border: 'none', padding: 0, cursor: 'pointer' }}
+                />
+              </label>
+              <span style={{ fontSize: '10px', color: '#94a3b8', fontFamily: 'monospace' }}>{accent.toUpperCase()}</span>
+            </div>
+          </div>
         </div>
       )}
     </div>
   )
 }
-
-// ── DailyMode ─────────────────────────────────────────────────────────────────
 
 function DailyMode() {
   const trainer = useDailyTrainer()
@@ -348,23 +373,28 @@ function DailyMode() {
   )
 }
 
-// ── App ───────────────────────────────────────────────────────────────────────
-
 export default function App() {
   const [mode, setMode] = useState('daily')
   const [infiniteKey, setInfiniteKey] = useState(0)
   const [bgColor, setBgColor] = useState(() => {
     return localStorage.getItem('wtt-bg-color') || DEFAULT_COLOR
   })
+  const [accentColor, setAccentColor] = useState(() => {
+    return localStorage.getItem('wtt-accent-color') || DEFAULT_ACCENT
+  })
 
-  // Apply background on mount and whenever color changes
   useEffect(() => {
-    applyBackground(bgColor)
-  }, [bgColor])
+    applyBackground(bgColor, accentColor)
+  }, [bgColor, accentColor])
 
-  function handleColorChange(hex) {
+  function handleBgChange(hex) {
     setBgColor(hex)
     localStorage.setItem('wtt-bg-color', hex)
+  }
+
+  function handleAccentChange(hex) {
+    setAccentColor(hex)
+    localStorage.setItem('wtt-accent-color', hex)
   }
 
   const handleResetInfiniteSession = () => {
@@ -379,7 +409,12 @@ export default function App() {
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px', marginBottom: '24px' }}>
 
           {/* LEFT — colour picker */}
-          <ColourPicker color={bgColor} onChange={handleColorChange} />
+          <ColourPicker
+            color={bgColor}
+            accent={accentColor}
+            onBgChange={handleBgChange}
+            onAccentChange={handleAccentChange}
+          />
 
           {/* CENTRE — title */}
           <div style={{ textAlign: 'center' }}>
@@ -392,29 +427,7 @@ export default function App() {
             href="https://ko-fi.com/I8P7210YG4"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: '#72a4f2',
-              color: '#ffffff',
-              textDecoration: 'none',
-              fontFamily: '"Quicksand", "Nunito", "Segoe UI", sans-serif',
-              fontWeight: '700',
-              padding: '10px 16px',
-              borderRadius: '100px',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              fontSize: '15px'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.03)'
-              e.currentTarget.style.boxShadow = '0px 6px 12px rgba(0, 0, 0, 0.15)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)'
-            }}
+            className="kofi-btn"
           >
             <img
               src="https://storage.ko-fi.com/cdn/cup-border.png"
@@ -425,77 +438,22 @@ export default function App() {
           </a>
         </header>
 
+        {/* Mode toggle */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
-          <div style={{
-            position: 'relative',
-            display: 'flex',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            padding: '4px',
-            borderRadius: '9999px',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            width: '280px',
-            boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.2)'
-          }}>
-            <div style={{
-              position: 'absolute',
-              top: '4px',
-              left: '4px',
-              bottom: '4px',
-              width: 'calc(50% - 4px)',
-              backgroundColor: '#72a4f2',
-              borderRadius: '9999px',
-              transition: 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
-              transform: mode === 'infinite' ? 'translateX(100%)' : 'translateX(0%)',
-              boxShadow: '0 4px 12px rgba(114, 164, 242, 0.35)',
-              zIndex: 1
-            }} />
-
+          <div className="mode-toggle">
+            <div
+              className="mode-toggle-slider"
+              style={{ transform: mode === 'infinite' ? 'translateX(100%)' : 'translateX(0%)' }}
+            />
             <button
               onClick={() => setMode('daily')}
-              style={{
-                flex: 1,
-                position: 'relative',
-                zIndex: 2,
-                background: 'none',
-                border: 'none',
-                color: mode === 'daily' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-                padding: '10px 0',
-                fontSize: '14px',
-                fontWeight: '700',
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                transition: 'color 0.2s ease'
-              }}
+              className={`mode-toggle-btn ${mode === 'daily' ? 'active' : ''}`}
             >
               <span>📅</span> Daily
             </button>
-
             <button
               onClick={() => setMode('infinite')}
-              style={{
-                flex: 1,
-                position: 'relative',
-                zIndex: 2,
-                background: 'none',
-                border: 'none',
-                color: mode === 'infinite' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-                padding: '10px 0',
-                fontSize: '14px',
-                fontWeight: '700',
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                transition: 'color 0.2s ease'
-              }}
+              className={`mode-toggle-btn ${mode === 'infinite' ? 'active' : ''}`}
             >
               <span>∞</span> Infinite
             </button>
@@ -517,8 +475,6 @@ export default function App() {
     </div>
   )
 }
-
-// ── CompletedRound ────────────────────────────────────────────────────────────
 
 function CompletedRound({ round }) {
   const { trainer, guesses, gameOver, hints } = round
@@ -570,8 +526,6 @@ function CompletedRound({ round }) {
   )
 }
 
-// ── GameFilter ────────────────────────────────────────────────────────────────
-
 function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activePool }) {
   const displayMap = {
     'Ruby': 'Ruby/Sapphire',
@@ -606,83 +560,45 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
 
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
-
     if (isCurrentlyActive) {
       const activeCount = selectedGames.size
       const groupCount = group.originals.length
-      if (activeCount - groupCount <= 0) {
-        return;
-      }
+      if (activeCount - groupCount <= 0) return
     }
-
     group.originals.forEach(g => {
       const active = selectedGames.has(g)
-      if (isCurrentlyActive && active) {
-        toggleGame(g)
-      } else if (!isCurrentlyActive && !active) {
-        toggleGame(g)
-      }
+      if (isCurrentlyActive && active) toggleGame(g)
+      else if (!isCurrentlyActive && !active) toggleGame(g)
     })
   }
 
   const handleDeselectAll = () => {
     if (visibleButtons.length === 0) return
     const firstGroup = visibleButtons[0].originals
-
     allGames.forEach(g => {
       const insideFirst = firstGroup.includes(g)
       const isActive = selectedGames.has(g)
-      if (insideFirst && !isActive) {
-        toggleGame(g)
-      } else if (!insideFirst && isActive) {
-        toggleGame(g)
-      }
+      if (insideFirst && !isActive) toggleGame(g)
+      else if (!insideFirst && isActive) toggleGame(g)
     })
   }
 
   return (
-    <div style={{
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      borderRadius: '12px',
-      padding: '16px',
-      marginBottom: '24px',
-      fontFamily: 'inherit'
-    }}>
+    <div className="game-filter-panel">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-        <span style={{ fontWeight: '700', fontSize: '15px', color: '#ffffff' }}>Filter Games</span>
+        <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text)' }}>Filter Games</span>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
             onClick={selectAllGames}
             disabled={allSelected}
-            style={{
-              background: allSelected ? 'rgba(255, 255, 255, 0.05)' : '#72a4f2',
-              color: allSelected ? 'rgba(255, 255, 255, 0.3)' : '#ffffff',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '4px 12px',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: allSelected ? 'not-allowed' : 'pointer',
-              transition: 'background 0.2s'
-            }}
+            className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
           >
             Select All
           </button>
           <button
             onClick={handleDeselectAll}
             disabled={isDeselectedState || allGames.length === 0}
-            style={{
-              background: isDeselectedState || allGames.length === 0 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-              color: isDeselectedState || allGames.length === 0 ? 'rgba(255, 255, 255, 0.2)' : '#ffffff',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '4px 12px',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: isDeselectedState || allGames.length === 0 ? 'not-allowed' : 'pointer',
-              transition: 'background 0.2s'
-            }}
+            className={`filter-ctrl-btn ${isDeselectedState || allGames.length === 0 ? 'disabled' : ''}`}
           >
             Deselect All
           </button>
@@ -692,28 +608,12 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
         {visibleButtons.map(group => {
           const isActive = group.originals.every(g => selectedGames.has(g))
-          const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0);
-
+          const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0)
           return (
             <button
               key={group.label}
               onClick={() => handleGroupToggle(group)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: isActive ? '#72a4f2' : 'rgba(255, 255, 255, 0.06)',
-                color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-                border: `1px solid ${isActive ? '#72a4f2' : 'rgba(255, 255, 255, 0.12)'}`,
-                borderRadius: '20px',
-                padding: '6px 14px',
-                fontSize: '13px',
-                fontWeight: '600',
-                cursor: isDisableCandidate ? 'not-allowed' : 'pointer',
-                opacity: isDisableCandidate ? 0.7 : 1,
-                transition: 'all 0.2s ease',
-                boxShadow: isActive ? '0 2px 8px rgba(114, 164, 242, 0.3)' : 'none'
-              }}
+              className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
             >
               <span>{isActive ? '✓' : '＋'}</span>
               {group.label}
@@ -722,14 +622,12 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
         })}
       </div>
 
-      <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.4)', fontWeight: '5px' }}>
+      <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: '500' }}>
         {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current selections
       </div>
     </div>
   )
 }
-
-// ── InfiniteMode ──────────────────────────────────────────────────────────────
 
 function InfiniteMode({ onResetSession }) {
   const {
@@ -778,18 +676,7 @@ function InfiniteMode({ onResetSession }) {
           <button
             onClick={handleStartGame}
             disabled={activePool.length === 0}
-            style={{
-              backgroundColor: activePool.length === 0 ? 'rgba(255, 255, 255, 0.05)' : '#72a4f2',
-              color: activePool.length === 0 ? 'rgba(255, 255, 255, 0.3)' : '#ffffff',
-              border: 'none',
-              borderRadius: '8px',
-              padding: '14px 40px',
-              fontSize: '16px',
-              fontWeight: '700',
-              cursor: activePool.length === 0 ? 'not-allowed' : 'pointer',
-              boxShadow: activePool.length === 0 ? 'none' : '0 4px 14px rgba(114, 164, 242, 0.4)',
-              transition: 'all 0.2s ease'
-            }}
+            className={`primary-btn ${activePool.length === 0 ? 'disabled' : ''}`}
           >
             Start Game
           </button>
@@ -801,20 +688,7 @@ function InfiniteMode({ onResetSession }) {
   return (
     <div className="inf-root" style={{ width: '100%' }}>
       <div style={{ marginBottom: '24px' }}>
-        <button
-          onClick={handleBackToFilters}
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            color: '#ffffff',
-            borderRadius: '6px',
-            padding: '8px 16px',
-            fontSize: '13px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'background 0.2s'
-          }}
-        >
+        <button onClick={handleBackToFilters} className="back-btn">
           ← Back to Filters
         </button>
       </div>
@@ -829,25 +703,11 @@ function InfiniteMode({ onResetSession }) {
           className={`inf-round inf-round--current ${isTransitioning ? 'inf-round--exiting' : 'inf-round--entering'}`}
         >
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '32px 0 20px 0',
-            position: 'relative'
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            margin: '32px 0 20px 0', position: 'relative'
           }}>
-            <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
-            <span style={{
-              position: 'relative',
-              backgroundColor: '#1a1a1a',
-              padding: '4px 16px',
-              borderRadius: '20px',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              color: '#72a4f2',
-              fontSize: '13px',
-              fontWeight: '700',
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase'
-            }}>
+            <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
+            <span className="round-label">
               Round {rounds.length + 1}
             </span>
           </div>
@@ -890,29 +750,13 @@ function InfiniteMode({ onResetSession }) {
                   </div>
                 </div>
               ) : (
-                <div className="inf-gameover-row" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <div className="inf-gameover-row">
                   <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
                     {currentGameOver === 'won'
                       ? `You got it! It was ${currentTrainer.name}!`
                       : `Game Over! It was ${currentTrainer.name}!`}
                   </div>
-                  <button
-                    className="next-btn"
-                    onClick={advanceRound}
-                    style={{
-                      backgroundColor: '#72a4f2',
-                      color: '#ffffff',
-                      border: 'none',
-                      borderRadius: '6px',
-                      padding: '12px 24px',
-                      fontSize: '14px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      boxShadow: '0 2px 8px rgba(114, 164, 242, 0.3)',
-                      transition: 'all 0.2s ease',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
+                  <button className="primary-btn next-btn" onClick={advanceRound}>
                     Next Round →
                   </button>
                 </div>
