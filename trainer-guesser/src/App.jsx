@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import TeamGrid from './components/TeamGrid'
 import GuessInput from './components/GuessInput'
 import { Analytics } from '@vercel/analytics/react'
@@ -12,6 +12,233 @@ function toTitleCase(str) {
     w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
   )
 }
+
+// ── Colour utilities ──────────────────────────────────────────────────────────
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '')
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16),
+  }
+}
+
+function luminance({ r, g, b }) {
+  const [rs, gs, bs] = [r, g, b].map(c => {
+    const s = c / 255
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4)
+  })
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs
+}
+
+function isDark(hex) {
+  return luminance(hexToRgb(hex)) < 0.35
+}
+
+function applyBackground(hex) {
+  const { r, g, b } = hexToRgb(hex)
+  const dark = isDark(hex)
+
+  const factor = dark ? 1.3 : 0.8
+  const r2 = Math.min(255, Math.round(r * factor))
+  const g2 = Math.min(255, Math.round(g * factor))
+  const b2 = Math.min(255, Math.round(b * factor))
+
+  const text     = dark ? '#e2e8f0' : '#1e293b'
+  const textDim  = dark ? '#94a3b8' : '#475569'
+  const green    = dark ? '#4ade80' : '#16a34a'
+  const greenDk  = dark ? '#16a34a' : '#166534'
+  const greenHov = dark ? '#22c55e' : '#15803d'
+  const gold     = dark ? '#fbbf24' : '#b45309'
+
+  const root = document.documentElement
+  root.style.setProperty('--bg-main', `rgb(${r},${g},${b})`)
+  root.style.setProperty('--bg-alt',  `rgb(${r2},${g2},${b2})`)
+  root.style.setProperty('--panel-bg', `rgba(${r},${g},${b},${dark ? '0.75' : '0.55'})`)
+  root.style.setProperty('--panel-border', dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.10)')
+  root.style.setProperty('--input-bg', dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.05)')
+  root.style.setProperty('--text', text)
+  root.style.setProperty('--text-dim', textDim)
+  root.style.setProperty('--green', green)
+  root.style.setProperty('--green-dark', greenDk)
+  root.style.setProperty('--green-hover', greenHov)
+  root.style.setProperty('--gold', gold)
+  root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
+}
+
+const DEFAULT_COLOR = '#0d1b2a'
+
+// ── ColourPicker ──────────────────────────────────────────────────────────────
+
+function ColourPicker({ color, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    function handler(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const presets = [
+    '#0d1b2a', // Default Navy
+    '#ffffff', // White
+    '#121212', // Black
+    '#1e3a8a', // Blue
+    '#064e3b', // Green
+    '#7f1d1d', // Red
+    '#fef08a', // Yellow
+    '#4c1d95', // Purple
+  ]
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button
+        title="Choose background colour"
+        onClick={() => setOpen(o => !o)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '40px',
+          height: '40px',
+          borderRadius: '10px',
+          border: '1px solid rgba(255,255,255,0.15)',
+          background: 'rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(8px)',
+          cursor: 'pointer',
+          position: 'relative',
+          transition: 'background 0.2s, transform 0.15s',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = 'rgba(255,255,255,0.16)'
+          e.currentTarget.style.transform = 'translateY(-1px)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+          e.currentTarget.style.transform = 'translateY(0)'
+        }}
+      >
+        {/* Colour wheel SVG */}
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="9" stroke="var(--text)" strokeWidth="1.5" fill="none"/>
+          {[
+            ['#ef4444', 0], ['#f97316', 60], ['#eab308', 120],
+            ['#22c55e', 180], ['#3b82f6', 240], ['#a855f7', 300]
+          ].map(([c, angle]) => {
+            const rad = (angle - 90) * Math.PI / 180
+            return (
+              <circle
+                key={angle}
+                cx={11 + 5.5 * Math.cos(rad)}
+                cy={11 + 5.5 * Math.sin(rad)}
+                r="2.5"
+                fill={c}
+              />
+            )
+          })}
+          <circle cx="11" cy="11" r="2" fill="var(--text)" opacity="0.6"/>
+        </svg>
+        {/* Live swatch dot */}
+        <span style={{
+          position: 'absolute',
+          bottom: '5px',
+          right: '5px',
+          width: '8px',
+          height: '8px',
+          borderRadius: '50%',
+          background: color,
+          border: '1.5px solid rgba(255,255,255,0.5)',
+        }} />
+      </button>
+
+      {open && (
+        <div style={{
+          position: 'absolute',
+          top: 'calc(100% + 10px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 200,
+          background: 'rgba(15,23,42,0.97)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: '14px',
+          padding: '14px',
+          boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px',
+          minWidth: '176px',
+        }}>
+          <span style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Background Colour
+          </span>
+
+          {/* Big round colour input */}
+          <label style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '3px solid rgba(255,255,255,0.2)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+            cursor: 'pointer',
+            display: 'block',
+            position: 'relative',
+          }}>
+            <input
+              type="color"
+              value={color}
+              onChange={e => onChange(e.target.value)}
+              style={{
+                position: 'absolute',
+                inset: '-10px',
+                width: 'calc(100% + 20px)',
+                height: 'calc(100% + 20px)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+              }}
+            />
+          </label>
+
+          {/* Preset swatches */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
+            {presets.map(c => (
+              <button
+                key={c}
+                title={c}
+                onClick={() => onChange(c)}
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '6px',
+                  background: c,
+                  border: color === c ? '2px solid #72a4f2' : '1.5px solid rgba(255,255,255,0.2)',
+                  cursor: 'pointer',
+                  boxShadow: color === c ? '0 0 8px rgba(114,164,242,0.5)' : 'none',
+                  transition: 'transform 0.1s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.15)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+            ))}
+          </div>
+
+          <span style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', fontFamily: 'monospace' }}>
+            {color.toUpperCase()}
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── DailyMode ─────────────────────────────────────────────────────────────────
 
 function DailyMode() {
   const trainer = useDailyTrainer()
@@ -121,9 +348,24 @@ function DailyMode() {
   )
 }
 
+// ── App ───────────────────────────────────────────────────────────────────────
+
 export default function App() {
   const [mode, setMode] = useState('daily')
   const [infiniteKey, setInfiniteKey] = useState(0)
+  const [bgColor, setBgColor] = useState(() => {
+    return localStorage.getItem('wtt-bg-color') || DEFAULT_COLOR
+  })
+
+  // Apply background on mount and whenever color changes
+  useEffect(() => {
+    applyBackground(bgColor)
+  }, [bgColor])
+
+  function handleColorChange(hex) {
+    setBgColor(hex)
+    localStorage.setItem('wtt-bg-color', hex)
+  }
 
   const handleResetInfiniteSession = () => {
     setInfiniteKey(prev => prev + 1)
@@ -135,11 +377,17 @@ export default function App() {
 
       <div className="content-wrapper">
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px', marginBottom: '24px' }}>
-          <div>
+
+          {/* LEFT — colour picker */}
+          <ColourPicker color={bgColor} onChange={handleColorChange} />
+
+          {/* CENTRE — title */}
+          <div style={{ textAlign: 'center' }}>
             <h1 className="title" style={{ margin: 0 }}>Who's that Trainer?</h1>
             <p className="subtitle" style={{ margin: '5px 0 0 0' }}>Guess the trainer from their team</p>
           </div>
 
+          {/* RIGHT — Ko-fi */}
           <a
             href="https://ko-fi.com/I8P7210YG4"
             target="_blank"
@@ -257,9 +505,9 @@ export default function App() {
         {mode === 'daily' ? (
           <DailyMode />
         ) : (
-          <InfiniteMode 
-            key={infiniteKey} 
-            onResetSession={handleResetInfiniteSession} 
+          <InfiniteMode
+            key={infiniteKey}
+            onResetSession={handleResetInfiniteSession}
           />
         )}
       </div>
@@ -269,6 +517,8 @@ export default function App() {
     </div>
   )
 }
+
+// ── CompletedRound ────────────────────────────────────────────────────────────
 
 function CompletedRound({ round }) {
   const { trainer, guesses, gameOver, hints } = round
@@ -320,6 +570,8 @@ function CompletedRound({ round }) {
   )
 }
 
+// ── GameFilter ────────────────────────────────────────────────────────────────
+
 function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activePool }) {
   const displayMap = {
     'Ruby': 'Ruby/Sapphire',
@@ -347,20 +599,19 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
   })
 
   const allSelected = selectedGames.size === allGames.length
-  
+
   const firstButtonGroup = visibleButtons[0]?.originals || []
-  const isDeselectedState = selectedGames.size === firstButtonGroup.length && 
+  const isDeselectedState = selectedGames.size === firstButtonGroup.length &&
     firstButtonGroup.every(g => selectedGames.has(g))
 
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
-    
-    // If the group is active and turning it off leaves 0 items selected, block it completely.
+
     if (isCurrentlyActive) {
       const activeCount = selectedGames.size
       const groupCount = group.originals.length
       if (activeCount - groupCount <= 0) {
-        return; // Guard statement to protect against empty pools
+        return;
       }
     }
 
@@ -441,7 +692,6 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
         {visibleButtons.map(group => {
           const isActive = group.originals.every(g => selectedGames.has(g))
-          // Calculate if this individual button's total deselection will break selection validation rules
           const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0);
 
           return (
@@ -479,7 +729,8 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
   )
 }
 
-/* ... Remaining InfiniteMode subcomponent stays cleanly preserved below ... */
+// ── InfiniteMode ──────────────────────────────────────────────────────────────
+
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, selectAllGames, activePool,
@@ -501,18 +752,13 @@ function InfiniteMode({ onResetSession }) {
 
   const handleStartGame = () => {
     if (activePool.length === 0) return
-    
-    if (typeof resetGame === 'function') {
-      resetGame()
-    }
+    if (typeof resetGame === 'function') resetGame()
     setIsPlaying(true)
   }
 
   const handleBackToFilters = () => {
     setIsPlaying(false)
-    if (typeof onResetSession === 'function') {
-      onResetSession()
-    }
+    if (typeof onResetSession === 'function') onResetSession()
   }
 
   const trainerFilter = currentHints >= 4 ? 'none' : 'brightness(0) contrast(1)'
@@ -592,7 +838,7 @@ function InfiniteMode({ onResetSession }) {
             <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
             <span style={{
               position: 'relative',
-              backgroundColor: '#1a1a1a', 
+              backgroundColor: '#1a1a1a',
               padding: '4px 16px',
               borderRadius: '20px',
               border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -605,7 +851,7 @@ function InfiniteMode({ onResetSession }) {
               Round {rounds.length + 1}
             </span>
           </div>
-          
+
           <div className="inf-round-inner main-layout">
             <div className="trainer-panel">
               <div className="trainer-frame">
@@ -650,8 +896,8 @@ function InfiniteMode({ onResetSession }) {
                       ? `You got it! It was ${currentTrainer.name}!`
                       : `Game Over! It was ${currentTrainer.name}!`}
                   </div>
-                  <button 
-                    className="next-btn" 
+                  <button
+                    className="next-btn"
                     onClick={advanceRound}
                     style={{
                       backgroundColor: '#72a4f2',

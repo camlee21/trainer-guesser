@@ -18,6 +18,8 @@
   --input-bg: rgba(255, 255, 255, 0.07);
   --text: #e2e8f0;
   --text-dim: #94a3b8;
+  --bg-main: #0d1b2a;
+  --bg-alt:  #1a2744;
 }
 
 body {
@@ -32,7 +34,8 @@ body {
   min-height: 100vh;
   position: relative;
   background:
-    linear-gradient(135deg, #0d1b2a 0%, #1a2744 40%, #0d2137 70%, #0a1628 100%);
+    linear-gradient(135deg, var(--bg-main) 0%, var(--bg-alt) 40%, var(--bg-main) 70%, var(--bg-main) 100%);
+  transition: background 0.4s ease;
 }
 
 .bg-overlay {
@@ -223,8 +226,8 @@ header {
 }
 
 .pokemon-sprite {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   image-rendering: pixelated;
   transition: filter 0.4s ease;
