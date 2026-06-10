@@ -1359,7 +1359,7 @@
       "game": "X/Y",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/korina.png",
+      "trainerSpriteUrl": "/sprites/trainers/korrina.png",
       "team": [
         { "name": "Mienfoo", "pokedexId": 619 },
         { "name": "Hawlucha", "pokedexId": 701 },
