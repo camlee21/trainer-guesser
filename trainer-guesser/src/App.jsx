@@ -88,11 +88,11 @@ const PRESETS = [
   { bg: '#0d1b2a', accent: '#72a4f2', label: 'Navy' },
   { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
   { bg: '#121212', accent: '#a855f7', label: 'Black' },
-  { bg: '#1e3a8a', accent: '#60c0f8', label: 'Blue' },
-  { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
-  { bg: '#7f1d1d', accent: '#fb923c', label: 'Red' },
+  { bg: '#0a1b47', accent: '#0088d6', label: 'Blue' },
+  { bg: '#064e3b', accent: '#009e3a', label: 'Green' },
+  { bg: '#570000', accent: '#fb923c', label: 'Red' },
   { bg: '#fef08a', accent: '#ca8a04', label: 'Yellow' },
-  { bg: '#4c1d95', accent: '#f0abfc', label: 'Purple' },
+  { bg: '#4c1d95', accent: '#b200d1', label: 'Purple' },
 ]
 
 function ColourPicker({ color, accent, onBgChange, onAccentChange }) {
