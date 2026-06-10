@@ -2371,6 +2371,196 @@
         { "name": "Sandy Shocks", "pokedexId": 989 },
         { "name": "Roaring Moon", "pokedexId": 1005 }
       ]
+    },
+    {
+      "id": "vinnie",
+      "name": "Vinnie",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/vinnie.png",
+      "team": [
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Sharpedo", "pokedexId": 319 },
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Drampa", "pokedexId": 780 }
+      ]
+    },
+    {
+      "id": "emma",
+      "name": "Emma",
+      "game": "Legends Z-A",
+      "difficulty": "hard",
+      "type": "other",
+      "trainerSpriteUrl": "/sprites/trainers/emma.png",
+      "team": [
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Malamar", "pokedexId": 687 }
+      ]
+    },
+    {
+      "id": "corbeau",
+      "name": "Corbeau",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/corbeau.png",
+      "team": [
+        { "name": "Arbok", "pokedexId": 24 },
+        { "name": "Barbaracle", "pokedexId": 689 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Garbodor", "pokedexId": 569 },
+        { "name": "Scolipede", "pokedexId": 545 }
+      ]
+    },
+    {
+      "id": "lida",
+      "name": "Lida",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "team_MZ_member",
+      "trainerSpriteUrl": "/sprites/trainers/lida.png",
+      "team": [
+        { "name": "Clauncher", "pokedexId": 692 },
+        { "name": "Vanillite", "pokedexId": 582 },
+        { "name": "Staryu", "pokedexId": 120 }
+      ]
+    },
+    {
+      "id": "naveen",
+      "name": "Naveen",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "team_MZ_member",
+      "trainerSpriteUrl": "/sprites/trainers/naveen.png",
+      "team": [
+        { "name": "Ariados", "pokedexId": 168 },
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Scrafty", "pokedexId": 560 }
+      ]
+    },
+    {
+      "id": "canari",
+      "name": "Canari",
+      "game": "Legends Z-A",
+      "difficulty": "easy",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/canari.png",
+      "team": [
+        { "name": "Heliolisk", "pokedexId": 695 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Stunfisk", "pokedexId": 618 },
+        { "name": "Eelektross", "pokedexId": 604 }
+      ]
+    },
+    {
+      "id": "gwynn",
+      "name": "Gwynn",
+      "game": "Legends Z-A",
+      "difficulty": "easy",
+      "type": "fists_of_justice",
+      "trainerSpriteUrl": "/sprites/trainers/gwynn.png",
+      "team": [
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Gourgeist", "pokedexId": 711 },
+        { "name": "Chandelure", "pokedexId": 609 }
+      ]
+    },
+    {
+      "id": "ivor",
+      "name": "Ivor",
+      "game": "Legends Z-A",
+      "difficulty": "easy",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/ivor.png",
+      "team": [
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Falinks", "pokedexId": 870 }
+      ]
+    },
+    {
+      "id": "jacinthe",
+      "name": "Jacinthe",
+      "game": "Legends Z-A",
+      "difficulty": "easy",
+      "type": "society_of_battle_connoisseurs",
+      "trainerSpriteUrl": "/sprites/trainers/jacinthe.png",
+      "team": [
+        { "name": "Carbink", "pokedexId": 703 },
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Aurorus", "pokedexId": 699 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Clefable", "pokedexId": 36 }
+      ]
+    },
+    {
+      "id": "lebanne",
+      "name": "Lebanne",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "society_of_battle_connoisseurs",
+      "trainerSpriteUrl": "/sprites/trainers/lebanne.png",
+      "team": [
+        { "name": "Noivern", "pokedexId": 715 },
+        { "name": "Tyrantrum", "pokedexId": 697 },
+        { "name": "Garchomp", "pokedexId": 445 },
+        { "name": "Dragalge", "pokedexId": 691 }
+      ]
+    },
+    {
+      "id": "grisham",
+      "name": "Grisham",
+      "game": "Legends Z-A",
+      "difficulty": "medium",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/grisham.png",
+      "team": [
+        { "name": "Pangoro", "pokedexId": 675 },
+        { "name": "Malamar", "pokedexId": 687 },
+        { "name": "Pyroar", "pokedexId": 668 },
+        { "name": "Tyranitar", "pokedexId": 248 },
+        { "name": "Salamence", "pokedexId": 373 },
+        { "name": "Charizard", "pokedexId": 6 }
+      ]
+    },
+    {
+      "id": "philippe",
+      "name": "Philippe",
+      "game": "Legends Z-A",
+      "difficulty": "hard",
+      "type": "promotion_match",
+      "trainerSpriteUrl": "/sprites/trainers/philippe.png",
+      "team": [
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Skarmory", "pokedexId": 227 }
+      ]
+    },
+    {
+      "id": "lysandre2",
+      "name": "Lysandre",
+      "game": "Legends Z-A",
+      "difficulty": "hard",
+      "type": "other",
+      "trainerSpriteUrl": "/sprites/trainers/lysandre_za.png",
+      "team": [
+        { "name": "Pyroar", "pokedexId": 668 },
+        { "name": "Florges", "pokedexId": 671 },
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Noivern", "pokedexId": 715 },
+        { "name": "Garbodor", "pokedexId": 569 },
+        { "name": "Gyarados", "pokedexId": 130 }
+      ]
     }
   ],
   "hack-trainers": [
