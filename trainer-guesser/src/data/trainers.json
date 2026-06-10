@@ -2389,6 +2389,182 @@
         { "name": "Shuckle", "pokedexId": 213 },
         { "name": "Cranidos", "pokedexId": 408 }
       ]
+    },
+    {
+      "id": "roxanne_ek",
+      "name": "Roxanne",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/hack-trainers/roxanne_ek.png",
+      "team": [
+        { "name": "Nosepass", "pokedexId": 299 },
+        { "name": "Lileep", "pokedexId": 345 },
+        { "name": "Relicanth", "pokedexId": 369 },
+        { "name": "Anorith", "pokedexId": 347 },
+        { "name": "Shuckle", "pokedexId": 213 },
+        { "name": "Lunatone", "pokedexId": 337 }
+      ]
+    },
+    {
+      "id": "bruno_rr",
+      "name": "Bruno",
+      "game": "Radical Red",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/hack-trainers/bruno_rr.png",
+      "team": [
+        { "name": "Infernape", "pokedexId": 392 },
+        { "name": "Zacian", "pokedexId": 888 },
+        { "name": "Kommo-o", "pokedexId": 784 },
+        { "name": "Conkeldurr", "pokedexId": 534 },
+        { "name": "Urshifu", "pokedexId": 892 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "marley_rp",
+      "name": "Marley",
+      "game": "Renegade Platinum",
+      "difficulty": "hard",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "/sprites/hack-trainers/marley_rp.png",
+      "team": [
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Sceptile", "pokedexId": 254 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Arcanine", "pokedexId": 59 }
+      ]
+    },
+    {
+      "id": "roark_rp",
+      "name": "Roark",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/hack-trainers/roark_pk.png",
+      "team": [
+        { "name": "Nosepass", "pokedexId": 299 },
+        { "name": "Bonsly", "pokedexId": 438 },
+        { "name": "Geodude", "pokedexId": 74 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Larvitar", "pokedexId": 246 },
+        { "name": "Cranidos", "pokedexId": 408 }
+      ]
+    },
+    {
+      "id": "gardenia_rp",
+      "name": "Gardenia",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/gardenia.png",
+      "team": [
+        { "name": "Bellossom", "pokedexId": 182 },
+        { "name": "Tangela", "pokedexId": 114 },
+        { "name": "Cherrim", "pokedexId": 421 },
+        { "name": "Grotle", "pokedexId": 388 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Roserade", "pokedexId": 407 }
+      ]
+    },
+    {
+      "id": "fantina_rp",
+      "name": "Fantina",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/fantina.png",
+      "team": [
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Dusclops", "pokedexId": 356 },
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Mismagius", "pokedexId": 429 }
+      ]
+    },
+    {
+      "id": "maylene_rp",
+      "name": "Maylene",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/maylene.png",
+      "team": [
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Infernape", "pokedexId": 392 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Gallade", "pokedexId": 475 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "crasherwake_rp",
+      "name": "Crasher Wake",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/crasherwake.png",
+      "team": [
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Poliwrath", "pokedexId": 62 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Sharpedo", "pokedexId": 319 },
+        { "name": "Floatzel", "pokedexId": 419 }
+      ]
+    },
+    {
+      "id": "byron_rp",
+      "name": "Byron",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/byron.png",
+      "team": [
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Forretress", "pokedexId": 205 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Bastiodon", "pokedexId": 411 }
+      ]
+    },
+    {
+      "id": "candice_rp",
+      "name": "Candice",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/candice.png",
+      "team": [
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Glaceon", "pokedexId": 471 },
+        { "name": "Walrein", "pokedexId": 365 },
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Froslass", "pokedexId": 478 }
+      ]
+    },
+    {
+      "id": "volkner_rp",
+      "name": "Volkner",
+      "game": "Renegade Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/volkner.png",
+      "team": [
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Rotom-Wash", "pokedexId": 479 },
+        { "name": "Rotom-Heat", "pokedexId": 479 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Electivire", "pokedexId": 466 }
+      ]
     }
   ]
 }
