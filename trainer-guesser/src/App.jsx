@@ -71,6 +71,7 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
 
+  // Accent variables
   root.style.setProperty('--accent', accentHex)
   root.style.setProperty('--accent-glow', accentGlow)
   root.style.setProperty('--accent-hover', accentHover)
@@ -85,13 +86,13 @@ const DEFAULT_ACCENT = '#72a4f2'
 // Each preset bg colour paired with a complementary accent colour
 const PRESETS = [
   { bg: '#0d1b2a', accent: '#72a4f2', label: 'Navy' },
-  { bg: '#ffffffcb', accent: '#000000', label: 'White' },
+  { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
   { bg: '#121212', accent: '#a855f7', label: 'Black' },
-  { bg: '#122b6e', accent: '#4391be', label: 'Blue' },
+  { bg: '#1e3a8a', accent: '#60c0f8', label: 'Blue' },
   { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
-  { bg: '#4d0f0f', accent: '#c97028', label: 'Red' },
-  { bg: '#fff28d', accent: '#685800c9', label: 'Yellow' },
-  { bg: '#4c1d95', accent: '#ee8aff', label: 'Purple' },
+  { bg: '#7f1d1d', accent: '#fb923c', label: 'Red' },
+  { bg: '#fef08a', accent: '#ca8a04', label: 'Yellow' },
+  { bg: '#4c1d95', accent: '#f0abfc', label: 'Purple' },
 ]
 
 function ColourPicker({ color, accent, onBgChange, onAccentChange }) {
@@ -526,7 +527,21 @@ function CompletedRound({ round }) {
   )
 }
 
+const GEN_MAP = {
+  'Gen 1': ['Red/Blue'],
+  'Gen 2': ['Gold/Silver'],
+  'Gen 3': ['Ruby/Sapphire', 'Emerald'],
+  'Gen 4': ['HeartGold/SoulSilver', 'Platinum'],
+  'Gen 5': ['Black/White', 'Black2/White2'],
+  'Gen 6': ['X/Y', 'Omega Ruby/Alpha Sapphire'],
+  'Gen 7': ['Sun/Moon', 'Ultra Sun/Ultra Moon'],
+  'Gen 8': ['Sword/Shield', 'Legends Arceus'],
+  'Gen 9': ['Scarlet/Violet', 'Legends Z-A'],
+}
+
 function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activePool }) {
+  const [activeGens, setActiveGens] = useState(new Set())
+
   const displayMap = {
     'Ruby': 'Ruby/Sapphire',
     'Sapphire': 'Ruby/Sapphire',
@@ -534,13 +549,12 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
     'White': 'Black/White',
     'Black2': 'Black2/White2',
     'White2': 'Black2/White2',
-    'Scarlet': "Scarlet/Violet",
-    'Violet': "Scarlet/Violet"
+    'Scarlet': 'Scarlet/Violet',
+    'Violet': 'Scarlet/Violet',
   }
 
   const visibleButtons = []
   const seenGrouped = new Set()
-
   allGames.forEach(game => {
     const displayLabel = displayMap[game] || game
     if (!seenGrouped.has(displayLabel)) {
@@ -552,6 +566,9 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
     }
   })
 
+  const buttonByLabel = {}
+  visibleButtons.forEach(b => { buttonByLabel[b.label] = b })
+
   const allSelected = selectedGames.size === allGames.length
 
   const firstButtonGroup = visibleButtons[0]?.originals || []
@@ -561,9 +578,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
     if (isCurrentlyActive) {
-      const activeCount = selectedGames.size
-      const groupCount = group.originals.length
-      if (activeCount - groupCount <= 0) return
+      if (selectedGames.size - group.originals.length <= 0) return
     }
     group.originals.forEach(g => {
       const active = selectedGames.has(g)
@@ -581,7 +596,52 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
       if (insideFirst && !isActive) toggleGame(g)
       else if (!insideFirst && isActive) toggleGame(g)
     })
+    setActiveGens(new Set())
   }
+
+  const handleSelectAll = () => {
+    selectAllGames()
+    setActiveGens(new Set())
+  }
+
+  const rawToDisplay = { Ruby: 'Ruby/Sapphire', Sapphire: 'Ruby/Sapphire', Black: 'Black/White', White: 'Black/White', Black2: 'Black2/White2', White2: 'Black2/White2', Scarlet: 'Scarlet/Violet', Violet: 'Scarlet/Violet' }
+
+  const handleGenToggle = (gen) => {
+    const genLabels = GEN_MAP[gen] || []
+    const availableGroups = genLabels.map(l => buttonByLabel[l]).filter(Boolean)
+    if (availableGroups.length === 0) return
+
+    const isOn = activeGens.has(gen)
+    const newActiveGens = new Set(activeGens)
+
+    if (isOn) {
+      newActiveGens.delete(gen)
+      if (newActiveGens.size === 0) {
+        setActiveGens(newActiveGens)
+        return
+      }
+    } else {
+      newActiveGens.add(gen)
+    }
+
+    const targetLabels = new Set()
+    newActiveGens.forEach(g => { (GEN_MAP[g] || []).forEach(l => targetLabels.add(l)) })
+
+    allGames.forEach(game => {
+      const label = rawToDisplay[game] || game
+      const shouldBeSelected = targetLabels.has(label)
+      const isSelected = selectedGames.has(game)
+      if (shouldBeSelected && !isSelected) toggleGame(game)
+      else if (!shouldBeSelected && isSelected) toggleGame(game)
+    })
+
+    setActiveGens(newActiveGens)
+  }
+
+  const availableGens = Object.keys(GEN_MAP).filter(gen =>
+    (GEN_MAP[gen] || []).some(l => buttonByLabel[l])
+  )
+
 
   return (
     <div className="game-filter-panel">
@@ -589,7 +649,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
         <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text)' }}>Filter Games</span>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
-            onClick={selectAllGames}
+            onClick={handleSelectAll}
             disabled={allSelected}
             className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
           >
@@ -605,6 +665,21 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
         </div>
       </div>
 
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px', paddingBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        {availableGens.map(gen => {
+          const isOn = activeGens.has(gen)
+          return (
+            <button
+              key={gen}
+              onClick={() => handleGenToggle(gen)}
+              className={`gen-filter-btn ${isOn ? 'active' : ''}`}
+            >
+              {gen}
+            </button>
+          )
+        })}
+      </div>
+
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
         {visibleButtons.map(group => {
           const isActive = group.originals.every(g => selectedGames.has(g))
@@ -612,7 +687,11 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
           return (
             <button
               key={group.label}
-              onClick={() => handleGroupToggle(group)}
+              onClick={() => {
+                handleGroupToggle(group)
+                setActiveGens(new Set())
+                setLastActiveGens(new Set())
+              }}
               className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
             >
               <span>{isActive ? '✓' : '＋'}</span>
