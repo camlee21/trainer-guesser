@@ -88,11 +88,11 @@ const PRESETS = [
   { bg: '#0d1b2a', accent: '#72a4f2', label: 'Navy' },
   { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
   { bg: '#121212', accent: '#a855f7', label: 'Black' },
-  { bg: '#0a1b47', accent: '#0088d6', label: 'Blue' },
-  { bg: '#064e3b', accent: '#009e3a', label: 'Green' },
-  { bg: '#570000', accent: '#fb923c', label: 'Red' },
+  { bg: '#1e3a8a', accent: '#60c0f8', label: 'Blue' },
+  { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
+  { bg: '#7f1d1d', accent: '#fb923c', label: 'Red' },
   { bg: '#fef08a', accent: '#ca8a04', label: 'Yellow' },
-  { bg: '#4c1d95', accent: '#b200d1', label: 'Purple' },
+  { bg: '#4c1d95', accent: '#f0abfc', label: 'Purple' },
 ]
 
 function ColourPicker({ color, accent, onBgChange, onAccentChange }) {
@@ -423,20 +423,53 @@ export default function App() {
             <p className="subtitle" style={{ margin: '5px 0 0 0' }}>Guess the trainer from their team</p>
           </div>
 
-          {/* RIGHT — Ko-fi */}
-          <a
-            href="https://ko-fi.com/I8P7210YG4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="kofi-btn"
-          >
-            <img
-              src="https://storage.ko-fi.com/cdn/cup-border.png"
-              alt="Ko-fi cup"
-              style={{ height: '18px', width: 'auto', display: 'initial' }}
-            />
-            <span>Support me on Ko-fi</span>
-          </a>
+          {/* RIGHT — Twitter + Ko-fi */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <a
+              href="https://x.com/drag1ash"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Twitter / X"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                border: '1px solid rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(8px)',
+                transition: 'background 0.2s, transform 0.15s',
+                flexShrink: 0,
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.16)'
+                e.currentTarget.style.transform = 'translateY(-1px)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a
+              href="https://ko-fi.com/I8P7210YG4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kofi-btn"
+            >
+              <img
+                src="https://storage.ko-fi.com/cdn/cup-border.png"
+                alt="Ko-fi cup"
+                style={{ height: '18px', width: 'auto', display: 'initial' }}
+              />
+              <span>Support me on Ko-fi</span>
+            </a>
+          </div>
         </header>
 
         {/* Mode toggle */}
@@ -468,6 +501,18 @@ export default function App() {
             key={infiniteKey}
             onResetSession={handleResetInfiniteSession}
           />
+        )}
+
+        {mode === 'daily' && (
+          <p className="game-description">
+            Welcome to Who's That Trainer! Try and guess the main-series trainer by their Pokémon team
+            in 5 guesses, with a new trainer every day to try and figure out. Guessing incorrectly will
+            reveal more clues to you, such as the revealed Pokémon team, the game of origin, the type
+            of trainer, and finally, the trainer's appearance. Trainers range from easy to hard in
+            difficulty; some days your game knowledge will really be tested! I am always trying to add
+            more trainers and improve the website - if you have any feedback or suggestions please DM
+            me on Twitter, linked above. Have a great day, and good luck!
+          </p>
         )}
       </div>
 
@@ -539,7 +584,7 @@ const GEN_MAP = {
   'Gen 9': ['Scarlet/Violet', 'Legends Z-A'],
 }
 
-function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activePool }) {
+function GameFilter({ allGames, selectedGames, toggleGame, replaceSelectedGames, selectAllGames, activePool }) {
   const [activeGens, setActiveGens] = useState(new Set())
 
   const displayMap = {
@@ -607,10 +652,6 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
   const rawToDisplay = { Ruby: 'Ruby/Sapphire', Sapphire: 'Ruby/Sapphire', Black: 'Black/White', White: 'Black/White', Black2: 'Black2/White2', White2: 'Black2/White2', Scarlet: 'Scarlet/Violet', Violet: 'Scarlet/Violet' }
 
   const handleGenToggle = (gen) => {
-    const genLabels = GEN_MAP[gen] || []
-    const availableGroups = genLabels.map(l => buttonByLabel[l]).filter(Boolean)
-    if (availableGroups.length === 0) return
-
     const isOn = activeGens.has(gen)
     const newActiveGens = new Set(activeGens)
 
@@ -627,19 +668,17 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
     const targetLabels = new Set()
     newActiveGens.forEach(g => { (GEN_MAP[g] || []).forEach(l => targetLabels.add(l)) })
 
-    allGames.forEach(game => {
-      const label = rawToDisplay[game] || game
-      const shouldBeSelected = targetLabels.has(label)
-      const isSelected = selectedGames.has(game)
-      if (shouldBeSelected && !isSelected) toggleGame(game)
-      else if (!shouldBeSelected && isSelected) toggleGame(game)
-    })
+    const newSet = new Set(allGames.filter(game => targetLabels.has(rawToDisplay[game] || game)))
+    if (newSet.size === 0) return
+    replaceSelectedGames(newSet)
 
     setActiveGens(newActiveGens)
   }
 
   const availableGens = Object.keys(GEN_MAP).filter(gen =>
-    (GEN_MAP[gen] || []).some(l => buttonByLabel[l])
+    (GEN_MAP[gen] || []).some(label =>
+      allGames.some(g => (rawToDisplay[g] || g) === label)
+    )
   )
 
 
@@ -690,7 +729,6 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
               onClick={() => {
                 handleGroupToggle(group)
                 setActiveGens(new Set())
-                setLastActiveGens(new Set())
               }}
               className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
             >
@@ -710,7 +748,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, selectAllGames, activ
 
 function InfiniteMode({ onResetSession }) {
   const {
-    allGames, selectedGames, toggleGame, selectAllGames, activePool,
+    allGames, selectedGames, toggleGame, replaceSelectedGames, selectAllGames, activePool,
     rounds,
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
@@ -748,6 +786,7 @@ function InfiniteMode({ onResetSession }) {
           allGames={allGames}
           selectedGames={selectedGames}
           toggleGame={toggleGame}
+          replaceSelectedGames={replaceSelectedGames}
           selectAllGames={selectAllGames}
           activePool={activePool}
         />
