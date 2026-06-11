@@ -2561,6 +2561,227 @@
         { "name": "Garbodor", "pokedexId": 569 },
         { "name": "Gyarados", "pokedexId": 130 }
       ]
+    },
+    {
+      "id": "miror-b",
+      "name": "Miror B.",
+      "game": "Colosseum",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/miror-b.png",
+      "team": [
+        { "name": "Sudowoodo", "pokedexId": 185 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Ludicolo", "pokedexId": 272 }
+      ]
+    },
+    {
+      "id": "greevil",
+      "name": "Greevil",
+      "game": "XD: Gale of Darkness",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/greevil.png",
+      "team": [
+        { "name": "Rhydon", "pokedexId": 112 },
+        { "name": "Moltres", "pokedexId": 146 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Tauros", "pokedexId": 128 },
+        { "name": "Articuno", "pokedexId": 144 },
+        { "name": "Zapdos", "pokedexId": 145 }
+      ]
+    },
+    {
+      "id": "silver",
+      "name": "Silver",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/silver.png",
+      "team": [
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Sneasel", "pokedexId": 215 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Feraligatr", "pokedexId": 160 }
+      ]
+    },
+    {
+      "id": "hugh",
+      "name": "Hugh",
+      "game": "Black2/White2",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/hugh.png",
+      "team": [
+        { "name": "Unfezant", "pokedexId": 521 },
+        { "name": "Simisage", "pokedexId": 512 },
+        { "name": "Bouffalant", "pokedexId": 626 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Samurott", "pokedexId": 503 }
+      ]
+    },
+    {
+      "id": "may",
+      "name": "May",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/may.png",
+      "team": [
+        { "name": "Lombre", "pokedexId": 271 },
+        { "name": "Slugma", "pokedexId": 218 },
+        { "name": "Marshtomp", "pokedexId": 259 }
+      ]
+    },
+    {
+      "id": "serena",
+      "name": "Serena",
+      "game": "X/Y",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/serena.png",
+      "team": [
+        { "name": "Meowstic", "pokedexId": 678 },
+        { "name": "Flareon", "pokedexId": 136 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Absol", "pokedexId": 359 },
+        { "name": "Greninja", "pokedexId": 658 }
+      ]
+    },
+    {
+      "id": "sycamore",
+      "name": "Professor Sycamore",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "professor",
+      "trainerSpriteUrl": "/sprites/trainers/sycamore.png",
+      "team": [
+        { "name": "Bulbasaur", "pokedexId": 1 },
+        { "name": "Charmander", "pokedexId": 4 },
+        { "name": "Squirtle", "pokedexId": 7 }
+      ]
+    },
+    {
+      "id": "leon",
+      "name": "Leon",
+      "game": "Sword/Shield",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/leon.png",
+      "team": [
+        { "name": "Aegislash", "pokedexId": 681 },
+        { "name": "Dragapult", "pokedexId": 887 },
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Mr. Rime", "pokedexId": 866 },
+        { "name": "Inteleon", "pokedexId": 818 },
+        { "name": "Charizard", "pokedexId": 6 }
+      ]
+    },
+    {
+      "id": "tierno",
+      "name": "Tierno",
+      "game": "X/Y",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/tierno.png",
+      "team": [
+        { "name": "Corphish", "pokedexId": 341 }
+      ]
+    },
+    {
+      "id": "trevor",
+      "name": "Trevor",
+      "game": "X/Y",
+      "difficulty": "hard",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/trevor.png",
+      "team": [
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Florges", "pokedexId": 671 }
+      ]
+    },
+    {
+      "id": "lusamine",
+      "name": "Lusamine",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/lusamine.png",
+      "team": [
+        { "name": "Clefable", "pokedexId": 36 },
+        { "name": "Lilligant", "pokedexId": 549 },
+        { "name": "Mismagius", "pokedexId": 429 },
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Bewear", "pokedexId": 760 }
+      ]
+    },
+    {
+      "id": "hau",
+      "name": "Hau",
+      "game": "Sun/Moon",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/hau.png",
+      "team": [
+        { "name": "Alolan-Raichu", "pokedexId": 26 },
+        { "name": "Flareon", "pokedexId": 136 },
+        { "name": "Komala", "pokedexId": 775 },
+        { "name": "Primarina", "pokedexId": 730 }
+      ]
+    },
+    {
+      "id": "morimoto",
+      "name": "GAME FREAK Morimoto",
+      "game": "Black2/White2",
+      "difficulty": "hard",
+      "type": "post_game_boss",
+      "trainerSpriteUrl": "/sprites/trainers/veteran.png",
+      "team": [
+        { "name": "Liepard", "pokedexId": 510 },
+        { "name": "Simipour", "pokedexId": 516 },
+        { "name": "Simisear", "pokedexId": 514 },
+        { "name": "Simisage", "pokedexId": 512 },
+        { "name": "Swoobat", "pokedexId": 528 },
+        { "name": "Zebstrika", "pokedexId": 523 }
+      ]
+    },
+    {
+      "id": "bianca",
+      "name": "Bianca",
+      "game": "Black/White",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/bianca.png",
+      "team": [
+        { "name": "Stoutland", "pokedexId": 508 },
+        { "name": "Simipour", "pokedexId": 516 },
+        { "name": "Musharna", "pokedexId": 518 },
+        { "name": "Mienshao", "pokedexId": 620 },
+        { "name": "Chandelure", "pokedexId": 609 },
+        { "name": "Serperior", "pokedexId": 497 }
+      ]
+    },
+    {
+      "id": "cheren2",
+      "name": "Cheren",
+      "game": "Black/White",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/cheren_bw.png",
+      "team": [
+        { "name": "Liepard", "pokedexId": 510 },
+        { "name": "Simisage", "pokedexId": 512 },
+        { "name": "Unfezant", "pokedexId": 521 },
+        { "name": "Gigalith", "pokedexId": 526 },
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Emboar", "pokedexId": 500 }
+      ]
     }
   ],
   "hack-trainers": [
