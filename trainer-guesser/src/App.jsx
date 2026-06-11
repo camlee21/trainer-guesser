@@ -426,7 +426,7 @@ export default function App() {
           {/* RIGHT — Twitter + Ko-fi */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <a
-              href="https://x.com/drag1ash"
+              href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
               title="Twitter / X"
@@ -510,7 +510,7 @@ export default function App() {
             reveal more clues to you, such as the revealed Pokémon team, the game of origin, the type
             of trainer, and finally, the trainer's appearance. Trainers range from easy to hard in
             difficulty; some days your game knowledge will really be tested! I am always trying to add
-            more trainers and improve the website - if you have any feedback or suggestions please DM
+            more trainers and improve the website — if you have any feedback or suggestions please DM
             me on Twitter, linked above. Have a great day, and good luck!
           </p>
         )}
@@ -584,7 +584,7 @@ const GEN_MAP = {
   'Gen 9': ['Scarlet/Violet', 'Legends Z-A'],
 }
 
-function GameFilter({ allGames, selectedGames, toggleGame, replaceSelectedGames, selectAllGames, activePool }) {
+function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool }) {
   const [activeGens, setActiveGens] = useState(new Set())
 
   const displayMap = {
@@ -670,7 +670,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, replaceSelectedGames,
 
     const newSet = new Set(allGames.filter(game => targetLabels.has(rawToDisplay[game] || game)))
     if (newSet.size === 0) return
-    replaceSelectedGames(newSet)
+    setSelectedGames(newSet)
 
     setActiveGens(newActiveGens)
   }
@@ -748,7 +748,7 @@ function GameFilter({ allGames, selectedGames, toggleGame, replaceSelectedGames,
 
 function InfiniteMode({ onResetSession }) {
   const {
-    allGames, selectedGames, toggleGame, replaceSelectedGames, selectAllGames, activePool,
+    allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
     rounds,
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
@@ -786,7 +786,7 @@ function InfiniteMode({ onResetSession }) {
           allGames={allGames}
           selectedGames={selectedGames}
           toggleGame={toggleGame}
-          replaceSelectedGames={replaceSelectedGames}
+          setSelectedGames={setSelectedGames}
           selectAllGames={selectAllGames}
           activePool={activePool}
         />

@@ -112,6 +112,7 @@ export function useInfiniteMode() {
     allGames: ALL_GAMES,
     selectedGames,
     toggleGame,
+    setSelectedGames,
     selectAllGames,
     activePool,
     rounds,
