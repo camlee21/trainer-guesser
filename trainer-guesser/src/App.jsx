@@ -85,9 +85,9 @@ const DEFAULT_ACCENT = '#72a4f2'
 
 // Each preset bg colour paired with a complementary accent colour
 const PRESETS = [
-  { bg: '#0d1b2a', accent: '#72a4f2', label: 'Navy' },
+  { bg: '#203c5b', accent: '#72a4f2', label: 'Navy' },
   { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
-  { bg: '#121212', accent: '#a855f7', label: 'Black' },
+  { bg: '#403b3b', accent: '#000000', label: 'Black' },
   { bg: '#1e3a8a', accent: '#60c0f8', label: 'Blue' },
   { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
   { bg: '#7f1d1d', accent: '#fb923c', label: 'Red' },
