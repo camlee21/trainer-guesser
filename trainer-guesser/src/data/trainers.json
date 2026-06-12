@@ -531,6 +531,21 @@
       ]
     },
     {
+      "id": "winona",
+      "name": "Winona",
+      "game": "Emerald",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/winona.png",
+      "team": [
+        { "name": "Swablu", "pokedexId": 333 },
+        { "name": "Tropius", "pokedexId": 357 },
+        { "name": "Pelipper", "pokedexId": 279 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Altaria", "pokedexId": 334 }
+      ]
+    },
+    {
       "id": "tate&liza",
       "name": "Tate & Liza",
       "game": "Emerald",
@@ -2782,6 +2797,19 @@
         { "name": "Haxorus", "pokedexId": 612 },
         { "name": "Emboar", "pokedexId": 500 }
       ]
+    },
+    {
+      "id": "charles",
+      "name": "Charles",
+      "game": "Black2/White2",
+      "difficulty": "hard",
+      "type": "motorcyclist",
+      "trainerSpriteUrl": "/sprites/trainers/charles.png",
+      "team": [
+        { "name": "Tirtouga", "pokedexId": 564 },
+        { "name": "Sigilyph", "pokedexId": 561 },
+        { "name": "Archen", "pokedexId": 566 }
+      ]
     }
   ],
   "hack-trainers": [
@@ -2975,6 +3003,134 @@
         { "name": "Rotom-Heat", "pokedexId": 479 },
         { "name": "Luxray", "pokedexId": 405 },
         { "name": "Electivire", "pokedexId": 466 }
+      ]
+    },
+    {
+      "id": "brawly_rb",
+      "name": "Brawly",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brawley.png",
+      "team": [
+        { "name": "Kubfu", "pokedexId": 891 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Combusken", "pokedexId": 256 },
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Poliwhirl", "pokedexId": 61 },
+        { "name": "Scraggy", "pokedexId": 559 }
+      ]
+    },
+    {
+      "id": "roxanne_rb",
+      "name": "Roxanne",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/roxanne.png",
+      "team": [
+        { "name": "Bisharp", "pokedexId": 625 },
+        { "name": "Zygarde-10%", "pokedexId": 718 },
+        { "name": "Aurorus", "pokedexId": 699 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Lunatone", "pokedexId": 337 },
+        { "name": "Solrock", "pokedexId": 338 }
+      ]
+    },
+    {
+      "id": "wattson_rb",
+      "name": "Wattson",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/wattson.png",
+      "team": [
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Lanturn", "pokedexId": 171 },
+        { "name": "Rotom-Fan", "pokedexId": 479 },
+        { "name": "Zeraora", "pokedexId": 807 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Ampharos", "pokedexId": 181 }
+      ]
+    },
+    {
+      "id": "norman_rb",
+      "name": "Norman",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/norman.png",
+      "team": [
+        { "name": "Porygon2", "pokedexId": 233 },
+        { "name": "Azumarill", "pokedexId": 184 },
+        { "name": "Diggersby", "pokedexId": 660 },
+        { "name": "Meloetta", "pokedexId": 648 },
+        { "name": "Cinccino", "pokedexId": 573 },
+        { "name": "Pidgeot", "pokedexId": 18 }
+      ]
+    },
+    {
+      "id": "flannery_rb",
+      "name": "Flannery",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/flannery.png",
+      "team": [
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Salazzle", "pokedexId": 758 },
+        { "name": "Entei", "pokedexId": 244 },
+        { "name": "Incineroar", "pokedexId": 727 },
+        { "name": "Talonflame", "pokedexId": 663 },
+        { "name": "Alolan-Marowak", "pokedexId": 105 }
+      ]
+    },
+    {
+      "id": "winona_rb",
+      "name": "Winona",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/winona.png",
+      "team": [
+        { "name": "Staraptor", "pokedexId": 398 },
+        { "name": "Volcarona", "pokedexId": 637 },
+        { "name": "Hawlucha", "pokedexId": 701 },
+        { "name": "Celesteela", "pokedexId": 797 },
+        { "name": "Shaymin-Sky", "pokedexId": 492 },
+        { "name": "Altaria", "pokedexId": 334 }
+      ]
+    },
+    {
+      "id": "juan_rb",
+      "name": "Juan",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/juan.png",
+      "team": [
+        { "name": "Sneasler", "pokedexId": 903 },
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Keldeo", "pokedexId": 647 },
+        { "name": "Salamence", "pokedexId": 373 },
+        { "name": "Basculegion", "pokedexId": 902 },
+        { "name": "Glastrier", "pokedexId": 896 }
+      ]
+    },
+    {
+      "id": "wallace_rb",
+      "name": "Wallace",
+      "game": "Run and Bun",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/wallace.png",
+      "team": [
+        { "name": "Kyogre", "pokedexId": 382 },
+        { "name": "Barraskewda", "pokedexId": 847 },
+        { "name": "Hisuian-Goodra", "pokedexId": 706 },
+        { "name": "Palkia", "pokedexId": 484 },
+        { "name": "Manaphy", "pokedexId": 490 },
+        { "name": "Swampert", "pokedexId": 260 }
       ]
     }
   ]
