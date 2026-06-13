@@ -2821,6 +2821,60 @@
       "team": [
         { "name": "Rattata", "pokedexId": 19 }
       ]
+    },
+    {
+      "id": "rose",
+      "name": "Chairman Rose",
+      "game": "Sword/Shield",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/rose.png",
+      "team": [
+        { "name": "Escavalier", "pokedexId": 589 },
+        { "name": "Ferrothorn", "pokedexId": 598 },
+        { "name": "Perrserker", "pokedexId": 863 },
+        { "name": "Klinklang", "pokedexId": 601 },
+        { "name": "Copperajah", "pokedexId": 879 }
+      ]
+    },
+    {
+      "id": "adaman",
+      "name": "Adaman",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "clan_leader",
+      "trainerSpriteUrl": "/sprites/trainers/adaman.png",
+      "team": [
+        { "name": "Leafeon", "pokedexId": 470 },
+        { "name": "Umbreon", "pokedexId": 197 },
+        { "name": "Vaporeon", "pokedexId": 134 }
+      ]
+    },
+    {
+      "id": "irida",
+      "name": "Irida",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "clan_leader",
+      "trainerSpriteUrl": "/sprites/trainers/irida.png",
+      "team": [
+        { "name": "Glaceon", "pokedexId": 471 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Flareon", "pokedexId": 136 }
+      ]
+    },
+    {
+      "id": "tarragon",
+      "name": "Tarragon",
+      "game": "Legends Z-A",
+      "difficulty": "hard",
+      "type": "DYN4MO",
+      "trainerSpriteUrl": "/sprites/trainers/tarragon.png",
+      "team": [
+        { "name": "Hippowdon", "pokedexId": 450 },
+        { "name": "Diggersby", "pokedexId": 660 },
+        { "name": "Excadrill", "pokedexId": 530 }
+      ]
     }
   ],
   "hack-trainers": [
