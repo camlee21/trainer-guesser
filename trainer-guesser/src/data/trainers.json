@@ -2810,6 +2810,17 @@
         { "name": "Sigilyph", "pokedexId": 561 },
         { "name": "Archen", "pokedexId": 566 }
       ]
+    },
+    {
+      "id": "joey",
+      "name": "Youngster Joey",
+      "game": "Gold/Silver",
+      "difficulty": "easy",
+      "type": "youngster",
+      "trainerSpriteUrl": "/sprites/trainers/joey.png",
+      "team": [
+        { "name": "Rattata", "pokedexId": 19 }
+      ]
     }
   ],
   "hack-trainers": [
