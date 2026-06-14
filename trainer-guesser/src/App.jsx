@@ -83,7 +83,7 @@ function applyBackground(hex, accentHex) {
 const DEFAULT_COLOR = '#0d1b2a'
 const DEFAULT_ACCENT = '#72a4f2'
 
-// Each preset bg colour paired with a complementary accent colour
+// Each preset background colour paired with a complementary accent colour
 const PRESETS = [
   { bg: '#203c5b', accent: '#72a4f2', label: 'Navy' },
   { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
