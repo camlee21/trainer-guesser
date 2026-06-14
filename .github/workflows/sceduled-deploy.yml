@@ -1,0 +1,30 @@
+name: Scheduled Deploy
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Check for recent commits
+        id: check
+        run: |
+          LAST_COMMIT=$(git log -1 --format="%ct")
+          NOW=$(date +%s)
+          DIFF=$((NOW - LAST_COMMIT))
+          if [ $DIFF -le 86400 ]; then
+            echo "new_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "new_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trigger Vercel Deploy
+        if: steps.check.outputs.new_changes == 'true'
+        run: curl -X https://api.vercel.com/v1/integrations/deploy/prj_vzQbAt5uW96ipBwvh7fWTa3NhjlQ/dKf1bPTprp
