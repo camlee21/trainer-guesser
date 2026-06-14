@@ -33,4 +33,4 @@ jobs:
 
       - name: Trigger Vercel Deploy
         if: steps.check.outputs.new_changes == 'true'
-        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_vzQbAt5uW96ipBwvh7fWTa3NhjlQ/dKf1bPTprp
+        run: curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_vzQbAt5uW96ipBwvh7fWTa3NhjlQ/dKf1bPTprp?forceNew=1"
