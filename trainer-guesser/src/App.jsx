@@ -426,7 +426,7 @@ export default function App() {
           {/* RIGHT — Twitter + Ko-fi */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <a
-              href="https://twitter.com"
+              href="https://x.com/drag1ash"
               target="_blank"
               rel="noopener noreferrer"
               title="Twitter / X"
