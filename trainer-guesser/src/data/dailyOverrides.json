@@ -1,0 +1,19 @@
+{
+  "2025-06-19": {
+    "providedBy": "Test",
+    "providedLink": "https://x.com/drag1ash",
+    "trainer": {
+      "id": "irida",
+      "name": "Irida",
+      "game": "Legends Arceus",
+      "difficulty": "hard",
+      "type": "clan_leader",
+      "trainerSpriteUrl": "/sprites/trainers/irida.png",
+      "team": [
+        { "name": "Glaceon", "pokedexId": 471 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Flareon", "pokedexId": 136 }
+      ]
+    }
+  }
+}
