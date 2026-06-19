@@ -80,7 +80,7 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--accent-text', dark ? '#ffffff' : '#ffffff')
 }
 
-const DEFAULT_COLOR = '#0d1b2a'
+const DEFAULT_COLOR = '#203c5b'
 const DEFAULT_ACCENT = '#72a4f2'
 
 // Each preset background colour paired with a complementary accent colour
