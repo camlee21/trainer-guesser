@@ -859,3 +859,70 @@ img {
     height: 44px;
   }
 }
+
+/* ── Day badge (Daily Mode) ── */
+.trainer-frame-wrapper {
+  position: relative;
+}
+
+.day-badge {
+  position: absolute;
+  bottom: calc(100% - 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  background: var(--bg-main);
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
+  padding: 0.4rem 0.9rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 12px var(--accent-glow);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  max-width: calc(100% - 1rem);
+}
+
+.day-badge-number {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+
+.day-badge-provided {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.day-badge-provided a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.day-badge-provided a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .day-badge {
+    padding: 0.32rem 0.7rem;
+    gap: 0.15rem;
+  }
+  .day-badge-number {
+    font-size: 0.6rem;
+  }
+  .day-badge-provided {
+    font-size: 0.62rem;
+    max-width: 160px;
+  }
+}

@@ -266,6 +266,26 @@ function ColourPicker({ color, accent, onBgChange, onAccentChange }) {
   )
 }
 
+function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
+  return (
+    <div className="day-badge">
+      <span className="day-badge-number">Day #{dayNumber}</span>
+      {isProvided && providedBy && (
+        <span className="day-badge-provided">
+          provided by{' '}
+          {providedLink ? (
+            <a href={providedLink} target="_blank" rel="noopener noreferrer">
+              {providedBy}
+            </a>
+          ) : (
+            providedBy
+          )}
+        </span>
+      )}
+    </div>
+  )
+}
+
 function DailyMode() {
   const trainer = useDailyTrainer()
   const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed } = usePersistedGameState()
@@ -307,20 +327,28 @@ function DailyMode() {
   return (
     <main className="main-layout">
       <div className="trainer-panel">
-        <div className="trainer-frame">
-          {showTrainer ? (
-            <img
-              draggable="false"
-              src={trainer.trainerSpriteUrl}
-              alt="trainer"
-              className="trainer-sprite"
-              style={{ filter: trainerFilter }}
-            />
-          ) : (
-            <div className="trainer-placeholder">
-              <span>?</span>
-            </div>
-          )}
+        <div className="trainer-frame-wrapper">
+          <DayBadge
+            dayNumber={trainer.dayNumber}
+            isProvided={trainer.isProvided}
+            providedBy={trainer.providedBy}
+            providedLink={trainer.providedLink}
+          />
+          <div className="trainer-frame">
+            {showTrainer ? (
+              <img
+                draggable="false"
+                src={trainer.trainerSpriteUrl}
+                alt="trainer"
+                className="trainer-sprite"
+                style={{ filter: trainerFilter }}
+              />
+            ) : (
+              <div className="trainer-placeholder">
+                <span>?</span>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="trainer-info">
