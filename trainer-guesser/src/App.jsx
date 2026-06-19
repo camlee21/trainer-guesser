@@ -846,7 +846,7 @@ function InfiniteMode({ onResetSession }) {
     <div className="inf-root" style={{ width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <button onClick={handleBackToFilters} className="back-btn">
-          ← Back to Filters
+          ← Back to Game Select
         </button>
       </div>
 
