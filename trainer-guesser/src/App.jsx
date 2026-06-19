@@ -522,10 +522,11 @@ export default function App() {
   )
 }
 
-function CompletedRound({ round }) {
+function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
   const { trainer, guesses, gameOver, hints } = round
   const trainerFilter = hints >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = hints >= 3
+  const points = scoreForRound(guesses, gameOver)
 
   return (
     <div className="inf-round inf-round--completed" style={{ marginBottom: '40px' }}>
@@ -555,8 +556,11 @@ function CompletedRound({ round }) {
 
         <div className="right-panel">
           <TeamGrid team={trainer.team} revealed={hints >= 1} />
-          <div className={`result-banner ${gameOver} inf-result-banner`}>
-            {gameOver === 'won' ? `✓ ${trainer.name}` : `✗ ${trainer.name}`}
+          <div className="inf-result-banner-row">
+            <div className={`result-banner ${gameOver} inf-result-banner`} style={{ flex: 1 }}>
+              {gameOver === 'won' ? `✓ ${trainer.name}` : `✗ ${trainer.name}`}
+            </div>
+            <div className="round-score-tag">{points}/{MAX_GUESSES}</div>
           </div>
           <div className="guess-history">
             {guesses.map((g, i) => (
@@ -746,6 +750,36 @@ function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, sel
   )
 }
 
+function ScrollToTopButton() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    function handleScroll() {
+      setVisible(window.scrollY > 300)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <button
+      onClick={scrollToTop}
+      className={`scroll-top-btn ${visible ? 'visible' : ''}`}
+      title="Back to top"
+      aria-label="Scroll to top"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </button>
+  )
+}
+
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
@@ -753,6 +787,7 @@ function InfiniteMode({ onResetSession }) {
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
     MAX_GUESSES,
+    totalScore, totalPossible, scoreForRound,
   } = useInfiniteMode()
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -778,6 +813,10 @@ function InfiniteMode({ onResetSession }) {
 
   const trainerFilter = currentHints >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = currentHints >= 3
+
+  // Current round's live score-in-progress, shown alongside the running total
+  const liveTotal = totalScore
+  const liveTotalPossible = totalPossible
 
   if (!isPlaying) {
     return (
@@ -805,96 +844,111 @@ function InfiniteMode({ onResetSession }) {
 
   return (
     <div className="inf-root" style={{ width: '100%' }}>
-      <div style={{ marginBottom: '24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <button onClick={handleBackToFilters} className="back-btn">
           ← Back to Filters
         </button>
       </div>
 
-      <div className="inf-scroll" ref={scrollRef}>
-        {rounds.map((round, i) => (
-          <CompletedRound key={i} round={round} />
-        ))}
+      <div className="inf-layout-with-score">
+        <div className="inf-scroll" ref={scrollRef}>
+          {rounds.map((round, i) => (
+            <CompletedRound key={i} round={round} scoreForRound={scoreForRound} MAX_GUESSES={MAX_GUESSES} />
+          ))}
 
-        <div
-          ref={currentRef}
-          className={`inf-round inf-round--current ${isTransitioning ? 'inf-round--exiting' : 'inf-round--entering'}`}
-        >
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '32px 0 20px 0', position: 'relative'
-          }}>
-            <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
-            <span className="round-label">
-              Round {rounds.length + 1}
-            </span>
-          </div>
+          <div
+            ref={currentRef}
+            className={`inf-round inf-round--current ${isTransitioning ? 'inf-round--exiting' : 'inf-round--entering'}`}
+          >
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '32px 0 20px 0', position: 'relative'
+            }}>
+              <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
+              <span className="round-label">
+                Round {rounds.length + 1}
+              </span>
+            </div>
 
-          <div className="inf-round-inner main-layout">
-            <div className="trainer-panel">
-              <div className="trainer-frame">
-                {showTrainer ? (
-                  <img
-                    draggable="false"
-                    src={currentTrainer.trainerSpriteUrl}
-                    alt="trainer"
-                    className="trainer-sprite"
-                    style={{ filter: trainerFilter }}
-                  />
+            <div className="inf-round-inner main-layout">
+              <div className="trainer-panel">
+                <div className="trainer-frame">
+                  {showTrainer ? (
+                    <img
+                      draggable="false"
+                      src={currentTrainer.trainerSpriteUrl}
+                      alt="trainer"
+                      className="trainer-sprite"
+                      style={{ filter: trainerFilter }}
+                    />
+                  ) : (
+                    <div className="trainer-placeholder"><span>?</span></div>
+                  )}
+                </div>
+                <div className="trainer-info">
+                  <div className={`difficulty-badge ${currentTrainer.difficulty}`}>
+                    Difficulty: {currentTrainer.difficulty.charAt(0).toUpperCase() + currentTrainer.difficulty.slice(1)}
+                  </div>
+                  {currentHints >= 2 && <div className="info-pill">Game: {currentTrainer.game}</div>}
+                  {currentHints >= 3 && <div className="info-pill">Type: {toTitleCase(currentTrainer.type)}</div>}
+                </div>
+              </div>
+
+              <div className="right-panel">
+                <TeamGrid team={currentTrainer.team} revealed={currentHints >= 1} />
+
+                {!currentGameOver ? (
+                  <div className="guess-section">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <button className="pass-btn" onClick={handlePass}>Pass</button>
+                      <GuessInput onGuess={handleGuess} disabled={!!currentGameOver} />
+                    </div>
+                    <div className="guess-counter">
+                      {MAX_GUESSES - currentGuesses.length} guess{MAX_GUESSES - currentGuesses.length !== 1 ? 'es' : ''} remaining
+                    </div>
+                  </div>
                 ) : (
-                  <div className="trainer-placeholder"><span>?</span></div>
+                  <div className="inf-gameover-row">
+                    <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
+                      {currentGameOver === 'won'
+                        ? `You got it! It was ${currentTrainer.name}!`
+                        : `Game Over! It was ${currentTrainer.name}!`}
+                    </div>
+                    <div className="round-score-tag">
+                      {scoreForRound(currentGuesses, currentGameOver)}/{MAX_GUESSES}
+                    </div>
+                    <button className="primary-btn next-btn" onClick={advanceRound}>
+                      Next Round →
+                    </button>
+                  </div>
+                )}
+
+                {currentGuesses.length > 0 && (
+                  <div className="guess-history">
+                    {currentGuesses.map((g, i) => (
+                      <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
+                        <span>{g.correct ? '✓' : '✗'}</span>
+                        {g.label}
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-              <div className="trainer-info">
-                <div className={`difficulty-badge ${currentTrainer.difficulty}`}>
-                  Difficulty: {currentTrainer.difficulty.charAt(0).toUpperCase() + currentTrainer.difficulty.slice(1)}
-                </div>
-                {currentHints >= 2 && <div className="info-pill">Game: {currentTrainer.game}</div>}
-                {currentHints >= 3 && <div className="info-pill">Type: {toTitleCase(currentTrainer.type)}</div>}
-              </div>
-            </div>
-
-            <div className="right-panel">
-              <TeamGrid team={currentTrainer.team} revealed={currentHints >= 1} />
-
-              {!currentGameOver ? (
-                <div className="guess-section">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <button className="pass-btn" onClick={handlePass}>Pass</button>
-                    <GuessInput onGuess={handleGuess} disabled={!!currentGameOver} />
-                  </div>
-                  <div className="guess-counter">
-                    {MAX_GUESSES - currentGuesses.length} guess{MAX_GUESSES - currentGuesses.length !== 1 ? 'es' : ''} remaining
-                  </div>
-                </div>
-              ) : (
-                <div className="inf-gameover-row">
-                  <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
-                    {currentGameOver === 'won'
-                      ? `You got it! It was ${currentTrainer.name}!`
-                      : `Game Over! It was ${currentTrainer.name}!`}
-                  </div>
-                  <button className="primary-btn next-btn" onClick={advanceRound}>
-                    Next Round →
-                  </button>
-                </div>
-              )}
-
-              {currentGuesses.length > 0 && (
-                <div className="guess-history">
-                  {currentGuesses.map((g, i) => (
-                    <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
-                      <span>{g.correct ? '✓' : '✗'}</span>
-                      {g.label}
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
+          <div style={{ height: '60px' }} />
         </div>
-        <div style={{ height: '60px' }} />
+
+        {/* Score sidebar — always visible, sticky on desktop */}
+        <div className="inf-score-sidebar">
+          <div className="score-badge">
+            <span className="score-badge-label">Score</span>
+            <span className="score-badge-value">{liveTotal}/{liveTotalPossible}</span>
+          </div>
+        </div>
       </div>
+
+      <ScrollToTopButton />
     </div>
   )
 }

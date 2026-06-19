@@ -740,3 +740,122 @@ img {
     text-align: left;
   }
 }
+
+/* ── Score badge (Infinite Mode) ── */
+.score-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 14px var(--accent-glow);
+  min-width: 88px;
+}
+
+.score-badge-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.score-badge-value {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.05rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
+  white-space: nowrap;
+}
+
+/* Sidebar placement on wide viewports: sits to the right of the round content */
+.inf-layout-with-score {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.inf-score-sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .inf-layout-with-score {
+    grid-template-columns: 1fr;
+  }
+  .inf-score-sidebar {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ── Per-round score tag (shown on completed rounds) ── */
+.round-score-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  white-space: nowrap;
+}
+
+.inf-result-banner-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Scroll-to-top button ── */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-border);
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 14px var(--accent-glow);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover {
+  background: var(--accent-bg);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .scroll-top-btn {
+    bottom: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+  }
+}

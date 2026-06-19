@@ -2,11 +2,21 @@ import { useState, useCallback } from 'react'
 import trainers from '../data/trainers.json'
 
 const ALL_GAMES = [...new Set(trainers.trainers.map(t => t.game))]
+const MAX_GUESSES = 5
 
 function pickRandom(pool, excludeId = null) {
   const filtered = excludeId ? pool.filter(t => t.id !== excludeId) : pool
   if (filtered.length === 0) return pool[Math.floor(Math.random() * pool.length)]
   return filtered[Math.floor(Math.random() * filtered.length)]
+}
+
+// Points awarded for a completed round: 5 minus the number of guesses used
+// (a "Pass" counts as a used guess), floored at 0. A first-guess win scores 5/5.
+function scoreForRound(guesses, gameOver) {
+  if (gameOver === 'won') {
+    return Math.max(0, MAX_GUESSES - (guesses.length - 1))
+  }
+  return 0
 }
 
 export function useInfiniteMode() {
@@ -21,9 +31,11 @@ export function useInfiniteMode() {
   const [currentGameOver, setCurrentGameOver] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const MAX_GUESSES = 5
-
   const activePool = trainers.trainers.filter(t => selectedGames.has(t.game))
+
+  // Running totals derived from completed rounds
+  const totalScore = rounds.reduce((sum, r) => sum + scoreForRound(r.guesses, r.gameOver), 0)
+  const totalPossible = rounds.length * MAX_GUESSES
 
   // Clear state and select a brand new starting trainer explicitly from the filtered pool
   const resetGame = useCallback(() => {
@@ -126,5 +138,8 @@ export function useInfiniteMode() {
     advanceRound,
     resetGame,
     MAX_GUESSES,
+    totalScore,
+    totalPossible,
+    scoreForRound,
   }
 }
