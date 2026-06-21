@@ -691,11 +691,21 @@ header {
 }
 
 /* ── Infinite mode gameover row ── */
+.inf-gameover-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .inf-gameover-row {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.inf-gameover-block .next-btn {
+  width: 100%;
 }
 
 /* ── Scrollbar ── */
@@ -784,6 +794,9 @@ img {
 .inf-score-sidebar {
   position: sticky;
   top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 @media (max-width: 860px) {
@@ -792,7 +805,7 @@ img {
   }
   .inf-score-sidebar {
     position: static;
-    display: flex;
+    flex-direction: row;
     justify-content: center;
     margin-bottom: 1rem;
   }
@@ -855,6 +868,50 @@ img {
   .scroll-top-btn {
     bottom: 18px;
     right: 18px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ── Scroll-to-bottom button ── */
+.scroll-bottom-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 88px;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-border);
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 14px var(--accent-glow);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+.scroll-bottom-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-bottom-btn:hover {
+  background: var(--accent-bg);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .scroll-bottom-btn {
+    bottom: 18px;
+    right: 70px;
     width: 44px;
     height: 44px;
   }

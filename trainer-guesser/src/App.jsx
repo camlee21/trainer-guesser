@@ -13,6 +13,12 @@ function toTitleCase(str) {
   )
 }
 
+function formatTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+}
+
 function hexToRgb(hex) {
   const h = hex.replace('#', '')
   return {
@@ -551,7 +557,7 @@ export default function App() {
 }
 
 function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
-  const { trainer, guesses, gameOver, hints } = round
+  const { trainer, guesses, gameOver, hints, elapsedSeconds } = round
   const trainerFilter = hints >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = hints >= 3
   const points = scoreForRound(guesses, gameOver)
@@ -589,6 +595,9 @@ function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
               {gameOver === 'won' ? `✓ ${trainer.name}` : `✗ ${trainer.name}`}
             </div>
             <div className="round-score-tag">{points}/{MAX_GUESSES}</div>
+            {typeof elapsedSeconds === 'number' && (
+              <div className="round-score-tag">{formatTime(elapsedSeconds)}</div>
+            )}
           </div>
           <div className="guess-history">
             {guesses.map((g, i) => (
@@ -808,6 +817,41 @@ function ScrollToTopButton() {
   )
 }
 
+function ScrollToBottomButton() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    function handleScroll() {
+      const scrolledFromBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight
+      setVisible(scrolledFromBottom > 300)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll, { passive: true })
+    handleScroll()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
+  }, [])
+
+  function scrollToBottom() {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
+  }
+
+  return (
+    <button
+      onClick={scrollToBottom}
+      className={`scroll-bottom-btn ${visible ? 'visible' : ''}`}
+      title="Scroll to bottom"
+      aria-label="Scroll to bottom"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
+  )
+}
+
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
@@ -816,6 +860,7 @@ function InfiniteMode({ onResetSession }) {
     handleGuess, handlePass, advanceRound, resetGame,
     MAX_GUESSES,
     totalScore, totalPossible, scoreForRound,
+    totalElapsedSeconds, roundElapsedSeconds, finalRoundElapsedSeconds, startTimer, stopTimer,
   } = useInfiniteMode()
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -827,6 +872,14 @@ function InfiniteMode({ onResetSession }) {
       currentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [rounds.length, isTransitioning, isPlaying])
+
+  useEffect(() => {
+    if (isPlaying) {
+      startTimer()
+    } else {
+      stopTimer()
+    }
+  }, [isPlaying, startTimer, stopTimer])
 
   const handleStartGame = () => {
     if (activePool.length === 0) return
@@ -936,14 +989,19 @@ function InfiniteMode({ onResetSession }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="inf-gameover-row">
-                    <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
-                      {currentGameOver === 'won'
-                        ? `You got it! It was ${currentTrainer.name}!`
-                        : `Game Over! It was ${currentTrainer.name}!`}
-                    </div>
-                    <div className="round-score-tag">
-                      {scoreForRound(currentGuesses, currentGameOver)}/{MAX_GUESSES}
+                  <div className="inf-gameover-block">
+                    <div className="inf-gameover-row">
+                      <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
+                        {currentGameOver === 'won'
+                          ? `You got it! It was ${currentTrainer.name}!`
+                          : `Game Over! It was ${currentTrainer.name}!`}
+                      </div>
+                      <div className="round-score-tag">
+                        {scoreForRound(currentGuesses, currentGameOver)}/{MAX_GUESSES}
+                      </div>
+                      <div className="round-score-tag">
+                        {formatTime(finalRoundElapsedSeconds ?? roundElapsedSeconds)}
+                      </div>
                     </div>
                     <button className="primary-btn next-btn" onClick={advanceRound}>
                       Next Round →
@@ -973,10 +1031,15 @@ function InfiniteMode({ onResetSession }) {
             <span className="score-badge-label">Score</span>
             <span className="score-badge-value">{liveTotal}/{liveTotalPossible}</span>
           </div>
+          <div className="score-badge">
+            <span className="score-badge-label">Time</span>
+            <span className="score-badge-value">{formatTime(totalElapsedSeconds)}</span>
+          </div>
         </div>
       </div>
 
       <ScrollToTopButton />
+      <ScrollToBottomButton />
     </div>
   )
 }
