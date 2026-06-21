@@ -204,7 +204,7 @@
       "trainerSpriteUrl": "/sprites/trainers/bugsy.png",
       "team": [
         { "name": "Metapod", "pokedexId": 11 },
-        { "name": "Kakuna", "pokedexId": 12 },
+        { "name": "Kakuna", "pokedexId": 14 },
         { "name": "Scyther", "pokedexId": 123 }
       ]
     },
