@@ -32,6 +32,11 @@ export default function HowToPlay() {
           <strong>Medium</strong>, or <strong>Hard</strong> based on how obscure they are, so some days
           will really test your knowledge!
         </p>
+
+        <p style={{ marginTop: '1rem' }}>
+          Also, this website was designed with a <strong>desktop</strong> in mind, so apologies if the UI isn't ideal for smartphones or tablets.
+          In the future I can focus more on the mobile layout if it is requested enough!
+        </p>
       </div>
     </main>
   )
