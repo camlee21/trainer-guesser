@@ -65,18 +65,18 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--accent-text', dark ? '#ffffff' : '#ffffff')
 }
 
-const DEFAULT_COLOR = '#203c5b'
-const DEFAULT_ACCENT = '#72a4f2'
+const DEFAULT_COLOR = '#1a3550'
+const DEFAULT_ACCENT = '#89b8ff'
 
 export const PRESETS = [
-  { bg: '#203c5b', accent: '#72a4f2', label: 'Navy' },
-  { bg: '#ffffff', accent: '#3b82f6', label: 'White' },
+  { bg: '#1a3550', accent: '#89b8ff', label: 'Navy' },
+  { bg: '#e8edf2', accent: '#2563eb', label: 'Slate' },
   { bg: '#403b3b', accent: '#000000', label: 'Black' },
-  { bg: '#1e3a8a', accent: '#60c0f8', label: 'Blue' },
-  { bg: '#064e3b', accent: '#4ade80', label: 'Green' },
-  { bg: '#7f1d1d', accent: '#fb923c', label: 'Red' },
-  { bg: '#fef08a', accent: '#ca8a04', label: 'Yellow' },
-  { bg: '#4c1d95', accent: '#f0abfc', label: 'Purple' },
+  { bg: '#172d6e', accent: '#60c0f8', label: 'Blue' },
+  { bg: '#053426', accent: '#34d399', label: 'Green' },
+  { bg: '#6b1a1a', accent: '#fca85f', label: 'Red' },
+  { bg: '#3d2c0a', accent: '#f59e0b', label: 'Amber' },
+  { bg: '#3b1680', accent: '#c4b5fd', label: 'Purple' },
 ]
 
 export function useTheme() {
