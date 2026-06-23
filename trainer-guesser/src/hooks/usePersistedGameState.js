@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react'
 
+const STORAGE_VERSION = __APP_VERSION__
+
 function getTodayKey() {
   const now = new Date()
   const yyyy = now.getUTCFullYear()
@@ -11,6 +13,12 @@ function getTodayKey() {
 
 export function usePersistedGameState() {
   const key = getTodayKey()
+
+  const storedVersion = localStorage.getItem('wtt-version')
+  if (storedVersion !== STORAGE_VERSION) {
+    localStorage.removeItem(key) // removes today's date-based key
+    localStorage.setItem('wtt-version', STORAGE_VERSION)
+  }
 
   const [guesses, setGuesses] = useState(() => {
     try {
