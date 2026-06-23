@@ -890,6 +890,21 @@
       ]
     },
     {
+      "id": "cyrus",
+      "name": "Cyrus",
+      "game": "Platinum",
+      "difficulty": "medium",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/cyrus.png",
+      "team": [
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Honchkrow", "pokedexId": 430 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Weavile", "pokedexId": 461 }
+      ]
+    },
+    {
       "id": "cynthia",
       "name": "Cynthia",
       "game": "Platinum",
