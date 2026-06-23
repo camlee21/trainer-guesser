@@ -1318,6 +1318,19 @@
       ]
     },
     {
+      "id": "zinzolin",
+      "name": "Zinzolin",
+      "game": "Black2/White2",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/zinzolin.png",
+      "team": [
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Weavile", "pokedexId": 461 }
+      ]
+    },
+    {
       "id": "ghetsis2",
       "name": "Ghetsis",
       "game": "Black2/White2",
