@@ -874,6 +874,22 @@
       ]
     },
     {
+      "id": "barry",
+      "name": "Barry",
+      "game": "Platinum",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/barry.png",
+      "team": [
+        { "name": "Staraptor", "pokedexId": 398 },
+        { "name": "Floatzel", "pokedexId": 419 },
+        { "name": "Snorlax", "pokedexId": 143 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Infernape", "pokedexId": 392 }
+      ]
+    },
+    {
       "id": "cynthia",
       "name": "Cynthia",
       "game": "Platinum",
@@ -1543,6 +1559,19 @@
         { "name": "Torkoal", "pokedexId": 324 },
         { "name": "Golurk", "pokedexId": 623 },
         { "name": "Sigilyph", "pokedexId": 561 }
+      ]
+    },
+    {
+      "id": "shauna",
+      "name": "Shauna",
+      "game": "X/Y",
+      "difficulty": "hard",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/shauna.png",
+      "team": [
+        { "name": "Delcatty", "pokedexId": 301 },
+        { "name": "Goodra", "pokedexId": 706 },
+        { "name": "Greninja", "pokedexId": 658 }
       ]
     },
     {
@@ -2877,6 +2906,22 @@
       ]
     }
   ],
+  "challenge-trainers": [
+    {
+      "id": "cheren_challenge",
+      "name": "Cheren",
+      "game": "Black2/White2 (Challenge Mode)",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cheren.png",
+      "team": [
+        { "name": "Patrat", "pokedexId": 504 },
+        { "name": "Pidove", "pokedexId": 519 },
+        { "name": "Lillipup", "pokedexId": 506 }
+      ]
+    }
+  ],
+
   "hack-trainers": [
     {
       "id": "roark_pk",
