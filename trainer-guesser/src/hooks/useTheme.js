@@ -69,14 +69,14 @@ const DEFAULT_COLOR = '#1a3550'
 const DEFAULT_ACCENT = '#89b8ff'
 
 export const PRESETS = [
-  { bg: '#1a3550', accent: '#89b8ff', label: 'Navy' },
-  { bg: '#e8edf2', accent: '#2563eb', label: 'Slate' },
-  { bg: '#403b3b', accent: '#000000', label: 'Black' },
+  { bg: '#1a3550', accent: '#89b8ff', label: 'Default' },
+  { bg: '#e8edf2', accent: '#7b96d1', label: 'Light' },
+  { bg: '#403b3b', accent: '#000000', label: 'Dark' },
   { bg: '#172d6e', accent: '#60c0f8', label: 'Blue' },
-  { bg: '#053426', accent: '#34d399', label: 'Green' },
-  { bg: '#6b1a1a', accent: '#fca85f', label: 'Red' },
-  { bg: '#3d2c0a', accent: '#f59e0b', label: 'Amber' },
-  { bg: '#3b1680', accent: '#c4b5fd', label: 'Purple' },
+  { bg: '#053426', accent: '#008a57', label: 'Green' },
+  { bg: '#6b1a1a', accent: '#bd5800', label: 'Red' },
+  { bg: '#4d3300', accent: '#3d2700', label: 'Brown' },
+  { bg: '#280f57', accent: '#957aff', label: 'Purple' },
 ]
 
 export function useTheme() {
