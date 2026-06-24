@@ -481,7 +481,7 @@
       "game": "Emerald",
       "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/brawley.png",
+      "trainerSpriteUrl": "/sprites/trainers/brawly.png",
       "team": [
         { "name": "Machop", "pokedexId": 66 },
         { "name": "Machop", "pokedexId": 66 },
