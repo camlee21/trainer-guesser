@@ -446,7 +446,7 @@ function GameFilter({
       {/* ── Pool count ── */}
       <div className="filter-divider" />
       <div className="filter-pool-count">
-        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current filters
+        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current selections
       </div>
     </div>
   )
