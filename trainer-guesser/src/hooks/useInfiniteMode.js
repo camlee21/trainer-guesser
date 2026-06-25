@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import trainers from '../data/trainers.json'
 
 const ALL_GAMES = [...new Set(trainers.trainers.map(t => t.game))]
+const ALL_DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
 const MAX_GUESSES = 5
 const MAX_TIMER_SECONDS = 3599
 
@@ -20,11 +21,9 @@ function scoreForRound(guesses, gameOver) {
 
 export function useInfiniteMode() {
   const [selectedGames, setSelectedGames] = useState(new Set(ALL_GAMES))
+  const [selectedDifficulties, setSelectedDifficulties] = useState(new Set(ALL_DIFFICULTIES))
   const [rounds, setRounds] = useState([])
-  const [currentTrainer, setCurrentTrainer] = useState(() => {
-    const pool = trainers.trainers
-    return pickRandom(pool)
-  })
+  const [currentTrainer, setCurrentTrainer] = useState(() => pickRandom(trainers.trainers))
   const [currentGuesses, setCurrentGuesses] = useState([])
   const [currentHints, setCurrentHints] = useState(0)
   const [currentGameOver, setCurrentGameOver] = useState(false)
@@ -40,7 +39,10 @@ export function useInfiniteMode() {
     currentGameOverRef.current = currentGameOver
   }, [currentGameOver])
 
-  const activePool = trainers.trainers.filter(t => selectedGames.has(t.game))
+  // Active pool: trainers matching both selected games AND selected difficulties
+  const activePool = trainers.trainers.filter(t =>
+    selectedGames.has(t.game) && selectedDifficulties.has(t.difficulty)
+  )
 
   const totalScore = rounds.reduce((sum, r) => sum + scoreForRound(r.guesses, r.gameOver), 0)
   const totalPossible = rounds.length * MAX_GUESSES
@@ -62,13 +64,8 @@ export function useInfiniteMode() {
     }
   }, [isTimerRunning])
 
-  const startTimer = useCallback(() => {
-    setIsTimerRunning(true)
-  }, [])
-
-  const stopTimer = useCallback(() => {
-    setIsTimerRunning(false)
-  }, [])
+  const startTimer = useCallback(() => setIsTimerRunning(true), [])
+  const stopTimer = useCallback(() => setIsTimerRunning(false), [])
 
   const resetGame = useCallback(() => {
     const pool = activePool.length > 0 ? activePool : trainers.trainers
@@ -99,6 +96,23 @@ export function useInfiniteMode() {
 
   function selectAllGames() {
     setSelectedGames(new Set(ALL_GAMES))
+  }
+
+  function toggleDifficulty(diff) {
+    setSelectedDifficulties(prev => {
+      const next = new Set(prev)
+      if (next.has(diff)) {
+        if (next.size <= 1) return prev // always keep at least one
+        next.delete(diff)
+      } else {
+        next.add(diff)
+      }
+      return next
+    })
+  }
+
+  function selectAllDifficulties() {
+    setSelectedDifficulties(new Set(ALL_DIFFICULTIES))
   }
 
   function handleGuess(selected) {
@@ -165,6 +179,9 @@ export function useInfiniteMode() {
     setSelectedGames,
     selectAllGames,
     activePool,
+    selectedDifficulties,
+    toggleDifficulty,
+    selectAllDifficulties,
     rounds,
     currentTrainer,
     currentGuesses,

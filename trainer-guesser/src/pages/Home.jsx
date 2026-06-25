@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react'
 import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
@@ -223,7 +222,33 @@ const GEN_MAP = {
   'Gen 9': ['Scarlet/Violet', 'Legends Z-A'],
 }
 
-function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool }) {
+const DIFFICULTIES = ['easy', 'medium', 'hard']
+
+const DIFFICULTY_STYLES = {
+  easy: {
+    active: 'rgba(74,222,128,0.18)',
+    activeBorder: 'rgba(74,222,128,0.45)',
+    activeColor: '#4ade80',
+    activeGlow: 'rgba(74,222,128,0.25)',
+  },
+  medium: {
+    active: 'rgba(251,191,36,0.18)',
+    activeBorder: 'rgba(251,191,36,0.45)',
+    activeColor: '#fbbf24',
+    activeGlow: 'rgba(251,191,36,0.25)',
+  },
+  hard: {
+    active: 'rgba(248,113,113,0.18)',
+    activeBorder: 'rgba(248,113,113,0.45)',
+    activeColor: '#f87171',
+    activeGlow: 'rgba(248,113,113,0.25)',
+  },
+}
+
+function GameFilter({
+  allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
+  selectedDifficulties, toggleDifficulty, selectAllDifficulties,
+}) {
   const [activeGens, setActiveGens] = useState(new Set())
 
   const displayMap = {
@@ -250,10 +275,8 @@ function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, sel
     }
   })
 
-  const buttonByLabel = {}
-  visibleButtons.forEach(b => { buttonByLabel[b.label] = b })
-
   const allSelected = selectedGames.size === allGames.length
+  const allDifficultiesSelected = selectedDifficulties.size === DIFFICULTIES.length
 
   const firstButtonGroup = visibleButtons[0]?.originals || []
   const isDeselectedState = selectedGames.size === firstButtonGroup.length &&
@@ -310,7 +333,6 @@ function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, sel
     const newSet = new Set(allGames.filter(game => targetLabels.has(rawToDisplay[game] || game)))
     if (newSet.size === 0) return
     setSelectedGames(newSet)
-
     setActiveGens(newActiveGens)
   }
 
@@ -320,66 +342,111 @@ function GameFilter({ allGames, selectedGames, toggleGame, setSelectedGames, sel
     )
   )
 
-
   return (
     <div className="game-filter-panel">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-        <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text)' }}>Filter Games</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
+
+      {/* ── Difficulty filter ── */}
+      <div className="filter-section">
+        <div className="filter-section-header">
+          <span className="filter-section-label">Difficulty</span>
           <button
-            onClick={handleSelectAll}
-            disabled={allSelected}
-            className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
+            onClick={selectAllDifficulties}
+            disabled={allDifficultiesSelected}
+            className={`filter-ctrl-btn ${allDifficultiesSelected ? 'disabled' : 'accent'}`}
           >
             Select All
           </button>
-          <button
-            onClick={handleDeselectAll}
-            disabled={isDeselectedState || allGames.length === 0}
-            className={`filter-ctrl-btn ${isDeselectedState || allGames.length === 0 ? 'disabled' : ''}`}
-          >
-            Deselect All
-          </button>
+        </div>
+        <div className="difficulty-filter-row">
+          {DIFFICULTIES.map(diff => {
+            const isActive = selectedDifficulties.has(diff)
+            const styles = DIFFICULTY_STYLES[diff]
+            const cantDeselect = isActive && selectedDifficulties.size <= 1
+            return (
+              <button
+                key={diff}
+                onClick={() => !cantDeselect && toggleDifficulty(diff)}
+                className={`difficulty-filter-btn ${isActive ? 'active' : ''} ${cantDeselect ? 'cant-deselect' : ''}`}
+                style={isActive ? {
+                  background: styles.active,
+                  borderColor: styles.activeBorder,
+                  color: styles.activeColor,
+                  boxShadow: `0 0 10px ${styles.activeGlow}`,
+                } : {}}
+                title={cantDeselect ? 'At least one difficulty must be selected' : ''}
+              >
+                {diff.charAt(0).toUpperCase() + diff.slice(1)}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px', paddingBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        {availableGens.map(gen => {
-          const isOn = activeGens.has(gen)
-          return (
+      {/* ── Divider ── */}
+      <div className="filter-divider" />
+
+      {/* ── Game / Generation filter ── */}
+      <div className="filter-section">
+        <div className="filter-section-header">
+          <span className="filter-section-label">Generation</span>
+          <div style={{ display: 'flex', gap: '8px' }}>
             <button
-              key={gen}
-              onClick={() => handleGenToggle(gen)}
-              className={`gen-filter-btn ${isOn ? 'active' : ''}`}
+              onClick={handleSelectAll}
+              disabled={allSelected}
+              className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
             >
-              {gen}
+              Select All
             </button>
-          )
-        })}
+            <button
+              onClick={handleDeselectAll}
+              disabled={isDeselectedState || allGames.length === 0}
+              className={`filter-ctrl-btn ${isDeselectedState || allGames.length === 0 ? 'disabled' : ''}`}
+            >
+              Deselect All
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+          {availableGens.map(gen => {
+            const isOn = activeGens.has(gen)
+            return (
+              <button
+                key={gen}
+                onClick={() => handleGenToggle(gen)}
+                className={`gen-filter-btn ${isOn ? 'active' : ''}`}
+              >
+                {gen}
+              </button>
+            )
+          })}
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {visibleButtons.map(group => {
+            const isActive = group.originals.every(g => selectedGames.has(g))
+            const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0)
+            return (
+              <button
+                key={group.label}
+                onClick={() => {
+                  handleGroupToggle(group)
+                  setActiveGens(new Set())
+                }}
+                className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
+              >
+                <span>{isActive ? '✓' : '＋'}</span>
+                {group.label}
+              </button>
+            )
+          })}
+        </div>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
-        {visibleButtons.map(group => {
-          const isActive = group.originals.every(g => selectedGames.has(g))
-          const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0)
-          return (
-            <button
-              key={group.label}
-              onClick={() => {
-                handleGroupToggle(group)
-                setActiveGens(new Set())
-              }}
-              className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
-            >
-              <span>{isActive ? '✓' : '＋'}</span>
-              {group.label}
-            </button>
-          )
-        })}
-      </div>
-
-      <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: '500' }}>
-        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current selections
+      {/* ── Pool count ── */}
+      <div className="filter-divider" />
+      <div className="filter-pool-count">
+        {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current filters
       </div>
     </div>
   )
@@ -453,6 +520,7 @@ function ScrollToBottomButton() {
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
+    selectedDifficulties, toggleDifficulty, selectAllDifficulties,
     rounds,
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
@@ -493,9 +561,6 @@ function InfiniteMode({ onResetSession }) {
   const trainerFilter = currentHints >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = currentHints >= 3
 
-  const liveTotal = totalScore
-  const liveTotalPossible = totalPossible
-
   if (!isPlaying) {
     return (
       <div className="inf-root">
@@ -506,6 +571,9 @@ function InfiniteMode({ onResetSession }) {
           setSelectedGames={setSelectedGames}
           selectAllGames={selectAllGames}
           activePool={activePool}
+          selectedDifficulties={selectedDifficulties}
+          toggleDifficulty={toggleDifficulty}
+          selectAllDifficulties={selectAllDifficulties}
         />
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
           <button
@@ -625,7 +693,7 @@ function InfiniteMode({ onResetSession }) {
         <div className="inf-score-sidebar">
           <div className="score-badge">
             <span className="score-badge-label">Score</span>
-            <span className="score-badge-value">{liveTotal}/{liveTotalPossible}</span>
+            <span className="score-badge-value">{totalScore}/{totalPossible}</span>
           </div>
           <div className="score-badge">
             <span className="score-badge-label">Time</span>
