@@ -435,7 +435,7 @@ function GameFilter({
                 }}
                 className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
               >
-                <span>{isActive ? '✓' : '＋'}</span>
+                <span>{isActive ? '✓' : '+'}</span>
                 {group.label}
               </button>
             )
