@@ -49,6 +49,7 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--panel-bg', `rgba(${r},${g},${b},${dark ? '0.75' : '0.55'})`)
   root.style.setProperty('--panel-border', dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.10)')
   root.style.setProperty('--input-bg', dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.05)')
+  root.style.setProperty('--badge-opacity', dark ? '1' : '2.5')
   root.style.setProperty('--text', text)
   root.style.setProperty('--text-dim', textDim)
   root.style.setProperty('--green', green)
@@ -56,6 +57,8 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--green-hover', greenHov)
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
+  root.style.setProperty('--badge-bg-opacity', dark ? '0.15' : '0.35')
+  root.style.setProperty('--badge-border-opacity', dark ? '0.3' : '0.6')
 
   root.style.setProperty('--accent', accentHex)
   root.style.setProperty('--accent-glow', accentGlow)

@@ -20,6 +20,8 @@
   --text-dim: #94a3b8;
   --bg-main: #0d1b2a;
   --bg-alt:  #1a2744;
+  --badge-bg-opacity: 0.15;
+  --badge-border-opacity: 0.3;
 
   /* Accent — default matches the original blue */
   --accent: #72a4f2;
@@ -245,20 +247,20 @@ header {
 }
 
 .difficulty-badge.easy {
-  background: rgba(74, 222, 128, 0.15);
-  border-color: rgba(74, 222, 128, 0.3);
+  background: rgba(74, 222, 128, var(--badge-bg-opacity));
+  border-color: rgba(74, 222, 128, var(--badge-border-opacity));
   color: var(--green);
 }
 
 .difficulty-badge.medium {
-  background: rgba(251, 191, 36, 0.15);
-  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, var(--badge-bg-opacity));
+  border-color: rgba(251, 191, 36, var(--badge-border-opacity));
   color: var(--gold);
 }
 
 .difficulty-badge.hard {
-  background: rgba(248, 113, 113, 0.15);
-  border-color: rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, var(--badge-bg-opacity));
+  border-color: rgba(248, 113, 113, var(--badge-border-opacity));
   color: var(--red);
 }
 
@@ -649,14 +651,14 @@ header {
 }
 
 .result-banner.won {
-  background: rgba(74, 222, 128, 0.15);
-  border: 1px solid rgba(74, 222, 128, 0.3);
+  background: rgba(74, 222, 128, var(--badge-bg-opacity));
+  border: 1px solid rgba(74, 222, 128, var(--badge-border-opacity));
   color: var(--green);
 }
 
 .result-banner.lost {
-  background: rgba(248, 113, 113, 0.15);
-  border: 1px solid rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, var(--badge-bg-opacity));
+  border: 1px solid rgba(248, 113, 113, var(--badge-border-opacity));
   color: var(--red);
 }
 
@@ -679,14 +681,14 @@ header {
 }
 
 .guess-chip.correct {
-  background: rgba(74, 222, 128, 0.12);
-  border: 1px solid rgba(74, 222, 128, 0.25);
+  background: rgba(74, 222, 128, var(--badge-bg-opacity));
+  border: 1px solid rgba(74, 222, 128, var(--badge-border-opacity));
   color: var(--green);
 }
 
 .guess-chip.wrong {
-  background: rgba(248, 113, 113, 0.1);
-  border: 1px solid rgba(248, 113, 113, 0.2);
+  background: rgba(248, 113, 113, var(--badge-bg-opacity));
+  border: 1px solid rgba(248, 113, 113, var(--badge-border-opacity));
   color: var(--red);
 }
 
