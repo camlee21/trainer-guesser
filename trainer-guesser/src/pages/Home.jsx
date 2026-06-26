@@ -248,6 +248,7 @@ const DIFFICULTY_STYLES = {
 function GameFilter({
   allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
   selectedDifficulties, toggleDifficulty, selectAllDifficulties,
+  enabledExtras, toggleExtra, EXTRAS_META,
 }) {
   const [activeGens, setActiveGens] = useState(new Set())
 
@@ -280,12 +281,13 @@ function GameFilter({
 
   const firstButtonGroup = visibleButtons[0]?.originals || []
   const isDeselectedState = selectedGames.size === firstButtonGroup.length &&
-    firstButtonGroup.every(g => selectedGames.has(g))
+    firstButtonGroup.every(g => selectedGames.has(g)) &&
+    enabledExtras.size === 0
 
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
     if (isCurrentlyActive) {
-      if (selectedGames.size - group.originals.length <= 0) return
+      if (selectedGames.size - group.originals.length <= 0 && enabledExtras.size === 0) return
     }
     group.originals.forEach(g => {
       const active = selectedGames.has(g)
@@ -303,6 +305,7 @@ function GameFilter({
       if (insideFirst && !isActive) toggleGame(g)
       else if (!insideFirst && isActive) toggleGame(g)
     })
+    enabledExtras.forEach(key => toggleExtra(key))
     setActiveGens(new Set())
   }
 
@@ -331,7 +334,7 @@ function GameFilter({
     newActiveGens.forEach(g => { (GEN_MAP[g] || []).forEach(l => targetLabels.add(l)) })
 
     const newSet = new Set(allGames.filter(game => targetLabels.has(rawToDisplay[game] || game)))
-    if (newSet.size === 0) return
+    if (newSet.size === 0 && enabledExtras.size === 0) return
     setSelectedGames(newSet)
     setActiveGens(newActiveGens)
   }
@@ -342,10 +345,11 @@ function GameFilter({
     )
   )
 
+  const extrasKeys = Object.keys(EXTRAS_META)
+
   return (
     <div className="game-filter-panel">
 
-      {/* ── Difficulty filter ── */}
       <div className="filter-section">
         <div className="filter-section-header">
           <span className="filter-section-label">Difficulty</span>
@@ -382,10 +386,8 @@ function GameFilter({
         </div>
       </div>
 
-      {/* ── Divider ── */}
       <div className="filter-divider" />
 
-      {/* ── Game / Generation filter ── */}
       <div className="filter-section">
         <div className="filter-section-header">
           <span className="filter-section-label">Generation</span>
@@ -425,7 +427,7 @@ function GameFilter({
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {visibleButtons.map(group => {
             const isActive = group.originals.every(g => selectedGames.has(g))
-            const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0)
+            const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0) && enabledExtras.size === 0
             return (
               <button
                 key={group.label}
@@ -443,7 +445,30 @@ function GameFilter({
         </div>
       </div>
 
-      {/* ── Pool count ── */}
+      <div className="filter-divider" />
+
+      <div className="filter-section">
+        <div className="filter-section-header">
+          <span className="filter-section-label">Extras</span>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {extrasKeys.map(key => {
+            const meta = EXTRAS_META[key]
+            const isActive = enabledExtras.has(key)
+            return (
+              <button
+                key={key}
+                onClick={() => toggleExtra(key)}
+                className={`extras-filter-btn ${isActive ? 'active' : ''}`}
+              >
+                <span>{isActive ? '✓' : '+'}</span>
+                {meta.label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
       <div className="filter-divider" />
       <div className="filter-pool-count">
         {activePool.length} trainer{activePool.length !== 1 ? 's' : ''} available with current selections
@@ -521,6 +546,7 @@ function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
     selectedDifficulties, toggleDifficulty, selectAllDifficulties,
+    enabledExtras, toggleExtra, EXTRAS_META,
     rounds,
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
@@ -574,6 +600,9 @@ function InfiniteMode({ onResetSession }) {
           selectedDifficulties={selectedDifficulties}
           toggleDifficulty={toggleDifficulty}
           selectAllDifficulties={selectAllDifficulties}
+          enabledExtras={enabledExtras}
+          toggleExtra={toggleExtra}
+          EXTRAS_META={EXTRAS_META}
         />
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
           <button
@@ -647,7 +676,12 @@ function InfiniteMode({ onResetSession }) {
                   <div className="guess-section">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <button className="pass-btn" onClick={handlePass}>Pass</button>
-                      <GuessInput onGuess={handleGuess} disabled={!!currentGameOver} />
+                      <GuessInput
+                        onGuess={handleGuess}
+                        disabled={!!currentGameOver}
+                        enabledExtras={enabledExtras}
+                        extrasMeta={EXTRAS_META}
+                      />
                     </div>
                     <div className="guess-counter">
                       {MAX_GUESSES - currentGuesses.length} guess{MAX_GUESSES - currentGuesses.length !== 1 ? 'es' : ''} remaining

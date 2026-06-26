@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import trainers from '../data/trainers.json'
 
-export default function GuessInput({ onGuess, disabled }) {
+export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(), extrasMeta = {} }) {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [selected, setSelected] = useState(null)
   const [highlightIndex, setHighlightIndex] = useState(-1)
 
-  const allTrainers = trainers.trainers.map(t => ({
+  const extraTrainerLists = Object.keys(extrasMeta)
+    .filter(key => enabledExtras.has(key))
+    .map(key => trainers[extrasMeta[key].dataKey] || [])
+
+  const allTrainers = [...trainers.trainers, ...extraTrainerLists.flat()].map(t => ({
     id: t.id,
     label: `${t.name} (${t.game})`,
   }))
@@ -64,7 +68,6 @@ export default function GuessInput({ onGuess, disabled }) {
   return (
     <div className="guess-input-wrapper">
       <div className="guess-row">
-        {/* Search input + dropdown */}
         <div className="search-container">
           <input
             type="text"
@@ -91,7 +94,6 @@ export default function GuessInput({ onGuess, disabled }) {
           )}
         </div>
 
-        {/* Guess button */}
         <button
           onClick={handleGuess}
           disabled={!selected || disabled}

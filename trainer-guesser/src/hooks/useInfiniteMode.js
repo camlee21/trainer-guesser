@@ -6,6 +6,11 @@ const ALL_DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
 const MAX_GUESSES = 5
 const MAX_TIMER_SECONDS = 3599
 
+const EXTRAS_META = {
+  romHacks: { key: 'romHacks', label: 'Rom Hacks', dataKey: 'hack-trainers' },
+  challengeMode: { key: 'challengeMode', label: 'B2W2 Challenge Mode', dataKey: 'challenge-trainers' },
+}
+
 function pickRandom(pool, excludeId = null) {
   const filtered = excludeId ? pool.filter(t => t.id !== excludeId) : pool
   if (filtered.length === 0) return pool[Math.floor(Math.random() * pool.length)]
@@ -22,6 +27,7 @@ function scoreForRound(guesses, gameOver) {
 export function useInfiniteMode() {
   const [selectedGames, setSelectedGames] = useState(new Set(ALL_GAMES))
   const [selectedDifficulties, setSelectedDifficulties] = useState(new Set(ALL_DIFFICULTIES))
+  const [enabledExtras, setEnabledExtras] = useState(new Set())
   const [rounds, setRounds] = useState([])
   const [currentTrainer, setCurrentTrainer] = useState(() => pickRandom(trainers.trainers))
   const [currentGuesses, setCurrentGuesses] = useState([])
@@ -39,10 +45,21 @@ export function useInfiniteMode() {
     currentGameOverRef.current = currentGameOver
   }, [currentGameOver])
 
-  // Active pool: trainers matching both selected games AND selected difficulties
-  const activePool = trainers.trainers.filter(t =>
-    selectedGames.has(t.game) && selectedDifficulties.has(t.difficulty)
-  )
+  const buildActivePool = useCallback(() => {
+    let base = trainers.trainers.filter(t =>
+      selectedGames.has(t.game) && selectedDifficulties.has(t.difficulty)
+    )
+    enabledExtras.forEach(key => {
+      const meta = EXTRAS_META[key]
+      if (meta && trainers[meta.dataKey]) {
+        const extra = trainers[meta.dataKey].filter(t => selectedDifficulties.has(t.difficulty))
+        base = [...base, ...extra]
+      }
+    })
+    return base
+  }, [selectedGames, selectedDifficulties, enabledExtras])
+
+  const activePool = buildActivePool()
 
   const totalScore = rounds.reduce((sum, r) => sum + scoreForRound(r.guesses, r.gameOver), 0)
   const totalPossible = rounds.length * MAX_GUESSES
@@ -85,7 +102,7 @@ export function useInfiniteMode() {
     setSelectedGames(prev => {
       const next = new Set(prev)
       if (next.has(game)) {
-        if (next.size <= 1) return prev
+        if (next.size <= 1 && enabledExtras.size === 0) return prev
         next.delete(game)
       } else {
         next.add(game)
@@ -102,7 +119,7 @@ export function useInfiniteMode() {
     setSelectedDifficulties(prev => {
       const next = new Set(prev)
       if (next.has(diff)) {
-        if (next.size <= 1) return prev // always keep at least one
+        if (next.size <= 1) return prev
         next.delete(diff)
       } else {
         next.add(diff)
@@ -113,6 +130,18 @@ export function useInfiniteMode() {
 
   function selectAllDifficulties() {
     setSelectedDifficulties(new Set(ALL_DIFFICULTIES))
+  }
+
+  function toggleExtra(key) {
+    setEnabledExtras(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) {
+        next.delete(key)
+      } else {
+        next.add(key)
+      }
+      return next
+    })
   }
 
   function handleGuess(selected) {
@@ -182,6 +211,9 @@ export function useInfiniteMode() {
     selectedDifficulties,
     toggleDifficulty,
     selectAllDifficulties,
+    enabledExtras,
+    toggleExtra,
+    EXTRAS_META,
     rounds,
     currentTrainer,
     currentGuesses,

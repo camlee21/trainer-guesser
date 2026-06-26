@@ -1130,6 +1130,35 @@ img {
   opacity: 0.7;
 }
 
+/* ── Extras filter buttons ── */
+.extras-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.extras-filter-btn.active {
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.extras-filter-btn:hover:not(.active) {
+  background-color: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.85);
+}
+
 @media (max-width: 480px) {
   .difficulty-filter-row {
     gap: 7px;

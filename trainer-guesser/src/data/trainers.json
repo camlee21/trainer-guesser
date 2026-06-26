@@ -2938,7 +2938,7 @@
     {
       "id": "cheren_challenge",
       "name": "Cheren",
-      "game": "Black2/White2 (Challenge Mode)",
+      "game": "Black2/White2 Challenge Mode",
       "difficulty": "hard",
       "type": "gym_leader",
       "trainerSpriteUrl": "/sprites/trainers/cheren.png",
