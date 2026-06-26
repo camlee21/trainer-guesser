@@ -5,6 +5,9 @@ import HowToPlay from './pages/HowToPlay'
 import Credits from './pages/Credits'
 import TrainerSuggestions from './pages/TrainerSuggestions'
 
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
+
 export default function App() {
   return (
     <Layout>
@@ -14,6 +17,8 @@ export default function App() {
         <Route path="/credits" element={<Credits />} />
         <Route path="/trainer-suggestions" element={<TrainerSuggestions />} />
       </Routes>
+      <Analytics />
+      <SpeedInsights />
     </Layout>
   )
 }
