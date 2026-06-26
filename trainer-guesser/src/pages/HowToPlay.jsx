@@ -36,8 +36,8 @@ export default function HowToPlay() {
         </p>
 
         <p style={{ marginTop: '1rem' }}>
-          <strong>Infinite mode</strong> lets you quiz yourself endlessly on all of the trainers in our database! You can filter the games by <strong>generation</strong>, or
-          select the <strong>specific games</strong> you'd like to be quizzed on. You will then be given trainers randomly from your filter pool, so there may be some repeats.
+          <strong>Infinite mode</strong> lets you quiz yourself endlessly on all of the trainers in our database! You can filter the trainers by their <strong>difficulty</strong> and 
+          the games by their <strong>generation</strong>, or you can select the <strong>specific games</strong> you'd like to be quizzed on. You will then be given trainers randomly from your filter pool, so there may be some repeats.
           Just for fun, your <strong>score</strong> (which is your concurrent tally of how many guesses you've required, one point off per incorrect guess) and a <strong>timer</strong> will 
           be displayed. Make up your own challenges, or try to get as many points as you can within a time duration of your choice!
         </p>
