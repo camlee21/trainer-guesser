@@ -280,9 +280,7 @@ function GameFilter({
   const allDifficultiesSelected = selectedDifficulties.size === DIFFICULTIES.length
 
   const firstButtonGroup = visibleButtons[0]?.originals || []
-  const isDeselectedState = selectedGames.size === firstButtonGroup.length &&
-    firstButtonGroup.every(g => selectedGames.has(g)) &&
-    enabledExtras.size === 0
+  const isDeselectedState = selectedGames.size === 0
 
   const handleGroupToggle = (group) => {
     const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
@@ -297,15 +295,7 @@ function GameFilter({
   }
 
   const handleDeselectAll = () => {
-    if (visibleButtons.length === 0) return
-    const firstGroup = visibleButtons[0].originals
-    allGames.forEach(g => {
-      const insideFirst = firstGroup.includes(g)
-      const isActive = selectedGames.has(g)
-      if (insideFirst && !isActive) toggleGame(g)
-      else if (!insideFirst && isActive) toggleGame(g)
-    })
-    enabledExtras.forEach(key => toggleExtra(key))
+    setSelectedGames(new Set())
     setActiveGens(new Set())
   }
 
