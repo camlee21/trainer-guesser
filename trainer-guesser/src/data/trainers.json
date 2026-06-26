@@ -3125,6 +3125,38 @@
       ]
     },
     {
+      "id": "gardenia_pk",
+      "name": "Gardenia",
+      "game": "Platinum Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/gardenia.png",
+      "team": [
+        { "name": "Miltank", "pokedexId": 241 },
+        { "name": "Rotom-Mow", "pokedexId": 479 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Torterra", "pokedexId": 389 }
+      ]
+    },
+    {
+      "id": "fantina_pk",
+      "name": "Fantina",
+      "game": "Platinum Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/fantina.png",
+      "team": [
+        { "name": "Froslass", "pokedexId": 478 },
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Rotom-Fan", "pokedexId": 479 },
+        { "name": "Mismagius", "pokedexId": 429 }
+      ]
+    },
+    {
       "id": "roxanne_ek",
       "name": "Roxanne",
       "game": "Emerald Kaizo",
@@ -3138,6 +3170,182 @@
         { "name": "Anorith", "pokedexId": 347 },
         { "name": "Shuckle", "pokedexId": 213 },
         { "name": "Lunatone", "pokedexId": 337 }
+      ]
+    },
+    {
+      "id": "brawly_ek",
+      "name": "Brawly",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brawly.png",
+      "team": [
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Meditite", "pokedexId": 307 },
+        { "name": "Poliwrath", "pokedexId": 62 },
+        { "name": "Hariyama", "pokedexId": 297 }
+      ]
+    },
+    {
+      "id": "wattson_ek",
+      "name": "Wattson",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/wattson.png",
+      "team": [
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Lanturn", "pokedexId": 171 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Electabuzz", "pokedexId": 125 },
+        { "name": "Manectric", "pokedexId": 310 }
+      ]
+    },
+    {
+      "id": "flannery_ek",
+      "name": "Flannery",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/flannery.png",
+      "team": [
+        { "name": "Ninetales", "pokedexId": 38 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Blaziken", "pokedexId": 257 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Typhlosion", "pokedexId": 157 },
+        { "name": "Castform", "pokedexId": 351 }
+      ]
+    },
+    {
+      "id": "norman_ek",
+      "name": "Norman",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/norman.png",
+      "team": [
+        { "name": "Slaking", "pokedexId": 289 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Kangaskhan", "pokedexId": 115 },
+        { "name": "Swellow", "pokedexId": 277 },
+        { "name": "Tauros", "pokedexId": 128 },
+        { "name": "Snorlax", "pokedexId": 143 }
+      ]
+    },
+    {
+      "id": "winona_ek",
+      "name": "Winona",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/winona.png",
+      "team": [
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Zapdos", "pokedexId": 145 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Articuno", "pokedexId": 144 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Moltres", "pokedexId": 146 }
+      ]
+    },
+    {
+      "id": "tate&liza_ek",
+      "name": "Tate & Liza",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/tateandliza.png",
+      "team": [
+        { "name": "Latias", "pokedexId": 380 },
+        { "name": "Latios", "pokedexId": 381 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Jirachi", "pokedexId": 385 }
+      ]
+    },
+    {
+      "id": "sidney_ek",
+      "name": "Sidney",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/sidney.png",
+      "team": [
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Tauros", "pokedexId": 128 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Houndoom", "pokedexId": 229 }
+      ]
+    },
+    {
+      "id": "phoebe_ek",
+      "name": "Phoebe",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/phoebe.png",
+      "team": [
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Dusclops", "pokedexId": 356 }
+      ]
+    },
+    {
+      "id": "glacia_ek",
+      "name": "Glacia",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/glacia.png",
+      "team": [
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Wailord", "pokedexId": 321 },
+        { "name": "Regice", "pokedexId": 378 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Swampert", "pokedexId": 260 },
+        { "name": "Lapras", "pokedexId": 131 }
+      ]
+    },
+    {
+      "id": "drake_ek",
+      "name": "Drake",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/drake.png",
+      "team": [
+        { "name": "Latios", "pokedexId": 381 },
+        { "name": "Tyranitar", "pokedexId": 248 },
+        { "name": "Salamence", "pokedexId": 373 },
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Latias", "pokedexId": 380 }
+      ]
+    },
+    {
+      "id": "steven_ek",
+      "name": "Steven",
+      "game": "Emerald Kaizo",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/steven.png",
+      "team": [
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Jirachi", "pokedexId": 385 },
+        { "name": "Mewtwo", "pokedexId": 150 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Deoxys", "pokedexId": 386 }
       ]
     },
     {
@@ -3306,7 +3514,7 @@
       "game": "Run and Bun",
       "difficulty": "medium",
       "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/brawley.png",
+      "trainerSpriteUrl": "/sprites/trainers/brawly.png",
       "team": [
         { "name": "Kubfu", "pokedexId": 891 },
         { "name": "Lopunny", "pokedexId": 428 },
