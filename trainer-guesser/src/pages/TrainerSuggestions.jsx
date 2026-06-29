@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 
 const MAX_LENGTHS = {
-  submitterName: 50,
-  submitterLink: 200,
-  trainerName: 50,
-  game: 50,
-  fightDetails: 500,
+  submitterName: 20,
+  submitterLink: 100,
+  trainerName: 40,
+  game: 30,
+  fightDetails: 50,
 }
 
 function loadScriptOnce(src) {
@@ -192,7 +192,7 @@ export default function TrainerSuggestions() {
           <textarea
             value={formData.fightDetails}
             onChange={handleChange('fightDetails')}
-            placeholder="Leave blank for the latest/most iconic fight, or describe a specific encounter (rematch, postgame, ROM hack version, etc.)"
+            placeholder="Want a specific fight, or one of my choosing?"
             className="form-textarea"
             maxLength={MAX_LENGTHS.fightDetails}
           />
