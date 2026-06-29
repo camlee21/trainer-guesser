@@ -15,5 +15,24 @@
         { "name": "Flareon", "pokedexId": 136 }
       ]
     }
+  },
+  "2026-06-30": {
+    "providedBy": "CraftingGummi",
+    "providedLink": "https://craftinggummi.tumblr.com",
+    "trainer": {
+      "id": "giacomo",
+      "name": "Giacomo",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "evil_team_boss",
+      "trainerSpriteUrl": "/sprites/trainers/giacomo.png",
+      "team": [
+        { "name": "Cacturne", "pokedexId": 332 },
+        { "name": "Honchkrow", "pokedexId": 430 },
+        { "name": "Mabosstiff", "pokedexId": 943 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Kingambit", "pokedexId": 983 }
+      ]
+    }
   }
 }
