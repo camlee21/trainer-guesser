@@ -56,6 +56,11 @@ export default function TrainerSuggestions() {
       return
     }
 
+    if (!formData.submitterName.trim()) {
+      setStatus({ type: 'error', message: 'Please leave a name for credit.' })
+      return
+    }
+
     setIsSubmitting(true)
     setStatus(null)
 
@@ -63,8 +68,7 @@ export default function TrainerSuggestions() {
       const payload = new FormData()
       payload.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY)
       payload.append('subject', "New Trainer Suggestion - Who's That Trainer?")
-      payload.append('from_name', formData.submitterName || 'Anonymous')
-      payload.append('Submitted By', formData.submitterName || 'Anonymous')
+      payload.append('Submitted By', formData.submitterName)
       payload.append('Link', formData.submitterLink || 'Not provided')
       payload.append('Trainer Name', formData.trainerName)
       payload.append('Game', formData.game)
