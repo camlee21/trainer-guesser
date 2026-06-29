@@ -54,5 +54,64 @@
         { "name": "Haxorus", "pokedexId": 612 }
       ]
     }
+  },
+  "2026-07-02": {
+    "providedBy": "Alyssa",
+    "providedLink": "",
+    "trainer": {
+      "id": "emma",
+      "name": "Emma",
+      "game": "Legends Z-A",
+      "difficulty": "hard",
+      "type": "other",
+      "trainerSpriteUrl": "/sprites/trainers/emma.png",
+      "team": [
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Malamar", "pokedexId": 687 }
+      ]
+    }
+  },
+  "2026-07-03": {
+    "providedBy": "Kell",
+    "providedLink": "",
+    "trainer": {
+      "id": "nemona",
+      "name": "Nemona",
+      "game": "Scarlet/Violet",
+      "difficulty": "medium",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/nemona.png",
+      "team": [
+        { "name": "Lycanroc-Midday", "pokedexId": 745 },
+        { "name": "Kommo-o", "pokedexId": 784 },
+        { "name": "Greninja", "pokedexId": 658 },
+        { "name": "Dusknoir", "pokedexId": 477 },
+        { "name": "Pawmot", "pokedexId": 923 },
+        { "name": "Skeledirge", "pokedexId": 911 }
+      ]
+    }
+  },
+  "2026-07-04": {
+    "providedBy": "Sniper",
+    "providedLink": "",
+    "trainer": {
+      "id": "bruno2",
+      "name": "Bruno",
+      "game": "Gold/Silver",
+      "difficulty": "medium",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/bruno_gs.png",
+      "team": [
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    }
   }
 }
