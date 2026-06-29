@@ -23,7 +23,7 @@ function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
       <span className="day-badge-number">Day #{dayNumber}</span>
       {isProvided && providedBy && (
         <span className="day-badge-provided">
-          provided by{' '}
+          requested by{' '}
           {providedLink ? (
             <a href={providedLink} target="_blank" rel="noopener noreferrer">
               {providedBy}
