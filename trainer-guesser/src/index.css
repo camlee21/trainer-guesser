@@ -1159,6 +1159,92 @@ img {
   color: rgba(255,255,255,0.85);
 }
 
+.suggestion-form {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 8px auto 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.form-textarea:focus {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-align: right;
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.form-status {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-status.success {
+  background: rgba(74, 222, 128, var(--badge-bg-opacity));
+  border: 1px solid rgba(74, 222, 128, var(--badge-border-opacity));
+  color: var(--green);
+}
+
+.form-status.error {
+  background: rgba(248, 113, 113, var(--badge-bg-opacity));
+  border: 1px solid rgba(248, 113, 113, var(--badge-border-opacity));
+  color: var(--red);
+}
+
 @media (max-width: 480px) {
   .difficulty-filter-row {
     gap: 7px;
@@ -1169,3 +1255,4 @@ img {
     gap: 5px;
   }
 }
+
