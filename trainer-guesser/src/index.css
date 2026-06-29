@@ -1245,6 +1245,15 @@ img {
   color: var(--red);
 }
 
+.suggestion-success-block {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 8px auto 0;
+}
+
 @media (max-width: 480px) {
   .difficulty-filter-row {
     gap: 7px;

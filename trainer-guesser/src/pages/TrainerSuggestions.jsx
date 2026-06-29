@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 
 const MAX_LENGTHS = {
   submitterName: 20,
@@ -7,15 +7,6 @@ const MAX_LENGTHS = {
   trainerName: 40,
   game: 30,
   fightDetails: 50,
-}
-
-function loadScriptOnce(src) {
-  if (document.querySelector(`script[src="${src}"]`)) return
-  const script = document.createElement('script')
-  script.src = src
-  script.async = true
-  script.defer = true
-  document.body.appendChild(script)
 }
 
 export default function TrainerSuggestions() {
@@ -30,11 +21,6 @@ export default function TrainerSuggestions() {
   const [status, setStatus] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const formRef = useRef(null)
-
-  useEffect(() => {
-    loadScriptOnce('https://web3forms.com/client/script.js')
-    loadScriptOnce('https://js.hcaptcha.com/1/api.js')
-  }, [])
 
   function handleChange(field) {
     return (e) => {
@@ -51,13 +37,13 @@ export default function TrainerSuggestions() {
       return
     }
 
-    if (!formData.trainerName.trim() || !formData.game.trim()) {
-      setStatus({ type: 'error', message: 'Please fill in the trainer name and game.' })
+    if (!formData.submitterName.trim()) {
+      setStatus({ type: 'error', message: 'Please leave a name for credit.' })
       return
     }
 
-    if (!formData.submitterName.trim()) {
-      setStatus({ type: 'error', message: 'Please leave a name for credit.' })
+    if (!formData.trainerName.trim() || !formData.game.trim()) {
+      setStatus({ type: 'error', message: 'Please fill in the trainer name and game.' })
       return
     }
 
@@ -67,15 +53,12 @@ export default function TrainerSuggestions() {
     try {
       const payload = new FormData()
       payload.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY)
-      payload.append('subject', "New Trainer Suggestion - Who's That Trainer?")
+      payload.append('subject', 'New Trainer Suggestion')
       payload.append('Submitted By', formData.submitterName)
       payload.append('Link', formData.submitterLink || 'Not provided')
       payload.append('Trainer Name', formData.trainerName)
       payload.append('Game', formData.game)
       payload.append('Specific Fight Details', formData.fightDetails || 'Latest / most iconic fight')
-
-      const hcaptchaField = formRef.current?.querySelector('[name="h-captcha-response"]')
-      if (hcaptchaField) payload.append('h-captcha-response', hcaptchaField.value)
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -95,7 +78,6 @@ export default function TrainerSuggestions() {
           fightDetails: '',
           botcheck: '',
         })
-        if (window.hcaptcha) window.hcaptcha.reset()
       } else {
         setStatus({ type: 'error', message: result.message || 'Something went wrong. Please try again.' })
       }
@@ -105,6 +87,8 @@ export default function TrainerSuggestions() {
       setIsSubmitting(false)
     }
   }
+
+  const isSuccess = status?.type === 'success'
 
   return (
     <main className="static-page">
@@ -117,100 +101,113 @@ export default function TrainerSuggestions() {
         <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
           Twitter
         </a>{' '}
-        directly.
+        directly, and you can be credited here! FYI, only main-series trainers are allowed - if you have any suggestions for Infinite mode, please contact my Twitter instead!
       </p>
 
-      <form ref={formRef} onSubmit={handleSubmit} className="suggestion-form">
-        <input
-          type="text"
-          name="botcheck"
-          value={formData.botcheck}
-          onChange={handleChange('botcheck')}
-          className="form-honeypot"
-          tabIndex="-1"
-          autoComplete="off"
-          aria-hidden="true"
-        />
-
-        <div className="form-group">
-          <label className="form-label">Your Name / Username</label>
-          <input
-            type="text"
-            value={formData.submitterName}
-            onChange={handleChange('submitterName')}
-            placeholder="How should I credit you?"
-            className="search-input"
-            maxLength={MAX_LENGTHS.submitterName}
-            required
-          />
-          <span className="char-counter">{formData.submitterName.length}/{MAX_LENGTHS.submitterName}</span>
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Twitter / Bluesky Link (optional)</label>
-          <input
-            type="text"
-            value={formData.submitterLink}
-            onChange={handleChange('submitterLink')}
-            placeholder="https://..."
-            className="search-input"
-            maxLength={MAX_LENGTHS.submitterLink}
-          />
-          <span className="char-counter">{formData.submitterLink.length}/{MAX_LENGTHS.submitterLink}</span>
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Trainer Name</label>
-          <input
-            type="text"
-            value={formData.trainerName}
-            onChange={handleChange('trainerName')}
-            placeholder="e.g. Cynthia"
-            className="search-input"
-            maxLength={MAX_LENGTHS.trainerName}
-            required
-          />
-          <span className="char-counter">{formData.trainerName.length}/{MAX_LENGTHS.trainerName}</span>
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Game</label>
-          <input
-            type="text"
-            value={formData.game}
-            onChange={handleChange('game')}
-            placeholder="e.g. Platinum"
-            className="search-input"
-            maxLength={MAX_LENGTHS.game}
-            required
-          />
-          <span className="char-counter">{formData.game.length}/{MAX_LENGTHS.game}</span>
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Specific Fight (optional)</label>
-          <textarea
-            value={formData.fightDetails}
-            onChange={handleChange('fightDetails')}
-            placeholder="Want a specific fight, or one of my choosing?"
-            className="form-textarea"
-            maxLength={MAX_LENGTHS.fightDetails}
-          />
-          <span className="char-counter">{formData.fightDetails.length}/{MAX_LENGTHS.fightDetails}</span>
-        </div>
-
-        <div className="h-captcha" data-captcha="true"></div>
-
-        {status && (
-          <div className={`form-status ${status.type}`}>
-            {status.message}
+      {isSuccess ? (
+        <div className="suggestion-success-block">
+          <div className="form-status success">
+            Thanks! Your suggestion has been sent.
           </div>
-        )}
+          <button
+            onClick={() => setStatus(null)}
+            className="back-btn"
+            style={{ alignSelf: 'center' }}
+          >
+            Submit another suggestion
+          </button>
+        </div>
+      ) : (
+        <form ref={formRef} onSubmit={handleSubmit} className="suggestion-form">
+          <input
+            type="text"
+            name="botcheck"
+            value={formData.botcheck}
+            onChange={handleChange('botcheck')}
+            className="form-honeypot"
+            tabIndex="-1"
+            autoComplete="off"
+            aria-hidden="true"
+          />
 
-        <button type="submit" disabled={isSubmitting} className={`primary-btn ${isSubmitting ? 'disabled' : ''}`}>
-          {isSubmitting ? 'Sending...' : 'Submit Suggestion'}
-        </button>
-      </form>
+          <div className="form-group">
+            <label className="form-label">Your Name / Username</label>
+            <input
+              type="text"
+              value={formData.submitterName}
+              onChange={handleChange('submitterName')}
+              placeholder="How should I credit you?"
+              className="search-input"
+              maxLength={MAX_LENGTHS.submitterName}
+              required
+            />
+            <span className="char-counter">{formData.submitterName.length}/{MAX_LENGTHS.submitterName}</span>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Twitter / Bluesky Link (optional)</label>
+            <input
+              type="text"
+              value={formData.submitterLink}
+              onChange={handleChange('submitterLink')}
+              placeholder="https://..."
+              className="search-input"
+              maxLength={MAX_LENGTHS.submitterLink}
+            />
+            <span className="char-counter">{formData.submitterLink.length}/{MAX_LENGTHS.submitterLink}</span>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Trainer Name</label>
+            <input
+              type="text"
+              value={formData.trainerName}
+              onChange={handleChange('trainerName')}
+              placeholder="e.g. Cynthia"
+              className="search-input"
+              maxLength={MAX_LENGTHS.trainerName}
+              required
+            />
+            <span className="char-counter">{formData.trainerName.length}/{MAX_LENGTHS.trainerName}</span>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Game</label>
+            <input
+              type="text"
+              value={formData.game}
+              onChange={handleChange('game')}
+              placeholder="e.g. Platinum"
+              className="search-input"
+              maxLength={MAX_LENGTHS.game}
+              required
+            />
+            <span className="char-counter">{formData.game.length}/{MAX_LENGTHS.game}</span>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Specific Fight (optional)</label>
+            <textarea
+              value={formData.fightDetails}
+              onChange={handleChange('fightDetails')}
+              placeholder="Want a specific fight, or one of my choosing?"
+              className="form-textarea"
+              maxLength={MAX_LENGTHS.fightDetails}
+            />
+            <span className="char-counter">{formData.fightDetails.length}/{MAX_LENGTHS.fightDetails}</span>
+          </div>
+
+          {status?.type === 'error' && (
+            <div className="form-status error">
+              {status.message}
+            </div>
+          )}
+
+          <button type="submit" disabled={isSubmitting} className={`primary-btn ${isSubmitting ? 'disabled' : ''}`}>
+            {isSubmitting ? 'Sending...' : 'Submit Suggestion'}
+          </button>
+        </form>
+      )}
     </main>
   )
 }
