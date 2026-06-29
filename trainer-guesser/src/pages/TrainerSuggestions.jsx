@@ -56,32 +56,27 @@ export default function TrainerSuggestions() {
       return
     }
 
-    const hcaptchaField = formRef.current?.querySelector('[name="h-captcha-response"]')
-    const hcaptchaResponse = hcaptchaField ? hcaptchaField.value : ''
-
-    if (!hcaptchaResponse) {
-      setStatus({ type: 'error', message: 'Please complete the captcha before submitting.' })
-      return
-    }
-
     setIsSubmitting(true)
     setStatus(null)
 
     try {
+      const payload = new FormData()
+      payload.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY)
+      payload.append('subject', "New Trainer Suggestion - Who's That Trainer?")
+      payload.append('from_name', formData.submitterName || 'Anonymous')
+      payload.append('Submitted By', formData.submitterName || 'Anonymous')
+      payload.append('Link', formData.submitterLink || 'Not provided')
+      payload.append('Trainer Name', formData.trainerName)
+      payload.append('Game', formData.game)
+      payload.append('Specific Fight Details', formData.fightDetails || 'Latest / most iconic fight')
+
+      const hcaptchaField = formRef.current?.querySelector('[name="h-captcha-response"]')
+      if (hcaptchaField) payload.append('h-captcha-response', hcaptchaField.value)
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
-          subject: "New Trainer Suggestion - Who's That Trainer?",
-          from_name: formData.submitterName || 'Anonymous',
-          'Submitted By': formData.submitterName || 'Anonymous',
-          Link: formData.submitterLink || 'Not provided',
-          'Trainer Name': formData.trainerName,
-          Game: formData.game,
-          'Specific Fight Details': formData.fightDetails || 'Latest / most iconic fight',
-          'h-captcha-response': hcaptchaResponse,
-        }),
+        headers: { Accept: 'application/json' },
+        body: payload,
       })
 
       const result = await response.json()
@@ -98,9 +93,9 @@ export default function TrainerSuggestions() {
         })
         if (window.hcaptcha) window.hcaptcha.reset()
       } else {
-        setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
+        setStatus({ type: 'error', message: result.message || 'Something went wrong. Please try again.' })
       }
-    } catch (err) {
+    } catch {
       setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
     } finally {
       setIsSubmitting(false)
@@ -142,6 +137,7 @@ export default function TrainerSuggestions() {
             placeholder="How should I credit you?"
             className="search-input"
             maxLength={MAX_LENGTHS.submitterName}
+            required
           />
           <span className="char-counter">{formData.submitterName.length}/{MAX_LENGTHS.submitterName}</span>
         </div>
