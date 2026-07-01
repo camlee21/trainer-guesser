@@ -155,9 +155,10 @@ export default function Stats() {
                     </td>
                     <td>
                       <span style={{
-                        fontFamily: "'Press Start 2P', monospace",
-                        fontSize: '0.65rem',
-                        color: 'var(--accent)',
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                        color: 'var(--text-dim)',
+                        whiteSpace: 'nowrap',
                       }}>
                         {r.day_number}
                       </span>
