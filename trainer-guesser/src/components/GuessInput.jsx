@@ -27,9 +27,38 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
       return
     }
 
-    const filtered = allTrainers.filter(t =>
-      t.label.toLowerCase().includes(val.toLowerCase())
-    )
+    const q = val.toLowerCase()
+
+    const filtered = allTrainers
+      .filter(t => t.label.toLowerCase().includes(q))
+      .sort((a, b) => {
+        const al = a.label.toLowerCase()
+        const bl = b.label.toLowerCase()
+        const an = a.label.split(' (')[0].toLowerCase()
+        const bn = b.label.split(' (')[0].toLowerCase()
+
+        // Exact trainer name match first
+        const aExact = an === q
+        const bExact = bn === q
+        if (aExact && !bExact) return -1
+        if (bExact && !aExact) return 1
+
+        // Trainer name starts with query second
+        const aStarts = an.startsWith(q)
+        const bStarts = bn.startsWith(q)
+        if (aStarts && !bStarts) return -1
+        if (bStarts && !aStarts) return 1
+
+        // Trainer name contains query (before game name match) third
+        const aNameContains = an.includes(q)
+        const bNameContains = bn.includes(q)
+        if (aNameContains && !bNameContains) return -1
+        if (bNameContains && !aNameContains) return 1
+
+        // Fall back to alphabetical
+        return al.localeCompare(bl)
+      })
+
     setSuggestions(filtered)
   }
 
