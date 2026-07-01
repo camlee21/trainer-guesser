@@ -4,6 +4,9 @@ import GuessInput from '../components/GuessInput'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
 import { usePersistedGameState } from '../hooks/usePersistedGameState'
 import { useInfiniteMode } from '../hooks/useInfiniteMode'
+import { useAuthContext } from '../contexts/AuthContext'
+import { supabase } from '../lib/supabaseClient'
+import { computeStreak } from '../lib/streakUtils'
 
 function toTitleCase(str) {
   return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
@@ -39,9 +42,25 @@ function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
 
 function DailyMode() {
   const trainer = useDailyTrainer()
-  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed } = usePersistedGameState()
+  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed } = usePersistedGameState(trainer)
+  const { user } = useAuthContext()
+  const [streak, setStreak] = useState(0)
 
   const MAX_GUESSES = 5
+
+  useEffect(() => {
+    if (!user) return
+    async function fetchStreak() {
+      const { data } = await supabase
+        .from('daily_results')
+        .select('date')
+        .eq('user_id', user.id)
+        .order('date', { ascending: false })
+        .limit(60)
+      if (data) setStreak(computeStreak(data))
+    }
+    fetchStreak()
+  }, [user?.id, gameOver])
 
   function handleGuess(selected) {
     const isCorrect = selected.id === trainer.id
@@ -76,80 +95,85 @@ function DailyMode() {
   const showTrainer = hintsRevealed >= 3
 
   return (
-    <main className="main-layout">
-      <div className="trainer-panel">
-        <div className="trainer-frame-wrapper">
-          <DayBadge
-            dayNumber={trainer.dayNumber}
-            isProvided={trainer.isProvided}
-            providedBy={trainer.providedBy}
-            providedLink={trainer.providedLink}
-          />
-          <div className="trainer-frame">
-            {showTrainer ? (
-              <img
-                draggable="false"
-                src={trainer.trainerSpriteUrl}
-                alt="trainer"
-                className="trainer-sprite"
-                style={{ filter: trainerFilter }}
-              />
-            ) : (
-              <div className="trainer-placeholder">
-                <span>?</span>
-              </div>
+    <>
+      {streak >= 2 && (
+        <div className="streak-banner">🔥 {streak} day streak</div>
+      )}
+      <main className="main-layout">
+        <div className="trainer-panel">
+          <div className="trainer-frame-wrapper">
+            <DayBadge
+              dayNumber={trainer.dayNumber}
+              isProvided={trainer.isProvided}
+              providedBy={trainer.providedBy}
+              providedLink={trainer.providedLink}
+            />
+            <div className="trainer-frame">
+              {showTrainer ? (
+                <img
+                  draggable="false"
+                  src={trainer.trainerSpriteUrl}
+                  alt="trainer"
+                  className="trainer-sprite"
+                  style={{ filter: trainerFilter }}
+                />
+              ) : (
+                <div className="trainer-placeholder">
+                  <span>?</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="trainer-info">
+            <div className={`difficulty-badge ${trainer.difficulty}`}>
+              Difficulty: {trainer.difficulty.charAt(0).toUpperCase() + trainer.difficulty.slice(1)}
+            </div>
+            {hintsRevealed >= 2 && (
+              <div className="info-pill">Game: {trainer.game}</div>
+            )}
+            {hintsRevealed >= 3 && (
+              <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
             )}
           </div>
         </div>
 
-        <div className="trainer-info">
-          <div className={`difficulty-badge ${trainer.difficulty}`}>
-            Difficulty: {trainer.difficulty.charAt(0).toUpperCase() + trainer.difficulty.slice(1)}
-          </div>
-          {hintsRevealed >= 2 && (
-            <div className="info-pill">Game: {trainer.game}</div>
+        <div className="right-panel">
+          <TeamGrid team={trainer.team} revealed={hintsRevealed >= 1} />
+
+          {!gameOver ? (
+            <div className="guess-section">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button className="pass-btn" onClick={handlePass}>
+                  Pass
+                </button>
+                <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
+              </div>
+              <div className="guess-counter">
+                {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
+              </div>
+            </div>
+          ) : (
+            <div className={`result-banner ${gameOver}`}>
+              {gameOver === 'won'
+                ? `You got it! It was ${trainer.name}!`
+                : `Game Over! It was ${trainer.name}!`}
+            </div>
           )}
-          {hintsRevealed >= 3 && (
-            <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
+
+          {guesses.length > 0 && (
+            <div className="guess-history">
+              {guesses.map((g, i) => (
+                <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
+                  <span>{g.correct ? '✓' : '✗'}</span>
+                  {g.label}
+                </div>
+              ))}
+            </div>
           )}
         </div>
-      </div>
-
-      <div className="right-panel">
-        <TeamGrid team={trainer.team} revealed={hintsRevealed >= 1} />
-
-        {!gameOver ? (
-          <div className="guess-section">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button className="pass-btn" onClick={handlePass}>
-                Pass
-              </button>
-              <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
-            </div>
-            <div className="guess-counter">
-              {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
-            </div>
-          </div>
-        ) : (
-          <div className={`result-banner ${gameOver}`}>
-            {gameOver === 'won'
-              ? `You got it! It was ${trainer.name}!`
-              : `Game Over! It was ${trainer.name}!`}
-          </div>
-        )}
-
-        {guesses.length > 0 && (
-          <div className="guess-history">
-            {guesses.map((g, i) => (
-              <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
-                <span>{g.correct ? '✓' : '✗'}</span>
-                {g.label}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </main>
+      </main>
+    </>
   )
 }
 
@@ -279,7 +303,6 @@ function GameFilter({
   const allSelected = selectedGames.size === allGames.length
   const allDifficultiesSelected = selectedDifficulties.size === DIFFICULTIES.length
 
-  const firstButtonGroup = visibleButtons[0]?.originals || []
   const isDeselectedState = selectedGames.size === 0
 
   const handleGroupToggle = (group) => {

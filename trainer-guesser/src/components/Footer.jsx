@@ -6,6 +6,8 @@ export default function Footer() {
       <div className="site-footer-links">
         <Link to="/how-to-play" className="site-footer-link">How to Play</Link>
         <span className="site-footer-divider">•</span>
+        <Link to="/stats" className="site-footer-link">Your Stats</Link>
+        <span className="site-footer-divider">•</span>
         <Link to="/credits" className="site-footer-link">Credits</Link>
         <span className="site-footer-divider">•</span>
         <Link to="/trainer-suggestions" className="site-footer-link">Trainer Suggestions</Link>

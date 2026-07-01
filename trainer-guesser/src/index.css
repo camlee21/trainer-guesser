@@ -1254,6 +1254,176 @@ img {
   margin: 8px auto 0;
 }
 
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-modal {
+  background: var(--bg-alt);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.auth-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.auth-close:hover {
+  color: var(--text);
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.auth-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.auth-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.auth-btn:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+.auth-btn.accent {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.auth-btn.accent:hover {
+  opacity: 0.9;
+}
+
+.auth-user-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.streak-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  animation: slideIn 0.3s ease;
+}
+
+.stats-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.stats-table th {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.stats-table td {
+  padding: 0.6rem 0.75rem;
+  color: var(--text);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.stats-table tr:hover td {
+  background: rgba(255,255,255,0.03);
+}
+
+.stats-score-won {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.stats-score-lost {
+  color: var(--red);
+  font-weight: 800;
+}
+
 @media (max-width: 480px) {
   .difficulty-filter-row {
     gap: 7px;
