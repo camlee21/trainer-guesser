@@ -8,9 +8,10 @@ export default function Footer() {
         <span className="site-footer-divider">•</span>
         <Link to="/stats" className="site-footer-link">Your Stats</Link>
         <span className="site-footer-divider">•</span>
-        <Link to="/credits" className="site-footer-link">Credits</Link>
-        <span className="site-footer-divider">•</span>
         <Link to="/trainer-suggestions" className="site-footer-link">Trainer Suggestions</Link>
+        <span className="site-footer-divider">•</span>
+        <Link to="/credits" className="site-footer-link">Credits</Link>
+        
       </div>
     </footer>
   )
