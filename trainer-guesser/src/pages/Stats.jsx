@@ -5,6 +5,12 @@ import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
 import trainersData from '../data/trainers.json'
 
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const [yyyy, mm, dd] = dateStr.split('-')
+  return `${dd}/${mm}/${yyyy.slice(2)}`
+}
+
 export default function Stats() {
   const { user, loading: authLoading } = useAuthContext()
   const [results, setResults] = useState([])
@@ -44,6 +50,10 @@ export default function Stats() {
     if (searchField === 'trainer') return r.trainer_name?.toLowerCase().includes(q)
     if (searchField === 'day') return String(r.day_number) === q
     if (searchField === 'game') return r.game?.toLowerCase().includes(q)
+    if (searchField === 'date') {
+      // allow searching as dd/mm/yy, dd/mm, or mm/yy
+      return formatDate(r.date).includes(q)
+    }
     return true
   })
 
@@ -86,7 +96,7 @@ export default function Stats() {
         <>
           <div style={{ display: 'flex', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--panel-border)', flexShrink: 0 }}>
-              {['trainer', 'day', 'game'].map(field => (
+              {['trainer', 'day', 'game', 'date'].map(field => (
                 <button
                   key={field}
                   onClick={() => { setSearchField(field); setSearch('') }}
@@ -112,6 +122,7 @@ export default function Stats() {
               placeholder={
                 searchField === 'day' ? 'e.g. 5' :
                 searchField === 'game' ? 'e.g. Platinum, Black/White' :
+                searchField === 'date' ? 'e.g. 01/07/25 or 07/25' :
                 'e.g. Cynthia'
               }
               value={search}
@@ -123,6 +134,7 @@ export default function Stats() {
             <table className="stats-table">
               <thead>
                 <tr>
+                  <th>Date</th>
                   <th>Day #</th>
                   <th>Trainer</th>
                   <th>Score</th>
@@ -131,6 +143,16 @@ export default function Stats() {
               <tbody>
                 {filtered.map(r => (
                   <tr key={r.date}>
+                    <td>
+                      <span style={{
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                        color: 'var(--text-dim)',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {formatDate(r.date)}
+                      </span>
+                    </td>
                     <td>
                       <span style={{
                         fontFamily: "'Press Start 2P', monospace",
@@ -170,7 +192,7 @@ export default function Stats() {
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={3} style={{ textAlign: 'center', color: 'var(--text-dim)', padding: '1.5rem' }}>
+                    <td colSpan={4} style={{ textAlign: 'center', color: 'var(--text-dim)', padding: '1.5rem' }}>
                       No results match your search.
                     </td>
                   </tr>
