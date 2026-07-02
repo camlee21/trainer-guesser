@@ -96,14 +96,14 @@ function DailyMode() {
 
   return (
     <>
+     {streak >= 2 && (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="streak-banner">🔥 {streak} day streak!</div>
+      </div>
+    )}
       <main className="main-layout">
         <div className="trainer-panel">
           <div className="trainer-frame-wrapper">
-            {streak >= 2 && (
-              <div className="streak-banner" style={{ marginBottom: '8px' }}>
-                🔥 {streak} day streak!
-              </div>
-            )}
             <DayBadge
               dayNumber={trainer.dayNumber}
               isProvided={trainer.isProvided}
