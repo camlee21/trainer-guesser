@@ -1464,14 +1464,99 @@ img {
   background: rgba(0, 133, 255, 0.45);
 }
 
-@media (max-width: 480px) {
-  .difficulty-filter-row {
-    gap: 7px;
+.header-mobile {
+  display: none;
+}
+
+.header-desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  /* Header top row */
+  header > div:first-child {
+    width: 100%;
+    justify-content: space-between;
   }
-  .difficulty-filter-btn {
-    font-size: 12px;
-    padding: 8px 0;
-    gap: 5px;
+
+  header > div:first-child a {
+    flex: 1;
+    text-align: center;
+  }
+
+  .header-desktop {
+    display: none;
+  }
+
+  .header-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .kofi-btn img {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Auth row already right-aligned, make it full width and right-justified */
+  header > div:last-child {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* Trainer frame full width on mobile */
+  .trainer-frame {
+    width: 280px;
+    height: 280px;
+    max-width: 100%;
+  }
+
+  .trainer-panel {
+    width: 100%;
+    align-items: center;
+  }
+
+  .trainer-frame-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .trainer-sprite {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Mode toggle full width */
+  .mode-toggle {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  /* Result banner text size */
+  .result-banner {
+    font-size: 0.875rem;
+  }
+
+  /* Share menu anchors right on mobile to avoid clipping */
+  .share-menu-popup {
+    right: 0;
+    left: auto;
+  }
+
+  .day-badge {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: 8px;
   }
 }
 

@@ -36,10 +36,11 @@ export default function ShareButtons({ gameOver, guesses, dayNumber }) {
       </button>
 
       {open && (
-        <div style={{
+        <div className="share-menu-popup"
+        style={{
           position: 'absolute',
           bottom: 'calc(100% + 8px)',
-          left: 0,
+          right: 0,
           zIndex: 50,
           background: 'rgba(15, 23, 42, 0.97)',
           border: '1px solid var(--panel-border)',

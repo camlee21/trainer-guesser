@@ -76,8 +76,8 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
         <div style={{
           position: 'absolute',
           top: 'calc(100% + 10px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: '0',
+          transform: 'none',
           zIndex: 200,
           background: 'rgba(15,23,42,0.97)',
           backdropFilter: 'blur(16px)',
