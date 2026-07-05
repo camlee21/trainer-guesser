@@ -5,7 +5,7 @@ export default function ShareButtons({ gameOver, guesses, dayNumber }) {
   const [copied, setCopied] = useState(false)
 
   const triesText = gameOver === 'won'
-    ? guesses.filter(g => g.id !== '__pass__').length === 1
+    ? guesses.length === 1
       ? 'Guessed in 1 try!'
       : `Guessed after ${guesses.length} tries!`
     : "Couldn't guess today's trainer..."
