@@ -1424,6 +1424,46 @@ img {
   font-weight: 800;
 }
 
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.15);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.share-btn:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+.share-btn--twitter {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.share-btn--twitter:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.share-btn--bluesky {
+  background: rgba(0, 133, 255, 0.3);
+  border-color: rgba(0, 133, 255, 0.5);
+}
+
+.share-btn--bluesky:hover {
+  background: rgba(0, 133, 255, 0.45);
+}
+
 @media (max-width: 480px) {
   .difficulty-filter-row {
     gap: 7px;

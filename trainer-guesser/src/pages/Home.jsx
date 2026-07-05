@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
+import ShareButtons from '../components/ShareButtons'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
 import { usePersistedGameState } from '../hooks/usePersistedGameState'
 import { useInfiniteMode } from '../hooks/useInfiniteMode'
@@ -156,10 +157,17 @@ function DailyMode() {
               </div>
             </div>
           ) : (
-            <div className={`result-banner ${gameOver}`}>
-              {gameOver === 'won'
-                ? `You got it! It was ${trainer.name}!`
-                : `Game Over! It was ${trainer.name}!`}
+            <div className={`result-banner ${gameOver}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', padding: '0.6rem 0.9rem', flexWrap: 'wrap' }}>
+              <div style={{ flex: 1, textAlign: 'center' }}>
+                {gameOver === 'won'
+                  ? `You got it! It was ${trainer.name}!`
+                  : `Game Over! It was ${trainer.name}!`}
+              </div>
+              <ShareButtons
+                gameOver={gameOver}
+                guesses={guesses}
+                dayNumber={trainer.dayNumber}
+              />
             </div>
           )}
 
