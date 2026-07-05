@@ -97,7 +97,7 @@ header {
   align-items: start;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .main-layout {
     grid-template-columns: 1fr;
   }
@@ -734,7 +734,7 @@ img {
 
 /* ── Game description ── */
 .game-description {
-  max-width: 640px;
+  max-width: 840px;
   margin: 2.5rem auto 0;
   padding: 1.25rem 1.5rem;
   background: var(--panel-bg);
@@ -748,7 +748,7 @@ img {
   text-align: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .game-description {
     font-size: 0.8rem;
     padding: 1rem 1.1rem;
@@ -870,7 +870,7 @@ img {
   transform: translateY(-2px);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .scroll-top-btn {
     bottom: 18px;
     right: 18px;
@@ -914,7 +914,7 @@ img {
   transform: translateY(-2px);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .scroll-bottom-btn {
     bottom: 18px;
     right: 70px;
@@ -976,7 +976,7 @@ img {
   text-decoration: underline;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .day-badge {
     padding: 0.32rem 0.7rem;
     gap: 0.15rem;
@@ -1025,7 +1025,7 @@ img {
   font-size: 0.85rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   .site-footer {
     margin-top: 2rem;
     padding-top: 1.25rem;
@@ -1037,7 +1037,7 @@ img {
 
 /* ── Static pages (How to Play, Credits, Trainer Suggestions) ── */
 .static-page {
-  max-width: 640px;
+  max-width: 840px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -1475,7 +1475,7 @@ img {
   width: 100%;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
   /* Header top row */
   header > div:first-child {
     width: 100%;
