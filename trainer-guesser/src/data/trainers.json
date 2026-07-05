@@ -1736,7 +1736,7 @@
       "team": [
         { "name": "Growlithe", "pokedexId": 58 },
         { "name": "Fletchinder", "pokedexId": 662 },
-        { "name": "Alolan-Marowak", "pokedexId": 105 }
+        { "name": "Alolan-Marowak", "pokedexId": 10115 }
       ]
     },
     {
@@ -1818,7 +1818,7 @@
       "team": [
         { "name": "Slowbro", "pokedexId": 80 },
         { "name": "Bruxish", "pokedexId": 779 },
-        { "name": "Alolan-Raichu", "pokedexId": 26 },
+        { "name": "Alolan-Raichu", "pokedexId": 10100 },
         { "name": "Alakazam", "pokedexId": 65 },
         { "name": "Hypno", "pokedexId": 97 }
       ]
@@ -1848,9 +1848,9 @@
       "team": [
         { "name": "Relicanth", "pokedexId": 369 },
         { "name": "Carbink", "pokedexId": 703 },
-        { "name": "Alolan-Golem", "pokedexId": 76 },
+        { "name": "Alolan-Golem", "pokedexId": 10111 },
         { "name": "Probopass", "pokedexId": 476 },
-        { "name": "Lycanroc-Midnight", "pokedexId": 745 }
+        { "name": "Lycanroc-Midnight", "pokedexId": 10126 }
       ]
     },
     {
@@ -1895,7 +1895,7 @@
         { "name": "Bisharp", "pokedexId": 625 },
         { "name": "Magnezone", "pokedexId": 462 },
         { "name": "Metagross", "pokedexId": 376 },
-        { "name": "Alolan-Dugtrio", "pokedexId": 51 }
+        { "name": "Alolan-Dugtrio", "pokedexId": 10106 }
       ]
     },
     {
@@ -1972,7 +1972,7 @@
       "type": "gym_leader",
       "trainerSpriteUrl": "/sprites/trainers/allister.png",
       "team": [
-        { "name": "Galarian-Yamask", "pokedexId": 562 },
+        { "name": "Galarian-Yamask", "pokedexId": 10338 },
         { "name": "Mimikyu", "pokedexId": 778 },
         { "name": "Cursola", "pokedexId": 864 },
         { "name": "Gengar", "pokedexId": 94 }
@@ -1986,7 +1986,7 @@
       "type": "gym_leader",
       "trainerSpriteUrl": "/sprites/trainers/opal.png",
       "team": [
-        { "name": "Galarian-Weezing", "pokedexId": 110 },
+        { "name": "Galarian-Weezing", "pokedexId": 10167 },
         { "name": "Mawile", "pokedexId": 303 },
         { "name": "Togekiss", "pokedexId": 468 },
         { "name": "Alcremie", "pokedexId": 869 }
@@ -2015,7 +2015,7 @@
       "trainerSpriteUrl": "/sprites/trainers/melony.png",
       "team": [
         { "name": "Frosmoth", "pokedexId": 873 },
-        { "name": "Galarian-Darmanitan", "pokedexId": 555 },
+        { "name": "Galarian-Darmanitan", "pokedexId": 10176 },
         { "name": "Eiscue", "pokedexId": 875 },
         { "name": "Lapras", "pokedexId": 131 }
       ]
@@ -2072,7 +2072,7 @@
       "team": [
         { "name": "Mawile", "pokedexId": 303 },
         { "name": "Gardevoir", "pokedexId": 282 },
-        { "name": "Galarian-Rapidash", "pokedexId": 78 },
+        { "name": "Galarian-Rapidash", "pokedexId": 10163 },
         { "name": "Hatterene", "pokedexId": 858 }
       ]
     },
@@ -2087,7 +2087,7 @@
         { "name": "Spiritomb", "pokedexId": 442 },
         { "name": "Roserade", "pokedexId": 407 },
         { "name": "Togekiss", "pokedexId": 468 },
-        { "name": "Hisuian-Arcanine", "pokedexId": 59 },
+        { "name": "Hisuian-Arcanine", "pokedexId": 10230 },
         { "name": "Lucario", "pokedexId": 448 },
         { "name": "Garchomp", "pokedexId": 445 }
       ]
@@ -2749,7 +2749,7 @@
       "type": "rival",
       "trainerSpriteUrl": "/sprites/trainers/serena.png",
       "team": [
-        { "name": "Meowstic", "pokedexId": 678 },
+        { "name": "Meowstic", "pokedexId": 10025 },
         { "name": "Flareon", "pokedexId": 136 },
         { "name": "Altaria", "pokedexId": 334 },
         { "name": "Absol", "pokedexId": 359 },
@@ -2832,7 +2832,7 @@
       "type": "rival",
       "trainerSpriteUrl": "/sprites/trainers/hau.png",
       "team": [
-        { "name": "Alolan-Raichu", "pokedexId": 26 },
+        { "name": "Alolan-Raichu", "pokedexId": 10100 },
         { "name": "Flareon", "pokedexId": 136 },
         { "name": "Komala", "pokedexId": 775 },
         { "name": "Primarina", "pokedexId": 730 }
@@ -3616,7 +3616,7 @@
         { "name": "Entei", "pokedexId": 244 },
         { "name": "Incineroar", "pokedexId": 727 },
         { "name": "Talonflame", "pokedexId": 663 },
-        { "name": "Alolan-Marowak", "pokedexId": 105 }
+        { "name": "Alolan-Marowak", "pokedexId": 10115 }
       ]
     },
     {
@@ -3661,7 +3661,7 @@
       "team": [
         { "name": "Kyogre", "pokedexId": 382 },
         { "name": "Barraskewda", "pokedexId": 847 },
-        { "name": "Hisuian-Goodra", "pokedexId": 706 },
+        { "name": "Hisuian-Goodra", "pokedexId": 10242 },
         { "name": "Palkia", "pokedexId": 484 },
         { "name": "Manaphy", "pokedexId": 490 },
         { "name": "Swampert", "pokedexId": 260 }
