@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -73,27 +74,20 @@ export function usePersistedGameState(trainer) {
       if (error) return
 
       if (data) {
+        // Restore this user's saved progress from Supabase
         setGuesses(JSON.parse(data.guesses_json))
         setGameOver(data.won ? 'won' : 'lost')
         setHintsRevealed(data.hints_revealed)
       } else {
+        // No Supabase record for this user today
         const saved = JSON.parse(localStorage.getItem(key))
         if (saved?.gameOver) {
-          const localGuesses = saved.guesses || []
-          const localGameOver = saved.gameOver
-          const score = localGameOver === 'won' ? Math.max(0, MAX_GUESSES - (localGuesses.length - 1)) : 0
-          await supabase.from('daily_results').upsert({
-            user_id: user.id,
-            date: today,
-            day_number: trainer.dayNumber,
-            trainer_id: trainer.id,
-            trainer_name: trainer.name,
-            guesses_used: localGuesses.length,
-            won: localGameOver === 'won',
-            score,
-            guesses_json: JSON.stringify(localGuesses),
-            hints_revealed: saved.hintsRevealed || 0,
-          }, { onConflict: 'user_id,date' })
+          // A completed game exists in localStorage but not in Supabase
+          // for this user — it belongs to a different account, so clear it
+          localStorage.removeItem(key)
+          setGuesses([])
+          setGameOver(false)
+          setHintsRevealed(0)
         }
       }
     }
