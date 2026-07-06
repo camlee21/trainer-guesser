@@ -23,12 +23,12 @@ export default function Layout({ children }) {
           {/* Desktop layout: three rows as before */}
           <div className="header-desktop">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-              <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
               <Link to="/" style={{ textAlign: 'center', textDecoration: 'none' }}>
                 <h1 className="title" style={{ margin: 0 }}>Who's that Trainer?</h1>
                 <p className="subtitle" style={{ margin: '5px 0 0 0' }}>Guess the trainer from their team</p>
               </Link>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
                 <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X"
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', transition: 'background 0.2s, transform 0.15s', flexShrink: 0 }}
                   onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
