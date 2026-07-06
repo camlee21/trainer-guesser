@@ -1,9 +1,12 @@
+
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
 import trainersData from '../data/trainers.json'
+
+const PAGE_SIZE = 10
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
@@ -17,6 +20,7 @@ export default function Stats() {
   const [fetching, setFetching] = useState(true)
   const [search, setSearch] = useState('')
   const [searchField, setSearchField] = useState('trainer')
+  const [page, setPage] = useState(0)
 
   useEffect(() => {
     if (!user) { setFetching(false); return }
@@ -32,6 +36,11 @@ export default function Stats() {
     fetchResults()
   }, [user?.id])
 
+  // Reset to page 0 when search changes
+  useEffect(() => {
+    setPage(0)
+  }, [search, searchField])
+
   const streak = computeStreak(results)
 
   const enriched = results.map(r => {
@@ -44,18 +53,37 @@ export default function Stats() {
     }
   })
 
-  const filtered = enriched.filter(r => {
+  const filtered = (() => {
     const q = search.trim().toLowerCase()
-    if (!q) return true
-    if (searchField === 'trainer') return r.trainer_name?.toLowerCase().includes(q)
-    if (searchField === 'day') return String(r.day_number) === q
-    if (searchField === 'game') return r.game?.toLowerCase().includes(q)
-    if (searchField === 'date') {
-      // allow searching as dd/mm/yy, dd/mm, or mm/yy
-      return formatDate(r.date).includes(q)
-    }
-    return true
-  })
+    if (!q) return enriched
+
+    const matches = enriched.filter(r => {
+      if (searchField === 'trainer') return r.trainer_name?.toLowerCase().includes(q)
+      if (searchField === 'day') return String(r.day_number) === q
+      if (searchField === 'game') return r.game?.toLowerCase().includes(q)
+      if (searchField === 'date') return formatDate(r.date).includes(q)
+      return true
+    })
+
+    if (searchField !== 'trainer') return matches
+
+    return matches.sort((a, b) => {
+      const an = a.trainer_name?.toLowerCase() ?? ''
+      const bn = b.trainer_name?.toLowerCase() ?? ''
+      const aExact = an === q
+      const bExact = bn === q
+      if (aExact && !bExact) return -1
+      if (bExact && !aExact) return 1
+      const aStarts = an.startsWith(q)
+      const bStarts = bn.startsWith(q)
+      if (aStarts && !bStarts) return -1
+      if (bStarts && !aStarts) return 1
+      return 0
+    })
+  })()
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paginated = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
 
   if (authLoading || fetching) {
     return (
@@ -85,7 +113,9 @@ export default function Stats() {
       <h2 className="static-page-title">Your Stats</h2>
 
       {streak >= 2 && (
-        <div className="streak-banner">🔥 {streak} day streak</div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="streak-banner">🔥 {streak} day streak</div>
+        </div>
       )}
 
       {results.length === 0 ? (
@@ -141,25 +171,15 @@ export default function Stats() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map(r => (
+                {paginated.map(r => (
                   <tr key={r.date}>
                     <td>
-                      <span style={{
-                        fontSize: '0.78rem',
-                        fontWeight: 700,
-                        color: 'var(--text-dim)',
-                        whiteSpace: 'nowrap',
-                      }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-dim)', whiteSpace: 'nowrap' }}>
                         {formatDate(r.date)}
                       </span>
                     </td>
                     <td>
-                      <span style={{
-                        fontSize: '0.78rem',
-                        fontWeight: 700,
-                        color: 'var(--text-dim)',
-                        whiteSpace: 'nowrap',
-                      }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-dim)', whiteSpace: 'nowrap' }}>
                         {r.day_number}
                       </span>
                     </td>
@@ -169,13 +189,7 @@ export default function Stats() {
                           <img
                             src={r.trainer_sprite_url}
                             alt={r.trainer_name}
-                            style={{
-                              width: '48px',
-                              height: '48px',
-                              objectFit: 'contain',
-                              imageRendering: 'pixelated',
-                              flexShrink: 0,
-                            }}
+                            style={{ width: '48px', height: '48px', objectFit: 'contain', imageRendering: 'pixelated', flexShrink: 0 }}
                           />
                         )}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -191,7 +205,7 @@ export default function Stats() {
                     </td>
                   </tr>
                 ))}
-                {filtered.length === 0 && (
+                {paginated.length === 0 && (
                   <tr>
                     <td colSpan={4} style={{ textAlign: 'center', color: 'var(--text-dim)', padding: '1.5rem' }}>
                       No results match your search.
@@ -201,6 +215,28 @@ export default function Stats() {
               </tbody>
             </table>
           </div>
+
+          {totalPages > 1 && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '8px' }}>
+              <button
+                onClick={() => setPage(p => Math.max(0, p - 1))}
+                disabled={page === 0}
+                className={`filter-ctrl-btn ${page === 0 ? 'disabled' : 'accent'}`}
+              >
+                ← Prev
+              </button>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-dim)' }}>
+                Page {page + 1} of {totalPages}
+              </span>
+              <button
+                onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                disabled={page === totalPages - 1}
+                className={`filter-ctrl-btn ${page === totalPages - 1 ? 'disabled' : 'accent'}`}
+              >
+                Next →
+              </button>
+            </div>
+          )}
         </>
       )}
     </main>
