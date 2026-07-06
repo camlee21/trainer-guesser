@@ -10,6 +10,8 @@ export default function Footer() {
         <span className="site-footer-divider">•</span>
         <Link to="/trainer-suggestions" className="site-footer-link">Trainer Suggestions</Link>
         <span className="site-footer-divider">•</span>
+        <Link to="/privacy" className="site-footer-link">Privacy Policy</Link>
+        <span className="site-footer-divider">•</span>
         <Link to="/credits" className="site-footer-link">Credits</Link>
         
       </div>
