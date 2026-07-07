@@ -1475,6 +1475,14 @@ img {
   width: 100%;
 }
 
+.timer-mobile {
+  display: none;
+}
+
+.timer-desktop {
+  display: block;
+}
+
 @media (max-width: 840px) {
   /* Header top row */
   header > div:first-child {
@@ -1485,6 +1493,14 @@ img {
   header > div:first-child a {
     flex: 1;
     text-align: center;
+  }
+
+  .timer-mobile {
+    display: block;
+  }
+
+  .timer-desktop {
+    display: none;
   }
 
   .header-desktop {

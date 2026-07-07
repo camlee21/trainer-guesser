@@ -144,7 +144,11 @@ function DailyMode() {
               <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
             )}
           </div>
-          {gameOver && <CountdownTimer />}
+          {gameOver && (
+            <div className="timer-desktop">
+              <CountdownTimer />
+            </div>
+          )}
         </div>
 
         <div className="right-panel">
@@ -185,6 +189,12 @@ function DailyMode() {
                   {g.label}
                 </div>
               ))}
+            </div>
+          )}
+
+          {gameOver && (
+            <div className="timer-mobile">
+              <CountdownTimer />
             </div>
           )}
 
