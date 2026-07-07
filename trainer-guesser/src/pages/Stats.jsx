@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -36,12 +35,15 @@ export default function Stats() {
     fetchResults()
   }, [user?.id])
 
-  // Reset to page 0 when search changes
   useEffect(() => {
     setPage(0)
   }, [search, searchField])
 
   const streak = computeStreak(results)
+
+  const totalScoreA = results.reduce((sum, r) => sum + (r.score ?? 0), 0)
+  const totalScoreB = results.length * 5
+  const totalScorePct = totalScoreB > 0 ? Math.round((totalScoreA / totalScoreB) * 100) : 0
 
   const enriched = results.map(r => {
     const trainer = trainersData.trainers.find(t => t.id === r.trainer_id)
@@ -112,9 +114,16 @@ export default function Stats() {
       <Link to="/" className="back-btn static-page-back">← Back to Home</Link>
       <h2 className="static-page-title">Your Stats</h2>
 
-      {streak >= 2 && (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className="streak-banner">🔥 {streak} day streak</div>
+      {(streak >= 2 || results.length > 0) && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          {streak >= 2 && (
+            <div className="streak-banner" style={{ margin: 0 }}>🔥 {streak} day streak</div>
+          )}
+          {results.length > 0 && (
+            <div className="streak-banner" style={{ margin: 0 }}>
+              🏆 Total Score: {totalScorePct}% ({totalScoreA}/{totalScoreB})
+            </div>
+          )}
         </div>
       )}
 
