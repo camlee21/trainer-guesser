@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
 import ShareButtons from '../components/ShareButtons'
+import CountdownTimer from '../components/CountdownTimer'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
 import { usePersistedGameState } from '../hooks/usePersistedGameState'
 import { useInfiniteMode } from '../hooks/useInfiniteMode'
@@ -143,6 +144,7 @@ function DailyMode() {
               <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
             )}
           </div>
+          {gameOver && <CountdownTimer />}
         </div>
 
         <div className="right-panel">
@@ -185,6 +187,7 @@ function DailyMode() {
               ))}
             </div>
           )}
+
         </div>
       </main>
     </>
