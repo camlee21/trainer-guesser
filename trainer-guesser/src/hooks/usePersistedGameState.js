@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthContext } from '../contexts/AuthContext'
 
@@ -22,6 +22,11 @@ function getTodayDateString() {
 export function usePersistedGameState(trainer) {
   const { user } = useAuthContext()
   const key = getTodayKey()
+  const trainerRef = useRef(trainer)
+  const userRef = useRef(user)
+
+  useEffect(() => { trainerRef.current = trainer }, [trainer])
+  useEffect(() => { userRef.current = user }, [user])
 
   const storedVersion = localStorage.getItem('wtt-version')
   if (storedVersion !== STORAGE_VERSION) {
@@ -94,23 +99,29 @@ export function usePersistedGameState(trainer) {
     syncWithSupabase()
   }, [user?.id, trainer?.id])
 
-  useEffect(() => {
-    if (!user || !gameOver || !trainer) return
+  // Explicit save function called directly when game ends
+  // Uses passed values instead of state to avoid stale closure issues
+  async function saveResult(finalGuesses, finalGameOver, finalHints) {
+    const currentUser = userRef.current
+    const currentTrainer = trainerRef.current
+    if (!currentUser || !currentTrainer) return
     const today = getTodayDateString()
-    const score = gameOver === 'won' ? Math.max(0, MAX_GUESSES - (guesses.length - 1)) : 0
-    supabase.from('daily_results').upsert({
-      user_id: user.id,
+    const score = finalGameOver === 'won'
+      ? Math.max(0, MAX_GUESSES - (finalGuesses.length - 1))
+      : 0
+    await supabase.from('daily_results').upsert({
+      user_id: currentUser.id,
       date: today,
-      day_number: trainer.dayNumber,
-      trainer_id: trainer.id,
-      trainer_name: trainer.name,
-      guesses_used: guesses.length,
-      won: gameOver === 'won',
+      day_number: currentTrainer.dayNumber,
+      trainer_id: currentTrainer.id,
+      trainer_name: currentTrainer.name,
+      guesses_used: finalGuesses.length,
+      won: finalGameOver === 'won',
       score,
-      guesses_json: JSON.stringify(guesses),
-      hints_revealed: hintsRevealed,
+      guesses_json: JSON.stringify(finalGuesses),
+      hints_revealed: finalHints,
     }, { onConflict: 'user_id,date' })
-  }, [gameOver, user?.id])
+  }
 
-  return { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed }
+  return { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult }
 }

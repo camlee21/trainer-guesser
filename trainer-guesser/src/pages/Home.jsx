@@ -44,7 +44,7 @@ function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
 
 function DailyMode() {
   const trainer = useDailyTrainer()
-  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed } = usePersistedGameState(trainer)
+  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult } = usePersistedGameState(trainer)
   const { user } = useAuthContext()
   const [streak, setStreak] = useState(0)
 
@@ -64,7 +64,7 @@ function DailyMode() {
     fetchStreak()
   }, [user?.id, gameOver])
 
-  function handleGuess(selected) {
+  async function handleGuess(selected) {
     const isCorrect = selected.id === trainer.id
     const newGuesses = [...guesses, { ...selected, correct: isCorrect }]
     setGuesses(newGuesses)
@@ -72,6 +72,7 @@ function DailyMode() {
     if (isCorrect) {
       setGameOver('won')
       setHintsRevealed(5)
+      await saveResult(newGuesses, 'won', 5)
       return
     }
 
@@ -80,16 +81,18 @@ function DailyMode() {
 
     if (newGuesses.length >= MAX_GUESSES) {
       setGameOver('lost')
+      await saveResult(newGuesses, 'lost', newHints)
     }
   }
 
-  function handlePass() {
+  async function handlePass() {
     const newGuesses = [...guesses, { id: '__pass__', label: 'Passed', correct: false }]
     setGuesses(newGuesses)
     const newHints = newGuesses.length
     setHintsRevealed(newHints)
     if (newGuesses.length >= MAX_GUESSES) {
       setGameOver('lost')
+      await saveResult(newGuesses, 'lost', newHints)
     }
   }
 
@@ -98,11 +101,11 @@ function DailyMode() {
 
   return (
     <>
-     {streak >= 2 && (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div className="streak-banner">🔥 {streak} day streak!</div>
-      </div>
-    )}
+      {streak >= 2 && (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="streak-banner">🔥 {streak} day streak!</div>
+        </div>
+      )}
       <main className="main-layout">
         <div className="trainer-panel">
           <div className="trainer-frame-wrapper">
