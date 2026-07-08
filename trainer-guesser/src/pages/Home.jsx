@@ -11,6 +11,12 @@ import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
 
+// WARNING/PSA TEXTS
+
+const is_warning = false
+
+const warning_text = "⚠️ Some sprites from PokeAPI are having trouble loading. If there are any missing sprites, please check in again soon!"
+
 function toTitleCase(str) {
   return str.replace(/_/g, ' ').replace(/\w\S*/g, w =>
     w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
@@ -102,6 +108,13 @@ function DailyMode() {
 
   return (
     <>
+      {is_warning && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+          <div className="warning-banner">
+            {warning_text}
+          </div>
+        </div>
+      )}
       {streak >= 2 && (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div className="streak-banner">🔥 {streak} day streak!</div>
