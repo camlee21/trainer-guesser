@@ -102,9 +102,24 @@ export default function Stats() {
       <main className="static-page">
         <Link to="/" className="back-btn static-page-back">← Back to Home</Link>
         <h2 className="static-page-title">Your Stats</h2>
-        <p className="game-description" style={{ margin: '0 auto' }}>
-          Please log in to save and view your stats!
-        </p>
+
+        <div className="game-description" style={{ margin: '0 auto', textAlign: 'left' }}>
+          <p style={{ marginBottom: '1rem', textAlign: 'center' }}>
+            Please log in to save and view your stats!
+          </p>
+
+          <p style={{ marginBottom: '0.75rem', fontWeight: 800, color: 'var(--text)', textAlign: 'center' }}>
+            Logging in will allow you to:
+          </p>
+
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingLeft: '1rem', listStyleType: 'disc' }}>
+            <li>Record your guesses and results for every day's trainer</li>
+            <li>Build up streaks by attempting the trainer every day</li>
+            <li>Track your total score and accuracy over time</li>
+            <li>Search and filter through your full guess history</li>
+            <li>Sync your progress across multiple devices</li>
+          </ul>
+        </div>
       </main>
     )
   }

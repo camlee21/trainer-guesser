@@ -37,7 +37,7 @@ export function useAuth() {
     localStorage.removeItem(todayKey)
 
     await supabase.auth.signOut()
-    window.location.reload() // Show clear data instantly
+    window.location.href = '/' // Show clear data instantly, transports to home page to prevent errors with grabbing stats
   }
 
   async function signInWithGoogle() {
