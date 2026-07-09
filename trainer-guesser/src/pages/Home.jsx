@@ -13,7 +13,7 @@ import { computeStreak } from '../lib/streakUtils'
 
 // WARNING/PSA TEXTS
 
-const is_warning = true
+const is_warning = false // Set to true to display the warning banner. Change to false when the issue is resolved.
 
 const warning_text = "⚠️ Some sprites from PokeAPI are having trouble loading. If there are any missing sprites, please check in again soon!"
 

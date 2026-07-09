@@ -1972,7 +1972,7 @@
       "type": "gym_leader",
       "trainerSpriteUrl": "/sprites/trainers/allister.png",
       "team": [
-        { "name": "Galarian-Yamask", "pokedexId": 10338 },
+        { "name": "Galarian-Yamask", "pokedexId": 10179 },
         { "name": "Mimikyu", "pokedexId": 778 },
         { "name": "Cursola", "pokedexId": 864 },
         { "name": "Gengar", "pokedexId": 94 }
