@@ -1,5 +1,37 @@
-
 import { Link } from 'react-router-dom'
+
+const CREDITS = [
+  {
+    name: 'PokéAPI',
+    url: 'https://pokeapi.co',
+    description: 'Pokémon sprites',
+    image: "/credits/pokeapi.png",
+  },
+  {
+    name: 'Serebii',
+    url: 'https://www.serebii.net',
+    description: 'Trainer sprites & team info',
+    image: "/credits/serebii.jpg",
+  },
+  {
+    name: 'Bulbapedia',
+    url: 'https://bulbapedia.bulbagarden.net/wiki/Main_Page',
+    description: 'Trainer sprites & team info',
+    image: "/credits/bulbapedia.png",
+  },
+  {
+    name: 'Pokedoku',
+    url: 'https://pokedoku.com',
+    description: 'Inspiration',
+    image: "https://pokedoku-space.nyc3.cdn.digitaloceanspaces.com/resources/branding/pokedoku_logo.svg",
+  },
+  {
+    name: 'NYT Games',
+    url: 'https://www.nytco.com/games/',
+    description: 'Inspiration',
+    image: "/credits/nytgames.jpg",
+  },
+]
 
 export default function Credits() {
   return (
@@ -8,38 +40,31 @@ export default function Credits() {
         ← Back to Home
       </Link>
       <h2 className="static-page-title">Credits</h2>
+      <p style={{ color: 'var(--text-dim)', fontSize: '0.875rem', fontWeight: 600, textAlign: 'center' }}>
+        Thank you to these sources for helping make this possible!
+      </p>
 
-      <div className="game-description" style={{ margin: '0 auto', textAlign: 'left' }}>
-        <p>I would like to give credit to these sources for helping me out! Thank you to:</p>
-
-        <ul style={{ margin: '1rem 0', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <li>
-            <a href="https://pokeapi.co" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
-              PokéAPI
-            </a>
-            {' '}for Pokémon sprites,
-          </li>
-          <li>
-            <a href="https://www.serebii.net" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
-              Serebii
-            </a>
-            {' '}and{' '}
-            <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
-              Bulbapedia
-            </a>
-            {' '}for trainer sprites and team information,
-          </li>
-          <li>
-            <a href="https://pokedoku.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
-              Pokedoku
-            </a>
-            {' '}and{' '}
-            <a href="https://www.nytco.com/games/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
-              NYT Games
-            </a>
-            {' '}for inspiring me to create this website!
-          </li>
-        </ul>
+      <div className="credits-grid">
+        {CREDITS.map(credit => (
+          <a
+            key={credit.name}
+            href={credit.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="credit-card"
+          >
+            <div className="credit-card-image">
+              {credit.image
+                ? <img src={credit.image} alt={credit.name} />
+                : <span className="credit-card-placeholder">?</span>
+              }
+            </div>
+            <div className="credit-card-body">
+              <span className="credit-card-name">{credit.name}</span>
+              <span className="credit-card-desc">{credit.description}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </main>
   )
