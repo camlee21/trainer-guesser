@@ -20,6 +20,12 @@ const CREDITS = [
     image: "/credits/bulbapedia.png",
   },
   {
+    name: 'Sparkly',
+    url: 'https://shinishiny.carrd.co/',
+    description: 'Banner artwork',
+    image: "/credits/sparkly.jpg",
+  },
+  {
     name: 'Pokedoku',
     url: 'https://pokedoku.com',
     description: 'Inspiration',

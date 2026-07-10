@@ -1470,9 +1470,11 @@ img {
 
 .header-desktop {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 16px;
   width: 100%;
+  height: 140px;
 }
 
 .timer-mobile {
