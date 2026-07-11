@@ -31,7 +31,7 @@ export default function Layout({ children }) {
             />
           </Link>
 
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1, marginTop: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px' }}>
               <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
               <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X"
@@ -49,7 +49,7 @@ export default function Layout({ children }) {
               </a>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '44px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '44px', marginTop: '12px' }}>
               {user ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span className="auth-user-label">{user.user_metadata?.full_name?.split(' ')[0] ?? user.email.split('@')[0]}</span>
