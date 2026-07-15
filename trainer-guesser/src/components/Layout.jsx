@@ -21,6 +21,8 @@ export default function Layout({ children }) {
       <div className="content-wrapper">
         <header className="site-header">
 
+          <h1 className="seo-heading">Who's That Trainer? — Daily Pokémon Trainer Guessing Game</h1>
+
           {/* Desktop layout: banner spans both rows, buttons stacked on the right */}
           <div className="header-desktop">
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
