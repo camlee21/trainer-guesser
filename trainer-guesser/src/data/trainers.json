@@ -3667,5 +3667,136 @@
         { "name": "Swampert", "pokedexId": 260 }
       ]
     }
+  ],
+
+  "rematch-trainers": [
+    {
+      "id": "roxanne_rematch",
+      "name": "Roxanne (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/roxanne.png",
+      "team": [
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Omastar", "pokedexId": 139 },
+        { "name": "Kabutops", "pokedexId": 141 },
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Nosepass", "pokedexId": 299 }
+      ]
+    },
+    {
+      "id": "brawly_rematch",
+      "name": "Brawly (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brawly.png",
+      "team": [
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Hariyama", "pokedexId": 297 }
+      ]
+    },
+    {
+      "id": "wattson_rematch",
+      "name": "Wattson (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/wattson.png",
+      "team": [
+        { "name": "Electabuzz", "pokedexId": 125 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Magneton", "pokedexId": 82 },
+        { "name": "Manectric", "pokedexId": 310 }
+      ]
+    },
+    {
+      "id": "flannery_rematch",
+      "name": "Flannery (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/flannery.png",
+      "team": [
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Magcargo", "pokedexId": 219 },
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Rapidash", "pokedexId": 78 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Torkoal", "pokedexId": 324 }
+      ]
+    },
+    {
+      "id": "norman_rematch",
+      "name": "Norman (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/norman.png",
+      "team": [
+        { "name": "Slaking", "pokedexId": 289 },
+        { "name": "Blissey", "pokedexId": 242 },
+        { "name": "Kangaskhan", "pokedexId": 115 },
+        { "name": "Tauros", "pokedexId": 128 },
+        { "name": "Spinda", "pokedexId": 327 },
+        { "name": "Slaking", "pokedexId": 289 }
+      ]
+    },
+    {
+      "id": "winona_rematch",
+      "name": "Winona (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/winona.png",
+      "team": [
+        { "name": "Noctowl", "pokedexId": 164 },
+        { "name": "Tropius", "pokedexId": 357 },
+        { "name": "Pelipper", "pokedexId": 279 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Altaria", "pokedexId": 334 }
+      ]
+    },
+    {
+      "id": "tate&liza_rematch",
+      "name": "Tate & Liza (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/tate_and_liza.png",
+      "team": [
+        { "name": "Hypno", "pokedexId": 97 },
+        { "name": "Claydol", "pokedexId": 344 },
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Lunatone", "pokedexId": 337 },
+        { "name": "Solrock", "pokedexId": 338 }
+      ]
+    },
+    {
+      "id": "juan_rematch",
+      "name": "Juan (Rematch)",
+      "game": "Emerald",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/juan.png",
+      "team": [
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Politoed", "pokedexId": 186 },
+        { "name": "Walrein", "pokedexId": 365 },
+        { "name": "Crawdaunt", "pokedexId": 342 },
+        { "name": "Kingdra", "pokedexId": 230 }
+      ]
+    }
   ]
 }
