@@ -3797,6 +3797,111 @@
         { "name": "Crawdaunt", "pokedexId": 342 },
         { "name": "Kingdra", "pokedexId": 230 }
       ]
+    },
+    {
+      "id": "roark_rematch",
+      "name": "Roark (Rematch)",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/roark.png",
+      "team": [
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Probopass", "pokedexId": 476 },
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Rampardos", "pokedexId": 409 },
+        { "name": "Tyranitar", "pokedexId": 248 }
+      ]
+    },
+    {
+      "id": "gardenia_rematch",
+      "name": "Gardenia (Rematch)",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/gardenia.png",
+      "team": [
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Cherrim", "pokedexId": 421 },
+        { "name": "Bellossom", "pokedexId": 182 },
+        { "name": "Torterra", "pokedexId": 389 },
+        { "name": "Roserade", "pokedexId": 407 }
+      ]
+    },
+    {
+      "id": "maylene_rematch",
+      "name": "Maylene (Rematch)",
+      "game": "Platinum",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/maylene.png",
+      "team": [
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "crasherwake_rematch",
+      "name": "Crasher Wake (Rematch)",
+      "game": "Platinum",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/crasherwake.png",
+      "team": [
+        { "name": "Sharpedo", "pokedexId": 319 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Floatzel", "pokedexId": 419 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Ludicolo", "pokedexId": 272 }
+      ]
+    },
+    {
+      "id": "byron_rematch",
+      "name": "Byron (Rematch)",
+      "game": "Platinum",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/byron.png",
+      "team": [
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Bastiodon", "pokedexId": 411 },
+        { "name": "Aggron", "pokedexId": 306 }
+      ]
+    },
+    {
+      "id": "candice_rematch",
+      "name": "Candice (Rematch)",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/candice.png",
+      "team": [
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Froslass", "pokedexId": 478 },
+        { "name": "Glaceon", "pokedexId": 471 }
+      ]
+    },
+    {
+      "id": "volkner_rematch",
+      "name": "Volkner (Rematch)",
+      "game": "Platinum",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/volkner.png",
+      "team": [
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Lanturn", "pokedexId": 171 },
+        { "name": "Electivire", "pokedexId": 466 }
+      ]
     }
   ]
 }
