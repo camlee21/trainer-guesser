@@ -4144,19 +4144,211 @@
       ]
     },
     {
-      "id": "clair_rematch",
-      "name": "Clair (Rematch)",
-      "game": "HeartGold/SoulSilver",
-      "difficulty": "medium",
+      "id": "cilan_rematch",
+      "name": "Cilan (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
       "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/clair_hgss.png",
+      "trainerSpriteUrl": "/sprites/trainers/cilan.png",
       "team": [
-        { "name": "Gyarados", "pokedexId": 130 },
-        { "name": "Dragonair", "pokedexId": 148 },
-        { "name": "Aerodactyl", "pokedexId": 142 },
-        { "name": "Kingdra", "pokedexId": 230 },
-        { "name": "Charizard", "pokedexId": 6 },
-        { "name": "Dragonite", "pokedexId": 149 }
+        { "name": "Simisage", "pokedexId": 512 },
+        { "name": "Ferrothorn", "pokedexId": 598 },
+        { "name": "Maractus", "pokedexId": 556 },
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Whimsicott", "pokedexId": 547 },
+        { "name": "Lilligant", "pokedexId": 549 }
+      ]
+    },
+    {
+      "id": "chili_rematch",
+      "name": "Chili (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/chili.png",
+      "team": [
+        { "name": "Simisear", "pokedexId": 514 },
+        { "name": "Heatmor", "pokedexId": 631 },
+        { "name": "Darmanitan", "pokedexId": 555 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Magmortar", "pokedexId": 467 }
+      ]
+    },
+    {
+      "id": "cress_rematch",
+      "name": "Cress (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cress.png",
+      "team": [
+        { "name": "Simipour", "pokedexId": 516 },
+        { "name": "Golduck", "pokedexId": 55 },
+        { "name": "Floatzel", "pokedexId": 419 },
+        { "name": "Azumarill", "pokedexId": 184 },
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Basculin", "pokedexId": 550 }
+      ]
+    },
+    {
+      "id": "lenora_rematch",
+      "name": "Lenora (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/lenora.png",
+      "team": [
+        { "name": "Watchog", "pokedexId": 505 },
+        { "name": "Audino", "pokedexId": 531 },
+        { "name": "Clefable", "pokedexId": 36 },
+        { "name": "Kangaskhan", "pokedexId": 115 },
+        { "name": "Sawsbuck", "pokedexId": 586 },
+        { "name": "Dunsparce", "pokedexId": 206 }
+      ]
+    },
+    {
+      "id": "burgh_rematch",
+      "name": "Burgh (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/burgh_b2w2.png",
+      "team": [
+        { "name": "Leavanny", "pokedexId": 542 },
+        { "name": "Vespiquen", "pokedexId": 416 },
+        { "name": "Crustle", "pokedexId": 558 },
+        { "name": "Escavalier", "pokedexId": 589 },
+        { "name": "Accelgor", "pokedexId": 617 },
+        { "name": "Durant", "pokedexId": 632 }
+      ]
+    },
+    {
+      "id": "elesa_rematch",
+      "name": "Elesa (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/elesa_b2w2.png",
+      "team": [
+        { "name": "Zebstrika", "pokedexId": 523 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Galvantula", "pokedexId": 596 },
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Stunfisk", "pokedexId": 618 }
+      ]
+    },
+    {
+      "id": "clay_rematch",
+      "name": "Clay (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/clay.png",
+      "team": [
+        { "name": "Excadrill", "pokedexId": 530 },
+        { "name": "Claydol", "pokedexId": 344 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Seismitoad", "pokedexId": 537 },
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Golurk", "pokedexId": 623 }
+      ]
+    },
+    {
+      "id": "skyla_rematch",
+      "name": "Skyla (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/skyla.png",
+      "team": [
+        { "name": "Swanna", "pokedexId": 581 },
+        { "name": "Unfezant", "pokedexId": 521 },
+        { "name": "Swoobat", "pokedexId": 528 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Braviary", "pokedexId": 628 },
+        { "name": "Mandibuzz", "pokedexId": 630 }
+      ]
+    },
+    {
+      "id": "brycen_rematch",
+      "name": "Brycen (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brycen.png",
+      "team": [
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Beartic", "pokedexId": 614 },
+        { "name": "Vanilluxe", "pokedexId": 584 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Walrein", "pokedexId": 365 }
+      ]
+    },
+    {
+      "id": "drayden_rematch",
+      "name": "Drayden (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/drayden_b2w2.png",
+      "team": [
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Hydreigon", "pokedexId": 635 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Salamence", "pokedexId": 373 }
+      ]
+    },
+    {
+      "id": "cheren_rematch",
+      "name": "Cheren (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cheren.png",
+      "team": [
+        { "name": "Stoutland", "pokedexId": 508 },
+        { "name": "Zangoose", "pokedexId": 335 },
+        { "name": "Cinccino", "pokedexId": 573 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Castform", "pokedexId": 351 },
+        { "name": "Bouffalant", "pokedexId": 626 }
+      ]
+    },
+    {
+      "id": "roxie_rematch",
+      "name": "Roxie (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/roxie.png",
+      "team": [
+        { "name": "Scolipede", "pokedexId": 545 },
+        { "name": "Seviper", "pokedexId": 336 },
+        { "name": "Garbodor", "pokedexId": 569 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Drapion", "pokedexId": 452 },
+        { "name": "Amoonguss", "pokedexId": 591 }
+      ]
+    },
+    {
+      "id": "marlon_rematch",
+      "name": "Marlon (Rematch)",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/marlon.png",
+      "team": [
+        { "name": "Jellicent", "pokedexId": 593 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Alomomola", "pokedexId": 594 },
+        { "name": "Mantine", "pokedexId": 226 },
+        { "name": "Wailord", "pokedexId": 321 }
       ]
     }
   ]
