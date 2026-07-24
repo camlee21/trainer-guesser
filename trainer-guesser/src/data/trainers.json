@@ -3902,6 +3902,262 @@
         { "name": "Lanturn", "pokedexId": 171 },
         { "name": "Electivire", "pokedexId": 466 }
       ]
+    },
+    {
+      "id": "brock_rematch",
+      "name": "Brock (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brock_hgss.png",
+      "team": [
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Relicanth", "pokedexId": 369 },
+        { "name": "Omastar", "pokedexId": 139 },
+        { "name": "Kabutops", "pokedexId": 141 },
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Rampardos", "pokedexId": 409 }
+      ]
+    },
+    {
+      "id": "misty_rematch",
+      "name": "Misty (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/misty_hgss.png",
+      "team": [
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Lanturn", "pokedexId": 171 },
+        { "name": "Floatzel", "pokedexId": 419 },
+        { "name": "Milotic", "pokedexId": 350 }
+      ]
+    },
+    {
+      "id": "surge_rematch",
+      "name": "Lt. Surge (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/surge_hgss.png",
+      "team": [
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Manectric", "pokedexId": 310 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Pachirisu", "pokedexId": 417 },
+        { "name": "Electivire", "pokedexId": 466 }
+      ]
+    },
+    {
+      "id": "erika_rematch",
+      "name": "Erika (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/erika_hgss.png",
+      "team": [
+        { "name": "Shiftry", "pokedexId": 275 },
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Victreebel", "pokedexId": 71 },
+        { "name": "Bellossom", "pokedexId": 182 },
+        { "name": "Tangrowth", "pokedexId": 465 },
+        { "name": "Roserade", "pokedexId": 407 }
+      ]
+    },
+    {
+      "id": "sabrina_rematch",
+      "name": "Sabrina (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/sabrina_hgss.png",
+      "team": [
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Mr. Mime", "pokedexId": 122 },
+        { "name": "Jynx", "pokedexId": 124 },
+        { "name": "Wobbuffet", "pokedexId": 202 },
+        { "name": "Gallade", "pokedexId": 475 }
+      ]
+    },
+    {
+      "id": "janine_rematch",
+      "name": "Janine (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/janine_hgss.png",
+      "team": [
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Weezing", "pokedexId": 110 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Ariados", "pokedexId": 168 },
+        { "name": "Venomoth", "pokedexId": 49 },
+        { "name": "Drapion", "pokedexId": 452 }
+      ]
+    },
+    {
+      "id": "blaine_rematch",
+      "name": "Blaine (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/blaine_hgss.png",
+      "team": [
+        { "name": "Torkoal", "pokedexId": 324 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Rapidash", "pokedexId": 78 },
+        { "name": "Magcargo", "pokedexId": 219 },
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Magmortar", "pokedexId": 467 }
+      ]
+    },
+    {
+      "id": "blue_rematch",
+      "name": "Blue (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/blue_hgss.png",
+      "team": [
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Rhyperior", "pokedexId": 464 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Tyranitar", "pokedexId": 248 },
+        { "name": "Pidgeot", "pokedexId": 18 }
+      ]
+    },
+    {
+      "id": "falkner_rematch",
+      "name": "Falkner (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/falkner_hgss.png",
+      "team": [
+        { "name": "Staraptor", "pokedexId": 398 },
+        { "name": "Noctowl", "pokedexId": 164 },
+        { "name": "Swellow", "pokedexId": 277 },
+        { "name": "Honchkrow", "pokedexId": 430 },
+        { "name": "Pelipper", "pokedexId": 279 },
+        { "name": "Pidgeot", "pokedexId": 18 }
+      ]
+    },
+    {
+      "id": "bugsy_rematch",
+      "name": "Bugsy (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/bugsy_hgss.png",
+      "team": [
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Shedinja", "pokedexId": 292 },
+        { "name": "Yanmega", "pokedexId": 469 },
+        { "name": "Pinsir", "pokedexId": 127 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Vespiquen", "pokedexId": 416 }
+      ]
+    },
+    {
+      "id": "whitney_rematch",
+      "name": "Whitney (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/whitney_hgss.png",
+      "team": [
+        { "name": "Girafarig", "pokedexId": 203 },
+        { "name": "Lickilicky", "pokedexId": 463 },
+        { "name": "Bibarel", "pokedexId": 400 },
+        { "name": "Delcatty", "pokedexId": 301 },
+        { "name": "Clefable", "pokedexId": 36 },
+        { "name": "Miltank", "pokedexId": 241 }
+      ]
+    },
+    {
+      "id": "morty_rematch",
+      "name": "Morty (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/morty_hgss.png",
+      "team": [
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Dusknoir", "pokedexId": 477 },
+        { "name": "Sableye", "pokedexId": 302 },
+        { "name": "Mismagius", "pokedexId": 429 },
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Gengar", "pokedexId": 94 }
+      ]
+    },
+    {
+      "id": "pryce_rematch",
+      "name": "Pryce (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/pryce_hgss.png",
+      "team": [
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Glalie", "pokedexId": 362 },
+        { "name": "Froslass", "pokedexId": 478 },
+        { "name": "Walrein", "pokedexId": 365 },
+        { "name": "Mamoswine", "pokedexId": 473 }
+      ]
+    },
+    {
+      "id": "chuck_rematch",
+      "name": "Chuck (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/chuck_hgss.png",
+      "team": [
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Hitmonlee", "pokedexId": 106 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Primeape", "pokedexId": 57 },
+        { "name": "Poliwrath", "pokedexId": 62 }
+      ]
+    },
+    {
+      "id": "jasmine_rematch",
+      "name": "Jasmine (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/jasmine_hgss.png",
+      "team": [
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Empoleon", "pokedexId": 395 },
+        { "name": "Steelix", "pokedexId": 208 }
+      ]
+    },
+    {
+      "id": "clair_rematch",
+      "name": "Clair (Rematch)",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/clair_hgss.png",
+      "team": [
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Dragonite", "pokedexId": 149 }
+      ]
     }
   ]
 }
