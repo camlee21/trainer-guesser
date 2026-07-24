@@ -9,6 +9,7 @@ const MAX_TIMER_SECONDS = 3599
 const EXTRAS_META = {
   romHacks: { key: 'romHacks', label: 'Rom Hacks', dataKey: 'hack-trainers' },
   challengeMode: { key: 'challengeMode', label: 'B2W2 Challenge Mode', dataKey: 'challenge-trainers' },
+  rematches: { key: 'rematches', label: 'Rematches', dataKey: 'rematch-trainers' },
 }
 
 function pickRandom(pool, excludeId = null) {
