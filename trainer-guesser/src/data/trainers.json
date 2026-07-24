@@ -3772,7 +3772,7 @@
       "game": "Emerald Rematches",
       "difficulty": "medium",
       "type": "gym_leader",
-      "trainerSpriteUrl": "/sprites/trainers/tate_and_liza.png",
+      "trainerSpriteUrl": "/sprites/trainers/tateandliza.png",
       "team": [
         { "name": "Hypno", "pokedexId": 97 },
         { "name": "Claydol", "pokedexId": 344 },
