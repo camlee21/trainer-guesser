@@ -1489,7 +1489,7 @@
       "team": [
         { "name": "Sigilyph", "pokedexId": 561 },
         { "name": "Slowking", "pokedexId": 199 },
-        { "name": "Meowstic", "pokedexId": 678 }
+        { "name": "Meowstic", "pokedexId": 10025 }
       ]
     },
     {
@@ -4469,6 +4469,102 @@
         { "name": "Cetitan", "pokedexId": 975 },
         { "name": "Weavile", "pokedexId": 461 },
         { "name": "Altaria", "pokedexId": 334 }
+      ]
+    },
+    {
+      "id": "viola_rematch",
+      "name": "Viola",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/viola.png",
+      "team": [
+        { "name": "Masquerain", "pokedexId": 284 },
+        { "name": "Vivillon", "pokedexId": 666 }
+      ]
+    },
+    {
+      "id": "grant_rematch",
+      "name": "Grant",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/grant.png",
+      "team": [
+        { "name": "Aurorus", "pokedexId": 699 },
+        { "name": "Tyrantrum", "pokedexId": 697 }
+      ]
+    },
+    {
+      "id": "korrina_rematch",
+      "name": "Korrina",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/korrina.png",
+      "team": [
+        { "name": "Hawlucha", "pokedexId": 701 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "ramos_rematch",
+      "name": "Ramos",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/ramos.png",
+      "team": [
+        { "name": "Victreebel", "pokedexId": 71 },
+        { "name": "Gogoat", "pokedexId": 673 }
+      ]
+    },
+    {
+      "id": "clemont_rematch",
+      "name": "Clemont",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/clemont.png",
+      "team": [
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Heliolisk", "pokedexId": 695 }
+      ]
+    },
+    {
+      "id": "valerie_rematch",
+      "name": "Valerie",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/valerie.png",
+      "team": [
+        { "name": "Mawile", "pokedexId": 303 },
+        { "name": "Sylveon", "pokedexId": 700 }
+      ]
+    },
+    {
+      "id": "olympia_rematch",
+      "name": "Olympia",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/olympia.png",
+      "team": [
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Meowstic", "pokedexId": 10025 }
+      ]
+    },
+    {
+      "id": "wulfric_rematch",
+      "name": "Wulfric",
+      "game": "X/Y Rematches",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/wulfric.png",
+      "team": [
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Avalugg", "pokedexId": 713 }
       ]
     }
   ]
