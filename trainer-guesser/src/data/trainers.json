@@ -4350,6 +4350,126 @@
         { "name": "Mantine", "pokedexId": 226 },
         { "name": "Wailord", "pokedexId": 321 }
       ]
+    },
+    {
+      "id": "katy_rematch",
+      "name": "Katy",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/katy.png",
+      "team": [
+        { "name": "Lokix", "pokedexId": 920 },
+        { "name": "Forretress", "pokedexId": 205 },
+        { "name": "Spidops", "pokedexId": 918 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Ursaring", "pokedexId": 217 }
+      ]
+    },
+    {
+      "id": "brassius_rematch",
+      "name": "Brassius",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brassius.png",
+      "team": [
+        { "name": "Lilligant", "pokedexId": 549 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Tsareena", "pokedexId": 763 },
+        { "name": "Arboliva", "pokedexId": 930 },
+        { "name": "Sudowoodo", "pokedexId": 185 }
+      ]
+    },
+    {
+      "id": "iono_rematch",
+      "name": "Iono",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/iono.png",
+      "team": [
+        { "name": "Kilowattrel", "pokedexId": 941 },
+        { "name": "Bellibolt", "pokedexId": 939 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Mismagius", "pokedexId": 429 }
+      ]
+    },
+    {
+      "id": "kofu_rematch",
+      "name": "Kofu",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/kofu.png",
+      "team": [
+        { "name": "Veluza", "pokedexId": 976 },
+        { "name": "Pelipper", "pokedexId": 279 },
+        { "name": "Wugtrio", "pokedexId": 961 },
+        { "name": "Clawitzer", "pokedexId": 693 },
+        { "name": "Crabominable", "pokedexId": 740 }
+      ]
+    },
+    {
+      "id": "larry_rematch",
+      "name": "Larry",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/larry.png",
+      "team": [
+        { "name": "Oinkologne", "pokedexId": 916 },
+        { "name": "Komala", "pokedexId": 775 },
+        { "name": "Braviary", "pokedexId": 628 },
+        { "name": "Dudunsparce", "pokedexId": 982 },
+        { "name": "Staraptor", "pokedexId": 398 }
+      ]
+    },
+    {
+      "id": "ryme_rematch",
+      "name": "Ryme",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/ryme.png",
+      "team": [
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Mimikyu", "pokedexId": 778 },
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Houndstone", "pokedexId": 972 },
+        { "name": "Toxtricity", "pokedexId": 849 }
+      ]
+    },
+    {
+      "id": "tulip_rematch",
+      "name": "Tulip",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/tulip.png",
+      "team": [
+        { "name": "Farigiraf", "pokedexId": 981 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Espathra", "pokedexId": 956 },
+        { "name": "Gallade", "pokedexId": 475 },
+        { "name": "Florges", "pokedexId": 671 }
+      ]
+    },
+    {
+      "id": "grusha_rematch",
+      "name": "Grusha",
+      "game": "Scarlet/Violet Rematches",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/grusha.png",
+      "team": [
+        { "name": "Frosmoth", "pokedexId": 873 },
+        { "name": "Beartic", "pokedexId": 614 },
+        { "name": "Cetitan", "pokedexId": 975 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Altaria", "pokedexId": 334 }
+      ]
     }
   ]
 }
