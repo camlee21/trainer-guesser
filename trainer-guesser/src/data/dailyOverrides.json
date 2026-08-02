@@ -113,5 +113,25 @@
         { "name": "Machamp", "pokedexId": 68 }
       ]
     }
+  },
+  "2026-08-21": {
+    "providedBy": "Cam  ★",
+    "providedLink": "https://x.com/drag1ash",
+    "trainer": {
+      "id": "iris2",
+      "name": "Iris",
+      "game": "Black2/White2",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/iris_b2w2.png",
+      "team": [
+        { "name": "Hydreigon", "pokedexId": 635 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Haxorus", "pokedexId": 612 }
+      ]
+    }
   }
 }
