@@ -4,6 +4,15 @@ const overrides = require('./src/data/dailyOverrides.json')
 // Day #1 is June 10th GMT+0
 const DAY_ONE_UTC = Date.UTC(2026, 5, 10) // year, month_num, day_num
 
+// Whenever you add/remove trainers, add a new entry here with the
+// dayNumber that change takes effect (pick a day AFTER the current
+// cycle ends, so it doesn't disturb an in-progress cycle).
+// `listLength` = trainers.trainers.length as of that revision.
+const REVISIONS = [
+  { fromDay: 1, listLength: 206 },
+  // { fromDay: 207, listLength: 210 }, // example future revision
+]
+
 function getUtcDateString(date) {
   return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`
 }
@@ -14,18 +23,75 @@ function getDayNumber(date) {
   return diffDays + 1
 }
 
-function getDailyIndex(utcDate, listLength) {
-  let h = 1779033703 ^ utcDate.length
-  for (let i = 0; i < utcDate.length; i++) {
-    h = Math.imul(h ^ utcDate.charCodeAt(i), 3432918353)
+function hashStringToSeed(str) {
+  let h = 1779033703 ^ str.length
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353)
     h = (h << 13) | (h >>> 19)
   }
-
   h = Math.imul(h ^ (h >>> 16), 2246822507)
   h = Math.imul(h ^ (h >>> 13), 3266489909)
   h ^= h >>> 16
+  return h >>> 0
+}
 
-  return Math.abs(h) % listLength
+function mulberry32(seed) {
+  let a = seed
+  return function () {
+    a |= 0
+    a = (a + 0x6d2b79f5) | 0
+    let t = Math.imul(a ^ (a >>> 15), 1 | a)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+function seededShuffle(array, seed) {
+  const rng = mulberry32(seed)
+  const result = [...array]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}
+
+const cycleCache = new Map()
+
+function getShuffledOrderForCycle(revisionIndex, cycle, listLength) {
+  const cacheKey = `${revisionIndex}-${cycle}`
+  if (cycleCache.has(cacheKey)) {
+    return cycleCache.get(cacheKey)
+  }
+
+  const indices = Array.from({ length: listLength }, (_, i) => i)
+  const seed = hashStringToSeed(`trainer-rev${revisionIndex}-cycle-${cycle}`)
+  const shuffled = seededShuffle(indices, seed)
+
+  cycleCache.set(cacheKey, shuffled)
+  return shuffled
+}
+
+// Finds which revision applies to a given day (the last one whose
+// fromDay is <= dayNumber).
+function getRevisionForDay(dayNumber) {
+  let revisionIndex = 0
+  for (let i = 0; i < REVISIONS.length; i++) {
+    if (REVISIONS[i].fromDay <= dayNumber) {
+      revisionIndex = i
+    }
+  }
+  return { revisionIndex, revision: REVISIONS[revisionIndex] }
+}
+
+function getDailyIndex(dayNumber) {
+  const { revisionIndex, revision } = getRevisionForDay(dayNumber)
+  const zeroBasedDayInRevision = dayNumber - revision.fromDay
+  const cycle = Math.floor(zeroBasedDayInRevision / revision.listLength)
+  const positionInCycle = zeroBasedDayInRevision % revision.listLength
+
+  const shuffledOrder = getShuffledOrderForCycle(revisionIndex, cycle, revision.listLength)
+  return shuffledOrder[positionInCycle]
 }
 
 function getDailyTrainerForDate(date) {
@@ -45,7 +111,7 @@ function getDailyTrainerForDate(date) {
     }
   }
 
-  const index = getDailyIndex(utcDate, trainers.trainers.length)
+  const index = getDailyIndex(dayNumber)
   return {
     ...trainers.trainers[index],
     dayNumber,
@@ -56,20 +122,39 @@ function getDailyTrainerForDate(date) {
   }
 }
 
-const NUM_DAYS = 10
-const today = new Date()
+/**
+ * Returns the previous `daysBefore` trainers, today's trainer, and the
+ * next `daysAfter` trainers, each with dayNumber, trainer name, game,
+ * difficulty, and whether it's today.
+ */
+function getTrainerWindow(daysBefore = 5, daysAfter = 10, referenceDate = new Date()) {
+  const results = []
 
-console.log(`Upcoming ${NUM_DAYS} days of daily trainers:\n`)
+  for (let offset = -daysBefore; offset <= daysAfter; offset++) {
+    const date = new Date(referenceDate.getTime() + offset * 86400000)
+    const trainer = getDailyTrainerForDate(date)
 
-for (let i = 0; i < NUM_DAYS; i++) {
-  const date = new Date(today.getTime() + i * 86400000)
-  const result = getDailyTrainerForDate(date)
+    results.push({
+      dayNumber: trainer.dayNumber,
+      utcDate: trainer.utcDate,
+      name: trainer.name,
+      game: trainer.game,
+      difficulty: trainer.difficulty,
+      isCurrent: offset === 0,
+    })
+  }
 
-  const providedTag = result.isProvided
-    ? `provided by ${result.providedBy ?? 'unknown'}`
-    : 'regular pool'
+  return results
+}
 
+// --- Print it out ---
+const window = getTrainerWindow(5, 10)
+
+console.log(`Trainer schedule (previous 5, today, next 10):\n`)
+
+for (const entry of window) {
+  const marker = entry.isCurrent ? ' (current)' : ''
   console.log(
-    `Day #${result.dayNumber} (${result.utcDate}) - ${result.name} [${result.game}] - ${providedTag}`
+    `Day #${entry.dayNumber} (${entry.utcDate}) - ${entry.name} [${entry.game}] - ${entry.difficulty}${marker}`
   )
 }
