@@ -32,46 +32,20 @@ export default function ShareButtons({ gameOver, guesses, dayNumber }) {
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
       <button onClick={() => setOpen(o => !o)} className="share-btn">
-        🔗 Share
+        Share
       </button>
 
       {open && (
-        <div className="share-menu-popup"
-        style={{
-          position: 'absolute',
-          bottom: 'calc(100% + 8px)',
-          right: 0,
-          zIndex: 50,
-          background: 'rgba(15, 23, 42, 0.97)',
-          border: '1px solid var(--panel-border)',
-          borderRadius: '12px',
-          padding: '12px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-          minWidth: '180px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-          animation: 'slideIn 0.15s ease',
-        }}>
+        <div className="share-menu-popup">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#55739c', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               Share
             </span>
             <button
               onClick={() => setOpen(false)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-dim)',
-                cursor: 'pointer',
-                fontSize: '0.85rem',
-                lineHeight: 1,
-                padding: '2px 4px',
-                borderRadius: '4px',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--text)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-dim)'}
+              className="icon-btn"
+              style={{ width: '24px', height: '24px', borderRadius: '4px', border: 'none', background: 'none', color: '#94a3b8', fontSize: '0.85rem' }}
+              aria-label="Close share menu"
             >
               ✕
             </button>

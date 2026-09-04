@@ -288,24 +288,25 @@ const GEN_MAP = {
 
 const DIFFICULTIES = ['easy', 'medium', 'hard']
 
+// Pulls from the same --badge-* vars as .difficulty-badge so both stay in sync and theme-reactive.
 const DIFFICULTY_STYLES = {
   easy: {
-    active: 'rgba(74,222,128,0.18)',
-    activeBorder: 'rgba(74,222,128,0.45)',
-    activeColor: '#4ade80',
-    activeGlow: 'rgba(74,222,128,0.25)',
+    active: 'var(--badge-green-bg)',
+    activeBorder: 'var(--badge-green-border)',
+    activeColor: 'var(--green)',
+    activeGlow: 'var(--badge-green-border)',
   },
   medium: {
-    active: 'rgba(251,191,36,0.18)',
-    activeBorder: 'rgba(251,191,36,0.45)',
-    activeColor: '#fbbf24',
-    activeGlow: 'rgba(251,191,36,0.25)',
+    active: 'var(--badge-gold-bg)',
+    activeBorder: 'var(--badge-gold-border)',
+    activeColor: 'var(--gold)',
+    activeGlow: 'var(--badge-gold-border)',
   },
   hard: {
-    active: 'rgba(248,113,113,0.18)',
-    activeBorder: 'rgba(248,113,113,0.45)',
-    activeColor: '#f87171',
-    activeGlow: 'rgba(248,113,113,0.25)',
+    active: 'var(--badge-red-bg)',
+    activeBorder: 'var(--badge-red-border)',
+    activeColor: 'var(--red)',
+    activeGlow: 'var(--badge-red-border)',
   },
 }
 
@@ -429,6 +430,7 @@ function GameFilter({
                   borderColor: styles.activeBorder,
                   color: styles.activeColor,
                   boxShadow: `0 0 10px ${styles.activeGlow}`,
+                  WebkitTextStroke: 'var(--badge-text-stroke)',
                 } : {}}
                 title={cantDeselect ? 'At least one difficulty must be selected' : ''}
               >
@@ -692,7 +694,7 @@ function InfiniteMode({ onResetSession }) {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               margin: '32px 0 20px 0', position: 'relative'
             }}>
-              <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
+              <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'var(--panel-border)' }} />
               <span className="round-label">
                 Round {rounds.length + 1}
               </span>

@@ -161,7 +161,7 @@ export default function Stats() {
                     fontFamily: 'inherit',
                     border: 'none',
                     cursor: 'pointer',
-                    background: searchField === field ? 'var(--accent)' : 'rgba(255,255,255,0.06)',
+                    background: searchField === field ? 'var(--accent)' : 'var(--chrome-bg)',
                     color: searchField === field ? 'var(--accent-text)' : 'var(--text-dim)',
                     transition: 'background 0.15s, color 0.15s',
                   }}

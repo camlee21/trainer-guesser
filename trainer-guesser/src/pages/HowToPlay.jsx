@@ -11,7 +11,7 @@ export default function HowToPlay() {
 
       {/* Daily Mode Block */}
       <div className="game-description" style={{ margin: '0 auto', textAlign: 'left' }}>
-        <h3 style={{ textAlign: 'center', fontFamily: "'Press Start 2P', monospace", fontSize: '0.75rem', color: 'var(--accent)', marginBottom: '1rem', letterSpacing: '0.04em' }}>
+        <h3 className="section-eyebrow">
           Daily Mode
         </h3>
 
@@ -43,7 +43,7 @@ export default function HowToPlay() {
 
       {/* Infinite Mode Block */}
       <div className="game-description" style={{ margin: '1rem auto 0', textAlign: 'left' }}>
-        <h3 style={{ textAlign: 'center', fontFamily: "'Press Start 2P', monospace", fontSize: '0.75rem', color: 'var(--accent)', marginBottom: '1rem', letterSpacing: '0.04em' }}>
+        <h3 className="section-eyebrow">
           Infinite Mode
         </h3>
 
