@@ -37,9 +37,7 @@ export default function Layout({ children }) {
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px' }}>
               <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
               <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(44, 118, 68, 0.8)', backdropFilter: 'blur(8px)', transition: 'background 0.2s, transform 0.15s', flexShrink: 0 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(44, 118, 68, 0.9)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(44, 118, 68, 0.8)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                className="icon-btn" style={{ background: 'rgba(44, 118, 68, 0.8)' }}
               >
                 <img
                   src="/voltorbflipwebicon.png"
@@ -47,11 +45,7 @@ export default function Layout({ children }) {
                   style={{ width: '22px', height: '22px', objectFit: 'contain' }}
                 />
               </a>
-              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', transition: 'background 0.2s, transform 0.15s', flexShrink: 0 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(0)' }}
-              >
+              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
@@ -87,9 +81,7 @@ export default function Layout({ children }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px' }}>
               <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
               <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(44, 118, 68, 0.8)', backdropFilter: 'blur(8px)', transition: 'background 0.2s, transform 0.15s', flexShrink: 0 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(44, 118, 68, 0.9)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(44, 118, 68, 0.8)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                className="icon-btn" style={{ background: 'rgba(44, 118, 68, 0.8)' }}
               >
                 <img
                   src="/voltorbflipwebicon.png"
@@ -97,11 +89,7 @@ export default function Layout({ children }) {
                   style={{ width: '22px', height: '22px', objectFit: 'contain' }}
                 />
               </a>
-              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', transition: 'background 0.2s, transform 0.15s', flexShrink: 0 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(0)' }}
-              >
+              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
