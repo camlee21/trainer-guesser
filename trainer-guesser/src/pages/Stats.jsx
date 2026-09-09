@@ -45,6 +45,19 @@ export default function Stats() {
   const totalScoreB = results.length * 5
   const totalScorePct = totalScoreB > 0 ? Math.round((totalScoreA / totalScoreB) * 100) : 0
 
+  const guessDistribution = [0, 0, 0, 0, 0]
+  let failCount = 0
+  results.forEach(r => {
+    if (r.won) {
+      const guessesUsed = r.guesses_used ?? (6 - (r.score ?? 5))
+      const idx = Math.min(5, Math.max(1, guessesUsed)) - 1
+      guessDistribution[idx]++
+    } else {
+      failCount++
+    }
+  })
+  const guessDistMax = Math.max(...guessDistribution, failCount, 1)
+
   const enriched = results.map(r => {
     const trainer = trainersData.trainers.find(t => t.id === r.trainer_id)
     return {
@@ -148,6 +161,42 @@ export default function Stats() {
         </p>
       ) : (
         <>
+          <div className="guess-dist-wrapper">
+            <p className="guess-dist-title">Guess Distribution</p>
+            <table className="guess-dist-table">
+              <tbody>
+                {guessDistribution.map((count, i) => (
+                  <tr key={i}>
+                    <td className="guess-dist-label">{i + 1}</td>
+                    <td className="guess-dist-bar-cell">
+                      <div className="guess-dist-bar-track">
+                        <div
+                          className={`guess-dist-bar${count === 0 ? ' is-empty' : ''}`}
+                          style={{ width: `${Math.max((count / guessDistMax) * 100, count === 0 ? 6 : 8)}%` }}
+                        >
+                          {count}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td className="guess-dist-label">F</td>
+                  <td className="guess-dist-bar-cell">
+                    <div className="guess-dist-bar-track">
+                      <div
+                        className={`guess-dist-bar${failCount === 0 ? ' is-empty' : ' is-fail'}`}
+                        style={{ width: `${Math.max((failCount / guessDistMax) * 100, failCount === 0 ? 6 : 8)}%` }}
+                      >
+                        {failCount}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <div style={{ display: 'flex', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--panel-border)', flexShrink: 0 }}>
               {['trainer', 'day', 'game', 'date'].map(field => (
