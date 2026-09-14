@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
@@ -103,7 +102,6 @@ export default function Stats() {
   if (authLoading || fetching) {
     return (
       <main className="static-page">
-        <Link to="/" className="back-btn static-page-back">← Back to Home</Link>
         <h2 className="static-page-title">Your Stats</h2>
         <p className="game-description" style={{ margin: '0 auto' }}>Loading...</p>
       </main>
@@ -113,7 +111,6 @@ export default function Stats() {
   if (!user) {
     return (
       <main className="static-page">
-        <Link to="/" className="back-btn static-page-back">← Back to Home</Link>
         <h2 className="static-page-title">Your Stats</h2>
 
         <div className="game-description" style={{ margin: '0 auto', textAlign: 'left' }}>
@@ -139,7 +136,6 @@ export default function Stats() {
 
   return (
     <main className="static-page" style={{ width: '100%', maxWidth: '860px' }}>
-      <Link to="/" className="back-btn static-page-back">← Back to Home</Link>
       <h2 className="static-page-title">Your Stats</h2>
 
       {(streak >= 2 || results.length > 0) && (

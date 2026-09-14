@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import Layout from './components/Layout'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import HowToPlay from './pages/HowToPlay'
 import Stats from './pages/Stats'
@@ -14,6 +15,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 export default function App() {
   return (
     <AuthProvider>
+      <ScrollToTop />
       <Layout>
           <Routes>
             <Route path="/" element={<Home />} />

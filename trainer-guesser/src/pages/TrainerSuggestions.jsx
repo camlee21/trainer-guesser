@@ -1,5 +1,4 @@
 
-import { Link } from 'react-router-dom'
 import { useState, useRef } from 'react'
 
 const MAX_LENGTHS = {
@@ -93,9 +92,6 @@ export default function TrainerSuggestions() {
 
   return (
     <main className="static-page">
-      <Link to="/" className="back-btn static-page-back">
-        ← Back to Home
-      </Link>
       <h2 className="static-page-title">Trainer Suggestions</h2>
       <p className="game-description" style={{ margin: '0 auto' }}>
         Got a trainer you'd like to see in Daily mode? Fill out the form below, or hit me up on{' '}

@@ -1,12 +1,6 @@
-
-import { Link } from 'react-router-dom'
-
 export default function HowToPlay() {
   return (
     <main className="static-page">
-      <Link to="/" className="back-btn static-page-back">
-        ← Back to Home
-      </Link>
       <h2 className="static-page-title">How to Play</h2>
 
       {/* Daily Mode Block */}

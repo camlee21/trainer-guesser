@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 const CREDITS = [
   {
     name: 'PokéAPI',
@@ -42,9 +40,6 @@ const CREDITS = [
 export default function Credits() {
   return (
     <main className="static-page">
-      <Link to="/" className="back-btn static-page-back">
-        ← Back to Home
-      </Link>
       <h2 className="static-page-title">Credits</h2>
       <p style={{ color: 'var(--text-dim)', fontSize: '0.875rem', fontWeight: 600, textAlign: 'center' }}>
         Thank you to these sources for helping make this possible!
