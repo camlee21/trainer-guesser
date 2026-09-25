@@ -34,7 +34,8 @@ export default function Privacy() {
 
             <div>
                 If you play without signing in, only your current day's game state is stored locally
-                in your browser via localStorage and is never sent to our servers.
+                in your browser via localStorage. It is only sent to our servers if you sign in
+                later that day, so the result is saved to your account.
             </div>
         </Section>
 

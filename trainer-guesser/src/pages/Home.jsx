@@ -51,9 +51,11 @@ function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
 
 function DailyMode() {
   const trainer = useDailyTrainer()
-  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult } = usePersistedGameState(trainer)
+  const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult, saveStatus } = usePersistedGameState(trainer)
   const { user } = useAuthContext()
   const [streak, setStreak] = useState(0)
+  // Re-fetch the streak once today's result has actually reached Supabase
+  const resultSaved = saveStatus === 'saved'
 
   const MAX_GUESSES = 5
 
@@ -69,7 +71,7 @@ function DailyMode() {
       if (data) setStreak(computeStreak(data))
     }
     fetchStreak()
-  }, [user?.id, gameOver])
+  }, [user?.id, gameOver, resultSaved])
 
   async function handleGuess(selected) {
     const isCorrect = selected.id === trainer.id
@@ -191,6 +193,12 @@ function DailyMode() {
                 guesses={guesses}
                 dayNumber={trainer.dayNumber}
               />
+            </div>
+          )}
+
+          {gameOver && user && saveStatus === 'failed' && (
+            <div className="guess-counter" role="status">
+              Couldn't save your result to your account yet. It's kept on this device and we'll keep retrying.
             </div>
           )}
 
