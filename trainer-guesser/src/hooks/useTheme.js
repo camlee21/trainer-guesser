@@ -38,7 +38,8 @@ function applyBackground(hex, accentHex) {
   const { r, g, b } = hexToRgb(hex)
   const dark = isDark(hex)
 
-  const factor = dark ? 1.3 : 0.8
+  // Light themes only need a gentle gradient; 0.8 turned pale backgrounds a muddy grey
+  const factor = dark ? 1.3 : 0.95
   const r2 = Math.min(255, Math.round(r * factor))
   const g2 = Math.min(255, Math.round(g * factor))
   const b2 = Math.min(255, Math.round(b * factor))
@@ -60,9 +61,20 @@ function applyBackground(hex, accentHex) {
   const root = document.documentElement
   root.style.setProperty('--bg-main', `rgb(${r},${g},${b})`)
   root.style.setProperty('--bg-alt',  `rgb(${r2},${g2},${b2})`)
-  root.style.setProperty('--panel-bg', `rgba(${r},${g},${b},${dark ? '0.9' : '0.88'})`)
-  root.style.setProperty('--panel-border', dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.10)')
-  root.style.setProperty('--input-bg', dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)')
+  // Light themes get near-white cards and inputs so they lift off the page, instead of page-coloured panels
+  root.style.setProperty('--panel-bg', dark ? `rgba(${r},${g},${b},0.9)` : 'rgba(255,255,255,0.82)')
+  root.style.setProperty('--panel-border', dark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.10)')
+  root.style.setProperty('--input-bg', dark ? 'rgba(255,255,255,0.12)' : '#ffffff')
+
+  // Softer, cooler shadows on light backgrounds; the dark-mode ones looked like smudges
+  root.style.setProperty('--shadow-sm', dark ? '0 2px 8px rgba(0,0,0,0.25)' : '0 1px 3px rgba(15,23,42,0.08)')
+  root.style.setProperty('--shadow-md', dark ? '0 8px 24px rgba(0,0,0,0.35)' : '0 4px 14px rgba(15,23,42,0.08)')
+  root.style.setProperty('--shadow-lg', dark ? '0 16px 48px rgba(0,0,0,0.45)' : '0 12px 32px rgba(15,23,42,0.14)')
+
+  // Faint glyphs (the "?" placeholder) and table row lines, which were white-only
+  root.style.setProperty('--placeholder', dark ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.12)')
+  root.style.setProperty('--row-border', dark ? 'rgba(255,255,255,0.04)' : 'rgba(15,23,42,0.06)')
+  root.style.setProperty('--row-hover', dark ? 'rgba(255,255,255,0.03)' : 'rgba(15,23,42,0.03)')
 
   // "Chrome" controls (filter buttons, toggles, dividers) — were hardcoded white-alpha, invisible on light themes.
   root.style.setProperty('--chrome-bg', dark ? 'rgba(255,255,255,0.12)' : 'rgba(15,23,42,0.08)')

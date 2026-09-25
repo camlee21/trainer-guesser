@@ -57,6 +57,11 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+
+  /* Faint glyphs and table rows — useTheme.js swaps these for dark-on-light values on light themes */
+  --placeholder: rgba(255, 255, 255, 0.1);
+  --row-border: rgba(255, 255, 255, 0.04);
+  --row-hover: rgba(255, 255, 255, 0.03);
 }
 
 body {
@@ -133,14 +138,10 @@ textarea:focus-visible {
   margin-top: 12px;
 }
 
-/* Account controls sit at the end of the row, set off by a thin rule */
 .header-auth {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-left: 12px;
-  margin-left: 2px;
-  border-left: 1px solid var(--panel-border);
   height: 40px;
 }
 
@@ -159,12 +160,6 @@ textarea:focus-visible {
     justify-content: center;
     margin-top: 0;
   }
-  /* The account controls wrap onto their own line here, so the divider has nothing to divide */
-  .header-auth {
-    border-left: none;
-    padding-left: 0;
-    margin-left: 0;
-  }
 }
 
 .main-layout {
@@ -180,27 +175,27 @@ textarea:focus-visible {
   }
 }
 
-/* ── Ko-fi button: same quiet chrome as the icon buttons beside it, so Log In stays the one accent in the header ── */
+/* ── Ko-fi button: filled accent pill so it stands out in the header ── */
 .kofi-btn {
   display: flex;
   align-items: center;
   gap: 8px;
   height: 40px;
-  padding: 0 14px;
-  background: var(--chrome-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
+  padding: 0 16px;
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border-radius: var(--radius-pill);
   text-decoration: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   white-space: nowrap;
-  transition: background 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .kofi-btn:hover {
-  background: var(--chrome-bg-hover);
+  transform: scale(1.03);
 }
 
 .kofi-btn img {
@@ -443,7 +438,7 @@ textarea:focus-visible {
   justify-content: center;
   font-family: 'Press Start 2P', monospace;
   font-size: 3rem;
-  color: rgba(255,255,255,0.1);
+  color: var(--placeholder);
 }
 
 .trainer-info {
@@ -991,7 +986,7 @@ img {
   border-radius: var(--radius-md);
   padding: 0.5rem 1rem;
   backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-md);
   min-width: 88px;
 }
 
@@ -1072,7 +1067,7 @@ img {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  box-shadow: var(--shadow-md);
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
@@ -1116,7 +1111,7 @@ img {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  box-shadow: var(--shadow-md);
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
@@ -1162,7 +1157,7 @@ img {
   border: 1px solid var(--accent-border);
   border-radius: var(--radius-lg);
   padding: 0.4rem 0.9rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(10px);
   white-space: nowrap;
   max-width: calc(100% - 1rem);
@@ -1622,11 +1617,11 @@ img {
 .stats-table td {
   padding: 0.6rem 0.75rem;
   color: var(--text);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--row-border);
 }
 
 .stats-table tr:hover td {
-  background: rgba(255,255,255,0.03);
+  background: var(--row-hover);
 }
 
 .stats-score-won {
@@ -1859,7 +1854,7 @@ img {
   text-decoration: none;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-md);
   transition: border-color 0.2s ease;
 }
 
@@ -1891,7 +1886,7 @@ img {
 .credit-card-placeholder {
   font-family: 'Press Start 2P', monospace;
   font-size: 1.5rem;
-  color: rgba(255,255,255,0.15);
+  color: var(--placeholder);
 }
 
 .credit-card-body {
