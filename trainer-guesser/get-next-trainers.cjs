@@ -1,160 +1,49 @@
+// Prints the daily trainer schedule around today, and checks trainers.json
+// for problems that would shift the schedule. Usage:
+//   node get-next-trainers.cjs [daysBefore=5] [daysAfter=10]
 const trainers = require('./src/data/trainers.json')
 const overrides = require('./src/data/dailyOverrides.json')
 
-// Day #1 is June 10th GMT+0
-const DAY_ONE_UTC = Date.UTC(2026, 5, 10) // year, month_num, day_num
+const DAY_MS = 86400000
 
-// Whenever you add/remove trainers, add a new entry here with the
-// dayNumber that change takes effect (pick a day AFTER the current
-// cycle ends, so it doesn't disturb an in-progress cycle).
-// `listLength` = trainers.trainers.length as of that revision.
-const REVISIONS = [
-  { fromDay: 1, listLength: 206 },
-  // { fromDay: 207, listLength: 210 }, // example future revision
-]
+async function main() {
+  // The schedule logic lives in one shared ES module so this script can't drift from the app
+  const { getDayNumber, getScheduledTrainer, getUtcDateString, validateTrainerList } = await import(
+    './src/lib/dailySchedule.js'
+  )
 
-function getUtcDateString(date) {
-  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`
-}
+  const daysBefore = Number(process.argv[2] ?? 5)
+  const daysAfter = Number(process.argv[3] ?? 10)
+  const now = new Date()
 
-function getDayNumber(date) {
-  const todayUtcMidnight = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
-  const diffDays = Math.floor((todayUtcMidnight - DAY_ONE_UTC) / 86400000)
-  return diffDays + 1
-}
-
-function hashStringToSeed(str) {
-  let h = 1779033703 ^ str.length
-  for (let i = 0; i < str.length; i++) {
-    h = Math.imul(h ^ str.charCodeAt(i), 3432918353)
-    h = (h << 13) | (h >>> 19)
-  }
-  h = Math.imul(h ^ (h >>> 16), 2246822507)
-  h = Math.imul(h ^ (h >>> 13), 3266489909)
-  h ^= h >>> 16
-  return h >>> 0
-}
-
-function mulberry32(seed) {
-  let a = seed
-  return function () {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
-
-function seededShuffle(array, seed) {
-  const rng = mulberry32(seed)
-  const result = [...array]
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[result[i], result[j]] = [result[j], result[i]]
-  }
-  return result
-}
-
-const cycleCache = new Map()
-
-function getShuffledOrderForCycle(revisionIndex, cycle, listLength) {
-  const cacheKey = `${revisionIndex}-${cycle}`
-  if (cycleCache.has(cacheKey)) {
-    return cycleCache.get(cacheKey)
-  }
-
-  const indices = Array.from({ length: listLength }, (_, i) => i)
-  const seed = hashStringToSeed(`trainer-rev${revisionIndex}-cycle-${cycle}`)
-  const shuffled = seededShuffle(indices, seed)
-
-  cycleCache.set(cacheKey, shuffled)
-  return shuffled
-}
-
-// Finds which revision applies to a given day (the last one whose
-// fromDay is <= dayNumber).
-function getRevisionForDay(dayNumber) {
-  let revisionIndex = 0
-  for (let i = 0; i < REVISIONS.length; i++) {
-    if (REVISIONS[i].fromDay <= dayNumber) {
-      revisionIndex = i
-    }
-  }
-  return { revisionIndex, revision: REVISIONS[revisionIndex] }
-}
-
-function getDailyIndex(dayNumber) {
-  const { revisionIndex, revision } = getRevisionForDay(dayNumber)
-  const zeroBasedDayInRevision = dayNumber - revision.fromDay
-  const cycle = Math.floor(zeroBasedDayInRevision / revision.listLength)
-  const positionInCycle = zeroBasedDayInRevision % revision.listLength
-
-  const shuffledOrder = getShuffledOrderForCycle(revisionIndex, cycle, revision.listLength)
-  return shuffledOrder[positionInCycle]
-}
-
-function getDailyTrainerForDate(date) {
-  const utcDate = getUtcDateString(date)
-  const dayNumber = getDayNumber(date)
-
-  const override = overrides[utcDate]
-
-  if (override) {
-    return {
-      ...override.trainer,
-      dayNumber,
-      isProvided: true,
-      providedBy: override.providedBy ?? null,
-      providedLink: override.providedLink ?? null,
-      utcDate,
-    }
-  }
-
-  const index = getDailyIndex(dayNumber)
-  return {
-    ...trainers.trainers[index],
-    dayNumber,
-    isProvided: false,
-    providedBy: null,
-    providedLink: null,
-    utcDate,
-  }
-}
-
-/**
- * Returns the previous `daysBefore` trainers, today's trainer, and the
- * next `daysAfter` trainers, each with dayNumber, trainer name, game,
- * difficulty, and whether it's today.
- */
-function getTrainerWindow(daysBefore = 5, daysAfter = 10, referenceDate = new Date()) {
-  const results = []
+  console.log(`Trainer schedule (previous ${daysBefore}, today, next ${daysAfter}):\n`)
 
   for (let offset = -daysBefore; offset <= daysAfter; offset++) {
-    const date = new Date(referenceDate.getTime() + offset * 86400000)
-    const trainer = getDailyTrainerForDate(date)
-
-    results.push({
-      dayNumber: trainer.dayNumber,
-      utcDate: trainer.utcDate,
-      name: trainer.name,
-      game: trainer.game,
-      difficulty: trainer.difficulty,
-      isCurrent: offset === 0,
-    })
+    const date = new Date(now.getTime() + offset * DAY_MS)
+    const utcDate = getUtcDateString(date)
+    const dayNumber = getDayNumber(date)
+    const { trainer, cycle, dayInCycle, cycleLength } = getScheduledTrainer(trainers.trainers, dayNumber)
+    const override = overrides[utcDate]
+    const shown = override ? override.trainer : trainer
+    const marker = offset === 0 ? ' (current)' : ''
+    const note = override ? ` [override by ${override.providedBy}, replaces ${trainer.name}]` : ''
+    console.log(
+      `Day #${dayNumber} (${utcDate}) cycle ${cycle} ${dayInCycle}/${cycleLength} - ${shown.name} [${shown.game}] - ${shown.difficulty}${note}${marker}`
+    )
   }
 
-  return results
+  const today = getScheduledTrainer(trainers.trainers, getDayNumber(now))
+  if (today.cycle !== null) {
+    const nextCycleStart = new Date(now.getTime() + (today.cycleLength - today.dayInCycle + 1) * DAY_MS)
+    console.log(`\nCycle ${today.cycle + 1} starts ${getUtcDateString(nextCycleStart)}.`)
+  }
+
+  const problems = validateTrainerList(trainers.trainers)
+  if (problems.length > 0) {
+    console.error('\nProblems with trainers.json:')
+    for (const problem of problems) console.error(`- ${problem}`)
+    process.exitCode = 1
+  }
 }
 
-// --- Print it out ---
-const window = getTrainerWindow(5, 10)
-
-console.log(`Trainer schedule (previous 5, today, next 10):\n`)
-
-for (const entry of window) {
-  const marker = entry.isCurrent ? ' (current)' : ''
-  console.log(
-    `Day #${entry.dayNumber} (${entry.utcDate}) - ${entry.name} [${entry.game}] - ${entry.difficulty}${marker}`
-  )
-}
+main()

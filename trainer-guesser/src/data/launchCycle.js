@@ -1,0 +1,31 @@
+// The first daily cycle (day 1 = 2026-06-10 to day 206 = 2027-01-01), frozen
+// by trainer id so edits to trainers.json can't change it. Entry n is day n + 1.
+// Don't edit this list: players have already seen part of it.
+export const LAUNCH_CYCLE = [
+  'sabi', 'marshal', 'bruno2', 'archer', 'giovanni', 'erika', 'serena', 'miror-b',
+  'hugh', 'kahili', 'roxanne', 'marnie', 'maxie', 'juan', 'brock', 'greevil',
+  'aaron', 'bede', 'bea', 'gaeric', 'misty2', 'naveen', 'cyrus', 'grimsley',
+  'kofu', 'zinnia', 'chuck', 'volo', 'winona', 'mela', 'piers', 'morty',
+  'cilan', 'n2', 'elesa', 'fantina', 'alder', 'wulfric', 'colress', 'ramos',
+  'agatha', 'crasherwake', 'bertha', 'vinnie', 'korrina', 'viola', 'ryme', 'norman',
+  'kabu', 'flannery', 'marlon', 'volkner', 'shauna', 'shauntal', 'trevor', 'nemona',
+  'surge2', 'koga2', 'bruno', 'flint', 'ivor', 'philippe', 'sabrina2', 'benga2',
+  'lenora', 'corbeau', 'burgh', 'shauntal2', 'bianca', 'mallow', 'drake', 'lance',
+  'glacia', 'gwynn', 'hassel', 'cress', 'n1', 'siebold', 'janine', 'faba',
+  'blaine', 'rika', 'olivia', 'poppy', 'melony', 'bugsy', 'surge', 'clemont',
+  'wattson', 'eri', 'tulip', 'lebanne', 'az', 'hau', 'may', 'sabrina',
+  'iono', 'lana', 'mina', 'penny', 'whitney', 'nessa', 'wally', 'sycamore',
+  'sidney', 'ariana', 'skyla2', 'kiawe', 'silver', 'cynthia2', 'melli', 'larry2',
+  'phoebe', 'wallace2', 'benga1', 'clair', 'burgh2', 'tierno', 'skyla', 'raihan',
+  'lian', 'lucian', 'chili', 'brycen', 'brassius', 'gladion2', 'wikstrom', 'emma',
+  'malva', 'atticus', 'turo', 'caitlin', 'lorelei', 'brock2', 'karen', 'cynthia',
+  'blue2', 'grisham', 'blaine2', 'cheren', 'iris2', 'clay2', 'will', 'grusha',
+  'clay', 'drasna', 'roark', 'ingo', 'lusamine', 'wallace', 'lance2', 'opal',
+  'giacomo', 'lysandre2', 'ghetsis2', 'falkner', 'leon', 'valerie', 'barry', 'olympia',
+  'roxie', 'red', 'brawly', 'candice', 'hala', 'ilima', 'canari', 'erika2',
+  'cheren2', 'sada', 'morimoto', 'koga', 'byron', 'ghetsis', 'lysandre', 'gladion',
+  'allister', 'milo', 'lida', 'larry1', 'diantha', 'gardenia', 'acerola', 'jasmine',
+  'plumeria', 'steven', 'mai', 'guzma', 'ortega', 'blue', 'drayden2', 'molayne',
+  'elesa2', 'misty', 'maylene', 'geeta', 'archie', 'zinzolin', 'jacinthe', 'grant',
+  'gordie', 'proton', 'katy', 'pryce', 'tate&liza', 'cynthia3',
+]
