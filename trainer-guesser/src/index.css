@@ -12,6 +12,7 @@
   --green-dark: #16a34a;
   --green-hover: #22c55e;
   --red: #f87171;
+  --red-text: #0f172a;
   --danger: #dc2626;
   --danger-hover: #ef4444;
   --gold: #fbbf24;
@@ -42,7 +43,7 @@
   --accent-hover: #72a4f2;
   --accent-bg: rgba(114, 164, 242, 0.15);
   --accent-border: rgba(114, 164, 242, 0.35);
-  --accent-text: #ffffff;
+  --accent-text: #0f172a; /* useTheme.js picks white or dark per accent for contrast */
 
   /* Overlay chrome — floating menus stay a fixed dark surface regardless of the active theme. */
   --overlay-bg: rgba(13, 18, 32, 0.97);
@@ -1710,6 +1711,7 @@ img {
 
 .guess-dist-bar.is-fail {
   background: var(--red);
+  color: var(--red-text);
   box-shadow: none;
 }
 

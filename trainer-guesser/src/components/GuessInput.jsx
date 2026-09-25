@@ -78,6 +78,11 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
   }
 
   function handleKeyDown(e) {
+    // After picking a suggestion the list closes, so Enter submits the guess
+    if (e.key === 'Enter' && selected && highlightIndex < 0) {
+      handleGuess()
+      return
+    }
     if (suggestions.length === 0) return
     if (e.key === 'ArrowDown') {
       setHighlightIndex(i => Math.min(i + 1, suggestions.length - 1))
@@ -86,8 +91,6 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
     } else if (e.key === 'Enter') {
       if (highlightIndex >= 0) {
         handleSelect(suggestions[highlightIndex])
-      } else if (selected) {
-        handleGuess()
       }
     } else if (e.key === 'Escape') {
       setSuggestions([])

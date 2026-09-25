@@ -21,6 +21,19 @@ function isDark(hex) {
   return luminance(hexToRgb(hex)) < 0.35
 }
 
+const LIGHT_TEXT = '#ffffff'
+const DARK_TEXT = '#0f172a'
+
+function contrastRatio(hexA, hexB) {
+  const [hi, lo] = [luminance(hexToRgb(hexA)), luminance(hexToRgb(hexB))].sort((a, b) => b - a)
+  return (hi + 0.05) / (lo + 0.05)
+}
+
+// White or near-black, whichever is easier to read on a solid `hex` background.
+function readableTextOn(hex) {
+  return contrastRatio(LIGHT_TEXT, hex) >= contrastRatio(DARK_TEXT, hex) ? LIGHT_TEXT : DARK_TEXT
+}
+
 function applyBackground(hex, accentHex) {
   const { r, g, b } = hexToRgb(hex)
   const dark = isDark(hex)
@@ -65,6 +78,7 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--green-hover', greenHov)
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--red', red)
+  root.style.setProperty('--red-text', readableTextOn(red))
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
 
   // Status badge tints: dark mode keeps a low-alpha wash, light mode uses solid pale colors for contrast.
@@ -82,7 +96,7 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--accent-hover', accentHover)
   root.style.setProperty('--accent-bg', accentBg)
   root.style.setProperty('--accent-border', accentBorder)
-  root.style.setProperty('--accent-text', dark ? '#ffffff' : '#ffffff')
+  root.style.setProperty('--accent-text', readableTextOn(accentHex))
 }
 
 const DEFAULT_COLOR = '#16283f'
