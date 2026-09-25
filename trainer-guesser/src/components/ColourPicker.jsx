@@ -54,7 +54,7 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
 
       {open && (
         <div className="theme-picker-panel">
-          <span className="theme-picker-label">Theme Presets</span>
+          <span className="theme-picker-label">Theme presets</span>
           <div className="theme-swatch-grid">
             {PRESETS.map(p => {
               const isSelected = color === p.bg
@@ -76,7 +76,7 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
 
           <div className="theme-picker-custom">
             <div className="theme-color-field">
-              <span className="theme-color-field-label">BG</span>
+              <span className="theme-color-field-label">Background</span>
               <label className="theme-color-dial" style={{ borderColor: 'rgba(255,255,255,0.2)' }}>
                 <input type="color" value={color} onChange={e => onBgChange(e.target.value)} />
               </label>
@@ -87,7 +87,7 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
 
             <div className="theme-color-field">
               <span className="theme-color-field-label">Accent</span>
-              <label className="theme-color-dial" style={{ borderColor: accent, boxShadow: `0 4px 16px rgba(0,0,0,0.3), 0 0 10px ${accent}55` }}>
+              <label className="theme-color-dial" style={{ borderColor: accent, boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
                 <input type="color" value={accent} onChange={e => onAccentChange(e.target.value)} />
               </label>
               <span className="theme-color-value">{accent.toUpperCase()}</span>

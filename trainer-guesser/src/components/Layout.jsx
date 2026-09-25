@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
@@ -23,88 +22,31 @@ export default function Layout({ children }) {
 
           <h1 className="seo-heading">Who's That Trainer? — Daily Pokémon Trainer Guessing Game</h1>
 
-          {/* Desktop layout: banner spans both rows, buttons stacked on the right */}
-          <div className="header-desktop">
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-            <img
-              src="/banner.png"
-              alt="Who's that Trainer?"
-              style={{ height: '140px', width: 'auto', objectFit: 'contain' }}
-            />
+          <Link to="/" className="site-logo">
+            <img src="/banner.png" alt="Who's that Trainer?" />
           </Link>
 
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1, marginTop: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px' }}>
-              <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
-              <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip"
-                className="icon-btn" style={{ background: 'rgba(44, 118, 68, 0.8)' }}
-              >
-                <img
-                  src="/voltorbflipwebicon.png"
-                  alt="Voltorb Flip"
-                  style={{ width: '22px', height: '22px', objectFit: 'contain' }}
-                />
-              </a>
-              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </a>
-              <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn">
-                <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi cup" style={{ height: '18px', width: '18px', objectFit: 'contain', display: 'block' }} />
-                <span>Support me on Ko-fi</span>
-              </a>
-            </div>
+          <div className="header-actions">
+            <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
+            <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip" className="icon-btn">
+              <img src="/voltorbflipwebicon.png" alt="Voltorb Flip" style={{ width: '22px', height: '22px', objectFit: 'contain' }} />
+            </a>
+            <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn">
+              <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" />
+              <span>Support me on Ko-fi</span>
+            </a>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '44px', marginTop: '12px' }}>
+            <div className="header-auth">
               {user ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <>
                   <span className="auth-user-label">{user.user_metadata?.full_name?.split(' ')[0] ?? user.email.split('@')[0]}</span>
                   <button onClick={signOut} className="auth-btn">Sign Out</button>
-                </div>
-              ) : (
-                <button onClick={() => setModalOpen(true)} className="auth-btn accent">Log In</button>
-              )}
-            </div>
-          </div>
-        </div>
-
-          {/* Mobile layout: title on top, then socials row, then auth */}
-          <div className="header-mobile">
-            <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-              <img
-                src="/banner.png"
-                alt="Who's that Trainer?"
-                style={{ height: '100%', maxHeight: '140px', width: 'auto', objectFit: 'contain' }}
-              />
-            </Link>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px' }}>
-              <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
-              <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip"
-                className="icon-btn" style={{ background: 'rgba(44, 118, 68, 0.8)' }}
-              >
-                <img
-                  src="/voltorbflipwebicon.png"
-                  alt="Voltorb Flip"
-                  style={{ width: '22px', height: '22px', objectFit: 'contain' }}
-                />
-              </a>
-              <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </a>
-              <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn">
-                <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi cup" style={{ height: '18px', width: '18px', objectFit: 'contain', display: 'block' }} />
-                <span>Support me on Ko-fi</span>
-              </a>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              {user ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span className="auth-user-label">{user.user_metadata?.full_name?.split(' ')[0] ?? user.email.split('@')[0]}</span>
-                  <button onClick={signOut} className="auth-btn">Sign Out</button>
-                </div>
+                </>
               ) : (
                 <button onClick={() => setModalOpen(true)} className="auth-btn accent">Log In</button>
               )}

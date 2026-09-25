@@ -158,7 +158,7 @@ export default function Stats() {
       ) : (
         <>
           <div className="guess-dist-wrapper">
-            <p className="guess-dist-title">Guess Distribution</p>
+            <p className="guess-dist-title">Guess distribution</p>
             <table className="guess-dist-table">
               <tbody>
                 {guessDistribution.map((count, i) => (

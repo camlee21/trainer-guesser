@@ -825,13 +825,13 @@ export default function Home() {
             onClick={() => setMode('daily')}
             className={`mode-toggle-btn ${mode === 'daily' ? 'active' : ''}`}
           >
-            <span>📅</span> Daily
+            Daily
           </button>
           <button
             onClick={() => setMode('infinite')}
             className={`mode-toggle-btn ${mode === 'infinite' ? 'active' : ''}`}
           >
-            <span>∞</span> Infinite
+            Infinite
           </button>
         </div>
       </div>

@@ -38,8 +38,8 @@ export default function ShareButtons({ gameOver, guesses, dayNumber }) {
       {open && (
         <div className="share-menu-popup">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#55739c', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-              Share
+            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#94a3b8' }}>
+              Share your result
             </span>
             <button
               onClick={() => setOpen(false)}

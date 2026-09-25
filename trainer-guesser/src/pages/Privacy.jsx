@@ -99,7 +99,7 @@ export default function Privacy() {
 function Section({ title, children }) {
   return (
     <div style={{ marginTop: '1.5rem' }}>
-      <h3 style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text)', marginBottom: '0.5rem' }}>
         {title}
       </h3>
       <div style={{ fontSize: '0.85rem', lineHeight: 1.75, color: 'var(--text-dim)' }}>

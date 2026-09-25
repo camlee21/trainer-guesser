@@ -53,7 +53,6 @@ function applyBackground(hex, accentHex) {
   const red = dark ? '#f87171' : '#b91c1c'
 
   const { r: ar, g: ag, b: ab } = hexToRgb(accentHex)
-  const accentGlow = `rgba(${ar},${ag},${ab},0.35)`
   const accentHover = accentHex
   const accentBg = `rgba(${ar},${ag},${ab},0.15)`
   const accentBorder = `rgba(${ar},${ag},${ab},0.35)`
@@ -92,7 +91,6 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--badge-text-stroke', dark ? '0px transparent' : '0.4px rgba(0,0,0,0.4)')
 
   root.style.setProperty('--accent', accentHex)
-  root.style.setProperty('--accent-glow', accentGlow)
   root.style.setProperty('--accent-hover', accentHover)
   root.style.setProperty('--accent-bg', accentBg)
   root.style.setProperty('--accent-border', accentBorder)

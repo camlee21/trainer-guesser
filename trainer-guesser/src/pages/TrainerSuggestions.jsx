@@ -128,7 +128,7 @@ export default function TrainerSuggestions() {
           />
 
           <div className="form-group">
-            <label className="form-label">Your Name / Username</label>
+            <label className="form-label">Your name or username</label>
             <input
               type="text"
               value={formData.submitterName}
@@ -142,7 +142,7 @@ export default function TrainerSuggestions() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Twitter / Bluesky Link (optional)</label>
+            <label className="form-label">Twitter or Bluesky link (optional)</label>
             <input
               type="text"
               value={formData.submitterLink}
@@ -155,7 +155,7 @@ export default function TrainerSuggestions() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Trainer Name</label>
+            <label className="form-label">Trainer name</label>
             <input
               type="text"
               value={formData.trainerName}
@@ -183,7 +183,7 @@ export default function TrainerSuggestions() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Specific Fight (optional)</label>
+            <label className="form-label">Specific fight (optional)</label>
             <textarea
               value={formData.fightDetails}
               onChange={handleChange('fightDetails')}

@@ -39,7 +39,6 @@
 
   /* Accent — default matches the original blue */
   --accent: #72a4f2;
-  --accent-glow: rgba(114, 164, 242, 0.35);
   --accent-hover: #72a4f2;
   --accent-bg: rgba(114, 164, 242, 0.15);
   --accent-border: rgba(114, 164, 242, 0.35);
@@ -89,9 +88,9 @@ textarea:focus-visible {
   position: fixed;
   inset: 0;
   z-index: 0;
+  /* A faint wash of the theme's own accent, rather than fixed green/indigo that clashed with most presets */
   background-image:
-    radial-gradient(ellipse at 20% 20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 0%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 55%),
     url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   pointer-events: none;
 }
@@ -105,26 +104,67 @@ textarea:focus-visible {
   padding: 2rem 1.5rem 3rem;
 }
 
-header {
-  text-align: center;
+/* ── Site header: banner on the left, one row of actions on the right ── */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.title {
-  font-family: 'Press Start 2P', monospace;
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  color: var(--green);
-  text-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+.site-logo {
+  display: flex;
+  flex-shrink: 0;
 }
 
-.subtitle {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.site-logo img {
+  height: 140px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Account controls sit at the end of the row, set off by a thin rule */
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 12px;
+  margin-left: 2px;
+  border-left: 1px solid var(--panel-border);
+  height: 40px;
+}
+
+@media (max-width: 840px) {
+  .site-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .site-logo img {
+    height: auto;
+    max-height: 140px;
+    max-width: 100%;
+  }
+  .header-actions {
+    justify-content: center;
+    margin-top: 0;
+  }
+  /* The account controls wrap onto their own line here, so the divider has nothing to divide */
+  .header-auth {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
 }
 
 .main-layout {
@@ -140,26 +180,35 @@ header {
   }
 }
 
-/* ── Ko-fi button (accent-themed) ── */
+/* ── Ko-fi button: same quiet chrome as the icon buttons beside it, so Log In stays the one accent in the header ── */
 .kofi-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--accent);
-  color: var(--accent-text);
+  height: 40px;
+  padding: 0 14px;
+  background: var(--chrome-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
   text-decoration: none;
-  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 700;
-  padding: 10px 16px;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 0 0 0 var(--accent-glow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-  font-size: 15px;
+  white-space: nowrap;
+  transition: background 0.2s ease;
 }
 
 .kofi-btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15), 0 0 18px var(--accent-glow);
+  background: var(--chrome-bg-hover);
+}
+
+.kofi-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* ── Icon button (header socials + theme picker toggle) — shared style instead of per-instance inline hover handlers. ── */
@@ -222,8 +271,6 @@ header {
   font-size: 11px;
   font-weight: 700;
   color: #94a3b8;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   align-self: flex-start;
 }
 
@@ -278,8 +325,6 @@ header {
   font-size: 10px;
   color: #64748b;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
 .theme-color-dial {
@@ -333,7 +378,6 @@ header {
   background-color: var(--accent);
   border-radius: var(--radius-pill);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
-  box-shadow: 0 4px 12px var(--accent-glow);
   z-index: 1;
 }
 
@@ -357,7 +401,7 @@ header {
 }
 
 .mode-toggle-btn.active {
-  color: #ffffff;
+  color: var(--accent-text);
 }
 
 /* ── Trainer Panel ── */
@@ -368,9 +412,10 @@ header {
   gap: 0.75rem;
 }
 
+/* Same width as the column, so the frame and the pills below it share one edge */
 .trainer-frame {
-  width: 312px;
-  height: 312px;
+  width: 320px;
+  height: 320px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius-lg);
@@ -427,7 +472,6 @@ header {
   font-size: 0.8rem;
   font-weight: 700;
   text-align: center;
-  letter-spacing: 0.05em;
   border: 1px solid;
   -webkit-text-stroke: var(--badge-text-stroke);
 }
@@ -481,18 +525,15 @@ header {
   gap: 0.4rem;
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.04);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.pokemon-slot:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-md), 0 0 0 1px var(--accent-border) inset;
-}
-
+/* An unused party slot: an outline, not a faded card */
 .pokemon-slot.empty {
-  opacity: 0.2;
   min-height: 100px;
+  background: transparent;
+  border: 1.5px dashed var(--chrome-bg-hover);
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .pokemon-sprite {
@@ -508,7 +549,7 @@ header {
   font-weight: 800;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 /* ── Guess Section ── */
@@ -617,14 +658,12 @@ header {
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
   letter-spacing: 0.03em;
 }
 
 .guess-btn:hover:not(:disabled) {
   background: var(--green-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.45);
 }
 
 .guess-btn:active:not(:disabled) {
@@ -651,7 +690,6 @@ header {
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
   letter-spacing: 0.03em;
   flex-shrink: 0;
 }
@@ -659,7 +697,6 @@ header {
 .pass-btn:hover:not(:disabled) {
   background: var(--danger-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.45);
 }
 
 .pass-btn:active:not(:disabled) {
@@ -677,14 +714,12 @@ header {
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 4px 14px var(--accent-glow);
   transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, background-color 0.3s ease;
 }
 
 .primary-btn:hover:not(.disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px var(--accent-glow);
 }
 
 .primary-btn.disabled {
@@ -748,7 +783,6 @@ header {
 .filter-ctrl-btn.accent {
   background: var(--accent);
   color: var(--accent-text);
-  box-shadow: 0 2px 8px var(--accent-glow);
 }
 
 .filter-ctrl-btn.disabled {
@@ -778,7 +812,6 @@ header {
   background-color: var(--accent-bg);
   color: var(--accent);
   border-color: var(--accent-border);
-  box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .gen-filter-btn:hover:not(.active) {
@@ -806,7 +839,6 @@ header {
   background-color: var(--accent);
   color: var(--accent-text);
   border-color: var(--accent);
-  box-shadow: 0 2px 8px var(--accent-glow);
 }
 
 .game-filter-btn.cant-deselect {
@@ -824,8 +856,6 @@ header {
   color: var(--accent);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 /* ── Result Banner ── */
@@ -923,18 +953,20 @@ img {
 }
 
 /* ── Game description ── */
+/* ~75 characters a line, so the How to Play / Privacy paragraphs are comfortable to read */
 .game-description {
-  max-width: 840px;
+  width: 100%;
+  max-width: 700px;
   margin: 2.5rem auto 0;
   padding: 1.25rem 1.5rem;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius-md);
   backdrop-filter: blur(12px);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-dim);
-  line-height: 1.75;
+  line-height: 1.7;
   text-align: center;
 }
 
@@ -959,15 +991,13 @@ img {
   border-radius: var(--radius-md);
   padding: 0.5rem 1rem;
   backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 14px var(--accent-glow);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   min-width: 88px;
 }
 
 .score-badge-label {
   font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--text-dim);
 }
 
@@ -975,7 +1005,6 @@ img {
   font-family: 'Press Start 2P', monospace;
   font-size: 1.05rem;
   color: var(--accent);
-  text-shadow: 0 0 12px var(--accent-glow);
   white-space: nowrap;
 }
 
@@ -1043,7 +1072,7 @@ img {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 14px var(--accent-glow);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
@@ -1087,7 +1116,7 @@ img {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 14px var(--accent-glow);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
@@ -1133,7 +1162,7 @@ img {
   border: 1px solid var(--accent-border);
   border-radius: var(--radius-lg);
   padding: 0.4rem 0.9rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 12px var(--accent-glow);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   white-space: nowrap;
   max-width: calc(100% - 1rem);
@@ -1190,10 +1219,11 @@ img {
   justify-content: center;
 }
 
+/* Spaced links instead of "•" separators, which were left dangling at the start of a wrapped line on phones */
 .site-footer-links {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -1203,17 +1233,11 @@ img {
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
   transition: color 0.2s ease;
 }
 
 .site-footer-link:hover {
   color: var(--accent);
-}
-
-.site-footer-divider {
-  color: var(--panel-border);
-  font-size: 0.85rem;
 }
 
 @media (max-width: 840px) {
@@ -1237,44 +1261,23 @@ img {
   padding: 1rem 0 2rem;
 }
 
-/* Bold Nunito + accent underline — pixel font is reserved for short HUD readouts now, it's hard to scan at reading size. */
+/* Bold Nunito — pixel font is reserved for short HUD readouts, it's hard to scan at reading size. */
 .static-page-title {
-  position: relative;
   font-family: 'Nunito', sans-serif;
-  font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
   font-weight: 800;
   color: var(--text);
-  letter-spacing: 0.01em;
   text-align: center;
-  padding-bottom: 0.6rem;
 }
 
-.static-page-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48px;
-  height: 4px;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.static-page-back {
-  align-self: flex-start;
-}
-
-/* Small section headings inside .game-description blocks — same reasoning as .static-page-title. */
+/* Section headings inside .game-description blocks, aligned with the text they introduce */
 .section-eyebrow {
-  text-align: center;
+  text-align: left;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--accent);
-  margin-bottom: 1rem;
-  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
 }
 
 /* ── Filter panel structure (NEW) ── */
@@ -1293,8 +1296,6 @@ img {
 .filter-section-label {
   font-weight: 800;
   font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--text-dim);
 }
 
@@ -1369,7 +1370,6 @@ img {
   background-color: var(--accent);
   color: var(--accent-text);
   border-color: var(--accent);
-  box-shadow: 0 2px 8px var(--accent-glow);
 }
 
 .extras-filter-btn:hover:not(.active) {
@@ -1395,9 +1395,7 @@ img {
 .form-label {
   font-weight: 800;
   font-size: 13px;
-  letter-spacing: 0.03em;
   color: var(--text-dim);
-  text-transform: uppercase;
 }
 
 .form-textarea {
@@ -1567,7 +1565,6 @@ img {
   background: var(--accent);
   color: var(--accent-text);
   border-color: var(--accent);
-  box-shadow: 0 2px 8px var(--accent-glow);
 }
 
 .auth-btn.accent:hover {
@@ -1618,8 +1615,6 @@ img {
   padding: 0.6rem 0.75rem;
   font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-dim);
   border-bottom: 1px solid var(--panel-border);
 }
@@ -1656,8 +1651,6 @@ img {
 .guess-dist-title {
   font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-dim);
   margin: 0 0 0.75rem;
   text-align: center;
@@ -1699,7 +1692,6 @@ img {
   min-width: 1.6rem;
   border-radius: var(--radius-sm);
   background: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1793,17 +1785,30 @@ img {
   background: rgba(255,255,255,0.25);
 }
 
-.header-mobile {
-  display: none;
+/* ── Countdown to the next daily trainer ── */
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  margin: 16px auto 0;
+  padding: 0.65rem 1.4rem;
+  background: var(--bg-main);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
 }
 
-.header-desktop {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 16px;
-  width: 100%;
-  height: 140px;
+.countdown-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.countdown-time {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  color: var(--accent);
 }
 
 .timer-mobile {
@@ -1855,13 +1860,11 @@ img {
   cursor: pointer;
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .credit-card:hover {
   border-color: var(--accent-border);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 14px var(--accent-glow);
 }
 
 .credit-card-image {
@@ -1926,17 +1929,6 @@ img {
 }
 
 @media (max-width: 840px) {
-  /* Header top row */
-  header > div:first-child {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  header > div:first-child a {
-    flex: 1;
-    text-align: center;
-  }
-
   .credit-card {
     width: 100%;
   }
@@ -1953,34 +1945,22 @@ img {
     display: none;
   }
 
-  .header-desktop {
-    display: none;
-  }
-
-  .header-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .kofi-btn img {
-    display: block;
-    flex-shrink: 0;
-  }
-
-  /* Auth row already right-aligned, make it full width and right-justified */
-  header > div:last-child {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  /* Trainer frame full width on mobile */
   .trainer-frame {
     width: 280px;
     height: 280px;
     max-width: 100%;
+  }
+
+  /* Keep the difficulty / game / type pills the same width as the frame above them */
+  .trainer-info {
+    max-width: 280px;
+  }
+
+  /* Tighter buttons so the search box keeps room for a trainer's name */
+  .pass-btn,
+  .guess-btn {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .trainer-panel {
