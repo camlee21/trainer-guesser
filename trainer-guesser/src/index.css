@@ -2646,6 +2646,14 @@ img {
   -webkit-text-stroke: 0;
 }
 
+/* Share sits under the score, like Daily mode's Share in its result banner */
+.cx-scorecard-share {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
+  -webkit-text-stroke: 0;
+}
+
 .cx-best {
   padding: 0.9rem 1rem;
   background: var(--panel-bg);

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import CountdownTimer from './CountdownTimer'
+import ShareButtons from './ShareButtons'
 import { ScrollToTopButton, ScrollToBottomButton } from './ScrollButtons'
 import { getPokemonSpriteUrl } from '../utils/sprites'
 import { useConnectionsGame } from '../hooks/useConnectionsGame'
@@ -309,7 +310,7 @@ function RouteStrip({ route }) {
 }
 
 // The one loud moment in the mode: the final score written out as a sum
-function ScoreCard({ won, perfect, hops, undos, score, best, goal }) {
+function ScoreCard({ won, perfect, hops, undos, score, best, goal, shareText }) {
   let headline = 'Answer revealed'
   let note = `The best possible score was ${best}!`
   if (perfect) {
@@ -317,7 +318,7 @@ function ScoreCard({ won, perfect, hops, undos, score, best, goal }) {
     note = `${plural(best, 'connection')} is the shortest possible route to ${goal.name}!`
   } else if (won && hops === best) {
     headline = `Connected to ${goal.name}`
-    note = `You found a shortest route, but undos added to your score. The best possible score is ${best}.`
+    note = `You found a shortest route, but undos added to your score. The best possible score is ${best}!`
   } else if (won) {
     headline = `Connected to ${goal.name}`
     note = `The best possible score is ${best}!`
@@ -349,8 +350,24 @@ function ScoreCard({ won, perfect, hops, undos, score, best, goal }) {
         </div>
       )}
       <p className="cx-scorecard-note">{note}</p>
+      {shareText && (
+        <div className="cx-scorecard-share">
+          <ShareButtons text={shareText} />
+        </div>
+      )}
     </div>
   )
+}
+
+// Opens straight onto the Daily tab, whichever tab the visitor used last
+const DAILY_LINK = 'https://whosthattrainer.app/?mode=connections&tab=daily'
+
+function dailyShareText({ dayNumber, won, score, best }) {
+  return [
+    `Who's That Trainer? Connections #${dayNumber}`,
+    `Score: ${won ? score : 'N/A'}, Best: ${best}`,
+    `Try today's connection at: ${DAILY_LINK}`,
+  ].join('\n')
 }
 
 function Play({ game, onPlayCustom }) {
@@ -452,7 +469,10 @@ function Play({ game, onPlayCustom }) {
 
           {finished && (
             <div className="cx-result" ref={focusRef}>
-              <ScoreCard won={won} perfect={perfect} hops={hops} undos={undos} score={score} best={bestRoute.hops} goal={goal} />
+              <ScoreCard
+                won={won} perfect={perfect} hops={hops} undos={undos} score={score} best={bestRoute.hops} goal={goal}
+                shareText={daily ? dailyShareText({ dayNumber, won, score, best: bestRoute.hops }) : null}
+              />
 
               {(!won || hops > bestRoute.hops) && (
                 <div className="cx-best">
@@ -530,6 +550,9 @@ const TABS = [
 
 export default function ConnectionsMode() {
   const [tab, setTab] = useState(() => {
+    // A shared link (?tab=daily) wins over the tab remembered from last time
+    const linked = new URLSearchParams(window.location.search).get('tab')
+    if (linked === 'daily' || linked === 'custom') return linked
     try {
       return localStorage.getItem(TAB_KEY) === 'custom' ? 'custom' : 'daily'
     } catch {
