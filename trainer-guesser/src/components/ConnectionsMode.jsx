@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import ShareButtons from './ShareButtons'
 import CountdownTimer from './CountdownTimer'
 import { ScrollToTopButton, ScrollToBottomButton } from './ScrollButtons'
 import { getPokemonSpriteUrl } from '../utils/sprites'
@@ -122,7 +121,7 @@ function isolated(trainer) {
   return getTeamOptions(trainer.id).every(p => p.otherTrainers === 0)
 }
 
-const RULES = 'Pick one of a trainer\'s Pokémon, then another trainer who uses it, and repeat until you reach the goal. Every connection adds 1 to your score, and so does undoing one. Lowest score wins.'
+const RULES = 'Pick one of a trainer\'s Pokémon, then another trainer who uses it, and repeat until you reach the goal. Try to connect them with the least amount of connections!'
 
 function Setup({ game }) {
   const { start, goal, setupProblem, setEndpoint, swapEndpoints, randomise, startGame } = game
@@ -354,18 +353,6 @@ function ScoreCard({ won, perfect, hops, undos, score, best, goal }) {
   )
 }
 
-function dailyShareText({ dayNumber, start, goal, won, hops, undos, score, best }) {
-  const lines = [`Who's That Trainer? Connections #${dayNumber}`, `${trainerLabel(start)} → ${trainerLabel(goal)}`]
-  if (won) {
-    const breakdown = undos > 0 ? ` (${plural(hops, 'connection')} + ${plural(undos, 'undo')})` : ''
-    lines.push(`Score: ${score}${breakdown}. Best possible: ${best} ${score === best ? '⭐' : '✅'}`)
-  } else {
-    lines.push(`Revealed the answer. Best possible: ${best} ❌`)
-  }
-  lines.push('', 'Play at: https://whosthattrainer.app/?mode=connections')
-  return lines.join('\n')
-}
-
 function Play({ game, onPlayCustom }) {
   const {
     kind, phase, outcome, dayNumber, start, goal, trainers, pokemon, hops, undos, score, bestRoute,
@@ -474,27 +461,24 @@ function Play({ game, onPlayCustom }) {
                 </div>
               )}
 
-              <div className="cx-result-actions">
-                {daily ? (
-                  <>
-                    <ShareButtons text={dailyShareText({ dayNumber, start, goal, won, hops, undos, score, best: bestRoute.hops })} />
-                    <button className="back-btn" onClick={onPlayCustom}>Play a custom puzzle</button>
-                  </>
-                ) : (
-                  <>
-                    <button className="primary-btn next-btn" onClick={playRandom}>New random pair</button>
-                    <button className="back-btn" onClick={backToSetup}>Pick trainers</button>
-                  </>
-                )}
-              </div>
-
               {daily && signedIn && saveStatus === 'failed' && (
                 <p className="guess-counter cx-save-failed" role="status">
                   Couldn't save your result to your account yet. It's kept on this device and we'll keep retrying.
                 </p>
               )}
 
-              {daily && <CountdownTimer label="Next daily puzzle in" />}
+              {daily ? (
+                // Nothing left to do today, so point at the next thing: tomorrow's puzzle or a custom one now
+                <div className="cx-daily-next">
+                  <CountdownTimer label="Next daily puzzle in" />
+                  <button className="primary-btn cx-daily-custom" onClick={onPlayCustom}>Play a custom puzzle</button>
+                </div>
+              ) : (
+                <div className="cx-result-actions">
+                  <button className="primary-btn next-btn" onClick={playRandom}>New random pair</button>
+                  <button className="back-btn" onClick={backToSetup}>Pick trainers</button>
+                </div>
+              )}
             </div>
           )}
         </div>

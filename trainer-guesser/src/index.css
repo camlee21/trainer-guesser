@@ -2682,17 +2682,24 @@ img {
   font-size: 14px;
 }
 
-/* Share is the main action on a finished daily; the popup's own buttons keep their styles */
-.cx-result-actions > div > .share-btn {
-  padding: 11px 22px;
-  font-size: 14px;
-  color: var(--accent-text);
-  background: var(--accent);
-  border-color: var(--accent);
+/* Finished daily: countdown and the custom-puzzle button side by side, the same height */
+.cx-daily-next {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.cx-result .countdown {
-  margin-top: 0;
+.cx-daily-next .countdown {
+  margin: 0;
+}
+
+.cx-daily-custom {
+  padding: 0 24px;
+  min-height: 56px;
+  font-size: 15px;
+  border-radius: var(--radius-lg);
 }
 
 .cx-save-failed {
@@ -2886,6 +2893,24 @@ img {
   }
   .cx-sum-label {
     font-size: 0.68rem;
+  }
+  /* Countdown and custom-puzzle button stay side by side on phones */
+  .cx-daily-next {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .cx-daily-next .countdown {
+    padding: 0.6rem 0.8rem;
+  }
+  .cx-daily-next .countdown-label {
+    font-size: 0.72rem;
+  }
+  .cx-daily-next .countdown-time {
+    font-size: 0.9rem;
+  }
+  .cx-daily-custom {
+    padding: 0 14px;
+    font-size: 14px;
   }
   .cx-scorecard {
     padding: 1rem 0.75rem 1.1rem;

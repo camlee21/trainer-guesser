@@ -77,8 +77,8 @@ export default function HowToPlay() {
         </p>
 
         <p style={{ marginTop: '1rem' }}>
-          The <strong>Daily</strong> tab gives everyone the same pair of trainers each day, with a new one at <strong>midnight GMT</strong>,
-          and lets you share your score. The <strong>Custom</strong> tab lets you choose any two trainers or roll a random pair, as many
+          The <strong>Daily</strong> tab gives everyone the same pair of trainers each day, with a new one at <strong>midnight GMT</strong>.
+          The <strong>Custom</strong> tab lets you choose any two trainers or roll a random pair, as many
           times as you like. Connections uses the same trainers as Daily mode.
         </p>
       </div>
