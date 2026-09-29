@@ -4,6 +4,8 @@ import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
 import ShareButtons from '../components/ShareButtons'
 import CountdownTimer from '../components/CountdownTimer'
+import ConnectionsMode from '../components/ConnectionsMode'
+import { ScrollToTopButton, ScrollToBottomButton } from '../components/ScrollButtons'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
 import { usePersistedGameState } from '../hooks/usePersistedGameState'
 import { useInfiniteMode } from '../hooks/useInfiniteMode'
@@ -540,71 +542,6 @@ function GameFilter({
   )
 }
 
-function ScrollToTopButton() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    function handleScroll() {
-      setVisible(window.scrollY > 300)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  return (
-    <button
-      onClick={scrollToTop}
-      className={`scroll-top-btn ${visible ? 'visible' : ''}`}
-      title="Back to top"
-      aria-label="Scroll to top"
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 15l-6-6-6 6" />
-      </svg>
-    </button>
-  )
-}
-
-function ScrollToBottomButton() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    function handleScroll() {
-      const scrolledFromBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight
-      setVisible(scrolledFromBottom > 300)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll, { passive: true })
-    handleScroll()
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-    }
-  }, [])
-
-  function scrollToBottom() {
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
-  }
-
-  return (
-    <button
-      onClick={scrollToBottom}
-      className={`scroll-bottom-btn ${visible ? 'visible' : ''}`}
-      title="Scroll to bottom"
-      aria-label="Scroll to bottom"
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 9l6 6 6-6" />
-      </svg>
-    </button>
-  )
-}
-
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
@@ -805,13 +742,25 @@ function InfiniteMode({ onResetSession }) {
   )
 }
 
+const MODES = [
+  { id: 'daily', label: 'Daily' },
+  { id: 'infinite', label: 'Infinite' },
+  { id: 'connections', label: 'Connections' },
+]
+
 export default function Home() {
-  const [mode, setMode] = useState('daily')
+  // ?mode=connections (or infinite) opens that mode directly, e.g. from a shared result
+  const [mode, setMode] = useState(() => {
+    const requested = new URLSearchParams(window.location.search).get('mode')
+    return MODES.some(m => m.id === requested) ? requested : 'daily'
+  })
   const [infiniteKey, setInfiniteKey] = useState(0)
 
   const handleResetInfiniteSession = () => {
     setInfiniteKey(prev => prev + 1)
   }
+
+  const modeIndex = MODES.findIndex(m => m.id === mode)
 
   return (
     <>
@@ -819,31 +768,28 @@ export default function Home() {
         <div className="mode-toggle">
           <div
             className="mode-toggle-slider"
-            style={{ transform: mode === 'infinite' ? 'translateX(100%)' : 'translateX(0%)' }}
+            style={{ transform: `translateX(${modeIndex * 100}%)` }}
           />
-          <button
-            onClick={() => setMode('daily')}
-            className={`mode-toggle-btn ${mode === 'daily' ? 'active' : ''}`}
-          >
-            Daily
-          </button>
-          <button
-            onClick={() => setMode('infinite')}
-            className={`mode-toggle-btn ${mode === 'infinite' ? 'active' : ''}`}
-          >
-            Infinite
-          </button>
+          {MODES.map(m => (
+            <button
+              key={m.id}
+              onClick={() => setMode(m.id)}
+              className={`mode-toggle-btn ${mode === m.id ? 'active' : ''}`}
+            >
+              {m.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {mode === 'daily' ? (
-        <DailyMode />
-      ) : (
+      {mode === 'daily' && <DailyMode />}
+      {mode === 'infinite' && (
         <InfiniteMode
           key={infiniteKey}
           onResetSession={handleResetInfiniteSession}
         />
       )}
+      {mode === 'connections' && <ConnectionsMode />}
     </>
   )
 }

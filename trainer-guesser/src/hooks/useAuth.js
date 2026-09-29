@@ -35,6 +35,7 @@ export function useAuth() {
     const dd = String(now.getUTCDate()).padStart(2, '0')
     const todayKey = `wtt-game-${yyyy}-${mm}-${dd}`
     localStorage.removeItem(todayKey)
+    localStorage.removeItem('wtt-connections-daily') // Same for today's Connections puzzle
 
     await supabase.auth.signOut()
     window.location.href = '/' // Show clear data instantly, transports to home page to prevent errors with grabbing stats

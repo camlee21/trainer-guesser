@@ -5,7 +5,7 @@ export default function Privacy() {
 
       <div className="game-description" style={{ textAlign: 'left', maxWidth: '640px', margin: '0 auto' }}>
         <p style={{ marginBottom: '0.5rem', fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-          Last updated: July 2026
+          Last updated: September 2026
         </p>
 
         <Section title="Overview">
@@ -28,6 +28,7 @@ export default function Privacy() {
                 We also store game data associated with your account:
                 <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <li>• Your daily guess history and results</li>
+                <li>• Your Daily Connections routes, undos and scores</li>
                 <li>• Your score and streak data</li>
                 </ul>
             </div>

@@ -35,11 +35,11 @@ export function getDayNumber(date) {
   return diffDays + 1
 }
 
-function dayNumberToUtcDateString(dayNumber) {
+export function dayNumberToUtcDateString(dayNumber) {
   return getUtcDateString(new Date(DAY_ONE_UTC + (dayNumber - 1) * DAY_MS))
 }
 
-function hashStringToSeed(str) {
+export function hashStringToSeed(str) {
   let h = 1779033703 ^ str.length
   for (let i = 0; i < str.length; i++) {
     h = Math.imul(h ^ str.charCodeAt(i), 3432918353)

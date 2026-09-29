@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 
-export default function CountdownTimer() {
+export default function CountdownTimer({ label = 'Next trainer in' }) {
   const [timeLeft, setTimeLeft] = useState('')
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function CountdownTimer() {
 
   return (
     <div className="countdown">
-      <span className="countdown-label">Next trainer in</span>
+      <span className="countdown-label">{label}</span>
       <span className="countdown-time">{timeLeft}</span>
     </div>
   )

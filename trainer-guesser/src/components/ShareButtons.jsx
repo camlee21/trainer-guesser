@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-export default function ShareButtons({ gameOver, guesses, dayNumber }) {
+// `text` replaces the Daily-mode message, for modes with their own result format
+export default function ShareButtons({ gameOver, guesses, dayNumber, text }) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -10,7 +11,7 @@ export default function ShareButtons({ gameOver, guesses, dayNumber }) {
       : `Guessed after ${guesses.length} tries!`
     : "Couldn't guess today's trainer..."
 
-  const shareText = `Who's That Trainer? Day #${dayNumber}\n${triesText} ${gameOver === 'won' ? '✅' : '❌'}\n\nTry today's puzzle at: https://whosthattrainer.app`
+  const shareText = text ?? `Who's That Trainer? Day #${dayNumber}\n${triesText} ${gameOver === 'won' ? '✅' : '❌'}\n\nTry today's puzzle at: https://whosthattrainer.app`
 
   function handleCopy() {
     navigator.clipboard.writeText(shareText).then(() => {

@@ -360,7 +360,7 @@ textarea:focus-visible {
   padding: 4px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--panel-border);
-  width: 280px;
+  width: min(400px, 100%);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
@@ -369,7 +369,8 @@ textarea:focus-visible {
   top: 4px;
   left: 4px;
   bottom: 4px;
-  width: calc(50% - 4px);
+  /* One third of the track inside the padding, so translateX(n * 100%) lands on button n */
+  width: calc((100% - 8px) / 3);
   background-color: var(--accent);
   border-radius: var(--radius-pill);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
@@ -2001,3 +2002,900 @@ img {
   }
 }
 
+
+/* ── Connections mode ── */
+.cx-root {
+  width: 100%;
+}
+
+/* Daily / Custom: a quieter second-level switch under the main mode toggle */
+.cx-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  width: fit-content;
+  margin: -12px auto 24px;
+  padding: 3px;
+  background: var(--chrome-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-pill);
+}
+
+.cx-tab {
+  min-width: 96px;
+  padding: 6px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--chrome-text);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.cx-tab:hover:not(.active) {
+  color: var(--chrome-text-hover);
+}
+
+.cx-tab.active {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.cx-lede {
+  max-width: 580px;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* Setup: start card, swap button, goal card */
+.cx-endpoints {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cx-endpoint {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem 1.1rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.cx-endpoint--goal {
+  border-color: var(--accent-border);
+}
+
+.cx-endpoint-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cx-endpoint-role {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-dim);
+}
+
+.cx-endpoint--goal .cx-endpoint-role {
+  color: var(--accent);
+}
+
+.cx-endpoint-portrait {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cx-endpoint-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: slideIn 0.3s ease;
+}
+
+.cx-endpoint-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--text);
+}
+
+.cx-endpoint-game {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.cx-team-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  min-height: 40px;
+  margin: 0.2rem 0 0.5rem;
+}
+
+.cx-team-strip img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.cx-endpoint .search-container {
+  width: 100%;
+}
+
+.cx-search {
+  font-size: 0.9rem;
+  padding: 0.55rem 0.9rem;
+}
+
+.cx-swap {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--chrome-bg);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.25s ease;
+}
+
+.cx-swap:hover {
+  background: var(--chrome-bg-hover);
+  transform: rotate(180deg);
+}
+
+.cx-notice {
+  max-width: 580px;
+  margin: 1rem auto 0;
+  padding: 0.6rem 0.9rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  background: var(--badge-gold-bg);
+  border: 1px solid var(--badge-gold-border);
+  border-radius: var(--radius-sm);
+  -webkit-text-stroke: var(--badge-text-stroke);
+}
+
+.cx-setup-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.cx-setup-actions .back-btn {
+  padding: 13px 20px;
+  font-size: 14px;
+}
+
+/* Play: the chain on the left, goal and score on the right */
+.cx-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cx-day {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-pill);
+}
+
+.cx-giveup {
+  margin-left: auto;
+  color: var(--text-dim);
+}
+
+.cx-play-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.cx-main {
+  min-width: 0;
+}
+
+.cx-chain {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Numbered dot on a thin rail, like a route on a map */
+.cx-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  animation: slideIn 0.25s ease;
+  scroll-margin-top: 24px;
+}
+
+.cx-row:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 30px;
+  bottom: calc(-0.75rem - 30px);
+  width: 2px;
+  background: var(--chrome-bg-hover);
+}
+
+.cx-step {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  background: var(--bg-main);
+  border: 2px solid var(--chrome-bg-hover);
+}
+
+.cx-row.is-active .cx-step {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.cx-row-card {
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+}
+
+.cx-row.is-active .cx-row-card {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-md);
+}
+
+.cx-row-line {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+}
+
+.cx-row-pair {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.65rem;
+}
+
+.cx-arrow {
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+
+.cx-prompt {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* Undo: the only control on a finished row, so it can stay small and quiet until wanted */
+.cx-undo {
+  position: relative;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--chrome-text);
+  background: var(--chrome-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cx-undo:hover {
+  color: var(--chrome-text-hover);
+  background: var(--chrome-bg-hover);
+}
+
+/* The cost is on the button itself, so it's visible on touch screens where there's no hover */
+.cx-undo-cost {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  padding: 0 5px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 16px;
+  color: var(--gold);
+  background: var(--badge-gold-bg);
+  border: 1px solid var(--badge-gold-border);
+  border-radius: var(--radius-pill);
+  -webkit-text-stroke: var(--badge-text-stroke);
+}
+
+.cx-undo::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  z-index: 30;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  /* Fixed dark chrome, like the other floating menus */
+  color: #e2e8f0;
+  background: var(--overlay-bg);
+  border: 1px solid var(--overlay-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.cx-undo:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  .cx-undo:hover::after {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A trainer or Pokémon inside a row or route: small sprite tile and a name */
+.cx-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.cx-node-art {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--chrome-bg);
+}
+
+.cx-node-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.cx-node-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.cx-node-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.cx-node-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.cx-node.is-goal .cx-node-art {
+  background: var(--badge-green-bg);
+  box-shadow: inset 0 0 0 1px var(--badge-green-border);
+}
+
+.cx-node.is-goal .cx-node-name {
+  color: var(--green);
+  -webkit-text-stroke: var(--badge-text-stroke);
+}
+
+/* Choices for the active row */
+.cx-options {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--panel-border);
+}
+
+.cx-options--pokemon {
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+}
+
+.cx-options--trainers {
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+}
+
+.cx-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.5rem 0.4rem 0.6rem;
+  font-family: inherit;
+  text-align: center;
+  color: var(--text);
+  background: var(--chrome-bg);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.cx-option:hover:not(:disabled) {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.cx-option:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cx-option.is-goal {
+  border-color: var(--accent);
+}
+
+.cx-option-sprite {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.cx-option-sprite--trainer {
+  width: 72px;
+  height: 72px;
+}
+
+.cx-option-name {
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.cx-option-sub {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.cx-option-tag {
+  margin-top: 0.2rem;
+  padding: 1px 8px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  background: var(--chrome-bg-hover);
+  border-radius: var(--radius-pill);
+}
+
+.cx-option-tag--goal {
+  color: var(--accent-text);
+  background: var(--accent);
+}
+
+.cx-filter {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.85rem;
+}
+
+.cx-empty {
+  grid-column: 1 / -1;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* Result */
+.cx-result {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  scroll-margin-top: 24px;
+}
+
+/* The final score, written out as a sum in the pixel font */
+.cx-scorecard {
+  padding: 1.1rem 1.25rem 1.2rem;
+  text-align: center;
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+  animation: slideIn 0.4s ease;
+  -webkit-text-stroke: var(--badge-text-stroke);
+}
+
+.cx-scorecard.is-won {
+  color: var(--green);
+  background: var(--badge-green-bg);
+  border-color: var(--badge-green-border);
+}
+
+.cx-scorecard.is-perfect {
+  color: var(--gold);
+  background: var(--badge-gold-bg);
+  border-color: var(--badge-gold-border);
+}
+
+.cx-scorecard.is-lost {
+  color: var(--red);
+  background: var(--badge-red-bg);
+  border-color: var(--badge-red-border);
+}
+
+.cx-scorecard-headline {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.cx-sum {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.9rem 0 0.7rem;
+}
+
+.cx-sum-term {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 64px;
+}
+
+.cx-sum-num,
+.cx-sum-op {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.cx-sum-op {
+  opacity: 0.55;
+}
+
+.cx-sum-term.is-total .cx-sum-num {
+  font-size: 2.3rem;
+  margin-top: -0.2rem;
+}
+
+.cx-sum-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.cx-scorecard-note {
+  max-width: 460px;
+  margin: 0.5rem auto 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+  -webkit-text-stroke: 0;
+}
+
+.cx-best {
+  padding: 0.9rem 1rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.cx-best-title {
+  margin-bottom: 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-dim);
+}
+
+.cx-strip,
+.cx-strip-step {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.6rem;
+}
+
+.cx-result-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cx-result-actions .back-btn {
+  padding: 11px 18px;
+  font-size: 14px;
+}
+
+/* Share is the main action on a finished daily; the popup's own buttons keep their styles */
+.cx-result-actions > div > .share-btn {
+  padding: 11px 22px;
+  font-size: 14px;
+  color: var(--accent-text);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.cx-result .countdown {
+  margin-top: 0;
+}
+
+.cx-save-failed {
+  text-align: center;
+  padding-right: 0;
+}
+
+/* Sidebar: the goal stays in view while the route grows */
+.cx-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cx-goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 0.75rem 0.4rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.cx-goal-sprite {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.cx-goal-text {
+  text-align: center;
+  min-width: 0;
+}
+
+.cx-goal-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.cx-goal-name {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.cx-goal-card .cx-team-strip img {
+  width: 30px;
+  height: 30px;
+}
+
+.cx-sidebar-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.cx-sidebar-scores .score-badge {
+  min-width: 0;
+  padding: 0.5rem;
+}
+
+.cx-score-note {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+@media (max-width: 860px) {
+  .cx-play-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  /* Goal and score become a bar pinned to the top of the screen, so the goal is never scrolled away */
+  .cx-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    order: -1;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin: 0 -1.5rem;
+    padding: 0.5rem 1.5rem;
+    background: color-mix(in srgb, var(--bg-main) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .cx-goal-card {
+    flex: 1;
+    min-width: 0;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding: 0.4rem 0.75rem 0.4rem 0.5rem;
+    box-shadow: none;
+  }
+  .cx-goal-sprite {
+    width: 48px;
+    height: 48px;
+  }
+  .cx-goal-text {
+    text-align: left;
+  }
+  .cx-goal-card .cx-team-strip {
+    display: none;
+  }
+  .cx-sidebar-scores .score-badge {
+    min-width: 64px;
+    box-shadow: none;
+  }
+  .cx-sidebar-scores .score-badge-value {
+    font-size: 0.9rem;
+  }
+  /* Rows and results stop below the pinned bar, not underneath it */
+  .cx-row,
+  .cx-result {
+    scroll-margin-top: 92px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cx-tabs {
+    margin-top: -16px;
+  }
+  .cx-endpoints {
+    grid-template-columns: 1fr;
+  }
+  .cx-swap {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+  .cx-swap:hover {
+    transform: rotate(270deg);
+  }
+  .cx-row {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+  .cx-step {
+    width: 22px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+  .cx-row:not(:last-child)::before {
+    left: 10px;
+  }
+  .cx-row-card {
+    padding: 0.6rem 0.7rem;
+  }
+  .cx-node-art {
+    width: 38px;
+    height: 38px;
+  }
+  .cx-options--pokemon {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cx-options--trainers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cx-sidebar-scores {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cx-sidebar-scores .score-badge {
+    min-width: 58px;
+    padding: 0.4rem;
+  }
+  /* Keep the sum on one line at phone width rather than wrapping the total onto its own row */
+  .cx-sum {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+  .cx-sum-term {
+    min-width: 0;
+  }
+  .cx-sum-num,
+  .cx-sum-op {
+    font-size: 1.35rem;
+  }
+  .cx-sum-term.is-total .cx-sum-num {
+    font-size: 1.65rem;
+    margin-top: -0.15rem;
+  }
+  .cx-sum-label {
+    font-size: 0.68rem;
+  }
+  .cx-scorecard {
+    padding: 1rem 0.75rem 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cx-row,
+  .cx-scorecard,
+  .cx-endpoint-portrait img {
+    animation: none;
+  }
+}

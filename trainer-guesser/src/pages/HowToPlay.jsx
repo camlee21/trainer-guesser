@@ -55,6 +55,34 @@ export default function HowToPlay() {
         </p>
       </div>
 
+      {/* Connections Mode Block */}
+      <div className="game-description" style={{ margin: '1rem auto 0', textAlign: 'left' }}>
+        <h3 className="section-eyebrow">
+          Connections Mode
+        </h3>
+
+        <p>
+          In <strong>Connections mode</strong> you're given a <strong>start</strong> trainer and a <strong>goal</strong> trainer, and
+          have to link them together using the Pokémon on their teams. Pick one of the start trainer's Pokémon, then pick another
+          trainer who also uses that Pokémon, and keep going until you reach the goal. For example, Flint (Platinum) and Cyrus
+          (Platinum) both use Houndoom, and Cyrus and Crasher Wake (Platinum) both use Gyarados, so Flint connects to Crasher Wake
+          in <strong>2 connections</strong>.
+        </p>
+
+        <p style={{ marginTop: '1rem' }}>
+          Your score is the number of <strong>connections</strong> (trainer-to-trainer steps) you make, so <strong>lower is better</strong>.
+          Made a wrong turn? The <strong>undo</strong> button on your latest step takes it back, but undoing a connection still adds 1
+          to your score (swapping which Pokémon you picked is free). When you reach the goal you'll see your score, the
+          <strong> best possible score</strong> for that pair, and one of the shortest routes.
+        </p>
+
+        <p style={{ marginTop: '1rem' }}>
+          The <strong>Daily</strong> tab gives everyone the same pair of trainers each day, with a new one at <strong>midnight GMT</strong>,
+          and lets you share your score. The <strong>Custom</strong> tab lets you choose any two trainers or roll a random pair, as many
+          times as you like. Connections uses the same trainers as Daily mode.
+        </p>
+      </div>
+
       {/* General Notes Block */}
       <div className="game-description" style={{ margin: '1rem auto 0', textAlign: 'left' }}>
         <p>
