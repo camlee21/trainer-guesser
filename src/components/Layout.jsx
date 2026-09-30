@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../hooks/useTheme'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -61,9 +59,6 @@ export default function Layout({ children }) {
       </div>
 
       {modalOpen && <AuthModal onClose={() => setModalOpen(false)} />}
-
-      <Analytics />
-      <SpeedInsights />
     </div>
   )
 }
