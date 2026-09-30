@@ -40,8 +40,8 @@ security definer
 set search_path = public
 as $$
 declare
-  -- Looking 5 minutes back means the midnight run reports the day that just ended
-  -- instead of the one that started seconds ago
+  -- Looking 5 minutes back means the 00:00 UTC run (8am GMT+8) reports the day that just
+  -- ended as final, instead of the one that started seconds ago
   v_day         date := ((now() at time zone 'utc') - interval '5 minutes')::date;
   v_final       boolean := v_day < (now() at time zone 'utc')::date;
   v_day_number  integer := v_day - date '2026-06-10' + 1;  -- same numbering as the app (Day #1 = 2026-06-10)
@@ -58,7 +58,7 @@ begin
     url  := 'https://ntfy.sh',
     body := jsonb_build_object(
       'topic',   'YOUR-NTFY-TOPIC',
-      'title',   format('Day #%s %s', v_day_number, case when v_final then '(final)' else 'so far' end),
+      'title',   format('Day #%s %s', v_day_number, case when v_final then 'final' else 'so far' end),
       'message', format('Daily Trainer: %s' || chr(10) || 'Daily Connections: %s', v_trainer, v_connections)
     )
   );
@@ -68,7 +68,7 @@ $$;
 -- Only the scheduled job may send notifications, not visitors to the site
 revoke all on function public.send_completion_update() from public, anon, authenticated;
 
--- Every 6 hours, on the hour, in UTC (00:00, 06:00, 12:00, 18:00)
+-- pg_cron uses UTC: 00:00, 06:00, 12:00, 18:00 UTC = 8am (final), 2pm, 8pm, 2am GMT+8
 select cron.schedule('completion-update', '0 */6 * * *', 'select public.send_completion_update()');
 
 
