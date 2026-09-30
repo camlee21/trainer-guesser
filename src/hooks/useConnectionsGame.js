@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { getTrainer, findShortestRoute, pickRandomPair, getDailyPair, trainerUsesPokemon } from '../lib/connectionsGraph'
 import { getDayNumber, dayNumberToUtcDateString } from '../lib/dailySchedule.js'
 import { supabase } from '../lib/supabaseClient'
+import { recordCompletion } from '../lib/completionCounter'
 import { useAuthContext } from '../contexts/AuthContext'
 
 // Daily and custom games are saved separately, so playing one never disturbs the other
@@ -181,11 +182,14 @@ export function useConnectionsGame(kind) {
     }
   }, [isDaily, userId, dailyDay, saveDailyResult])
 
-  // Ends the game, and for the daily puzzle saves it to the account straight away
+  // Ends the game, and for the daily puzzle adds it to the anonymous count and saves it to the account straight away
   function finish(next) {
     const finished = userId ? { ...next, userId } : next
     setGame(finished)
-    if (isDaily) saveDailyResult(finished)
+    if (isDaily) {
+      recordCompletion('connections')
+      saveDailyResult(finished)
+    }
   }
 
   const bestRoute = useMemo(() => findShortestRoute(startId, goalId), [startId, goalId])

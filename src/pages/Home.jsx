@@ -12,6 +12,7 @@ import { useInfiniteMode } from '../hooks/useInfiniteMode'
 import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
+import { recordCompletion } from '../lib/completionCounter'
 
 // WARNING/PSA TEXTS
 
@@ -83,6 +84,7 @@ function DailyMode() {
     if (isCorrect) {
       setGameOver('won')
       setHintsRevealed(5)
+      recordCompletion('trainer')
       await saveResult(newGuesses, 'won', 5)
       return
     }
@@ -92,6 +94,7 @@ function DailyMode() {
 
     if (newGuesses.length >= MAX_GUESSES) {
       setGameOver('lost')
+      recordCompletion('trainer')
       await saveResult(newGuesses, 'lost', newHints)
     }
   }
@@ -103,6 +106,7 @@ function DailyMode() {
     setHintsRevealed(newHints)
     if (newGuesses.length >= MAX_GUESSES) {
       setGameOver('lost')
+      recordCompletion('trainer')
       await saveResult(newGuesses, 'lost', newHints)
     }
   }
