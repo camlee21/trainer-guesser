@@ -2805,23 +2805,43 @@ img {
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--panel-border);
   }
+  /* Sprite on the left, name above the goal's team on the right */
   .cx-goal-card {
     flex: 1;
     min-width: 0;
-    flex-direction: row;
-    gap: 0.6rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "sprite text" "sprite team";
+    align-items: center;
+    justify-items: start;
+    column-gap: 0.6rem;
+    row-gap: 0.15rem;
     padding: 0.4rem 0.75rem 0.4rem 0.5rem;
     box-shadow: none;
   }
   .cx-goal-sprite {
+    grid-area: sprite;
     width: 48px;
     height: 48px;
   }
   .cx-goal-text {
+    grid-area: text;
     text-align: left;
   }
   .cx-goal-card .cx-team-strip {
-    display: none;
+    grid-area: team;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    min-height: 0;
+    margin: 0;
+  }
+  /* Sprites shrink rather than overflow on very narrow screens */
+  .cx-goal-card .cx-team-strip img {
+    width: 28px;
+    height: 28px;
+    min-width: 0;
+    flex-shrink: 1;
   }
   .cx-sidebar-scores .score-badge {
     min-width: 64px;
@@ -2833,7 +2853,7 @@ img {
   /* Rows and results stop below the pinned bar, not underneath it */
   .cx-row,
   .cx-result {
-    scroll-margin-top: 92px;
+    scroll-margin-top: 130px;
   }
 }
 
@@ -2875,6 +2895,14 @@ img {
   }
   .cx-options--trainers {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Too narrow to sit beside the name, so the team gets the card's full width */
+  .cx-goal-card {
+    grid-template-areas: "sprite text" "team team";
+  }
+  .cx-goal-sprite {
+    width: 40px;
+    height: 40px;
   }
   .cx-sidebar-scores {
     grid-template-columns: 1fr 1fr;
