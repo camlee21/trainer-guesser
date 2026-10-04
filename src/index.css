@@ -1596,7 +1596,7 @@ img {
   gap: 6px;
 }
 
-/* Sets the Twitter link apart: a short vertical line on desktop, a short horizontal one on phones */
+/* Sets the Twitter link apart on desktop; hidden on phones so the icon sits with the other links */
 .site-footer-sep {
   width: 1px;
   height: 14px;
@@ -1615,9 +1615,7 @@ img {
     display: none;
   }
   .site-footer-sep {
-    flex-basis: 100%;
-    height: 1px;
-    background: linear-gradient(color-mix(in srgb, var(--text-dim) 45%, transparent), color-mix(in srgb, var(--text-dim) 45%, transparent)) center / 40px 1px no-repeat;
+    display: none;
   }
 }
 
