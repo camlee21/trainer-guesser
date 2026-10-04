@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthContext } from './AuthContext'
-import { computeMedals, infiniteRoundsToday, tripleThreatToday, MEDAL_IDS } from '../lib/medals'
+import { computeMedals, infiniteRoundsToday, medalStage, tripleThreatToday, MEDAL_IDS, STAGE_NAMES } from '../lib/medals'
 
 const MedalsContext = createContext(null)
-const EMPTY = { owner: null, daily: [], connections: [], stored: {}, earned: new Set() }
+const EMPTY = { owner: null, daily: [], connections: [], stored: {}, earned: new Map() }
 const TOAST_MS = 3000
 
 function earnedMessage(medals) {
@@ -27,21 +27,28 @@ export function MedalsProvider({ children }) {
   // has loaded: counting up from an unloaded 0 would overwrite real progress.
   const dataRef = useRef(null)
   const userIdRef = useRef(userId)
-  const [toast, setToast] = useState(null)
-  const toastTimerRef = useRef(null)
+  // Notifications on screen, newest last. Several can show at once, e.g. a medal and a rank up.
+  const [toasts, setToasts] = useState([])
+  const toastTimersRef = useRef(new Map())
+  const nextToastKeyRef = useRef(0)
 
-  const dismissToast = useCallback(() => {
-    clearTimeout(toastTimerRef.current)
-    setToast(null)
+  const dismissToast = useCallback(key => {
+    clearTimeout(toastTimersRef.current.get(key))
+    toastTimersRef.current.delete(key)
+    setToasts(list => list.filter(t => t.key !== key))
   }, [])
 
-  const showToast = useCallback(message => {
-    clearTimeout(toastTimerRef.current)
-    setToast({ message, key: Date.now() })
-    toastTimerRef.current = setTimeout(() => setToast(null), TOAST_MS)
-  }, [])
+  // `stage` picks the medal image shown next to the message
+  const showToast = useCallback((message, stage) => {
+    const key = nextToastKeyRef.current++
+    setToasts(list => [...list, { key, message, stage }])
+    toastTimersRef.current.set(key, setTimeout(() => dismissToast(key), TOAST_MS))
+  }, [dismissToast])
 
-  useEffect(() => () => clearTimeout(toastTimerRef.current), [])
+  useEffect(() => {
+    const timers = toastTimersRef.current
+    return () => timers.forEach(clearTimeout)
+  }, [])
 
   // Marks medals that are now earned but haven't been announced yet, and announces them. On the first
   // check after signing in, an account that has never had a medal announced gets a welcome message
@@ -49,15 +56,22 @@ export function MedalsProvider({ children }) {
   const announce = useCallback(async firstCheck => {
     const snapshot = dataRef.current
     if (!snapshot) return
-    const fresh = computeMedals(snapshot).filter(m => m.earned && !snapshot.earned.has(m.id))
+    const medals = computeMedals(snapshot)
+    const fresh = medals.filter(m => m.earned && !snapshot.earned.has(m.id))
     if (fresh.length === 0) return
 
-    const neverAnnounced = snapshot.earned.size === 0
-    dataRef.current = { ...snapshot, earned: new Set([...snapshot.earned, ...fresh.map(m => m.id)]) }
-    setData(dataRef.current)
-    showToast(firstCheck && neverAnnounced ? welcomeMessage(fresh.length) : earnedMessage(fresh))
-
     const earnedAt = new Date().toISOString()
+    const neverAnnounced = snapshot.earned.size === 0
+    dataRef.current = { ...snapshot, earned: new Map([...snapshot.earned, ...fresh.map(m => [m.id, earnedAt])]) }
+    setData(dataRef.current)
+
+    const total = medals.filter(m => m.earned).length
+    const stage = medalStage(total)
+    showToast(firstCheck && neverAnnounced ? welcomeMessage(fresh.length) : earnedMessage(fresh), stage)
+    if (stage > medalStage(total - fresh.length)) {
+      showToast(`You've ranked up to ${STAGE_NAMES[stage - 1]}!`, stage)
+    }
+
     const rows = fresh.map(m => ({ user_id: snapshot.owner, medal_id: m.id, progress: snapshot.stored[m.id] ?? 0, earned_at: earnedAt }))
     const { error } = await supabase.from('user_medals').upsert(rows, { onConflict: 'user_id,medal_id' })
     if (error) console.error('Failed to save earned medals', error)
@@ -96,15 +110,15 @@ export function MedalsProvider({ children }) {
     }
 
     const previous = dataRef.current?.owner === owner ? dataRef.current : null
-    const loaded = { owner, daily: daily.data ?? [], connections: connections.data ?? [], stored: {}, earned: new Set() }
+    const loaded = { owner, daily: daily.data ?? [], connections: connections.data ?? [], stored: {}, earned: new Map() }
     for (const row of stored.data ?? []) {
       loaded.stored[row.medal_id] = row.progress
-      if (row.earned_at) loaded.earned.add(row.medal_id)
+      if (row.earned_at) loaded.earned.set(row.medal_id, row.earned_at)
     }
     // Keep anything this tab saved that may not have reached the server yet
     if (previous) {
       for (const [id, progress] of Object.entries(previous.stored)) loaded.stored[id] = Math.max(loaded.stored[id] ?? 0, progress)
-      previous.earned.forEach(id => loaded.earned.add(id))
+      previous.earned.forEach((at, id) => { if (!loaded.earned.has(id)) loaded.earned.set(id, at) })
     }
     setData(loaded)
     // If user_medals failed to load, leave it unloaded so nothing is saved over it or announced twice
@@ -130,8 +144,8 @@ export function MedalsProvider({ children }) {
   const earnedCount = medals.filter(m => m.earned).length
 
   const value = useMemo(
-    () => ({ medals, earnedCount, refresh, save, toast, dismissToast }),
-    [medals, earnedCount, refresh, save, toast, dismissToast]
+    () => ({ medals, earnedCount, refresh, save, toasts, dismissToast }),
+    [medals, earnedCount, refresh, save, toasts, dismissToast]
   )
   return <MedalsContext.Provider value={value}>{children}</MedalsContext.Provider>
 }

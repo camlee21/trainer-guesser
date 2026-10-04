@@ -231,17 +231,24 @@ textarea:focus-visible {
 }
 
 /* ── Medal notification at the top of the page (fades like Voltorb Flip's coin toast) ── */
-.medal-toast {
+/* Stacked toasts share the widest one's width so their edges line up */
+.medal-toasts {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 300;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
   width: max-content;
   max-width: calc(100vw - 32px);
+}
+
+.medal-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 8px 10px 8px 12px;
   border-radius: var(--radius-md);
   background: var(--accent);
@@ -259,6 +266,10 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 
+.medal-toast span {
+  flex: 1;
+}
+
 .medal-toast-close {
   background: none;
   border: none;
@@ -274,10 +285,10 @@ textarea:focus-visible {
 }
 
 @keyframes medal-toast-fade {
-  0% { opacity: 0; transform: translate(-50%, -8px); }
-  10% { opacity: 1; transform: translate(-50%, 0); }
-  85% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -8px); }
+  0% { opacity: 0; transform: translateY(-8px); }
+  10% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -306,6 +317,56 @@ textarea:focus-visible {
   font-size: 1.4rem;
   font-weight: 800;
   text-align: center;
+}
+
+/* Mirrors the close button in the opposite corner */
+.medal-box-info {
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-dim);
+  background: none;
+  color: var(--text-dim);
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.medal-box-info:hover,
+.medal-box-info.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.medal-box-back {
+  align-self: center;
+}
+
+.medal-rank-list {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 460px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.medal-rank-list .medal-row.current {
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.medal-rank-list .medal-row.current .medal-row-count {
+  color: var(--accent);
+}
+
+.medal-rank-list .medal-row.current img {
+  opacity: 1;
 }
 
 .medal-box-progress {
@@ -421,9 +482,15 @@ textarea:focus-visible {
   opacity: 0.6;
 }
 
+/* Earned: gold edge and tick on the normal row colour (a gold fill turns olive over the blue panel) */
 .medal-row.earned {
   border-color: var(--badge-gold-border);
-  background: var(--badge-gold-bg);
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+
+.medal-row.earned .medal-row-count {
+  color: var(--gold);
+  font-size: 1.1rem;
 }
 
 .medal-row-text {
@@ -437,6 +504,13 @@ textarea:focus-visible {
 
 .medal-row-desc {
   font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.medal-row-earned {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--text-dim);
 }
 

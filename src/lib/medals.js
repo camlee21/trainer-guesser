@@ -250,7 +250,7 @@ function guessesUsed(row) {
 }
 
 // Progress for every medal, capped at its target. `stored` maps medal ID -> progress from user_medals,
-// and `earned` holds the IDs already marked earned there, which stay earned even if a requirement changes.
+// and `earned` maps the IDs already marked earned there to when, and those stay earned even if a requirement changes.
 export function computeMedals({ daily: dailyRows, connections: connectionsRows, stored, earned }) {
   const dailyWins = dailyRows.filter(r => r.won)
   const beatenByGen = Object.fromEntries(GENS.map(gen => [gen, new Set()]))
@@ -294,7 +294,7 @@ export function computeMedals({ daily: dailyRows, connections: connectionsRows, 
   return MEDALS.map(medal => {
     const value = medal.progress ? medal.progress(s) : (stored[medal.id] ?? 0)
     const progress = earned.has(medal.id) ? medal.target : Math.min(value, medal.target)
-    return { ...medal, progress, earned: progress >= medal.target }
+    return { ...medal, progress, earned: progress >= medal.target, earnedAt: earned.get(medal.id) ?? null }
   })
 }
 

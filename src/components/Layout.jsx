@@ -12,7 +12,7 @@ import { medalStage } from '../lib/medals'
 export default function Layout({ children }) {
   const { bgColor, accentColor, handleBgChange, handleAccentChange } = useTheme()
   const { user, signOut } = useAuthContext()
-  const { earnedCount, toast, dismissToast } = useMedals()
+  const { earnedCount, toasts, dismissToast } = useMedals()
   const [modalOpen, setModalOpen] = useState(false)
   const [medalBoxOpen, setMedalBoxOpen] = useState(false)
   const closeMedalBox = useCallback(() => setMedalBoxOpen(false), [])
@@ -69,19 +69,23 @@ export default function Layout({ children }) {
       {modalOpen && <AuthModal onClose={() => setModalOpen(false)} />}
       {medalBoxOpen && user && <MedalBox onClose={closeMedalBox} />}
 
-      {/* Medal notification: disappears after 3 seconds, ✕ clears it sooner, clicking it opens the Medal Box */}
-      {toast && (
-        <div
-          key={toast.key}
-          className="medal-toast"
-          role="status"
-          tabIndex={0}
-          onClick={() => { dismissToast(); setMedalBoxOpen(true) }}
-          onKeyDown={e => { if (e.key === 'Enter') { dismissToast(); setMedalBoxOpen(true) } }}
-        >
-          <img className="medal-img" src={`/medal_imgs/medal-${medalStage(earnedCount)}.png`} alt="" />
-          <span>{toast.message}</span>
-          <button type="button" className="medal-toast-close" aria-label="Dismiss" onClick={e => { e.stopPropagation(); dismissToast() }}>✕</button>
+      {/* Medal notifications: each disappears after 3 seconds, ✕ clears it sooner, clicking it opens the Medal Box */}
+      {toasts.length > 0 && (
+        <div className="medal-toasts">
+          {toasts.map(toast => (
+            <div
+              key={toast.key}
+              className="medal-toast"
+              role="status"
+              tabIndex={0}
+              onClick={() => { dismissToast(toast.key); setMedalBoxOpen(true) }}
+              onKeyDown={e => { if (e.key === 'Enter') { dismissToast(toast.key); setMedalBoxOpen(true) } }}
+            >
+              <img className="medal-img" src={`/medal_imgs/medal-${toast.stage}.png`} alt="" />
+              <span>{toast.message}</span>
+              <button type="button" className="medal-toast-close" aria-label="Dismiss" onClick={e => { e.stopPropagation(); dismissToast(toast.key) }}>✕</button>
+            </div>
+          ))}
         </div>
       )}
     </div>
