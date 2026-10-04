@@ -14,6 +14,7 @@ export const TOTAL_MEDALS = 75
 
 // Medal count each Medal Box stage starts at. Stage 7 needs every medal.
 export const STAGE_STARTS = [0, 5, 15, 30, 45, 60, TOTAL_MEDALS]
+export const STAGE_NAMES = ['Beginner', 'Novice', 'Expert', 'Veteran', 'Elite', 'Master', 'Champion']
 
 export function medalStage(count) {
   return STAGE_STARTS.findLastIndex(start => count >= start) + 1
@@ -243,8 +244,14 @@ export function countInfiniteRound() {
   return count
 }
 
-// Progress for every medal, capped at its target. `stored` maps medal ID -> progress from user_medals.
-export function computeMedals(dailyRows, connectionsRows, stored) {
+// Guesses a daily win took. Older rows may only have a score (5 for a first-guess win, down to 1), like on the Stats page.
+function guessesUsed(row) {
+  return row.guesses_used ?? 6 - (row.score ?? 5)
+}
+
+// Progress for every medal, capped at its target. `stored` maps medal ID -> progress from user_medals,
+// and `earned` holds the IDs already marked earned there, which stay earned even if a requirement changes.
+export function computeMedals({ daily: dailyRows, connections: connectionsRows, stored, earned }) {
   const dailyWins = dailyRows.filter(r => r.won)
   const beatenByGen = Object.fromEntries(GENS.map(gen => [gen, new Set()]))
   let gymLeaderWins = 0
@@ -266,8 +273,8 @@ export function computeMedals(dailyRows, connectionsRows, stored) {
     stored,
     daily: {
       wins: dailyWins.length,
-      firstGuessWins: dailyWins.filter(r => r.guesses_used === 1).length,
-      lastGuessWins: dailyWins.some(r => r.guesses_used === 5) ? 1 : 0,
+      firstGuessWins: dailyWins.filter(r => guessesUsed(r) === 1).length,
+      lastGuessWins: dailyWins.some(r => guessesUsed(r) === 5) ? 1 : 0,
       communityWins: dailyWins.some(r => overrides[r.date]) ? 1 : 0,
       bestStreak: longestRun(dailyRows.map(r => r.date)),
       bestWinStreak: longestRun(dailyWins.map(r => r.date)),
@@ -286,7 +293,7 @@ export function computeMedals(dailyRows, connectionsRows, stored) {
 
   return MEDALS.map(medal => {
     const value = medal.progress ? medal.progress(s) : (stored[medal.id] ?? 0)
-    const progress = Math.min(value, medal.target)
+    const progress = earned.has(medal.id) ? medal.target : Math.min(value, medal.target)
     return { ...medal, progress, earned: progress >= medal.target }
   })
 }

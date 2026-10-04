@@ -58,9 +58,15 @@ function DailyMode() {
   const trainer = useDailyTrainer()
   const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult, saveStatus } = usePersistedGameState(trainer)
   const { user } = useAuthContext()
+  const { refresh: refreshMedals } = useMedals()
   const [streak, setStreak] = useState(0)
   // Re-fetch the streak once today's result has actually reached Supabase
   const resultSaved = saveStatus === 'saved'
+
+  // Today's result may have earned medals
+  useEffect(() => {
+    if (resultSaved) refreshMedals()
+  }, [resultSaved, refreshMedals])
 
   const MAX_GUESSES = 5
 

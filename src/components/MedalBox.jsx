@@ -1,15 +1,30 @@
 import { useEffect, useState } from 'react'
 import { useMedals } from '../contexts/MedalsContext'
-import { medalStage, STAGE_STARTS, TOTAL_MEDALS } from '../lib/medals'
+import { medalStage, STAGE_NAMES, STAGE_STARTS, TOTAL_MEDALS } from '../lib/medals'
 
-const FILTERS = [
-  { id: 'all', label: 'All', test: () => true },
-  { id: 'incomplete', label: 'Incomplete', test: m => !m.earned },
-  { id: 'daily', label: 'Daily', test: m => m.mode === 'daily' },
-  { id: 'infinite', label: 'Infinite', test: m => m.mode === 'infinite' },
-  { id: 'connections', label: 'Connections', test: m => m.mode === 'connections' },
-  { id: 'completed', label: 'Completed', test: m => m.earned },
+// Shown in groups with a divider between them
+const FILTER_GROUPS = [
+  [{ id: 'all', label: 'All', test: () => true }],
+  [
+    { id: 'incomplete', label: 'Incomplete', test: m => !m.earned },
+    { id: 'complete', label: 'Complete', test: m => m.earned },
+  ],
+  [
+    { id: 'daily', label: 'Daily', test: m => m.mode === 'daily' },
+    { id: 'infinite', label: 'Infinite', test: m => m.mode === 'infinite' },
+    { id: 'connections', label: 'Connections', test: m => m.mode === 'connections' },
+  ],
 ]
+const FILTERS = FILTER_GROUPS.flat()
+
+function StageMedal({ stage }) {
+  return (
+    <div className="medal-box-stage">
+      <img className="medal-img" src={`/medal_imgs/medal-${stage}.png`} alt="" />
+      <span>{STAGE_NAMES[stage - 1]}</span>
+    </div>
+  )
+}
 
 export default function MedalBox({ onClose }) {
   const { medals, earnedCount, refresh } = useMedals()
@@ -36,29 +51,47 @@ export default function MedalBox({ onClose }) {
         <h2 id="medal-box-title" className="medal-box-title">Medals</h2>
 
         <div className="medal-box-progress">
-          <img className="medal-img" src={`/medal_imgs/medal-${stage}.png`} alt={`Stage ${stage} medal`} />
+          <StageMedal stage={stage} />
           {nextStart ? (
             <>
-              <span><strong>{earnedCount}</strong> / {nextStart} medals</span>
-              <span className="medal-box-arrow" aria-hidden="true">→</span>
-              <img className="medal-img" src={`/medal_imgs/medal-${stage + 1}.png`} alt={`Next: stage ${stage + 1} medal`} />
+              <div className="medal-box-next">
+                <span><strong>{earnedCount}</strong> / {nextStart}</span>
+                <span className="medal-box-arrow" aria-hidden="true">→</span>
+                <span className="medal-box-next-label">{nextStart - earnedCount} more to rank up</span>
+              </div>
+              <StageMedal stage={stage + 1} />
             </>
           ) : (
-            <span>All <strong>{TOTAL_MEDALS}</strong> medals collected!</span>
+            <div className="medal-box-next">
+              <span>Top rank reached!</span>
+              <span className="medal-box-next-label">Every medal collected</span>
+            </div>
           )}
         </div>
 
+        <div className={`medal-box-total ${earnedCount === TOTAL_MEDALS ? 'complete' : ''}`}>
+          <span>Total</span>
+          <div className="medal-row-bar" role="progressbar" aria-label="Total medals" aria-valuemin={0} aria-valuemax={TOTAL_MEDALS} aria-valuenow={earnedCount}>
+            <div style={{ width: `${(earnedCount / TOTAL_MEDALS) * 100}%` }} />
+          </div>
+          <span>{earnedCount}/{TOTAL_MEDALS}</span>
+        </div>
+
         <div className="medal-box-filters">
-          {FILTERS.map(f => (
-            <button
-              key={f.id}
-              type="button"
-              onClick={() => setFilter(f.id)}
-              className={`filter-ctrl-btn ${filter === f.id ? 'accent' : ''}`}
-              aria-pressed={filter === f.id}
-            >
-              {f.label}
-            </button>
+          {FILTER_GROUPS.map((group, i) => (
+            <div key={i} className="medal-filter-group">
+              {group.map(f => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setFilter(f.id)}
+                  className={`filter-ctrl-btn ${filter === f.id ? 'accent' : ''}`}
+                  aria-pressed={filter === f.id}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
           ))}
         </div>
 

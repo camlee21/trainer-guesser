@@ -98,7 +98,7 @@ function initialGame(kind) {
 export function useConnectionsGame(kind) {
   const { user } = useAuthContext()
   const userId = user?.id ?? null
-  const { save: saveMedals } = useMedals()
+  const { save: saveMedals, refresh: refreshMedals } = useMedals()
   const isDaily = kind === 'daily'
   const [game, setGame] = useState(() => initialGame(kind))
   const { phase, startId, goalId, trainers, pokemon, undos, outcome } = game
@@ -129,6 +129,8 @@ export function useConnectionsGame(kind) {
       const { error } = await supabase.from(RESULTS_TABLE).upsert(rowFromGame(finished, owner), { onConflict: 'user_id,date' })
       if (!error) {
         setSaveStatus('saved')
+        // Today's puzzle may have earned medals
+        refreshMedals()
         return
       }
       console.error('Failed to save daily connections result', error)
@@ -138,7 +140,7 @@ export function useConnectionsGame(kind) {
       }
     }
     return attempt(0)
-  }, [isDaily])
+  }, [isDaily, refreshMedals])
 
   // On sign-in (and whenever the browser comes back online), line this device up with the account,
   // following the same rules as Daily mode
