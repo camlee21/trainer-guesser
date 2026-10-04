@@ -30,6 +30,7 @@ export default function Privacy() {
                 <li>• Your daily guess history and results</li>
                 <li>• Your Daily Connections routes, undos and scores</li>
                 <li>• Your score and streak data</li>
+                <li>• Your medal progress, such as your best Infinite mode streaks and custom Connections puzzles finished</li>
                 </ul>
             </div>
 

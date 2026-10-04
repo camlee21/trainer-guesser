@@ -225,6 +225,145 @@ textarea:focus-visible {
   transform: none;
 }
 
+/* Thin black outline that follows the medal's shape, so it stands out on any background */
+.medal-img {
+  filter: drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000);
+}
+
+/* ── Medal Box popup (reuses .auth-overlay and .auth-close) ── */
+.medal-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  height: min(85vh, 900px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.medal-box-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.medal-box-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.05rem;
+}
+
+.medal-box-progress img {
+  width: 40px;
+  height: 40px;
+}
+
+.medal-box-arrow {
+  color: var(--text-dim);
+  font-size: 1.3rem;
+}
+
+.medal-box-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.medal-list {
+  list-style: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.medal-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--chrome-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+}
+
+.medal-row img {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.medal-row:not(.earned) img {
+  opacity: 0.6;
+}
+
+.medal-row.earned {
+  border-color: var(--badge-gold-border);
+  background: var(--badge-gold-bg);
+}
+
+.medal-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.medal-row-name {
+  font-weight: 800;
+}
+
+.medal-row-desc {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.medal-row-bar {
+  height: 5px;
+  margin-top: 6px;
+  background: var(--chrome-bg-hover);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.medal-row-bar > div {
+  height: 100%;
+  background: var(--accent);
+}
+
+.medal-row-count {
+  font-weight: 800;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.medal-list-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-dim);
+  padding: 2rem 0;
+}
+
+@media (max-width: 640px) {
+  .medal-box {
+    padding: 1.25rem 1rem 1rem;
+    height: 90vh;
+  }
+  .medal-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Icon button (header socials + theme picker toggle) — shared style instead of per-instance inline hover handlers. ── */
 .icon-btn {
   display: flex;
