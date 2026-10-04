@@ -206,6 +206,25 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 
+/* Medal Box: same pill as Ko-fi, greyed out like the Infinite start button when logged out */
+.medal-btn {
+  border: none;
+  cursor: pointer;
+}
+
+.medal-btn img {
+  width: 26px;
+  height: 26px;
+}
+
+.medal-btn.disabled {
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 /* ── Icon button (header socials + theme picker toggle) — shared style instead of per-instance inline hover handlers. ── */
 .icon-btn {
   display: flex;
@@ -1236,6 +1255,12 @@ img {
   color: var(--accent);
 }
 
+.site-footer-social {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 @media (max-width: 840px) {
   .site-footer {
     margin-top: 2rem;
@@ -1243,6 +1268,9 @@ img {
   }
   .site-footer-link {
     font-size: 0.8rem;
+  }
+  .site-footer-handle {
+    display: none;
   }
 }
 
