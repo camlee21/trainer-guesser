@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import { MedalsProvider } from './contexts/MedalsContext'
 import Layout from './components/Layout'
 import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
@@ -15,19 +16,21 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 export default function App() {
   return (
     <AuthProvider>
-      <ScrollToTop />
-      <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/how-to-play" element={<HowToPlay />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/credits" element={<Credits />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/trainer-suggestions" element={<TrainerSuggestions />} />
-          </Routes>
-        <Analytics />
-        <SpeedInsights />
-      </Layout>
+      <MedalsProvider>
+        <ScrollToTop />
+        <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/how-to-play" element={<HowToPlay />} />
+              <Route path="/stats" element={<Stats />} />
+              <Route path="/credits" element={<Credits />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/trainer-suggestions" element={<TrainerSuggestions />} />
+            </Routes>
+          <Analytics />
+          <SpeedInsights />
+        </Layout>
+      </MedalsProvider>
     </AuthProvider>
   )
 }

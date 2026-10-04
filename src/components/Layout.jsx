@@ -1,15 +1,21 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../hooks/useTheme'
 import { useAuthContext } from '../contexts/AuthContext'
 import ColourPicker from './ColourPicker'
 import Footer from './Footer'
 import AuthModal from './AuthModal'
+import MedalBox from './MedalBox'
+import { useMedals } from '../contexts/MedalsContext'
+import { medalStage } from '../lib/medals'
 
 export default function Layout({ children }) {
   const { bgColor, accentColor, handleBgChange, handleAccentChange } = useTheme()
   const { user, signOut } = useAuthContext()
+  const { earnedCount, toasts, dismissToast } = useMedals()
   const [modalOpen, setModalOpen] = useState(false)
+  const [medalBoxOpen, setMedalBoxOpen] = useState(false)
+  const closeMedalBox = useCallback(() => setMedalBoxOpen(false), [])
 
   return (
     <div className="app-root">
@@ -26,14 +32,16 @@ export default function Layout({ children }) {
 
           <div className="header-actions">
             <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
-            <a href="https://voltorbflip.app" target="_blank" rel="noopener noreferrer" title="Voltorb Flip" className="icon-btn">
-              <img src="/voltorbflipwebicon.png" alt="Voltorb Flip" style={{ width: '22px', height: '22px', objectFit: 'contain' }} />
-            </a>
-            <a href="https://x.com/drag1ash" target="_blank" rel="noopener noreferrer" title="Twitter / X" className="icon-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text)" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
+            <button
+              type="button"
+              disabled={!user}
+              onClick={() => setMedalBoxOpen(true)}
+              title={user ? 'Medal Box' : 'Log in to collect medals'}
+              className={`kofi-btn medal-btn ${user ? '' : 'disabled'}`}
+            >
+              <img className="medal-img" src={user ? `/medal_imgs/medal-${medalStage(earnedCount)}.png` : '/medal_imgs/hint-medal.png'} alt="" />
+              <span>Medal Box</span>
+            </button>
             <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn">
               <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" />
               <span>Support me on Ko-fi</span>
@@ -59,6 +67,27 @@ export default function Layout({ children }) {
       </div>
 
       {modalOpen && <AuthModal onClose={() => setModalOpen(false)} />}
+      {medalBoxOpen && user && <MedalBox onClose={closeMedalBox} />}
+
+      {/* Medal notifications: each disappears after 3 seconds, ✕ clears it sooner, clicking it opens the Medal Box */}
+      {toasts.length > 0 && (
+        <div className="medal-toasts">
+          {toasts.map(toast => (
+            <div
+              key={toast.key}
+              className="medal-toast"
+              role="status"
+              tabIndex={0}
+              onClick={() => { dismissToast(toast.key); setMedalBoxOpen(true) }}
+              onKeyDown={e => { if (e.key === 'Enter') { dismissToast(toast.key); setMedalBoxOpen(true) } }}
+            >
+              <img className="medal-img" src={`/medal_imgs/medal-${toast.stage}.png`} alt="" />
+              <span>{toast.message}</span>
+              <button type="button" className="medal-toast-close" aria-label="Dismiss" onClick={e => { e.stopPropagation(); dismissToast(toast.key) }}>✕</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

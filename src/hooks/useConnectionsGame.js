@@ -4,6 +4,8 @@ import { getDayNumber, dayNumberToUtcDateString } from '../lib/dailySchedule.js'
 import { supabase } from '../lib/supabaseClient'
 import { recordCompletion } from '../lib/completionCounter'
 import { useAuthContext } from '../contexts/AuthContext'
+import { useMedals } from '../contexts/MedalsContext'
+import { connectionsFacts, customConnectionsProgress } from '../lib/medals'
 
 // Daily and custom games are saved separately, so playing one never disturbs the other
 const STORAGE_KEYS = { daily: 'wtt-connections-daily', custom: 'wtt-connections' }
@@ -96,6 +98,7 @@ function initialGame(kind) {
 export function useConnectionsGame(kind) {
   const { user } = useAuthContext()
   const userId = user?.id ?? null
+  const { save: saveMedals, refresh: refreshMedals } = useMedals()
   const isDaily = kind === 'daily'
   const [game, setGame] = useState(() => initialGame(kind))
   const { phase, startId, goalId, trainers, pokemon, undos, outcome } = game
@@ -126,6 +129,8 @@ export function useConnectionsGame(kind) {
       const { error } = await supabase.from(RESULTS_TABLE).upsert(rowFromGame(finished, owner), { onConflict: 'user_id,date' })
       if (!error) {
         setSaveStatus('saved')
+        // Today's puzzle may have earned medals
+        refreshMedals()
         return
       }
       console.error('Failed to save daily connections result', error)
@@ -135,7 +140,7 @@ export function useConnectionsGame(kind) {
       }
     }
     return attempt(0)
-  }, [isDaily])
+  }, [isDaily, refreshMedals])
 
   // On sign-in (and whenever the browser comes back online), line this device up with the account,
   // following the same rules as Daily mode
@@ -182,13 +187,24 @@ export function useConnectionsGame(kind) {
     }
   }, [isDaily, userId, dailyDay, saveDailyResult])
 
-  // Ends the game, and for the daily puzzle adds it to the anonymous count and saves it to the account straight away
+  // Ends the game, and for the daily puzzle adds it to the anonymous count and saves it to the account straight away.
+  // Daily puzzles count towards medals through connections_results; custom ones are saved as medal progress here.
   function finish(next) {
     const finished = userId ? { ...next, userId } : next
     setGame(finished)
     if (isDaily) {
       recordCompletion('connections')
       saveDailyResult(finished)
+    } else {
+      const facts = connectionsFacts({
+        won: next.outcome === 'won',
+        hops: next.trainers.length - 1,
+        undos: next.undos,
+        best: findShortestRoute(next.startId, next.goalId)?.hops,
+        trainers: next.trainers,
+      })
+      const { best, add } = customConnectionsProgress(facts)
+      saveMedals(best, add)
     }
   }
 

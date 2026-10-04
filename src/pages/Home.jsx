@@ -13,6 +13,8 @@ import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
 import { recordCompletion } from '../lib/completionCounter'
+import { useMedals } from '../contexts/MedalsContext'
+import { infiniteSessionProgress, countInfiniteRound } from '../lib/medals'
 
 // WARNING/PSA TEXTS
 
@@ -56,9 +58,15 @@ function DailyMode() {
   const trainer = useDailyTrainer()
   const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult, saveStatus } = usePersistedGameState(trainer)
   const { user } = useAuthContext()
+  const { refresh: refreshMedals } = useMedals()
   const [streak, setStreak] = useState(0)
   // Re-fetch the streak once today's result has actually reached Supabase
   const resultSaved = saveStatus === 'saved'
+
+  // Today's result may have earned medals
+  useEffect(() => {
+    if (resultSaved) refreshMedals()
+  }, [resultSaved, refreshMedals])
 
   const MAX_GUESSES = 5
 
@@ -562,6 +570,27 @@ function InfiniteMode({ onResetSession }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const scrollRef = useRef(null)
   const currentRef = useRef(null)
+  const { save: saveMedals, refresh: refreshMedals } = useMedals()
+  // Every round finished this session, for Infinite medals. Settings can't change mid-session.
+  const medalLogRef = useRef([])
+
+  useEffect(() => {
+    if (!currentGameOver) return
+    medalLogRef.current.push({
+      trainerId: currentTrainer.id,
+      won: currentGameOver === 'won',
+      guesses: currentGuesses.length,
+      seconds: finalRoundElapsedSeconds ?? roundElapsedSeconds,
+      totalSeconds: totalElapsedSeconds,
+    })
+    saveMedals(infiniteSessionProgress(medalLogRef.current, {
+      games: selectedGames, difficulties: selectedDifficulties, extras: enabledExtras,
+    }))
+    // The 10th round today may complete Triple Threat
+    if (countInfiniteRound() === 10) refreshMedals()
+    // Only runs when a round ends; the other values are read at that moment
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentGameOver])
 
   useEffect(() => {
     if (isPlaying && !isTransitioning && currentRef.current) {
