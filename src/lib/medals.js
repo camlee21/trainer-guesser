@@ -109,14 +109,14 @@ export const MEDALS = [
 
   { id: 63, mode: 'connections', name: 'First Link', description: 'Finish any Connections puzzle', target: 1, progress: s => Math.max(s.stored[MEDAL_IDS.firstLink] ?? 0, s.connections.finished > 0 ? 1 : 0) },
   { id: 64, mode: 'connections', name: 'Clean Run', description: 'Win without using any undos', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.cleanRun, 'clean') },
-  { id: 65, mode: 'connections', name: 'Never Give Up', description: 'Win after using 5 or more undos', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.neverGiveUp, 'persistent') },
+  { id: 65, mode: 'connections', name: 'Never Give Up', description: 'Win after the timer reaches 3:00', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.neverGiveUp, 'persistent') },
 
   { id: 66, mode: 'connections', name: 'Linked In', description: 'Daily Connections streak of 5', target: 5, progress: s => s.connections.bestStreak },
   { id: 67, mode: 'connections', name: 'Chain Reaction', description: 'Daily Connections streak of 10', target: 10, progress: s => s.connections.bestStreak },
   { id: 68, mode: 'connections', name: 'Fully Connected', description: 'Daily Connections streak of 20', target: 20, progress: s => s.connections.bestStreak },
 
   { id: 69, mode: 'connections', name: 'Medal Recognition', description: 'Win 10 Daily Connections in total', target: 10, progress: s => s.connections.wins },
-  { id: 70, mode: 'connections', name: 'Optimal Route', description: 'Win using the shortest possible route, with no undos', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.optimalRoute, 'optimal') },
+  { id: 70, mode: 'connections', name: 'Optimal Route', description: 'Win using the shortest possible route, with no undos', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.optimalRoute, 'flawless') },
   { id: 71, mode: 'connections', name: 'Long Haul', description: 'Win a puzzle whose best route is 5 or more hops', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.longHaul, 'longHaul') },
   { id: 72, mode: 'connections', name: 'Time Traveller', description: 'Win with a route through trainers from 4+ generations', target: 1, progress: s => s.fromAnyPuzzle(MEDAL_IDS.timeTraveller, 'timeTraveller') },
   { id: 73, mode: 'connections', name: 'Puzzle Addict', description: 'Finish 25 custom puzzles', target: 25 },
@@ -147,12 +147,14 @@ function longestRun(dates) {
 }
 
 // What a finished Connections puzzle counts towards. Used for daily rows and custom puzzles alike.
-export function connectionsFacts({ won, hops, undos, best, trainers }) {
+// Undos are free, so a win with none is a flawless run. Daily rows saved before the timer existed have no elapsedMs.
+export function connectionsFacts({ won, hops, undos, best, trainers, elapsedMs }) {
   const gens = new Set(trainers.map(id => genOf(trainerById.get(id)?.game)).filter(Boolean))
   return {
     clean: won && undos === 0,
-    persistent: won && undos >= 5,
-    optimal: won && undos === 0 && hops === best,
+    persistent: won && elapsedMs >= 3 * 60 * 1000,
+    optimal: won && hops === best,
+    flawless: won && undos === 0 && hops === best,
     longHaul: won && best >= 5,
     timeTraveller: won && gens.size >= 4,
   }
@@ -165,7 +167,7 @@ export function customConnectionsProgress(facts) {
       [MEDAL_IDS.firstLink]: 1,
       [MEDAL_IDS.cleanRun]: facts.clean ? 1 : 0,
       [MEDAL_IDS.neverGiveUp]: facts.persistent ? 1 : 0,
-      [MEDAL_IDS.optimalRoute]: facts.optimal ? 1 : 0,
+      [MEDAL_IDS.optimalRoute]: facts.flawless ? 1 : 0,
       [MEDAL_IDS.longHaul]: facts.longHaul ? 1 : 0,
       [MEDAL_IDS.timeTraveller]: facts.timeTraveller ? 1 : 0,
     },
@@ -266,7 +268,7 @@ export function computeMedals({ daily: dailyRows, connections: connectionsRows, 
 
   const puzzles = connectionsRows.map(r => {
     const route = typeof r.route_json === 'string' ? JSON.parse(r.route_json) : r.route_json
-    return connectionsFacts({ won: r.won, hops: r.connections, undos: r.undos, best: r.best_score, trainers: route?.trainers ?? [] })
+    return connectionsFacts({ won: r.won, hops: r.connections, undos: r.undos, best: r.best_score, trainers: route?.trainers ?? [], elapsedMs: route?.elapsedMs })
   })
 
   const s = {

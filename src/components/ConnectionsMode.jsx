@@ -1,15 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import CountdownTimer from './CountdownTimer'
 import ShareButtons from './ShareButtons'
 import { ScrollToTopButton, ScrollToBottomButton } from './ScrollButtons'
 import { getPokemonSpriteUrl } from '../utils/sprites'
 import { useConnectionsGame } from '../hooks/useConnectionsGame'
 import {
-  CONNECTION_TRAINERS, getTrainer, getTeamOptions, getTrainersUsing, pokemonName, trainerLabel,
+  CONNECTION_TRAINERS, TIME_LIMIT_MS, getTrainer, getTeamOptions, getTrainersUsing, pokemonName, trainerLabel,
 } from '../lib/connectionsGraph'
 
 const SEARCH_OPTIONS = CONNECTION_TRAINERS.map(t => ({ id: t.id, label: trainerLabel(t), name: t.name.toLowerCase() }))
 const TAB_KEY = 'wtt-connections-tab'
+// Set once the visitor has closed the popup explaining the timed rules
+const RULES_SEEN_KEY = 'wtt-connections-timed-seen'
 
 // Same ordering as the guess box: exact name, then name starts with, then name contains, then game matches
 function searchTrainers(query) {
@@ -122,7 +124,7 @@ function isolated(trainer) {
   return getTeamOptions(trainer.id).every(p => p.otherTrainers === 0)
 }
 
-const RULES = 'Pick one of a trainer\'s Pokémon, then another trainer who uses it, and repeat until you reach the goal. Try to connect them with the least amount of connections!'
+const RULES = 'Pick one of a trainer\'s Pokémon, then another trainer who uses it, and repeat until you reach the goal. The timer starts with your first pick, and undoing is free. Connect them as fast as you can!'
 
 function Setup({ game }) {
   const { start, goal, setupProblem, setEndpoint, swapEndpoints, randomise, startGame } = game
@@ -202,15 +204,34 @@ function Arrow() {
   )
 }
 
-function UndoButton({ cost, onUndo }) {
-  const tip = cost ? 'Undo last connection (adds 1 to score)' : 'Undo Pokémon choice (free)'
+// Needs a second tap within a few seconds, so a stray tap can't throw the route away
+function RestartButton({ onRestart }) {
+  const [armed, setArmed] = useState(false)
+  useEffect(() => {
+    if (!armed) return
+    const id = setTimeout(() => setArmed(false), 3000)
+    return () => clearTimeout(id)
+  }, [armed])
+
+  return (
+    <button
+      className={`back-btn cx-restart ${armed ? 'is-armed' : ''}`}
+      onClick={() => (armed ? (setArmed(false), onRestart()) : setArmed(true))}
+      onBlur={() => setArmed(false)}
+    >
+      {armed ? 'Tap again to restart' : 'Restart route'}
+    </button>
+  )
+}
+
+function UndoButton({ onUndo }) {
+  const tip = 'Undo last step'
   return (
     <button className="cx-undo" onClick={onUndo} aria-label={tip} data-tip={tip}>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 14L4 9l5-5" />
         <path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" />
       </svg>
-      {cost > 0 && <span className="cx-undo-cost" aria-hidden="true">+1</span>}
     </button>
   )
 }
@@ -310,15 +331,31 @@ function RouteStrip({ route }) {
 }
 
 // The one loud moment in the mode: the final score written out as a sum
-function ScoreCard({ won, perfect, hops, undos, score, best, goal, shareText }) {
+// 00:56, stopping at 10:00
+function formatTime(ms) {
+  const secs = Math.floor(Math.min(Math.max(ms, 0), TIME_LIMIT_MS) / 1000)
+  return `${String(Math.floor(secs / 60)).padStart(2, '0')}:${String(secs % 60).padStart(2, '0')}`
+}
+
+// Ticks while the puzzle is being played; shows the final time once it's over
+function Stopwatch({ startedAt, elapsedMs, finished }) {
+  const [now, setNow] = useState(Date.now)
+  const running = !!startedAt && !finished
+  useEffect(() => {
+    if (!running) return
+    const id = setInterval(() => setNow(Date.now()), 250)
+    return () => clearInterval(id)
+  }, [running])
+  if (finished) return elapsedMs == null ? '—' : formatTime(elapsedMs)
+  return formatTime(startedAt ? now - startedAt : 0)
+}
+
+function ScoreCard({ won, perfect, hops, elapsedMs, best, goal, shareText }) {
   let headline = 'Answer revealed'
   let note = `The best possible score was ${best}!`
   if (perfect) {
     headline = 'Perfect route'
     note = `${plural(best, 'connection')} is the shortest possible route to ${goal.name}!`
-  } else if (won && hops === best) {
-    headline = `Connected to ${goal.name}`
-    note = `You found a shortest route, but undos added to your score. The best possible score is ${best}!`
   } else if (won) {
     headline = `Connected to ${goal.name}`
     note = `The best possible score is ${best}!`
@@ -328,22 +365,17 @@ function ScoreCard({ won, perfect, hops, undos, score, best, goal, shareText }) 
     <div className={`cx-scorecard ${perfect ? 'is-perfect' : won ? 'is-won' : 'is-lost'}`} role="status">
       <div className="cx-scorecard-headline">{headline}</div>
       {won && (
-        <div className="cx-sum" aria-label={undos > 0 ? `Score ${score}: ${plural(hops, 'connection')} plus ${plural(undos, 'undo')}` : `Score ${score}`}>
+        <div className="cx-sum">
           <span className="cx-sum-term">
             <span className="cx-sum-num">{hops}</span>
             <span className="cx-sum-label">{hops === 1 ? 'connection' : 'connections'}</span>
           </span>
-          {undos > 0 && (
+          {elapsedMs != null && (
             <>
-              <span className="cx-sum-op" aria-hidden="true">+</span>
+              <span className="cx-sum-op">in</span>
               <span className="cx-sum-term">
-                <span className="cx-sum-num">{undos}</span>
-                <span className="cx-sum-label">{undos === 1 ? 'undo' : 'undos'}</span>
-              </span>
-              <span className="cx-sum-op" aria-hidden="true">=</span>
-              <span className="cx-sum-term is-total">
-                <span className="cx-sum-num">{score}</span>
-                <span className="cx-sum-label">score</span>
+                <span className="cx-sum-num">{formatTime(elapsedMs)}</span>
+                <span className="cx-sum-label">time</span>
               </span>
             </>
           )}
@@ -362,18 +394,18 @@ function ScoreCard({ won, perfect, hops, undos, score, best, goal, shareText }) 
 // Opens straight onto the Daily tab, whichever tab the visitor used last
 const DAILY_LINK = 'https://whosthattrainer.app/?mode=connections&tab=daily'
 
-function dailyShareText({ dayNumber, won, score, best }) {
+function dailyShareText({ dayNumber, won, score, best, elapsedMs }) {
   return [
     `Who's That Trainer? Connections #${dayNumber}`,
-    `Score: ${won ? score : 'N/A'}, Best: ${best}`,
+    won ? `Score: ${score} (min ${best})${elapsedMs != null ? ` in ${formatTime(elapsedMs)}` : ''}` : `Score: N/A (min ${best})`,
     `Try today's connection at: ${DAILY_LINK}`,
   ].join('\n')
 }
 
 function Play({ game, onPlayCustom }) {
   const {
-    kind, phase, outcome, dayNumber, start, goal, trainers, pokemon, hops, undos, score, bestRoute,
-    canUndo, undoCost, signedIn, saveStatus, choosePokemon, chooseTrainer, undo, giveUp, playRandom, backToSetup,
+    kind, phase, outcome, dayNumber, start, goal, trainers, pokemon, hops, score, startedAt, elapsedMs, bestRoute,
+    canUndo, signedIn, saveStatus, choosePokemon, chooseTrainer, undo, restartRoute, giveUp, playRandom, backToSetup,
   } = game
   const daily = kind === 'daily'
   const finished = phase === 'finished'
@@ -412,7 +444,12 @@ function Play({ game, onPlayCustom }) {
         {daily
           ? <span className="cx-day">Connections #{dayNumber}</span>
           : <button onClick={backToSetup} className="back-btn">Change trainers</button>}
-        {!finished && <button onClick={giveUp} className="back-btn cx-giveup">Show answer</button>}
+        {!finished && (
+          <div className="cx-topbar-actions">
+            {pokemon.length > 0 && <RestartButton onRestart={restartRoute} />}
+            <button onClick={giveUp} className="back-btn cx-giveup">Show answer</button>
+          </div>
+        )}
       </div>
 
       <div className="cx-play-layout">
@@ -445,7 +482,7 @@ function Play({ game, onPlayCustom }) {
                           </span>
                         )}
                       </div>
-                      {idx === undoRow && <UndoButton cost={undoCost} onUndo={undo} />}
+                      {idx === undoRow && <UndoButton onUndo={undo} />}
                     </div>
 
                     {active && row.kind === 'trainer' && (
@@ -470,8 +507,8 @@ function Play({ game, onPlayCustom }) {
           {finished && (
             <div className="cx-result" ref={focusRef}>
               <ScoreCard
-                won={won} perfect={perfect} hops={hops} undos={undos} score={score} best={bestRoute.hops} goal={goal}
-                shareText={daily ? dailyShareText({ dayNumber, won, score, best: bestRoute.hops }) : null}
+                won={won} perfect={perfect} hops={hops} elapsedMs={elapsedMs} best={bestRoute.hops} goal={goal}
+                shareText={daily ? dailyShareText({ dayNumber, won, score, best: bestRoute.hops, elapsedMs }) : null}
               />
 
               {(!won || hops > bestRoute.hops) && (
@@ -517,7 +554,10 @@ function Play({ game, onPlayCustom }) {
             <div className="score-badge">
               <span className="score-badge-label">Score</span>
               <span className="score-badge-value">{outcome === 'gaveup' ? '—' : score}</span>
-              {undos > 0 && outcome !== 'gaveup' && <span className="cx-score-note">{plural(undos, 'undo')}</span>}
+            </div>
+            <div className="score-badge">
+              <span className="score-badge-label">Time</span>
+              <span className="score-badge-value"><Stopwatch startedAt={startedAt} elapsedMs={elapsedMs} finished={finished} /></span>
             </div>
             <div className="score-badge">
               <span className="score-badge-label">Best</span>
@@ -548,7 +588,48 @@ const TABS = [
   { id: 'custom', label: 'Custom' },
 ]
 
+// Shown once, the first time someone opens Connections after it became timed
+function WhatsNew({ onClose }) {
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  return (
+    <div className="auth-overlay" onClick={onClose}>
+      <div className="auth-modal cx-whatsnew" role="dialog" aria-modal="true" aria-labelledby="cx-whatsnew-title" onClick={e => e.stopPropagation()}>
+        <button className="auth-close" onClick={onClose} aria-label="Close">✕</button>
+        <h2 id="cx-whatsnew-title" className="cx-whatsnew-title">Connections has changed!</h2>
+        <ul className="cx-whatsnew-list">
+          <li><strong>Undo is free.</strong> Go back as often as you like. It no longer adds to your score!</li>
+          <li><strong>You're timed.</strong> The clock starts when you pick your first Pokémon and ends when you make the final connection. Aim for the quickest time!</li>
+          <li><strong>Your score</strong> is the number of connections in your final route, shown next to the shortest possible route and your time.</li>
+        </ul>
+        <button className="primary-btn cx-whatsnew-btn" onClick={onClose}>Got it</button>
+      </div>
+    </div>
+  )
+}
+
 export default function ConnectionsMode() {
+  const [showWhatsNew, setShowWhatsNew] = useState(() => {
+    try {
+      return !localStorage.getItem(RULES_SEEN_KEY)
+    } catch {
+      return false
+    }
+  })
+
+  const closeWhatsNew = useCallback(() => {
+    setShowWhatsNew(false)
+    try {
+      localStorage.setItem(RULES_SEEN_KEY, '1')
+    } catch {
+      // Storage blocked: it may show again next visit
+    }
+  }, [])
+
   const [tab, setTab] = useState(() => {
     // A shared link (?tab=daily) wins over the tab remembered from last time
     const linked = new URLSearchParams(window.location.search).get('tab')
@@ -588,6 +669,8 @@ export default function ConnectionsMode() {
       {tab === 'daily'
         ? <DailyConnections onPlayCustom={() => { chooseTab('custom'); window.scrollTo({ top: 0 }) }} />
         : <CustomConnections />}
+
+      {showWhatsNew && <WhatsNew onClose={closeWhatsNew} />}
     </div>
   )
 }

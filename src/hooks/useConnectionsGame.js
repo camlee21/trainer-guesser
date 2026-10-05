@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
-import { getTrainer, findShortestRoute, pickRandomPair, getDailyPair, trainerUsesPokemon } from '../lib/connectionsGraph'
+import { getTrainer, findShortestRoute, pickRandomPair, getDailyPair, trainerUsesPokemon, TIME_LIMIT_MS } from '../lib/connectionsGraph'
 import { getDayNumber, dayNumberToUtcDateString } from '../lib/dailySchedule.js'
 import { supabase } from '../lib/supabaseClient'
 import { recordCompletion } from '../lib/completionCounter'
@@ -7,8 +7,10 @@ import { useAuthContext } from '../contexts/AuthContext'
 import { useMedals } from '../contexts/MedalsContext'
 import { connectionsFacts, customConnectionsProgress } from '../lib/medals'
 
-// Daily and custom games are saved separately, so playing one never disturbs the other
+// Daily and custom games are saved separately, so playing one never disturbs the other.
+// A custom game only lasts for the browser tab (sessionStorage), so coming back later starts at trainer selection.
 const STORAGE_KEYS = { daily: 'wtt-connections-daily', custom: 'wtt-connections' }
+const storageFor = kind => (kind === 'custom' ? sessionStorage : localStorage)
 // Finished daily puzzles are also saved to the signed-in account, like Daily mode's daily_results
 const RESULTS_TABLE = 'connections_results'
 // Same retry schedule as Daily mode. After these run out, the save is retried when the browser
@@ -16,7 +18,8 @@ const RESULTS_TABLE = 'connections_results'
 const RETRY_DELAYS_MS = [2000, 5000, 15000]
 
 function newGame(startId, goalId, phase) {
-  return { phase, startId, goalId, trainers: [startId], pokemon: [], undos: 0, outcome: null }
+  // startedAt is set by the first Pokémon pick; elapsedMs once the game ends
+  return { phase, startId, goalId, trainers: [startId], pokemon: [], undos: 0, outcome: null, startedAt: null, elapsedMs: null }
 }
 
 function freshCustom() {
@@ -42,11 +45,11 @@ function isValidGame(game) {
   )
 }
 
-function loadSaved(key) {
+function loadSaved(kind) {
   try {
-    const saved = JSON.parse(localStorage.getItem(key))
-    // Games saved before undos existed count as having none
-    return isValidGame(saved) ? { undos: 0, ...saved } : null
+    const saved = JSON.parse(storageFor(kind).getItem(STORAGE_KEYS[kind]))
+    // Games saved before undos or the timer existed count as having none
+    return isValidGame(saved) ? { undos: 0, startedAt: null, elapsedMs: null, ...saved } : null
   } catch {
     return null
   }
@@ -62,6 +65,8 @@ function gameFromRow(row, userId) {
     trainers: route?.trainers,
     pokemon: route?.pokemon,
     undos: row.undos ?? 0,
+    startedAt: null,
+    elapsedMs: route?.elapsedMs ?? null,
     outcome: row.won ? 'won' : 'gaveup',
     dayNumber: row.day_number,
     userId,
@@ -81,15 +86,15 @@ function rowFromGame(game, userId) {
     won,
     connections,
     undos: game.undos,
-    // Nothing to score when the answer was revealed
-    score: won ? connections + game.undos : null,
+    // Nothing to score when the answer was revealed. Undos are free, so the score is just the route length.
+    score: won ? connections : null,
     best_score: findShortestRoute(game.startId, game.goalId)?.hops ?? null,
-    route_json: { trainers: game.trainers, pokemon: game.pokemon },
+    route_json: { trainers: game.trainers, pokemon: game.pokemon, elapsedMs: game.elapsedMs },
   }
 }
 
 function initialGame(kind) {
-  const saved = loadSaved(STORAGE_KEYS[kind])
+  const saved = loadSaved(kind)
   if (kind === 'custom') return saved ?? freshCustom()
   const today = getDayNumber(new Date())
   return saved?.dayNumber === today ? saved : freshDaily(today)
@@ -113,7 +118,7 @@ export function useConnectionsGame(kind) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEYS[kind], JSON.stringify(game))
+      storageFor(kind).setItem(STORAGE_KEYS[kind], JSON.stringify(game))
     } catch {
       // Storage full or blocked: the puzzle still works, it just won't survive a refresh
     }
@@ -166,7 +171,7 @@ export function useConnectionsGame(kind) {
         return
       }
 
-      const local = loadSaved(STORAGE_KEYS.daily)
+      const local = loadSaved('daily')
       if (local?.userId && local.userId !== userId) {
         // Left over from a different account, so don't show or upload it
         setGame({ ...freshDaily(dailyDay), userId })
@@ -190,7 +195,8 @@ export function useConnectionsGame(kind) {
   // Ends the game, and for the daily puzzle adds it to the anonymous count and saves it to the account straight away.
   // Daily puzzles count towards medals through connections_results; custom ones are saved as medal progress here.
   function finish(next) {
-    const finished = userId ? { ...next, userId } : next
+    const elapsedMs = next.startedAt ? Math.min(Date.now() - next.startedAt, TIME_LIMIT_MS) : null
+    const finished = { ...next, elapsedMs, ...(userId && { userId }) }
     setGame(finished)
     if (isDaily) {
       recordCompletion('connections')
@@ -198,6 +204,7 @@ export function useConnectionsGame(kind) {
     } else {
       const facts = connectionsFacts({
         won: next.outcome === 'won',
+        elapsedMs,
         hops: next.trainers.length - 1,
         undos: next.undos,
         best: findShortestRoute(next.startId, next.goalId)?.hops,
@@ -217,11 +224,9 @@ export function useConnectionsGame(kind) {
 
   // A trainer row waits for a Pokémon; a Pokémon row waits for the next trainer
   const awaiting = pokemon.length < trainers.length ? 'pokemon' : 'trainer'
-  // Connections are trainer-to-trainer hops. An undone connection still counts, so undoing never lowers the score.
+  // Connections are trainer-to-trainer hops. Undoing is free; the timer is the cost of wrong turns.
   const hops = trainers.length - 1
-  const score = hops + undos
-  // Taking back a Pokémon pick is free; taking back a trainer undoes a connection and costs one
-  const undoCost = awaiting === 'trainer' ? 0 : 1
+  const score = hops
   const canUndo = phase === 'playing' && (awaiting === 'trainer' || trainers.length > 1)
 
   function setEndpoint(which, id) {
@@ -254,7 +259,7 @@ export function useConnectionsGame(kind) {
 
   function choosePokemon(pokedexId) {
     if (phase !== 'playing' || awaiting !== 'pokemon') return
-    setGame(g => ({ ...g, pokemon: [...g.pokemon, pokedexId] }))
+    setGame(g => ({ ...g, pokemon: [...g.pokemon, pokedexId], startedAt: g.startedAt ?? Date.now() }))
   }
 
   function chooseTrainer(trainerId) {
@@ -270,6 +275,12 @@ export function useConnectionsGame(kind) {
     setGame(g => g.pokemon.length === g.trainers.length
       ? { ...g, pokemon: g.pokemon.slice(0, -1) }
       : { ...g, trainers: g.trainers.slice(0, -1), undos: g.undos + 1 })
+  }
+
+  // Takes the route back to the start trainer, as if every row had been undone. The timer keeps running.
+  function restartRoute() {
+    if (phase !== 'playing' || pokemon.length === 0) return
+    setGame(g => ({ ...g, trainers: [g.startId], pokemon: [], undos: g.undos + g.trainers.length - 1 }))
   }
 
   function giveUp() {
@@ -290,10 +301,10 @@ export function useConnectionsGame(kind) {
     kind, phase, outcome, dayNumber: game.dayNumber,
     start: getTrainer(startId),
     goal: getTrainer(goalId),
-    trainers, pokemon, awaiting, hops, undos, score,
-    bestRoute, setupProblem, canUndo, undoCost,
+    trainers, pokemon, awaiting, hops, undos, score, startedAt: game.startedAt, elapsedMs: game.elapsedMs,
+    bestRoute, setupProblem, canUndo,
     signedIn: !!userId, saveStatus,
     setEndpoint, swapEndpoints, randomise, startGame,
-    choosePokemon, chooseTrainer, undo, giveUp, playRandom, backToSetup,
+    choosePokemon, chooseTrainer, undo, restartRoute, giveUp, playRandom, backToSetup,
   }
 }

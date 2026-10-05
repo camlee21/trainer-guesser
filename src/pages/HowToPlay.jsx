@@ -71,8 +71,8 @@ export default function HowToPlay() {
 
         <p style={{ marginTop: '1rem' }}>
           Your score is the number of <strong>connections</strong> (trainer-to-trainer steps) you make, so <strong>lower is better</strong>.
-          Made a wrong turn? The <strong>undo</strong> button on your latest step takes it back, but undoing a connection still adds 1
-          to your score (swapping which Pokémon you picked is free). When you reach the goal you'll see your score, the
+          A <strong>timer</strong> starts when you pick your first Pokémon and stops at 10 minutes.
+          Made a wrong turn? The <strong>undo</strong> button on your latest step takes it back for free. When you reach the goal you'll see your score, the
           <strong> best possible score</strong> for that pair, and one of the shortest routes.
         </p>
 

@@ -38,6 +38,9 @@ const pokemonNames = new Map(
 
 export const CONNECTION_TRAINERS = TRAINERS
 
+// The Connections timer stops counting at 10 minutes
+export const TIME_LIMIT_MS = 10 * 60 * 1000
+
 export function getTrainer(id) {
   return trainerById.get(id) ?? null
 }

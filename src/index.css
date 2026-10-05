@@ -2592,9 +2592,21 @@ img {
   border-radius: var(--radius-pill);
 }
 
-.cx-giveup {
+.cx-topbar-actions {
+  display: flex;
+  gap: 8px;
   margin-left: auto;
+}
+
+.cx-giveup,
+.cx-restart {
   color: var(--text-dim);
+}
+
+/* First tap arms it; the second tap restarts */
+.cx-restart.is-armed {
+  color: var(--gold);
+  border-color: var(--gold);
 }
 
 .cx-play-layout {
@@ -2721,22 +2733,6 @@ img {
 .cx-undo:hover {
   color: var(--chrome-text-hover);
   background: var(--chrome-bg-hover);
-}
-
-/* The cost is on the button itself, so it's visible on touch screens where there's no hover */
-.cx-undo-cost {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  padding: 0 5px;
-  font-size: 0.62rem;
-  font-weight: 800;
-  line-height: 16px;
-  color: var(--gold);
-  background: var(--badge-gold-bg);
-  border: 1px solid var(--badge-gold-border);
-  border-radius: var(--radius-pill);
-  -webkit-text-stroke: var(--badge-text-stroke);
 }
 
 .cx-undo::after {
@@ -2996,6 +2992,9 @@ img {
 
 .cx-sum-op {
   opacity: 0.55;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
 }
 
 .cx-sum-term.is-total .cx-sum-num {
@@ -3142,19 +3141,13 @@ img {
 
 .cx-sidebar-scores {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 0.5rem;
 }
 
 .cx-sidebar-scores .score-badge {
   min-width: 0;
   padding: 0.5rem;
-}
-
-.cx-score-note {
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: var(--gold);
 }
 
 @media (max-width: 860px) {
@@ -3277,12 +3270,17 @@ img {
     width: 40px;
     height: 40px;
   }
+  /* Three badges beside the goal card, so each is only as wide as its value */
   .cx-sidebar-scores {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, auto);
+    gap: 0.35rem;
   }
   .cx-sidebar-scores .score-badge {
-    min-width: 58px;
-    padding: 0.4rem;
+    min-width: 0;
+    padding: 0.4rem 0.3rem;
+  }
+  .cx-sidebar-scores .score-badge-value {
+    font-size: 0.7rem;
   }
   /* Keep the sum on one line at phone width rather than wrapping the total onto its own row */
   .cx-sum {
@@ -3332,4 +3330,43 @@ img {
   .cx-endpoint-portrait img {
     animation: none;
   }
+}
+
+/* One-off popup explaining the timed Connections rules */
+.cx-whatsnew {
+  max-width: 460px;
+}
+
+.cx-whatsnew-title {
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 0 1.5rem 1rem;
+}
+
+.cx-whatsnew-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.cx-whatsnew-list li {
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+}
+
+.cx-whatsnew-list strong {
+  color: var(--text);
+}
+
+.cx-whatsnew-btn {
+  width: 100%;
+  padding: 12px;
 }
