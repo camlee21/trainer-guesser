@@ -52,7 +52,7 @@ export const MEDAL_IDS = {
 const GEN_TIERS = [['Trainer', 3], ['Ace Trainer', 7], ['Champion', 12]]
 
 export const MEDALS = [
-  { id: 1, mode: 'daily', name: 'Down to the Wire', description: 'Win on your 5th and final guess', target: 1, progress: s => s.daily.lastGuessWins },
+  { id: 1, mode: 'daily', name: 'Down to the Wire', description: 'Guess correctly on your 5th and final guess', target: 1, progress: s => s.daily.lastGuessWins },
   { id: 2, mode: 'daily', name: 'First Try', description: 'Win on your first guess', target: 1, progress: s => s.daily.firstGuessWins },
   { id: 3, mode: 'daily', name: 'Community Spirit', description: 'Win a daily on a day the trainer was suggested by a player', target: 1, progress: s => s.daily.communityWins },
 
@@ -72,7 +72,7 @@ export const MEDALS = [
     id: 12 + (gen - 1) * 3 + tier,
     mode: 'daily',
     name: `Gen ${gen} ${title}`,
-    description: `Beat ${target} different Gen ${gen} trainers`,
+    description: `Correctly guess ${target} different Gen ${gen} trainers`,
     target,
     progress: s => s.daily.beatenByGen[gen].size,
   }))),
@@ -82,9 +82,9 @@ export const MEDALS = [
 
   { id: 41, mode: 'infinite', name: 'Quick Draw', description: 'Guess correctly in 10 seconds or less', target: 1 },
 
-  { id: 42, mode: 'infinite', name: 'Hot Streak', description: '10 correct in a row in one session', target: 10 },
-  { id: 43, mode: 'infinite', name: 'On Fire', description: '25 correct in a row in one session', target: 25 },
-  { id: 44, mode: 'infinite', name: 'Unstoppable', description: '50 correct in a row in one session', target: 50 },
+  { id: 42, mode: 'infinite', name: 'Hot Streak', description: '10 correct guesses in a row in one session', target: 10 },
+  { id: 43, mode: 'infinite', name: 'On Fire', description: '25 correct guesses in a row in one session', target: 25 },
+  { id: 44, mode: 'infinite', name: 'Unstoppable', description: '50 correct guesses in a row in one session', target: 50 },
 
   { id: 45, mode: 'infinite', name: 'High Scorer', description: 'Score 100 points in one session', target: 100 },
   { id: 46, mode: 'infinite', name: 'Score Master', description: 'Score 250 points in one session', target: 250 },
@@ -97,13 +97,13 @@ export const MEDALS = [
     id: 48 + gen,
     mode: 'infinite',
     name: `Gen ${gen} Expert`,
-    description: `20 correct in one session with only Gen ${gen} games selected and no extras`,
+    description: `20 correct guesses in one session with only Gen ${gen} games selected (no extras)`,
     target: 20,
   })),
 
   { id: 58, mode: 'infinite', name: 'Lightning Reflexes', description: 'Guess correctly in 3 seconds or less', target: 1 },
-  { id: 59, mode: 'infinite', name: 'Hard Boiled', description: '10 correct in a row with only Hard selected', target: 10 },
-  { id: 60, mode: 'infinite', name: 'Kaizo Survivor', description: '10 correct in a row with only Rom Hacks in the pool', target: 10 },
+  { id: 59, mode: 'infinite', name: 'Hard Boiled', description: '10 correct guesses in a row with only Hard selected', target: 10 },
+  { id: 60, mode: 'infinite', name: 'Kaizo Survivor', description: '10 correct guesses in a row with only Rom Hacks in the pool', target: 10 },
   { id: 61, mode: 'infinite', name: 'Perfect Ten', description: '10 rounds in a row, all won on the first guess', target: 10 },
   { id: 62, mode: 'infinite', name: 'Speedrunner', description: '20 correct guesses within 2 minutes of total time', target: 20 },
 
