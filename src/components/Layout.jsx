@@ -32,19 +32,21 @@ export default function Layout({ children }) {
 
           <div className="header-actions">
             <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
+            {/* Logged out, it stays reachable and offers the login that unlocks it */}
             <button
               type="button"
-              disabled={!user}
-              onClick={() => setMedalBoxOpen(true)}
+              onClick={() => (user ? setMedalBoxOpen(true) : setModalOpen(true))}
               title={user ? 'Medal Box' : 'Log in to collect medals'}
-              className={`kofi-btn medal-btn ${user ? '' : 'disabled'}`}
+              aria-label={user ? 'Medal Box' : 'Medal Box (log in to collect medals)'}
+              className={`kofi-btn medal-btn ${user ? '' : 'locked'}`}
             >
               <img className="medal-img" src={user ? `/medal_imgs/medal-${medalStage(earnedCount)}.png` : '/medal_imgs/hint-medal.png'} alt="" />
               <span>Medal Box</span>
             </button>
-            <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn">
+            <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn" aria-label="Support me on Ko-fi">
               <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" />
-              <span>Support me on Ko-fi</span>
+              <span className="kofi-label-long">Support me on Ko-fi</span>
+              <span className="kofi-label-short" aria-hidden="true">Ko-fi</span>
             </a>
 
             <div className="header-auth">
@@ -73,17 +75,16 @@ export default function Layout({ children }) {
       {toasts.length > 0 && (
         <div className="medal-toasts">
           {toasts.map(toast => (
-            <div
-              key={toast.key}
-              className="medal-toast"
-              role="status"
-              tabIndex={0}
-              onClick={() => { dismissToast(toast.key); setMedalBoxOpen(true) }}
-              onKeyDown={e => { if (e.key === 'Enter') { dismissToast(toast.key); setMedalBoxOpen(true) } }}
-            >
-              <img className="medal-img" src={`/medal_imgs/medal-${toast.stage}.png`} alt="" />
-              <span>{toast.message}</span>
-              <button type="button" className="medal-toast-close" aria-label="Dismiss" onClick={e => { e.stopPropagation(); dismissToast(toast.key) }}>✕</button>
+            <div key={toast.key} className="medal-toast" role="status">
+              <button
+                type="button"
+                className="medal-toast-open"
+                onClick={() => { dismissToast(toast.key); setMedalBoxOpen(true) }}
+              >
+                <img className="medal-img" src={`/medal_imgs/medal-${toast.stage}.png`} alt="" />
+                <span>{toast.message}</span>
+              </button>
+              <button type="button" className="medal-toast-close" aria-label="Dismiss" onClick={() => dismissToast(toast.key)}>✕</button>
             </div>
           ))}
         </div>

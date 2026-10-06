@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useId } from 'react'
 import trainers from '../data/trainers.json'
+import ConfirmButton from './ConfirmButton'
 
-export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(), extrasMeta = {} }) {
+export default function GuessInput({ onGuess, onPass, disabled, enabledExtras = new Set(), extrasMeta = {} }) {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [selected, setSelected] = useState(null)
   const [highlightIndex, setHighlightIndex] = useState(-1)
+  const listId = useId()
 
   const extraTrainerLists = Object.keys(extrasMeta)
     .filter(key => enabledExtras.has(key))
@@ -85,17 +87,20 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
     }
     if (suggestions.length === 0) return
     if (e.key === 'ArrowDown') {
+      e.preventDefault()
       setHighlightIndex(i => Math.min(i + 1, suggestions.length - 1))
     } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
       setHighlightIndex(i => Math.max(i - 1, 0))
     } else if (e.key === 'Enter') {
-      if (highlightIndex >= 0) {
-        handleSelect(suggestions[highlightIndex])
-      }
+      // Enter with nothing highlighted picks the top match, so typing a name and pressing Enter twice works
+      handleSelect(suggestions[Math.max(highlightIndex, 0)])
     } else if (e.key === 'Escape') {
       setSuggestions([])
     }
   }
+
+  const open = suggestions.length > 0
 
   return (
     <div className="guess-input-wrapper">
@@ -110,21 +115,31 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
             placeholder="Search trainer..."
             className="search-input"
             autoComplete="off"
+            role="combobox"
+            aria-label="Guess a trainer"
+            aria-autocomplete="list"
+            aria-expanded={open}
+            aria-controls={listId}
+            aria-activedescendant={open && highlightIndex >= 0 ? `${listId}-${highlightIndex}` : undefined}
           />
-          {suggestions.length > 0 && (
-            <ul className="suggestions-list">
-              {suggestions.map((t, i) => (
-                <li
-                  key={t.id}
-                  onMouseDown={() => handleSelect(t)}
-                  className={`suggestion-item ${i === highlightIndex ? 'highlighted' : ''}`}
-                >
-                  {t.label}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
+        {/* Spans the whole row rather than just the input, so long names fit on phones */}
+        {open && (
+          <ul className="suggestions-list" id={listId} role="listbox" aria-label="Matching trainers">
+            {suggestions.map((t, i) => (
+              <li
+                key={t.id}
+                id={`${listId}-${i}`}
+                role="option"
+                aria-selected={i === highlightIndex}
+                onMouseDown={() => handleSelect(t)}
+                className={`suggestion-item ${i === highlightIndex ? 'highlighted' : ''}`}
+              >
+                {t.label}
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button
           onClick={handleGuess}
@@ -133,6 +148,11 @@ export default function GuessInput({ onGuess, disabled, enabledExtras = new Set(
         >
           Guess
         </button>
+        {onPass && (
+          <ConfirmButton className="pass-btn" confirmLabel="Confirm" onConfirm={onPass}>
+            Pass
+          </ConfirmButton>
+        )}
       </div>
     </div>
   )

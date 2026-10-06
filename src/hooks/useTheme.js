@@ -92,13 +92,20 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--red-text', readableTextOn(red))
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
 
-  // Status badge tints: dark mode keeps a low-alpha wash, light mode uses solid pale colors for contrast.
-  root.style.setProperty('--badge-green-bg', dark ? 'rgba(74,222,128,0.22)' : '#dcfce7')
-  root.style.setProperty('--badge-green-border', dark ? 'rgba(74,222,128,0.5)' : '#86efac')
-  root.style.setProperty('--badge-gold-bg', dark ? 'rgba(251,191,36,0.22)' : '#fef3c7')
-  root.style.setProperty('--badge-gold-border', dark ? 'rgba(251,191,36,0.5)' : '#fcd34d')
-  root.style.setProperty('--badge-red-bg', dark ? 'rgba(248,113,113,0.22)' : '#fee2e2')
-  root.style.setProperty('--badge-red-border', dark ? 'rgba(248,113,113,0.5)' : '#fca5a5')
+  // Status badge tints are solid, so they read the same over the page, a panel or the background gradient.
+  // Dark themes mix into a near-neutral dark with a hint of the theme (mixing straight into a coloured page
+  // turned green muddy on red themes); light themes mix into white, so the badge stays brighter than the page.
+  const tintBase = dark ? `color-mix(in srgb, rgb(${r},${g},${b}) 30%, #10151d)` : '#ffffff'
+  const tint = (color, pct) => `color-mix(in srgb, ${color} ${pct}%, ${tintBase})`
+  root.style.setProperty('--badge-green-bg', tint(green, dark ? 26 : 16))
+  root.style.setProperty('--badge-green-border', tint(green, dark ? 65 : 50))
+  root.style.setProperty('--badge-gold-bg', tint(gold, dark ? 24 : 16))
+  root.style.setProperty('--badge-gold-border', tint(gold, dark ? 62 : 50))
+  root.style.setProperty('--badge-red-bg', tint(red, dark ? 26 : 14))
+  root.style.setProperty('--badge-red-border', tint(red, dark ? 65 : 45))
+  // Neutral solid pill (Game / Type clues): a step lighter than the page on dark themes, white on light ones
+  root.style.setProperty('--pill-bg', dark ? `color-mix(in srgb, #ffffff 7%, rgb(${r},${g},${b}))` : '#ffffff')
+  root.style.setProperty('--pill-border', dark ? `color-mix(in srgb, #ffffff 18%, rgb(${r},${g},${b}))` : `color-mix(in srgb, ${text} 18%, #ffffff)`)
   // Thin dark stroke on light-mode badge text — same-hue text-on-tint (green-on-mint etc.) passes contrast math but is still hard to read at a glance, especially for red-green color blindness.
   root.style.setProperty('--badge-text-stroke', dark ? '0px transparent' : '0.4px rgba(0,0,0,0.4)')
 

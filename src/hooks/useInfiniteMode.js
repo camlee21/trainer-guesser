@@ -25,10 +25,18 @@ function scoreForRound(guesses, gameOver) {
   return 0
 }
 
+// The last game settings, kept in memory so "Back to Game Select" (which remounts Infinite mode)
+// and switching modes don't reset them. A reload or new tab starts from the defaults again.
+let lastSettings = null
+
 export function useInfiniteMode() {
-  const [selectedGames, setSelectedGames] = useState(new Set(ALL_GAMES))
-  const [selectedDifficulties, setSelectedDifficulties] = useState(new Set(ALL_DIFFICULTIES))
-  const [enabledExtras, setEnabledExtras] = useState(new Set())
+  const [selectedGames, setSelectedGames] = useState(() => lastSettings?.games ?? new Set(ALL_GAMES))
+  const [selectedDifficulties, setSelectedDifficulties] = useState(() => lastSettings?.difficulties ?? new Set(ALL_DIFFICULTIES))
+  const [enabledExtras, setEnabledExtras] = useState(() => lastSettings?.extras ?? new Set())
+
+  useEffect(() => {
+    lastSettings = { games: selectedGames, difficulties: selectedDifficulties, extras: enabledExtras }
+  }, [selectedGames, selectedDifficulties, enabledExtras])
   const [rounds, setRounds] = useState([])
   const [currentTrainer, setCurrentTrainer] = useState(() => pickRandom(trainers.trainers))
   const [currentGuesses, setCurrentGuesses] = useState([])
@@ -62,8 +70,11 @@ export function useInfiniteMode() {
 
   const activePool = buildActivePool()
 
+  // A finished round counts straight away, not only once "Next Round" moves it into `rounds`
+  const currentFinished = currentGameOver && !isTransitioning
   const totalScore = rounds.reduce((sum, r) => sum + scoreForRound(r.guesses, r.gameOver), 0)
-  const totalPossible = rounds.length * MAX_GUESSES
+    + (currentFinished ? scoreForRound(currentGuesses, currentGameOver) : 0)
+  const totalPossible = (rounds.length + (currentFinished ? 1 : 0)) * MAX_GUESSES
 
   useEffect(() => {
     if (isTimerRunning) {

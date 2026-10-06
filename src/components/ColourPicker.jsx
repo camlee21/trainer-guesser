@@ -5,6 +5,8 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
+  const buttonRef = useRef(null)
+
   useEffect(() => {
     function handler(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false)
@@ -13,15 +15,30 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
+  // Esc closes the panel and puts focus back on the button that opened it
+  useEffect(() => {
+    if (!open) return
+    function onKey(e) {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      buttonRef.current?.focus()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
     <div ref={ref} style={{ position: 'relative' }}>
       <button
+        ref={buttonRef}
         title="Choose background & accent colour"
+        aria-label="Choose background and accent colour"
+        aria-expanded={open}
         onClick={() => setOpen(o => !o)}
         className="icon-btn"
         style={{ position: 'relative' }}
       >
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
           <circle cx="11" cy="11" r="9" stroke="var(--text)" strokeWidth="1.5" fill="none"/>
           {[
             ['#ef4444', 0], ['#f97316', 60], ['#eab308', 120],
@@ -62,6 +79,8 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
                 <button
                   key={p.bg}
                   title={p.label}
+                  aria-label={`${p.label} theme`}
+                  aria-pressed={isSelected}
                   onClick={() => { onBgChange(p.bg); onAccentChange(p.accent) }}
                   className={`theme-swatch ${isSelected ? 'selected' : ''}`}
                   style={{ background: `linear-gradient(135deg, ${p.bg} 55%, ${p.accent} 55%)` }}
@@ -78,17 +97,17 @@ export default function ColourPicker({ color, accent, onBgChange, onAccentChange
             <div className="theme-color-field">
               <span className="theme-color-field-label">Background</span>
               <label className="theme-color-dial" style={{ borderColor: 'rgba(255,255,255,0.2)' }}>
-                <input type="color" value={color} onChange={e => onBgChange(e.target.value)} />
+                <input type="color" value={color} onChange={e => onBgChange(e.target.value)} aria-label="Custom background colour" />
               </label>
               <span className="theme-color-value">{color.toUpperCase()}</span>
             </div>
 
-            <span style={{ color: '#475569', fontSize: '16px', marginTop: '4px' }}>⇄</span>
+            <span aria-hidden="true" style={{ color: '#475569', fontSize: '16px', marginTop: '4px' }}>⇄</span>
 
             <div className="theme-color-field">
               <span className="theme-color-field-label">Accent</span>
               <label className="theme-color-dial" style={{ borderColor: accent, boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
-                <input type="color" value={accent} onChange={e => onAccentChange(e.target.value)} />
+                <input type="color" value={accent} onChange={e => onAccentChange(e.target.value)} aria-label="Custom accent colour" />
               </label>
               <span className="theme-color-value">{accent.toUpperCase()}</span>
             </div>

@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useId } from 'react'
 import CountdownTimer from './CountdownTimer'
 import ShareButtons from './ShareButtons'
+import ConfirmButton from './ConfirmButton'
+import Modal from './Modal'
 import { ScrollToTopButton, ScrollToBottomButton } from './ScrollButtons'
 import { getPokemonSpriteUrl } from '../utils/sprites'
 import { useConnectionsGame } from '../hooks/useConnectionsGame'
@@ -33,6 +35,7 @@ function prefersReducedMotion() {
 
 // Picks a trainer as soon as one is chosen; there's no separate confirm button like the guess box has
 function TrainerSearch({ onSelect, placeholder }) {
+  const listId = useId()
   const [query, setQuery] = useState('')
   const [highlight, setHighlight] = useState(-1)
   const [open, setOpen] = useState(false)
@@ -73,12 +76,20 @@ function TrainerSearch({ onSelect, placeholder }) {
         className="search-input cx-search"
         autoComplete="off"
         aria-label={placeholder}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={matches.length > 0}
+        aria-controls={listId}
+        aria-activedescendant={matches.length > 0 && highlight >= 0 ? `${listId}-${highlight}` : undefined}
       />
       {matches.length > 0 && (
-        <ul className="suggestions-list">
+        <ul className="suggestions-list" id={listId} role="listbox" aria-label="Matching trainers">
           {matches.map((o, i) => (
             <li
               key={o.id}
+              id={`${listId}-${i}`}
+              role="option"
+              aria-selected={i === highlight}
               onMouseDown={e => { e.preventDefault(); pick(o) }}
               className={`suggestion-item ${i === highlight ? 'highlighted' : ''}`}
             >
@@ -201,26 +212,6 @@ function Arrow() {
     <svg className="cx-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
-  )
-}
-
-// Needs a second tap within a few seconds, so a stray tap can't throw the route away
-function RestartButton({ onRestart }) {
-  const [armed, setArmed] = useState(false)
-  useEffect(() => {
-    if (!armed) return
-    const id = setTimeout(() => setArmed(false), 3000)
-    return () => clearTimeout(id)
-  }, [armed])
-
-  return (
-    <button
-      className={`back-btn cx-restart ${armed ? 'is-armed' : ''}`}
-      onClick={() => (armed ? (setArmed(false), onRestart()) : setArmed(true))}
-      onBlur={() => setArmed(false)}
-    >
-      {armed ? 'Tap again to restart' : 'Restart route'}
-    </button>
   )
 }
 
@@ -384,7 +375,7 @@ function ScoreCard({ won, perfect, hops, elapsedMs, best, goal, shareText }) {
       <p className="cx-scorecard-note">{note}</p>
       {shareText && (
         <div className="cx-scorecard-share">
-          <ShareButtons text={shareText} />
+          <ShareButtons primary text={shareText} />
         </div>
       )}
     </div>
@@ -404,7 +395,7 @@ function dailyShareText({ dayNumber, won, score, best, elapsedMs }) {
 
 function Play({ game, onPlayCustom }) {
   const {
-    kind, phase, outcome, dayNumber, start, goal, trainers, pokemon, hops, score, startedAt, elapsedMs, bestRoute,
+    kind, phase, outcome, dayNumber, start, goal, trainers, pokemon, awaiting, hops, score, startedAt, elapsedMs, bestRoute,
     canUndo, signedIn, saveStatus, choosePokemon, chooseTrainer, undo, restartRoute, giveUp, playRandom, backToSetup,
   } = game
   const daily = kind === 'daily'
@@ -434,11 +425,27 @@ function Play({ game, onPlayCustom }) {
   // While playing, the last row is the one being answered and the one above it is the one undo takes back
   const undoRow = !finished && canUndo ? rows.length - 2 : -1
 
+  // Read each step aloud; the finished scorecard announces itself
+  let stepMessage = ''
+  if (!finished && pokemon.length > 0) {
+    stepMessage = awaiting === 'trainer'
+      ? `${pokemonName(pokemon[pokemon.length - 1])} chosen. Choose a trainer who also uses it.`
+      : `${getTrainer(trainers[trainers.length - 1]).name} added to your route. Choose one of their Pokémon.`
+  }
+
   return (
     <div className="cx-play">
       {daily && !finished && trainers.length === 1 && pokemon.length === 0 && (
-        <p className="cx-lede">Today's puzzle: connect {trainerLabel(start)} to {trainerLabel(goal)}. {RULES}</p>
+        <div className="cx-lede">
+          <p>Today's puzzle: connect <strong>{trainerLabel(start)}</strong> to <strong>{trainerLabel(goal)}</strong>.</p>
+          <details className="cx-rules">
+            <summary>How it works</summary>
+            <p>{RULES}</p>
+          </details>
+        </div>
       )}
+
+      <p className="sr-only" aria-live="polite">{stepMessage}</p>
 
       <div className="cx-topbar">
         {daily
@@ -446,8 +453,15 @@ function Play({ game, onPlayCustom }) {
           : <button onClick={backToSetup} className="back-btn">Change trainers</button>}
         {!finished && (
           <div className="cx-topbar-actions">
-            {pokemon.length > 0 && <RestartButton onRestart={restartRoute} />}
-            <button onClick={giveUp} className="back-btn cx-giveup">Show answer</button>
+            {pokemon.length > 0 && (
+              <ConfirmButton className="back-btn cx-restart" confirmLabel="Confirm restart" onConfirm={restartRoute}>
+                Restart route
+              </ConfirmButton>
+            )}
+            {/* Ends the puzzle, and for the daily one there's no second try */}
+            <ConfirmButton className="back-btn cx-giveup" confirmLabel="Confirm reveal" onConfirm={giveUp}>
+              Show answer
+            </ConfirmButton>
           </div>
         )}
       </div>
@@ -590,15 +604,8 @@ const TABS = [
 
 // Shown once, the first time someone opens Connections after it became timed
 function WhatsNew({ onClose }) {
-  useEffect(() => {
-    const onKey = e => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
-
   return (
-    <div className="auth-overlay" onClick={onClose}>
-      <div className="auth-modal cx-whatsnew" role="dialog" aria-modal="true" aria-labelledby="cx-whatsnew-title" onClick={e => e.stopPropagation()}>
+    <Modal onClose={onClose} className="auth-modal cx-whatsnew" labelledBy="cx-whatsnew-title">
         <button className="auth-close" onClick={onClose} aria-label="Close">✕</button>
         <h2 id="cx-whatsnew-title" className="cx-whatsnew-title">Connections has changed!</h2>
         <ul className="cx-whatsnew-list">
@@ -607,12 +614,11 @@ function WhatsNew({ onClose }) {
           <li><strong>Your score</strong> is the number of connections in your final route, shown next to the shortest possible route and your time.</li>
         </ul>
         <button className="primary-btn cx-whatsnew-btn" onClick={onClose}>Got it</button>
-      </div>
-    </div>
+    </Modal>
   )
 }
 
-export default function ConnectionsMode() {
+export default function ConnectionsMode({ initialTab = null }) {
   const [showWhatsNew, setShowWhatsNew] = useState(() => {
     try {
       return !localStorage.getItem(RULES_SEEN_KEY)
@@ -631,8 +637,8 @@ export default function ConnectionsMode() {
   }, [])
 
   const [tab, setTab] = useState(() => {
-    // A shared link (?tab=daily) wins over the tab remembered from last time
-    const linked = new URLSearchParams(window.location.search).get('tab')
+    // A shared link (?tab=daily), or arriving from a finished Daily puzzle, wins over the tab remembered from last time
+    const linked = initialTab ?? new URLSearchParams(window.location.search).get('tab')
     if (linked === 'daily' || linked === 'custom') return linked
     try {
       return localStorage.getItem(TAB_KEY) === 'custom' ? 'custom' : 'daily'

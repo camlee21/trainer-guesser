@@ -25,3 +25,7 @@ dist-ssr
 *.sw?
 *.env
 download-sprites.mjs
+
+# tooling
+.impeccable/
+

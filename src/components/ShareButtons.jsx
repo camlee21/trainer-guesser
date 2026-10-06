@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 // `text` replaces the Daily-mode message, for modes with their own result format
-export default function ShareButtons({ gameOver, guesses, dayNumber, text }) {
+// `primary` makes the trigger the main button of a result card
+export default function ShareButtons({ gameOver, guesses, dayNumber, text, primary = false }) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -32,7 +33,11 @@ export default function ShareButtons({ gameOver, guesses, dayNumber, text }) {
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      <button onClick={() => setOpen(o => !o)} className="share-btn">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className={`share-btn ${primary ? 'share-btn--primary' : ''}`}
+        aria-expanded={open}
+      >
         Share
       </button>
 

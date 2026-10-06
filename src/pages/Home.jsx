@@ -4,6 +4,7 @@ import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
 import ShareButtons from '../components/ShareButtons'
 import CountdownTimer from '../components/CountdownTimer'
+import GuessAnnouncer from '../components/GuessAnnouncer'
 import ConnectionsMode from '../components/ConnectionsMode'
 import { ScrollToTopButton, ScrollToBottomButton } from '../components/ScrollButtons'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
@@ -54,7 +55,42 @@ function DayBadge({ dayNumber, isProvided, providedBy, providedLink }) {
   )
 }
 
-function DailyMode() {
+// Never gives the answer away before the game is over
+function trainerAlt(hints, gameOver, trainer) {
+  if (gameOver) return trainer.name
+  return hints >= 4 ? 'The mystery trainer' : "The mystery trainer's silhouette"
+}
+
+// The end of today's puzzle: who it was, how many guesses it took, and where to go next
+function DailyResult({ gameOver, guesses, trainer, maxGuesses, onPlayConnections }) {
+  const won = gameOver === 'won'
+  const title = won
+    ? (guesses.length === 1 ? 'First try!' : `Got it in ${guesses.length}!`)
+    : 'Out of guesses'
+  return (
+    <div className={`daily-result ${gameOver}`}>
+      <p className="daily-result-title">{title}</p>
+      <p className="daily-result-name">It was <strong>{trainer.name}</strong> from {trainer.game}.</p>
+      <div className="daily-pips" role="img" aria-label={`${guesses.length} of ${maxGuesses} guesses used`}>
+        {Array.from({ length: maxGuesses }, (_, i) => {
+          const g = guesses[i]
+          const state = !g ? 'unused' : g.correct ? 'correct' : 'wrong'
+          return <span key={i} className={`daily-pip ${state}`} />
+        })}
+      </div>
+      <div className="daily-result-actions">
+        <ShareButtons primary gameOver={gameOver} guesses={guesses} dayNumber={trainer.dayNumber} />
+        {onPlayConnections && (
+          <button type="button" className="back-btn" onClick={onPlayConnections}>
+            Try today's Connections
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function DailyMode({ onPlayConnections }) {
   const trainer = useDailyTrainer()
   const { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult, saveStatus } = usePersistedGameState(trainer)
   const { user } = useAuthContext()
@@ -122,6 +158,22 @@ function DailyMode() {
   const trainerFilter = hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = hintsRevealed >= 3
 
+  // When the game ends (not when a finished game is reopened), make sure the result card is on screen;
+  // on phones it would otherwise land below the fold
+  const resultRef = useRef(null)
+  const wasOver = useRef(gameOver)
+  useEffect(() => {
+    if (gameOver && !wasOver.current) {
+      const card = resultRef.current
+      const box = card?.getBoundingClientRect()
+      if (box && (box.top < 0 || box.bottom > window.innerHeight)) {
+        const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+        card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+      }
+    }
+    wasOver.current = gameOver
+  }, [gameOver])
+
   return (
     <>
       {is_warning && (
@@ -145,17 +197,17 @@ function DailyMode() {
               providedBy={trainer.providedBy}
               providedLink={trainer.providedLink}
             />
-            <div className="trainer-frame">
+            <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
               {showTrainer ? (
                 <img
                   draggable="false"
                   src={trainer.trainerSpriteUrl}
-                  alt="trainer"
-                  className="trainer-sprite"
+                  alt={trainerAlt(hintsRevealed, gameOver, trainer)}
+                  className={`trainer-sprite ${gameOver === 'won' ? 'trainer-sprite--celebrate' : ''}`}
                   style={{ filter: trainerFilter }}
                 />
               ) : (
-                <div className="trainer-placeholder">
+                <div className="trainer-placeholder" aria-hidden="true">
                   <span>?</span>
                 </div>
               )}
@@ -185,30 +237,23 @@ function DailyMode() {
 
           {!gameOver ? (
             <div className="guess-section">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <button className="pass-btn" onClick={handlePass}>
-                  Pass
-                </button>
-                <GuessInput onGuess={handleGuess} disabled={!!gameOver} />
-              </div>
+              <GuessInput onGuess={handleGuess} onPass={handlePass} disabled={!!gameOver} />
               <div className="guess-counter">
                 {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
               </div>
             </div>
           ) : (
-            <div className={`result-banner ${gameOver}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', padding: '0.6rem 0.9rem', flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, textAlign: 'center' }}>
-                {gameOver === 'won'
-                  ? `You got it! It was ${trainer.name}!`
-                  : `Game Over! It was ${trainer.name}!`}
-              </div>
-              <ShareButtons
+            <div ref={resultRef}>
+              <DailyResult
                 gameOver={gameOver}
                 guesses={guesses}
-                dayNumber={trainer.dayNumber}
+                trainer={trainer}
+                maxGuesses={MAX_GUESSES}
+                onPlayConnections={onPlayConnections}
               />
             </div>
           )}
+          <GuessAnnouncer guesses={guesses} gameOver={gameOver} trainer={trainer} maxGuesses={MAX_GUESSES} />
 
           {gameOver && user && saveStatus === 'failed' && (
             <div className="guess-counter" role="status">
@@ -249,17 +294,17 @@ function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
     <div className="inf-round inf-round--completed" style={{ marginBottom: '40px' }}>
       <div className="inf-round-inner main-layout">
         <div className="trainer-panel">
-          <div className="trainer-frame">
+          <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
             {showTrainer ? (
               <img
                 draggable="false"
                 src={trainer.trainerSpriteUrl}
-                alt="trainer"
+                alt={trainer.name}
                 className="trainer-sprite"
                 style={{ filter: trainerFilter }}
               />
             ) : (
-              <div className="trainer-placeholder"><span>?</span></div>
+              <div className="trainer-placeholder" aria-hidden="true"><span>?</span></div>
             )}
           </div>
           <div className="trainer-info">
@@ -277,7 +322,7 @@ function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
             <div className={`result-banner ${gameOver} inf-result-banner`} style={{ flex: 1 }}>
               {gameOver === 'won' ? `✓ ${trainer.name}` : `✗ ${trainer.name}`}
             </div>
-            <div className="round-score-tag">{points}/{MAX_GUESSES}</div>
+            <div className="round-score-tag" aria-label={`${points} of ${MAX_GUESSES} points`}>{points}/{MAX_GUESSES}</div>
             {typeof elapsedSeconds === 'number' && (
               <div className="round-score-tag">{formatTime(elapsedSeconds)}</div>
             )}
@@ -332,99 +377,57 @@ const DIFFICULTY_STYLES = {
   },
 }
 
+// Paired versions are listed separately in the data (Ruby, Sapphire) but share one chip
+const DISPLAY_MAP = {
+  Ruby: 'Ruby/Sapphire', Sapphire: 'Ruby/Sapphire',
+  Black: 'Black/White', White: 'Black/White',
+  Black2: 'Black2/White2', White2: 'Black2/White2',
+  Scarlet: 'Scarlet/Violet', Violet: 'Scarlet/Violet',
+}
+
+// One row per generation, each holding that generation's game chips in release order
+function groupGames(allGames) {
+  const chips = new Map()
+  allGames.forEach(game => {
+    const label = DISPLAY_MAP[game] || game
+    if (!chips.has(label)) chips.set(label, [])
+    chips.get(label).push(game)
+  })
+  const toChip = label => ({ label, originals: chips.get(label) })
+  const rows = Object.entries(GEN_MAP)
+    .map(([gen, labels]) => ({ gen, chips: labels.filter(l => chips.has(l)).map(toChip) }))
+    .filter(row => row.chips.length > 0)
+  const placed = new Set(Object.values(GEN_MAP).flat())
+  const other = [...chips.keys()].filter(l => !placed.has(l))
+  if (other.length > 0) rows.push({ gen: 'Other', chips: other.map(toChip) })
+  return rows
+}
+
+const capitalise = s => s.charAt(0).toUpperCase() + s.slice(1)
+
 function GameFilter({
-  allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
+  allGames, selectedGames, setSelectedGames, selectAllGames, activePool,
   selectedDifficulties, toggleDifficulty, selectAllDifficulties,
   enabledExtras, toggleExtra, EXTRAS_META,
 }) {
-  const [activeGens, setActiveGens] = useState(new Set())
-
-  const displayMap = {
-    'Ruby': 'Ruby/Sapphire',
-    'Sapphire': 'Ruby/Sapphire',
-    'Black': 'Black/White',
-    'White': 'Black/White',
-    'Black2': 'Black2/White2',
-    'White2': 'Black2/White2',
-    'Scarlet': 'Scarlet/Violet',
-    'Violet': 'Scarlet/Violet',
-  }
-
-  const visibleButtons = []
-  const seenGrouped = new Set()
-  allGames.forEach(game => {
-    const displayLabel = displayMap[game] || game
-    if (!seenGrouped.has(displayLabel)) {
-      seenGrouped.add(displayLabel)
-      visibleButtons.push({
-        label: displayLabel,
-        originals: allGames.filter(g => (displayMap[g] || g) === displayLabel)
-      })
-    }
-  })
-
+  const rows = groupGames(allGames)
   const allSelected = selectedGames.size === allGames.length
+  const noneSelected = selectedGames.size === 0
   const allDifficultiesSelected = selectedDifficulties.size === DIFFICULTIES.length
 
-  const isDeselectedState = selectedGames.size === 0
+  const isOn = originals => originals.every(g => selectedGames.has(g))
+  // Switching off the last games (with no extras on) would leave nothing to play
+  const isLast = originals => isOn(originals) && selectedGames.size - originals.length <= 0 && enabledExtras.size === 0
 
-  const handleGroupToggle = (group) => {
-    const isCurrentlyActive = group.originals.every(g => selectedGames.has(g))
-    if (isCurrentlyActive) {
-      if (selectedGames.size - group.originals.length <= 0 && enabledExtras.size === 0) return
-    }
-    group.originals.forEach(g => {
-      const active = selectedGames.has(g)
-      if (isCurrentlyActive && active) toggleGame(g)
-      else if (!isCurrentlyActive && !active) toggleGame(g)
-    })
+  function setGames(originals, on) {
+    const next = new Set(selectedGames)
+    originals.forEach(g => (on ? next.add(g) : next.delete(g)))
+    if (next.size === 0 && enabledExtras.size === 0) return
+    setSelectedGames(next)
   }
-
-  const handleDeselectAll = () => {
-    setSelectedGames(new Set())
-    setActiveGens(new Set())
-  }
-
-  const handleSelectAll = () => {
-    selectAllGames()
-    setActiveGens(new Set())
-  }
-
-  const rawToDisplay = { Ruby: 'Ruby/Sapphire', Sapphire: 'Ruby/Sapphire', Black: 'Black/White', White: 'Black/White', Black2: 'Black2/White2', White2: 'Black2/White2', Scarlet: 'Scarlet/Violet', Violet: 'Scarlet/Violet' }
-
-  const handleGenToggle = (gen) => {
-    const isOn = activeGens.has(gen)
-    const newActiveGens = new Set(activeGens)
-
-    if (isOn) {
-      newActiveGens.delete(gen)
-      if (newActiveGens.size === 0) {
-        setActiveGens(newActiveGens)
-        return
-      }
-    } else {
-      newActiveGens.add(gen)
-    }
-
-    const targetLabels = new Set()
-    newActiveGens.forEach(g => { (GEN_MAP[g] || []).forEach(l => targetLabels.add(l)) })
-
-    const newSet = new Set(allGames.filter(game => targetLabels.has(rawToDisplay[game] || game)))
-    if (newSet.size === 0 && enabledExtras.size === 0) return
-    setSelectedGames(newSet)
-    setActiveGens(newActiveGens)
-  }
-
-  const availableGens = Object.keys(GEN_MAP).filter(gen =>
-    (GEN_MAP[gen] || []).some(label =>
-      allGames.some(g => (rawToDisplay[g] || g) === label)
-    )
-  )
-
-  const extrasKeys = Object.keys(EXTRAS_META)
 
   return (
-    <div className="game-filter-panel">
+    <div className="game-filter-panel" id="inf-options">
 
       <div className="filter-section">
         <div className="filter-section-header">
@@ -446,17 +449,17 @@ function GameFilter({
               <button
                 key={diff}
                 onClick={() => !cantDeselect && toggleDifficulty(diff)}
+                aria-pressed={isActive}
                 className={`difficulty-filter-btn ${isActive ? 'active' : ''} ${cantDeselect ? 'cant-deselect' : ''}`}
                 style={isActive ? {
                   background: styles.active,
                   borderColor: styles.activeBorder,
                   color: styles.activeColor,
-                  boxShadow: `0 0 10px ${styles.activeGlow}`,
                   WebkitTextStroke: 'var(--badge-text-stroke)',
                 } : {}}
                 title={cantDeselect ? 'At least one difficulty must be selected' : ''}
               >
-                {diff.charAt(0).toUpperCase() + diff.slice(1)}
+                {capitalise(diff)}
               </button>
             )
           })}
@@ -467,56 +470,56 @@ function GameFilter({
 
       <div className="filter-section">
         <div className="filter-section-header">
-          <span className="filter-section-label">Generation</span>
+          <span className="filter-section-label">Games</span>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
-              onClick={handleSelectAll}
+              onClick={selectAllGames}
               disabled={allSelected}
               className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
             >
               Select All
             </button>
             <button
-              onClick={handleDeselectAll}
-              disabled={isDeselectedState || allGames.length === 0}
-              className={`filter-ctrl-btn ${isDeselectedState || allGames.length === 0 ? 'disabled' : ''}`}
+              onClick={() => setSelectedGames(new Set())}
+              disabled={noneSelected || allGames.length === 0}
+              className={`filter-ctrl-btn ${noneSelected || allGames.length === 0 ? 'disabled' : ''}`}
             >
               Deselect All
             </button>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-          {availableGens.map(gen => {
-            const isOn = activeGens.has(gen)
+        <div className="gen-rows">
+          {rows.map(row => {
+            const genGames = row.chips.flatMap(chip => chip.originals)
+            const genOn = isOn(genGames)
             return (
-              <button
-                key={gen}
-                onClick={() => handleGenToggle(gen)}
-                className={`gen-filter-btn ${isOn ? 'active' : ''}`}
-              >
-                {gen}
-              </button>
-            )
-          })}
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {visibleButtons.map(group => {
-            const isActive = group.originals.every(g => selectedGames.has(g))
-            const isDisableCandidate = isActive && (selectedGames.size - group.originals.length <= 0) && enabledExtras.size === 0
-            return (
-              <button
-                key={group.label}
-                onClick={() => {
-                  handleGroupToggle(group)
-                  setActiveGens(new Set())
-                }}
-                className={`game-filter-btn ${isActive ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
-              >
-                <span>{isActive ? '✓' : '+'}</span>
-                {group.label}
-              </button>
+              <div key={row.gen} className="gen-row">
+                <button
+                  onClick={() => setGames(genGames, !genOn)}
+                  aria-pressed={genOn}
+                  title={genOn ? `Turn off every ${row.gen} game` : `Turn on every ${row.gen} game`}
+                  className={`gen-filter-btn ${genOn ? 'active' : ''} ${isLast(genGames) ? 'cant-deselect' : ''}`}
+                >
+                  {row.gen}
+                </button>
+                <div className="gen-row-games">
+                  {row.chips.map(chip => {
+                    const active = isOn(chip.originals)
+                    return (
+                      <button
+                        key={chip.label}
+                        onClick={() => setGames(chip.originals, !active)}
+                        aria-pressed={active}
+                        className={`game-filter-btn ${active ? 'active' : ''} ${isLast(chip.originals) ? 'cant-deselect' : ''}`}
+                      >
+                        <span aria-hidden="true">{active ? '✓' : '+'}</span>
+                        {chip.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             )
           })}
         </div>
@@ -529,16 +532,17 @@ function GameFilter({
           <span className="filter-section-label">Extras</span>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {extrasKeys.map(key => {
+          {Object.keys(EXTRAS_META).map(key => {
             const meta = EXTRAS_META[key]
             const isActive = enabledExtras.has(key)
             return (
               <button
                 key={key}
                 onClick={() => toggleExtra(key)}
+                aria-pressed={isActive}
                 className={`extras-filter-btn ${isActive ? 'active' : ''}`}
               >
-                <span>{isActive ? '✓' : '+'}</span>
+                <span aria-hidden="true">{isActive ? '✓' : '+'}</span>
                 {meta.label}
               </button>
             )
@@ -554,9 +558,22 @@ function GameFilter({
   )
 }
 
+// "all games at all difficulties", or how far the pool has been narrowed down
+function poolSummary({ allGames, selectedGames, selectedDifficulties, enabledExtras, EXTRAS_META }) {
+  const chips = groupGames(allGames).flatMap(row => row.chips)
+  const onChips = chips.filter(chip => chip.originals.every(g => selectedGames.has(g))).length
+  const games = selectedGames.size === allGames.length ? 'all games'
+    : onChips === 0 ? 'no main-series games'
+    : `${onChips} of ${chips.length} games`
+  const diffs = selectedDifficulties.size === DIFFICULTIES.length ? 'all difficulties'
+    : `${DIFFICULTIES.filter(d => selectedDifficulties.has(d)).map(capitalise).join(' and ')} difficulty`
+  const extras = [...enabledExtras].map(key => EXTRAS_META[key].label)
+  return { games, diffs, extras }
+}
+
 function InfiniteMode({ onResetSession }) {
   const {
-    allGames, selectedGames, toggleGame, setSelectedGames, selectAllGames, activePool,
+    allGames, selectedGames, setSelectedGames, selectAllGames, activePool,
     selectedDifficulties, toggleDifficulty, selectAllDifficulties,
     enabledExtras, toggleExtra, EXTRAS_META,
     rounds,
@@ -568,6 +585,7 @@ function InfiniteMode({ onResetSession }) {
   } = useInfiniteMode()
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
   const scrollRef = useRef(null)
   const currentRef = useRef(null)
   const { save: saveMedals, refresh: refreshMedals } = useMedals()
@@ -621,12 +639,41 @@ function InfiniteMode({ onResetSession }) {
   const showTrainer = currentHints >= 3
 
   if (!isPlaying) {
+    const summary = poolSummary({ allGames, selectedGames, selectedDifficulties, enabledExtras, EXTRAS_META })
     return (
       <div className="inf-root">
-        <GameFilter
+        <div className="inf-start">
+          <p className="inf-start-summary">
+            Guess trainers from <strong>{summary.games}</strong> at <strong>{summary.diffs}</strong>
+            {summary.extras.length > 0 && <>, plus <strong>{summary.extras.join(', ')}</strong></>}.
+            {' '}{activePool.length} trainer{activePool.length !== 1 ? 's' : ''} in the pool.
+          </p>
+          <div className="inf-start-actions">
+            <button
+              onClick={handleStartGame}
+              disabled={activePool.length === 0}
+              className={`primary-btn ${activePool.length === 0 ? 'disabled' : ''}`}
+            >
+              Start Game
+            </button>
+            {/* A disclosure: the chevron turns over when the game options are open */}
+            <button
+              type="button"
+              className={`back-btn inf-start-customise ${showOptions ? 'open' : ''}`}
+              aria-expanded={showOptions}
+              aria-controls="inf-options"
+              onClick={() => setShowOptions(o => !o)}
+            >
+              Choose games
+              <svg className="inf-start-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        {showOptions && <GameFilter
           allGames={allGames}
           selectedGames={selectedGames}
-          toggleGame={toggleGame}
           setSelectedGames={setSelectedGames}
           selectAllGames={selectAllGames}
           activePool={activePool}
@@ -636,16 +683,7 @@ function InfiniteMode({ onResetSession }) {
           enabledExtras={enabledExtras}
           toggleExtra={toggleExtra}
           EXTRAS_META={EXTRAS_META}
-        />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-          <button
-            onClick={handleStartGame}
-            disabled={activePool.length === 0}
-            className={`primary-btn ${activePool.length === 0 ? 'disabled' : ''}`}
-          >
-            Start Game
-          </button>
-        </div>
+        />}
       </div>
     )
   }
@@ -680,17 +718,17 @@ function InfiniteMode({ onResetSession }) {
 
             <div className="inf-round-inner main-layout">
               <div className="trainer-panel">
-                <div className="trainer-frame">
+                <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
                   {showTrainer ? (
                     <img
                       draggable="false"
                       src={currentTrainer.trainerSpriteUrl}
-                      alt="trainer"
-                      className="trainer-sprite"
+                      alt={trainerAlt(currentHints, currentGameOver, currentTrainer)}
+                      className={`trainer-sprite ${currentGameOver === 'won' ? 'trainer-sprite--celebrate' : ''}`}
                       style={{ filter: trainerFilter }}
                     />
                   ) : (
-                    <div className="trainer-placeholder"><span>?</span></div>
+                    <div className="trainer-placeholder" aria-hidden="true"><span>?</span></div>
                   )}
                 </div>
                 <div className="trainer-info">
@@ -707,15 +745,13 @@ function InfiniteMode({ onResetSession }) {
 
                 {!currentGameOver ? (
                   <div className="guess-section">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <button className="pass-btn" onClick={handlePass}>Pass</button>
-                      <GuessInput
-                        onGuess={handleGuess}
-                        disabled={!!currentGameOver}
-                        enabledExtras={enabledExtras}
-                        extrasMeta={EXTRAS_META}
-                      />
-                    </div>
+                    <GuessInput
+                      onGuess={handleGuess}
+                      onPass={handlePass}
+                      disabled={!!currentGameOver}
+                      enabledExtras={enabledExtras}
+                      extrasMeta={EXTRAS_META}
+                    />
                     <div className="guess-counter">
                       {MAX_GUESSES - currentGuesses.length} guess{MAX_GUESSES - currentGuesses.length !== 1 ? 'es' : ''} remaining
                     </div>
@@ -726,7 +762,7 @@ function InfiniteMode({ onResetSession }) {
                       <div className={`result-banner ${currentGameOver}`} style={{ flex: 1, margin: 0 }}>
                         {currentGameOver === 'won'
                           ? `You got it! It was ${currentTrainer.name}!`
-                          : `Game Over! It was ${currentTrainer.name}!`}
+                          : `Not this time. It was ${currentTrainer.name}!`}
                       </div>
                       <div className="round-score-tag">
                         {scoreForRound(currentGuesses, currentGameOver)}/{MAX_GUESSES}
@@ -740,6 +776,8 @@ function InfiniteMode({ onResetSession }) {
                     </button>
                   </div>
                 )}
+
+                <GuessAnnouncer guesses={currentGuesses} gameOver={currentGameOver} trainer={currentTrainer} maxGuesses={MAX_GUESSES} />
 
                 {currentGuesses.length > 0 && (
                   <div className="guess-history">
@@ -788,6 +826,14 @@ export default function Home() {
     return MODES.some(m => m.id === requested) ? requested : 'daily'
   })
   const [infiniteKey, setInfiniteKey] = useState(0)
+  // Set when a finished Daily puzzle sends the player to today's Connections
+  const [connectionsTab, setConnectionsTab] = useState(null)
+
+  function playTodaysConnections() {
+    setConnectionsTab('daily')
+    setMode('connections')
+    window.scrollTo({ top: 0 })
+  }
 
   const handleResetInfiniteSession = () => {
     setInfiniteKey(prev => prev + 1)
@@ -797,15 +843,18 @@ export default function Home() {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
-        <div className="mode-toggle">
+      <div className="mode-toggle-row">
+        <div className="mode-toggle" role="tablist" aria-label="Game mode">
           <div
             className="mode-toggle-slider"
+            aria-hidden="true"
             style={{ transform: `translateX(${modeIndex * 100}%)` }}
           />
           {MODES.map(m => (
             <button
               key={m.id}
+              role="tab"
+              aria-selected={mode === m.id}
               onClick={() => setMode(m.id)}
               className={`mode-toggle-btn ${mode === m.id ? 'active' : ''}`}
             >
@@ -815,14 +864,14 @@ export default function Home() {
         </div>
       </div>
 
-      {mode === 'daily' && <DailyMode />}
+      {mode === 'daily' && <DailyMode onPlayConnections={playTodaysConnections} />}
       {mode === 'infinite' && (
         <InfiniteMode
           key={infiniteKey}
           onResetSession={handleResetInfiniteSession}
         />
       )}
-      {mode === 'connections' && <ConnectionsMode />}
+      {mode === 'connections' && <ConnectionsMode initialTab={connectionsTab} />}
     </>
   )
 }
