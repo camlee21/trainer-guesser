@@ -392,57 +392,24 @@ function GameFilter({
   selectedDifficulties, toggleDifficulty, selectAllDifficulties,
   enabledExtras, toggleExtra, EXTRAS_META,
 }) {
-  // Generations picked with the Gen buttons; picking a single game clears them
-  const [activeGens, setActiveGens] = useState(new Set())
   const rows = groupGames(allGames)
   const allSelected = selectedGames.size === allGames.length
-  const isDeselectedState = selectedGames.size === 0
+  const noneSelected = selectedGames.size === 0
   const allDifficultiesSelected = selectedDifficulties.size === DIFFICULTIES.length
 
   const isOn = originals => originals.every(g => selectedGames.has(g))
+  // Switching off the last games (with no extras on) would leave nothing to play
+  const isLast = originals => isOn(originals) && selectedGames.size - originals.length <= 0 && enabledExtras.size === 0
 
-  const handleGroupToggle = (group) => {
-    const isCurrentlyActive = isOn(group.originals)
-    if (isCurrentlyActive && selectedGames.size - group.originals.length <= 0 && enabledExtras.size === 0) return
+  function setGames(originals, on) {
     const next = new Set(selectedGames)
-    group.originals.forEach(g => (isCurrentlyActive ? next.delete(g) : next.add(g)))
+    originals.forEach(g => (on ? next.add(g) : next.delete(g)))
+    if (next.size === 0 && enabledExtras.size === 0) return
     setSelectedGames(next)
   }
 
-  const handleDeselectAll = () => {
-    setSelectedGames(new Set())
-    setActiveGens(new Set())
-  }
-
-  const handleSelectAll = () => {
-    selectAllGames()
-    setActiveGens(new Set())
-  }
-
-  // Selects exactly the games of the active generations
-  const handleGenToggle = (gen) => {
-    const newActiveGens = new Set(activeGens)
-    if (activeGens.has(gen)) {
-      newActiveGens.delete(gen)
-      if (newActiveGens.size === 0) {
-        setActiveGens(newActiveGens)
-        return
-      }
-    } else {
-      newActiveGens.add(gen)
-    }
-
-    const targetLabels = new Set()
-    newActiveGens.forEach(g => { (GEN_MAP[g] || []).forEach(l => targetLabels.add(l)) })
-
-    const newSet = new Set(allGames.filter(game => targetLabels.has(DISPLAY_MAP[game] || game)))
-    if (newSet.size === 0 && enabledExtras.size === 0) return
-    setSelectedGames(newSet)
-    setActiveGens(newActiveGens)
-  }
-
   return (
-    <div className="game-filter-panel">
+    <div className="game-filter-panel" id="inf-options">
 
       <div className="filter-section">
         <div className="filter-section-header">
@@ -485,19 +452,19 @@ function GameFilter({
 
       <div className="filter-section">
         <div className="filter-section-header">
-          <span className="filter-section-label">Generation</span>
+          <span className="filter-section-label">Games</span>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
-              onClick={handleSelectAll}
+              onClick={selectAllGames}
               disabled={allSelected}
               className={`filter-ctrl-btn ${allSelected ? 'disabled' : 'accent'}`}
             >
               Select All
             </button>
             <button
-              onClick={handleDeselectAll}
-              disabled={isDeselectedState || allGames.length === 0}
-              className={`filter-ctrl-btn ${isDeselectedState || allGames.length === 0 ? 'disabled' : ''}`}
+              onClick={() => setSelectedGames(new Set())}
+              disabled={noneSelected || allGames.length === 0}
+              className={`filter-ctrl-btn ${noneSelected || allGames.length === 0 ? 'disabled' : ''}`}
             >
               Deselect All
             </button>
@@ -506,29 +473,27 @@ function GameFilter({
 
         <div className="gen-rows">
           {rows.map(row => {
-            const genOn = activeGens.has(row.gen)
+            const genGames = row.chips.flatMap(chip => chip.originals)
+            const genOn = isOn(genGames)
             return (
               <div key={row.gen} className="gen-row">
                 <button
-                  onClick={() => handleGenToggle(row.gen)}
+                  onClick={() => setGames(genGames, !genOn)}
                   aria-pressed={genOn}
-                  className={`gen-filter-btn ${genOn ? 'active' : ''}`}
+                  title={genOn ? `Turn off every ${row.gen} game` : `Turn on every ${row.gen} game`}
+                  className={`gen-filter-btn ${genOn ? 'active' : ''} ${isLast(genGames) ? 'cant-deselect' : ''}`}
                 >
                   {row.gen}
                 </button>
                 <div className="gen-row-games">
                   {row.chips.map(chip => {
                     const active = isOn(chip.originals)
-                    const isDisableCandidate = active && selectedGames.size - chip.originals.length <= 0 && enabledExtras.size === 0
                     return (
                       <button
                         key={chip.label}
-                        onClick={() => {
-                          handleGroupToggle(chip)
-                          setActiveGens(new Set())
-                        }}
+                        onClick={() => setGames(chip.originals, !active)}
                         aria-pressed={active}
-                        className={`game-filter-btn ${active ? 'active' : ''} ${isDisableCandidate ? 'cant-deselect' : ''}`}
+                        className={`game-filter-btn ${active ? 'active' : ''} ${isLast(chip.originals) ? 'cant-deselect' : ''}`}
                       >
                         <span aria-hidden="true">{active ? '✓' : '+'}</span>
                         {chip.label}
@@ -575,6 +540,19 @@ function GameFilter({
   )
 }
 
+// "all games at all difficulties", or how far the pool has been narrowed down
+function poolSummary({ allGames, selectedGames, selectedDifficulties, enabledExtras, EXTRAS_META }) {
+  const chips = groupGames(allGames).flatMap(row => row.chips)
+  const onChips = chips.filter(chip => chip.originals.every(g => selectedGames.has(g))).length
+  const games = selectedGames.size === allGames.length ? 'all games'
+    : onChips === 0 ? 'no main-series games'
+    : `${onChips} of ${chips.length} games`
+  const diffs = selectedDifficulties.size === DIFFICULTIES.length ? 'all difficulties'
+    : `${DIFFICULTIES.filter(d => selectedDifficulties.has(d)).map(capitalise).join(' and ')} difficulty`
+  const extras = [...enabledExtras].map(key => EXTRAS_META[key].label)
+  return { games, diffs, extras }
+}
+
 function InfiniteMode({ onResetSession }) {
   const {
     allGames, selectedGames, setSelectedGames, selectAllGames, activePool,
@@ -589,6 +567,7 @@ function InfiniteMode({ onResetSession }) {
   } = useInfiniteMode()
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
   const scrollRef = useRef(null)
   const currentRef = useRef(null)
   const { save: saveMedals, refresh: refreshMedals } = useMedals()
@@ -642,9 +621,39 @@ function InfiniteMode({ onResetSession }) {
   const showTrainer = currentHints >= 3
 
   if (!isPlaying) {
+    const summary = poolSummary({ allGames, selectedGames, selectedDifficulties, enabledExtras, EXTRAS_META })
     return (
       <div className="inf-root">
-        <GameFilter
+        <div className="inf-start">
+          <p className="inf-start-summary">
+            Guess trainers from <strong>{summary.games}</strong> at <strong>{summary.diffs}</strong>
+            {summary.extras.length > 0 && <>, plus <strong>{summary.extras.join(', ')}</strong></>}.
+            {' '}{activePool.length} trainer{activePool.length !== 1 ? 's' : ''} in the pool.
+          </p>
+          <div className="inf-start-actions">
+            <button
+              onClick={handleStartGame}
+              disabled={activePool.length === 0}
+              className={`primary-btn ${activePool.length === 0 ? 'disabled' : ''}`}
+            >
+              Start Game
+            </button>
+            {/* A disclosure: the chevron turns over when the game options are open */}
+            <button
+              type="button"
+              className={`back-btn inf-start-customise ${showOptions ? 'open' : ''}`}
+              aria-expanded={showOptions}
+              aria-controls="inf-options"
+              onClick={() => setShowOptions(o => !o)}
+            >
+              Choose games
+              <svg className="inf-start-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        {showOptions && <GameFilter
           allGames={allGames}
           selectedGames={selectedGames}
           setSelectedGames={setSelectedGames}
@@ -656,16 +665,7 @@ function InfiniteMode({ onResetSession }) {
           enabledExtras={enabledExtras}
           toggleExtra={toggleExtra}
           EXTRAS_META={EXTRAS_META}
-        />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-          <button
-            onClick={handleStartGame}
-            disabled={activePool.length === 0}
-            className={`primary-btn ${activePool.length === 0 ? 'disabled' : ''}`}
-          >
-            Start Game
-          </button>
-        </div>
+        />}
       </div>
     )
   }

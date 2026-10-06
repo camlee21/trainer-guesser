@@ -146,8 +146,11 @@ textarea:focus-visible {
 .header-auth {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   height: 40px;
+  /* Always its own row under the other actions, so Log In sits where Sign Out does when logged in */
+  flex-basis: 100%;
 }
 
 @media (max-width: 840px) {
@@ -172,6 +175,9 @@ textarea:focus-visible {
     justify-content: center;
     gap: 6px;
     margin-top: 0;
+  }
+  .header-auth {
+    justify-content: center;
   }
   .header-actions .kofi-btn {
     padding: 0 12px;
@@ -3574,6 +3580,71 @@ img {
   padding: 9px 18px;
   font-size: 0.9rem;
   font-weight: 700;
+}
+
+/* ── Infinite start: one sentence and Start; the game options open below "Choose games" ── */
+.inf-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.25rem 0 1.5rem;
+  text-align: center;
+}
+
+.inf-start-summary {
+  max-width: 46ch;
+  text-wrap: balance;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.inf-start-summary strong {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.inf-start-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.inf-start-customise {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px 13px 22px;
+  font-size: 15px;
+}
+
+.inf-start-customise.open {
+  background: var(--chrome-bg-hover);
+  border-color: var(--accent-border);
+}
+
+.inf-start-chevron {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inf-start-customise.open .inf-start-chevron {
+  transform: rotate(180deg);
+}
+
+/* The options panel drops down from the button */
+.inf-root > .game-filter-panel {
+  animation: slideIn 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inf-start-chevron,
+  .inf-root > .game-filter-panel {
+    transition: none;
+    animation: none;
+  }
 }
 
 /* Each generation's chip leads its own row of games */

@@ -35,6 +35,8 @@ const GEN_GAMES = [
 const GEN_BY_GAME = new Map(GEN_GAMES.flatMap((games, i) => games.map(game => [game, i + 1])))
 const GENS = GEN_GAMES.map((_, i) => i + 1)
 
+const GEN3_SPINOFFS = new Set(['Colosseum', 'XD: Gale of Darkness'])
+
 function genOf(game) {
   return GEN_BY_GAME.get(game) ?? null
 }
@@ -200,7 +202,9 @@ export function infiniteSessionProgress(log, { games, difficulties, extras }) {
     if (round.totalSeconds <= 120) winsInTwoMinutes++
   }
 
-  const onlyGen = extras.size === 0 && games.size > 0 && new Set([...games].map(genOf)).size === 1 ? genOf([...games][0]) : null
+  // Infinite's game select files Colosseum and XD under Gen 3, so its Gen 3 button still counts as Gen 3 only
+  const selectGen = game => genOf(game) ?? (GEN3_SPINOFFS.has(game) ? 3 : null)
+  const onlyGen = extras.size === 0 && games.size > 0 && new Set([...games].map(selectGen)).size === 1 ? selectGen([...games][0]) : null
   const hardOnly = difficulties.size === 1 && difficulties.has('hard')
   const romHacksOnly = games.size === 0 && extras.size === 1 && extras.has('romHacks')
 
