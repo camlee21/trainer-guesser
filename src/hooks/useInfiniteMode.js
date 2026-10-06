@@ -62,8 +62,11 @@ export function useInfiniteMode() {
 
   const activePool = buildActivePool()
 
+  // A finished round counts straight away, not only once "Next Round" moves it into `rounds`
+  const currentFinished = currentGameOver && !isTransitioning
   const totalScore = rounds.reduce((sum, r) => sum + scoreForRound(r.guesses, r.gameOver), 0)
-  const totalPossible = rounds.length * MAX_GUESSES
+    + (currentFinished ? scoreForRound(currentGuesses, currentGameOver) : 0)
+  const totalPossible = (rounds.length + (currentFinished ? 1 : 0)) * MAX_GUESSES
 
   useEffect(() => {
     if (isTimerRunning) {

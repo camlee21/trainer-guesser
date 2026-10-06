@@ -25,3 +25,9 @@ dist-ssr
 *.sw?
 *.env
 download-sprites.mjs
+
+# AI tooling (local skills, Impeccable critique snapshots)
+.agents/
+.claude/
+.impeccable/
+skills-lock.json

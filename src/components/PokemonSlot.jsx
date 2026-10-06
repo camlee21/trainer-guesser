@@ -5,16 +5,22 @@ export default function PokemonSlot({ pokemon, revealed }) {
     return <div className="pokemon-slot empty" />
   }
 
+  // The name underneath does the talking, so the sprite itself is decorative
   return (
     <div className="pokemon-slot">
       <img
         src={getPokemonSpriteUrl(pokemon.pokedexId)}
-        alt={revealed ? pokemon.name : '???'}
+        alt=""
         className="pokemon-sprite"
         style={{ filter: revealed ? 'none' : 'brightness(0)' }}
       />
       <span className="pokemon-name">
-        {revealed ? pokemon.name : '???'}
+        {revealed ? pokemon.name : (
+          <>
+            <span aria-hidden="true">???</span>
+            <span className="sr-only">Unknown Pokémon</span>
+          </>
+        )}
       </span>
     </div>
   )

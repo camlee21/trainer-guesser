@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import CountdownTimer from './CountdownTimer'
 import ShareButtons from './ShareButtons'
+import ConfirmButton from './ConfirmButton'
 import { ScrollToTopButton, ScrollToBottomButton } from './ScrollButtons'
 import { getPokemonSpriteUrl } from '../utils/sprites'
 import { useConnectionsGame } from '../hooks/useConnectionsGame'
@@ -204,26 +205,6 @@ function Arrow() {
   )
 }
 
-// Needs a second tap within a few seconds, so a stray tap can't throw the route away
-function RestartButton({ onRestart }) {
-  const [armed, setArmed] = useState(false)
-  useEffect(() => {
-    if (!armed) return
-    const id = setTimeout(() => setArmed(false), 3000)
-    return () => clearTimeout(id)
-  }, [armed])
-
-  return (
-    <button
-      className={`back-btn cx-restart ${armed ? 'is-armed' : ''}`}
-      onClick={() => (armed ? (setArmed(false), onRestart()) : setArmed(true))}
-      onBlur={() => setArmed(false)}
-    >
-      {armed ? 'Tap again to restart' : 'Restart route'}
-    </button>
-  )
-}
-
 function UndoButton({ onUndo }) {
   const tip = 'Undo last step'
   return (
@@ -384,7 +365,7 @@ function ScoreCard({ won, perfect, hops, elapsedMs, best, goal, shareText }) {
       <p className="cx-scorecard-note">{note}</p>
       {shareText && (
         <div className="cx-scorecard-share">
-          <ShareButtons text={shareText} />
+          <ShareButtons primary text={shareText} />
         </div>
       )}
     </div>
@@ -446,8 +427,15 @@ function Play({ game, onPlayCustom }) {
           : <button onClick={backToSetup} className="back-btn">Change trainers</button>}
         {!finished && (
           <div className="cx-topbar-actions">
-            {pokemon.length > 0 && <RestartButton onRestart={restartRoute} />}
-            <button onClick={giveUp} className="back-btn cx-giveup">Show answer</button>
+            {pokemon.length > 0 && (
+              <ConfirmButton className="back-btn cx-restart" confirmLabel="Tap again to restart" onConfirm={restartRoute}>
+                Restart route
+              </ConfirmButton>
+            )}
+            {/* Ends the puzzle, and for the daily one there's no second try */}
+            <ConfirmButton className="back-btn cx-giveup" confirmLabel="Tap again to reveal" onConfirm={giveUp}>
+              Show answer
+            </ConfirmButton>
           </div>
         )}
       </div>
@@ -612,7 +600,7 @@ function WhatsNew({ onClose }) {
   )
 }
 
-export default function ConnectionsMode() {
+export default function ConnectionsMode({ initialTab = null }) {
   const [showWhatsNew, setShowWhatsNew] = useState(() => {
     try {
       return !localStorage.getItem(RULES_SEEN_KEY)
@@ -631,8 +619,8 @@ export default function ConnectionsMode() {
   }, [])
 
   const [tab, setTab] = useState(() => {
-    // A shared link (?tab=daily) wins over the tab remembered from last time
-    const linked = new URLSearchParams(window.location.search).get('tab')
+    // A shared link (?tab=daily), or arriving from a finished Daily puzzle, wins over the tab remembered from last time
+    const linked = initialTab ?? new URLSearchParams(window.location.search).get('tab')
     if (linked === 'daily' || linked === 'custom') return linked
     try {
       return localStorage.getItem(TAB_KEY) === 'custom' ? 'custom' : 'daily'
