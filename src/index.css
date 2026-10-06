@@ -3412,7 +3412,7 @@ img {
 
 @media (max-width: 640px) {
   .cx-tabs {
-    margin-top: -16px;
+    margin-top: -8px;
   }
   .cx-endpoints {
     grid-template-columns: 1fr;
