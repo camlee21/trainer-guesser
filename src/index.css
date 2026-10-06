@@ -36,6 +36,8 @@
   --badge-red-bg: rgba(248, 113, 113, 0.22);
   --badge-red-border: rgba(248, 113, 113, 0.5);
   --badge-text-stroke: 0px transparent;
+  --pill-bg: #1f3149;
+  --pill-border: #3a4a5f;
 
   /* Accent — default matches the original blue */
   --accent: #72a4f2;
@@ -69,6 +71,11 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Popups take focus themselves so screen readers start at the title; no ring on the box */
+[role="dialog"]:focus {
+  outline: none;
 }
 
 /* Visible keyboard-focus ring on every interactive element. */
@@ -857,8 +864,8 @@ textarea:focus-visible {
 }
 
 .info-pill {
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
   border-radius: var(--radius-sm);
   padding: 0.4rem 0.75rem;
   font-size: 0.8rem;
@@ -1103,6 +1110,7 @@ textarea:focus-visible {
 
 /* ── Pass Button ── */
 .pass-btn {
+  min-width: 5.75rem;
   padding: calc(0.65rem - 1px) 1.1rem;
   background: var(--chrome-bg);
   color: var(--text);
@@ -1122,11 +1130,13 @@ textarea:focus-visible {
   background: var(--chrome-bg-hover);
 }
 
-/* First tap of a ConfirmButton (Pass, Show answer, Restart route): the second tap goes ahead */
-.is-armed,
-.is-armed:hover {
+/* First tap of a ConfirmButton (Pass, Show answer, Restart route): the second tap goes ahead.
+   `button.` outranks .back-btn and .cx-giveup, which come later in the file. */
+button.is-armed,
+button.is-armed:hover {
   color: var(--gold);
   border-color: var(--gold);
+  background: var(--badge-gold-bg);
 }
 
 /* ── Primary accent button (Start Game, Next Round) ── */
@@ -2439,6 +2449,11 @@ img {
     height: 180px;
   }
 
+  /* Unused party slots only cost height on phones; the filled ones still show the team size */
+  .pokemon-slot.empty {
+    display: none;
+  }
+
   /* Nothing to show until the silhouette clue, so the empty frame stays short */
   .trainer-frame--empty {
     height: 120px;
@@ -2532,6 +2547,56 @@ img {
   line-height: 1.6;
   font-weight: 600;
   color: var(--text-dim);
+}
+
+.cx-lede strong {
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* The rules sit behind a one-line toggle, so the first choice is higher up the page */
+.cx-rules {
+  margin-top: 0.35rem;
+}
+
+.cx-rules summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cx-rules summary::-webkit-details-marker {
+  display: none;
+}
+
+.cx-rules summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.cx-rules[open] summary::after {
+  transform: translateY(1px) rotate(225deg);
+}
+
+.cx-rules summary:hover {
+  background: var(--accent-bg);
+}
+
+.cx-rules p {
+  margin-top: 0.35rem;
+  text-wrap: pretty;
 }
 
 /* Setup: start card, swap button, goal card */
@@ -3523,9 +3588,10 @@ img {
 }
 
 .daily-result-title {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 1.05rem;
-  line-height: 1.4;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--text);
 }
 

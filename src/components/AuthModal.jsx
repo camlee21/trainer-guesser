@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
+import Modal from './Modal'
 
 export default function AuthModal({ onClose }) {
   const { signInWithGoogle } = useAuthContext()
@@ -18,11 +19,10 @@ export default function AuthModal({ onClose }) {
   }
 
   return (
-    <div className="auth-overlay" onClick={onClose}>
-      <div className="auth-modal" onClick={e => e.stopPropagation()}>
+    <Modal onClose={onClose} className="auth-modal" labelledBy="auth-modal-title">
         <button className="auth-close" onClick={onClose} aria-label="Close">✕</button>
 
-        <h2 style={{ fontFamily: 'inherit', fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'center' }}>
+        <h2 id="auth-modal-title" style={{ fontFamily: 'inherit', fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'center' }}>
           Sign in to save and view your stats!
         </h2>
 
@@ -44,7 +44,6 @@ export default function AuthModal({ onClose }) {
           )}
           {loading ? 'Redirecting...' : 'Sign in with Google'}
         </button>
-      </div>
-    </div>
+    </Modal>
   )
 }

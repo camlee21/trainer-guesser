@@ -158,6 +158,22 @@ function DailyMode({ onPlayConnections }) {
   const trainerFilter = hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
   const showTrainer = hintsRevealed >= 3
 
+  // When the game ends (not when a finished game is reopened), make sure the result card is on screen;
+  // on phones it would otherwise land below the fold
+  const resultRef = useRef(null)
+  const wasOver = useRef(gameOver)
+  useEffect(() => {
+    if (gameOver && !wasOver.current) {
+      const card = resultRef.current
+      const box = card?.getBoundingClientRect()
+      if (box && (box.top < 0 || box.bottom > window.innerHeight)) {
+        const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+        card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+      }
+    }
+    wasOver.current = gameOver
+  }, [gameOver])
+
   return (
     <>
       {is_warning && (
@@ -227,13 +243,15 @@ function DailyMode({ onPlayConnections }) {
               </div>
             </div>
           ) : (
-            <DailyResult
-              gameOver={gameOver}
-              guesses={guesses}
-              trainer={trainer}
-              maxGuesses={MAX_GUESSES}
-              onPlayConnections={onPlayConnections}
-            />
+            <div ref={resultRef}>
+              <DailyResult
+                gameOver={gameOver}
+                guesses={guesses}
+                trainer={trainer}
+                maxGuesses={MAX_GUESSES}
+                onPlayConnections={onPlayConnections}
+              />
+            </div>
           )}
           <GuessAnnouncer guesses={guesses} gameOver={gameOver} trainer={trainer} maxGuesses={MAX_GUESSES} />
 

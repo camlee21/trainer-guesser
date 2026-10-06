@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMedals } from '../contexts/MedalsContext'
+import Modal from './Modal'
 import { medalStage, STAGE_NAMES, STAGE_STARTS, TOTAL_MEDALS } from '../lib/medals'
 
 // Shown in groups with a divider between them
@@ -69,19 +70,12 @@ export default function MedalBox({ onClose }) {
   // Pick up any games finished since the page loaded
   useEffect(() => { refresh() }, [refresh])
 
-  useEffect(() => {
-    const onKey = e => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
-
   const stage = medalStage(earnedCount)
   const nextStart = STAGE_STARTS[stage] // undefined once every medal is earned
   const shown = medals.filter(FILTERS.find(f => f.id === filter).test)
 
   return (
-    <div className="auth-overlay" onClick={onClose}>
-      <div className="medal-box" role="dialog" aria-modal="true" aria-labelledby="medal-box-title" onClick={e => e.stopPropagation()}>
+    <Modal onClose={onClose} className="medal-box" labelledBy="medal-box-title">
         <button className="auth-close" onClick={onClose} aria-label="Close">✕</button>
         <button
           type="button"
@@ -173,7 +167,6 @@ export default function MedalBox({ onClose }) {
             </ul>
           </>
         )}
-      </div>
-    </div>
+    </Modal>
   )
 }
