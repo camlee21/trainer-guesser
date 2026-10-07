@@ -937,6 +937,7 @@
     },
     {
       "id": "joe",
+      "addedOn": "2026-10-08",
       "name": "Joe",
       "game": "Battle Revolution",
       "difficulty": "hard",
@@ -953,6 +954,7 @@
     },
     {
       "id": "sashay",
+      "addedOn": "2026-10-08",
       "name": "Sashay",
       "game": "Battle Revolution",
       "difficulty": "hard",
@@ -969,6 +971,7 @@
     },
     {
       "id": "mysterial",
+      "addedOn": "2026-10-08",
       "name": "Mysterial",
       "game": "Battle Revolution",
       "difficulty": "hard",
@@ -985,6 +988,7 @@
     },
     {
       "id": "kruger",
+      "addedOn": "2026-10-08",
       "name": "Kruger",
       "game": "Battle Revolution",
       "difficulty": "hard",
@@ -1114,6 +1118,7 @@
     },
     {
       "id": "iris",
+      "addedOn": "2026-10-08",
       "name": "Iris",
       "game": "Black/White",
       "difficulty": "easy",
@@ -2155,6 +2160,7 @@
     },
     {
       "id": "hop",
+      "addedOn": "2026-10-08",
       "name": "Hop",
       "game": "Sword/Shield",
       "difficulty": "easy",
@@ -2522,6 +2528,7 @@
     },
     {
       "id": "arven",
+      "addedOn": "2026-10-08",
       "name": "Arven",
       "game": "Scarlet/Violet",
       "difficulty": "easy",
@@ -2586,6 +2593,7 @@
     },
     {
       "id": "amarys",
+      "addedOn": "2026-10-08",
       "name": "Amarys",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2602,6 +2610,7 @@
     },
     {
       "id": "crispin",
+      "addedOn": "2026-10-08",
       "name": "Crispin",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2618,6 +2627,7 @@
     },
     {
       "id": "drayton",
+      "addedOn": "2026-10-08",
       "name": "Drayton",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2634,6 +2644,7 @@
     },
     {
       "id": "lacey",
+      "addedOn": "2026-10-08",
       "name": "Lacey",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2650,6 +2661,7 @@
     },
     {
       "id": "kieran",
+      "addedOn": "2026-10-08",
       "name": "Kieran",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2666,6 +2678,7 @@
     },
     {
       "id": "carmine",
+      "addedOn": "2026-10-08",
       "name": "Carmine",
       "game": "Scarlet/Violet",
       "difficulty": "hard",
@@ -2918,6 +2931,7 @@
     },
     {
       "id": "eusine",
+      "addedOn": "2026-10-08",
       "name": "Eusine",
       "game": "HeartGold/SoulSilver",
       "difficulty": "hard",
