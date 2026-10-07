@@ -4960,5 +4960,855 @@
         { "name": "Avalugg", "pokedexId": 713 }
       ]
     }
+  ],
+  "pwt_trainers": [
+    {
+      "id": "brock_pwt",
+      "name": "Brock",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/brock_pwt.png",
+      "team": [
+        { "name": "Onix", "pokedexId": 95 },
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Kabutops", "pokedexId": 141 },
+        { "name": "Tyranitar", "pokedexId": 248 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Rhyperior", "pokedexId": 464 }
+      ]
+    },
+    {
+      "id": "misty_pwt",
+      "name": "Misty",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/misty_pwt.png",
+      "team": [
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Lanturn", "pokedexId": 171 },
+        { "name": "Jellicent", "pokedexId": 593 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Blastoise", "pokedexId": 9 }
+      ]
+    },
+    {
+      "id": "surge_pwt",
+      "name": "Lt. Surge",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/surge_pwt.png",
+      "team": [
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Electivire", "pokedexId": 466 },
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Lanturn", "pokedexId": 171 }
+      ]
+    },
+    {
+      "id": "erika_pwt",
+      "name": "Erika",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/erika_pwt.png",
+      "team": [
+        { "name": "Vileplume", "pokedexId": 45 },
+        { "name": "Venusaur", "pokedexId": 3 },
+        { "name": "Cradily", "pokedexId": 346 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Tangrowth", "pokedexId": 465 },
+        { "name": "Abomasnow", "pokedexId": 460 }
+      ]
+    },
+    {
+      "id": "janine_pwt",
+      "name": "Janine",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/janine_pwt.png",
+      "team": [
+        { "name": "Venomoth", "pokedexId": 49 },
+        { "name": "Weezing", "pokedexId": 110 },
+        { "name": "Tentacruel", "pokedexId": 73 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Nidoqueen", "pokedexId": 31 },
+        { "name": "Crobat", "pokedexId": 169 }
+      ]
+    },
+    {
+      "id": "sabrina_pwt",
+      "name": "Sabrina",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/sabrina_pwt.png",
+      "team": [
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Espeon", "pokedexId": 196 },
+        { "name": "Sigilyph", "pokedexId": 561 }
+      ]
+    },
+    {
+      "id": "blaine_pwt",
+      "name": "Blaine",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/blaine_pwt.png",
+      "team": [
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Ninetales", "pokedexId": 38 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Magmortar", "pokedexId": 467 },
+        { "name": "Flareon", "pokedexId": 136 },
+        { "name": "Rotom-Heat", "pokedexId": 10008 }
+      ]
+    },
+    {
+      "id": "giovanni_pwt",
+      "name": "Giovanni",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/giovanni_pwt.png",
+      "team": [
+        { "name": "Rhyperior", "pokedexId": 464 },
+        { "name": "Garchomp", "pokedexId": 445 },
+        { "name": "Nidoking", "pokedexId": 34 },
+        { "name": "Gliscor", "pokedexId": 472 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Hippowdon", "pokedexId": 450 }
+      ]
+    },
+    {
+      "id": "falkner_pwt",
+      "name": "Falkner",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/falkner_pwt.png",
+      "team": [
+        { "name": "Pidgeot", "pokedexId": 18 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Honchkrow", "pokedexId": 430 },
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Swellow", "pokedexId": 277 }
+      ]
+    },
+    {
+      "id": "bugsy_pwt",
+      "name": "Bugsy",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/bugsy_pwt.png",
+      "team": [
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Shuckle", "pokedexId": 213 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Pinsir", "pokedexId": 127 },
+        { "name": "Armaldo", "pokedexId": 348 },
+        { "name": "Yanmega", "pokedexId": 469 }
+      ]
+    },
+    {
+      "id": "whitney_pwt",
+      "name": "Whitney",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/whitney_pwt.png",
+      "team": [
+        { "name": "Miltank", "pokedexId": 241 },
+        { "name": "Blissey", "pokedexId": 242 },
+        { "name": "Tauros", "pokedexId": 128 },
+        { "name": "Ambipom", "pokedexId": 424 },
+        { "name": "Ursaring", "pokedexId": 217 },
+        { "name": "Lopunny", "pokedexId": 428 }
+      ]
+    },
+    {
+      "id": "morty_pwt",
+      "name": "Morty",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/morty_pwt.png",
+      "team": [
+        { "name": "Gengar", "pokedexId": 94 },
+        { "name": "Mismagius", "pokedexId": 429 },
+        { "name": "Banette", "pokedexId": 354 },
+        { "name": "Dusknoir", "pokedexId": 477 },
+        { "name": "Chandelure", "pokedexId": 609 },
+        { "name": "Froslass", "pokedexId": 478 }
+      ]
+    },
+    {
+      "id": "chuck_pwt",
+      "name": "Chuck",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/chuck_pwt.png",
+      "team": [
+        { "name": "Poliwrath", "pokedexId": 62 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Conkeldurr", "pokedexId": 534 },
+        { "name": "Hitmontop", "pokedexId": 237 },
+        { "name": "Hitmonchan", "pokedexId": 107 },
+        { "name": "Hitmonlee", "pokedexId": 106 }
+      ]
+    },
+    {
+      "id": "jasmine_pwt",
+      "name": "Jasmine",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/jasmine_pwt.png",
+      "team": [
+        { "name": "Steelix", "pokedexId": 208 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Forretress", "pokedexId": 205 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Lucario", "pokedexId": 448 }
+      ]
+    },
+    {
+      "id": "pryce_pwt",
+      "name": "Pryce",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/pryce_pwt.png",
+      "team": [
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Jynx", "pokedexId": 124 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Cloyster", "pokedexId": 91 },
+        { "name": "Lapras", "pokedexId": 131 },
+        { "name": "Weavile", "pokedexId": 461 }
+      ]
+    },
+    {
+      "id": "clair_pwt",
+      "name": "Clair",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/clair_pwt.png",
+      "team": [
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Salamence", "pokedexId": 373 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Garchomp", "pokedexId": 445 }
+      ]
+    },
+    {
+      "id": "roxanne_pwt",
+      "name": "Roxanne",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/roxanne_pwt.png",
+      "team": [
+        { "name": "Probopass", "pokedexId": 476 },
+        { "name": "Armaldo", "pokedexId": 348 },
+        { "name": "Cradily", "pokedexId": 346 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Golem", "pokedexId": 76 }
+      ]
+    },
+    {
+      "id": "brawly_pwt",
+      "name": "Brawly",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/brawly_pwt.png",
+      "team": [
+        { "name": "Hariyama", "pokedexId": 297 },
+        { "name": "Scrafty", "pokedexId": 560 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Machamp", "pokedexId": 68 },
+        { "name": "Mienshao", "pokedexId": 620 },
+        { "name": "Heracross", "pokedexId": 214 }
+      ]
+    },
+    {
+      "id": "wattson_pwt",
+      "name": "Wattson",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/wattson_pwt.png",
+      "team": [
+        { "name": "Manectric", "pokedexId": 310 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Electrode", "pokedexId": 101 },
+        { "name": "Rotom-Wash", "pokedexId": 10009 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Raichu", "pokedexId": 26 }
+      ]
+    },
+    {
+      "id": "flannery_pwt",
+      "name": "Flannery",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/flannery_pwt.png",
+      "team": [
+        { "name": "Torkoal", "pokedexId": 324 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Chandelure", "pokedexId": 609 },
+        { "name": "Blaziken", "pokedexId": 257 },
+        { "name": "Houndoom", "pokedexId": 229 },
+        { "name": "Magmortar", "pokedexId": 467 }
+      ]
+    },
+    {
+      "id": "norman_pwt",
+      "name": "Norman",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/norman_pwt.png",
+      "team": [
+        { "name": "Slaking", "pokedexId": 289 },
+        { "name": "Ambipom", "pokedexId": 424 },
+        { "name": "Bouffalant", "pokedexId": 626 },
+        { "name": "Staraptor", "pokedexId": 398 },
+        { "name": "Exploud", "pokedexId": 295 },
+        { "name": "Sawsbuck", "pokedexId": 586 }
+      ]
+    },
+    {
+      "id": "winona_pwt",
+      "name": "Winona",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/winona_pwt.png",
+      "team": [
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Sigilyph", "pokedexId": 561 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Tropius", "pokedexId": 357 },
+        { "name": "Honchkrow", "pokedexId": 430 }
+      ]
+    },
+    {
+      "id": "tate_pwt",
+      "name": "Tate",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/tate.png",
+      "team": [
+        { "name": "Solrock", "pokedexId": 338 },
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Reuniclus", "pokedexId": 579 },
+        { "name": "Gallade", "pokedexId": 475 },
+        { "name": "Claydol", "pokedexId": 344 }
+      ]
+    },
+    {
+      "id": "liza_pwt",
+      "name": "Liza",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "hard",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/liza.png",
+      "team": [
+        { "name": "Lunatone", "pokedexId": 337 },
+        { "name": "Xatu", "pokedexId": 178 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Gothitelle", "pokedexId": 576 },
+        { "name": "Gardevoir", "pokedexId": 282 },
+        { "name": "Claydol", "pokedexId": 344 }
+      ]
+    },
+    {
+      "id": "juan_pwt",
+      "name": "Juan",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/juan_pwt.png",
+      "team": [
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Walrein", "pokedexId": 365 },
+        { "name": "Crawdaunt", "pokedexId": 342 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Relicanth", "pokedexId": 369 },
+        { "name": "Politoed", "pokedexId": 186 }
+      ]
+    },
+    {
+      "id": "roark_pwt",
+      "name": "Roark",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/roark_pwt.png",
+      "team": [
+        { "name": "Rampardos", "pokedexId": 409 },
+        { "name": "Probopass", "pokedexId": 476 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Crustle", "pokedexId": 558 },
+        { "name": "Golem", "pokedexId": 76 },
+        { "name": "Relicanth", "pokedexId": 369 }
+      ]
+    },
+    {
+      "id": "gardenia_pwt",
+      "name": "Gardenia",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/gardenia_pwt.png",
+      "team": [
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Tropius", "pokedexId": 357 },
+        { "name": "Breloom", "pokedexId": 286 },
+        { "name": "Tangrowth", "pokedexId": 465 },
+        { "name": "Leafeon", "pokedexId": 470 },
+        { "name": "Torterra", "pokedexId": 389 }
+      ]
+    },
+    {
+      "id": "maylene_pwt",
+      "name": "Maylene",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/maylene_pwt.png",
+      "team": [
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Infernape", "pokedexId": 392 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Gallade", "pokedexId": 475 },
+        { "name": "Medicham", "pokedexId": 308 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    },
+    {
+      "id": "crasherwake_pwt",
+      "name": "Crasher Wake",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/crasherwake_pwt.png",
+      "team": [
+        { "name": "Floatzel", "pokedexId": 419 },
+        { "name": "Empoleon", "pokedexId": 395 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Gastrodon", "pokedexId": 423 },
+        { "name": "Poliwrath", "pokedexId": 62 },
+        { "name": "Gyarados", "pokedexId": 130 }
+      ]
+    },
+    {
+      "id": "fantina_pwt",
+      "name": "Fantina",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/fantina_pwt.png",
+      "team": [
+        { "name": "Mismagius", "pokedexId": 429 },
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Dusknoir", "pokedexId": 477 },
+        { "name": "Jellicent", "pokedexId": 593 },
+        { "name": "Gengar", "pokedexId": 94 }
+      ]
+    },
+    {
+      "id": "byron_pwt",
+      "name": "Byron",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/byron_pwt.png",
+      "team": [
+        { "name": "Bastiodon", "pokedexId": 411 },
+        { "name": "Excadrill", "pokedexId": 530 },
+        { "name": "Bronzong", "pokedexId": 437 },
+        { "name": "Magnezone", "pokedexId": 462 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Forretress", "pokedexId": 205 }
+      ]
+    },
+    {
+      "id": "candice_pwt",
+      "name": "Candice",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/candice_pwt.png",
+      "team": [
+        { "name": "Froslass", "pokedexId": 478 },
+        { "name": "Abomasnow", "pokedexId": 460 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Glaceon", "pokedexId": 471 },
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Glalie", "pokedexId": 362 }
+      ]
+    },
+    {
+      "id": "volkner_pwt",
+      "name": "Volkner",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/volkner_pwt.png",
+      "team": [
+        { "name": "Electivire", "pokedexId": 466 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Raichu", "pokedexId": 26 },
+        { "name": "Rotom-Fan", "pokedexId": 10011 },
+        { "name": "Jolteon", "pokedexId": 135 },
+        { "name": "Electrode", "pokedexId": 101 }
+      ]
+    },
+    {
+      "id": "cilan_pwt",
+      "name": "Cilan",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cilan.png",
+      "team": [
+        { "name": "Simisage", "pokedexId": 512 },
+        { "name": "Ferrothorn", "pokedexId": 598 },
+        { "name": "Serperior", "pokedexId": 497 },
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Whimsicott", "pokedexId": 547 },
+        { "name": "Lilligant", "pokedexId": 549 }
+      ]
+    },
+    {
+      "id": "chili_pwt",
+      "name": "Chili",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/chili.png",
+      "team": [
+        { "name": "Simisear", "pokedexId": 514 },
+        { "name": "Heatmor", "pokedexId": 631 },
+        { "name": "Darmanitan", "pokedexId": 555 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Emboar", "pokedexId": 500 }
+      ]
+    },
+    {
+      "id": "cress_pwt",
+      "name": "Cress",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cress.png",
+      "team": [
+        { "name": "Simipour", "pokedexId": 516 },
+        { "name": "Crawdaunt", "pokedexId": 342 },
+        { "name": "Samurott", "pokedexId": 503 },
+        { "name": "Azumarill", "pokedexId": 184 },
+        { "name": "Slowking", "pokedexId": 199 },
+        { "name": "Seismitoad", "pokedexId": 537 }
+      ]
+    },
+    {
+      "id": "lenora_pwt",
+      "name": "Lenora",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/lenora.png",
+      "team": [
+        { "name": "Watchog", "pokedexId": 505 },
+        { "name": "Braviary", "pokedexId": 628 },
+        { "name": "Cinccino", "pokedexId": 573 },
+        { "name": "Kangaskhan", "pokedexId": 115 },
+        { "name": "Sawsbuck", "pokedexId": 586 },
+        { "name": "Lickilicky", "pokedexId": 463 }
+      ]
+    },
+    {
+      "id": "burgh_pwt",
+      "name": "Burgh",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/burgh_b2w2.png",
+      "team": [
+        { "name": "Leavanny", "pokedexId": 542 },
+        { "name": "Vespiquen", "pokedexId": 416 },
+        { "name": "Crustle", "pokedexId": 558 },
+        { "name": "Heracross", "pokedexId": 214 },
+        { "name": "Accelgor", "pokedexId": 617 },
+        { "name": "Durant", "pokedexId": 632 }
+      ]
+    },
+    {
+      "id": "elesa_pwt",
+      "name": "Elesa",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/elesa_b2w2.png",
+      "team": [
+        { "name": "Zebstrika", "pokedexId": 523 },
+        { "name": "Ampharos", "pokedexId": 181 },
+        { "name": "Luxray", "pokedexId": 405 },
+        { "name": "Emolga", "pokedexId": 587 },
+        { "name": "Eelektross", "pokedexId": 604 },
+        { "name": "Stunfisk", "pokedexId": 618 }
+      ]
+    },
+    {
+      "id": "clay_pwt",
+      "name": "Clay",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/clay.png",
+      "team": [
+        { "name": "Excadrill", "pokedexId": 530 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Seismitoad", "pokedexId": 537 },
+        { "name": "Mamoswine", "pokedexId": 473 },
+        { "name": "Golurk", "pokedexId": 623 }
+      ]
+    },
+    {
+      "id": "skyla_pwt",
+      "name": "Skyla",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/skyla.png",
+      "team": [
+        { "name": "Swanna", "pokedexId": 581 },
+        { "name": "Jumpluff", "pokedexId": 189 },
+        { "name": "Drifblim", "pokedexId": 426 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Braviary", "pokedexId": 628 },
+        { "name": "Mandibuzz", "pokedexId": 630 }
+      ]
+    },
+    {
+      "id": "brycen_pwt",
+      "name": "Brycen",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/brycen.png",
+      "team": [
+        { "name": "Cryogonal", "pokedexId": 615 },
+        { "name": "Beartic", "pokedexId": 614 },
+        { "name": "Vanilluxe", "pokedexId": 584 },
+        { "name": "Weavile", "pokedexId": 461 },
+        { "name": "Dewgong", "pokedexId": 87 },
+        { "name": "Walrein", "pokedexId": 365 }
+      ]
+    },
+    {
+      "id": "drayden_pwt",
+      "name": "Drayden",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/drayden_b2w2.png",
+      "team": [
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Hydreigon", "pokedexId": 635 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Altaria", "pokedexId": 334 },
+        { "name": "Salamence", "pokedexId": 373 }
+      ]
+    },
+    {
+      "id": "cheren_pwt",
+      "name": "Cheren",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/cheren.png",
+      "team": [
+        { "name": "Stoutland", "pokedexId": 508 },
+        { "name": "Porygon-Z", "pokedexId": 474 },
+        { "name": "Cinccino", "pokedexId": 573 },
+        { "name": "Lickilicky", "pokedexId": 463 },
+        { "name": "Castform", "pokedexId": 351 },
+        { "name": "Bouffalant", "pokedexId": 626 }
+      ]
+    },
+    {
+      "id": "roxie_pwt",
+      "name": "Roxie",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/roxie.png",
+      "team": [
+        { "name": "Scolipede", "pokedexId": 545 },
+        { "name": "Toxicroak", "pokedexId": 454 },
+        { "name": "Garbodor", "pokedexId": 569 },
+        { "name": "Crobat", "pokedexId": 169 },
+        { "name": "Drapion", "pokedexId": 452 },
+        { "name": "Amoonguss", "pokedexId": 591 }
+      ]
+    },
+    {
+      "id": "marlon_pwt",
+      "name": "Marlon",
+      "game": "PWT World Leaders Tournament",
+      "difficulty": "medium",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/marlon.png",
+      "team": [
+        { "name": "Jellicent", "pokedexId": 593 },
+        { "name": "Carracosta", "pokedexId": 565 },
+        { "name": "Starmie", "pokedexId": 121 },
+        { "name": "Quagsire", "pokedexId": 195 },
+        { "name": "Cloyster", "pokedexId": 91 },
+        { "name": "Wailord", "pokedexId": 321 }
+      ]
+    },
+    {
+      "id": "red_pwt",
+      "name": "Red",
+      "game": "PWT Champions Tournament",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/red_pwt.png",
+      "team": [
+        { "name": "Pikachu", "pokedexId": 25 },
+        { "name": "Venusaur", "pokedexId": 3 },
+        { "name": "Charizard", "pokedexId": 6 },
+        { "name": "Blastoise", "pokedexId": 9 },
+        { "name": "Snorlax", "pokedexId": 143 },
+        { "name": "Lapras", "pokedexId": 131 }
+      ]
+    },
+    {
+      "id": "blue_pwt",
+      "name": "Blue",
+      "game": "PWT Champions Tournament",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/blue_pwt.png",
+      "team": [
+        { "name": "Aerodactyl", "pokedexId": 142 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Gyarados", "pokedexId": 130 },
+        { "name": "Alakazam", "pokedexId": 65 },
+        { "name": "Arcanine", "pokedexId": 59 },
+        { "name": "Machamp", "pokedexId": 68 }
+      ]
+    },
+    {
+      "id": "lance_pwt",
+      "name": "Lance",
+      "game": "PWT Champions Tournament",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/lance_pwt.png",
+      "team": [
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Salamence", "pokedexId": 373 },
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Hydreigon", "pokedexId": 635 },
+        { "name": "Flygon", "pokedexId": 330 }
+      ]
+    },
+    {
+      "id": "steven_pwt",
+      "name": "Steven",
+      "game": "PWT Champions Tournament",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/steven_pwt.png",
+      "team": [
+        { "name": "Metagross", "pokedexId": 376 },
+        { "name": "Aggron", "pokedexId": 306 },
+        { "name": "Excadrill", "pokedexId": 530 },
+        { "name": "Archeops", "pokedexId": 567 },
+        { "name": "Cradily", "pokedexId": 346 },
+        { "name": "Armaldo", "pokedexId": 348 }
+      ]
+    },
+    {
+      "id": "wallace_pwt",
+      "name": "Wallace",
+      "game": "PWT Champions Tournament",
+      "difficulty": "medium",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/wallace_pwt.png",
+      "team": [
+        { "name": "Milotic", "pokedexId": 350 },
+        { "name": "Sharpedo", "pokedexId": 319 },
+        { "name": "Walrein", "pokedexId": 365 },
+        { "name": "Ludicolo", "pokedexId": 272 },
+        { "name": "Swampert", "pokedexId": 260 },
+        { "name": "Starmie", "pokedexId": 121 }
+      ]
+    },
+    {
+      "id": "cynthia_pwt",
+      "name": "Cynthia",
+      "game": "PWT Champions Tournament",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/pwt_trainers/cynthia_pwt.png",
+      "team": [
+        { "name": "Garchomp", "pokedexId": 445 },
+        { "name": "Spiritomb", "pokedexId": 442 },
+        { "name": "Roserade", "pokedexId": 407 },
+        { "name": "Togekiss", "pokedexId": 468 },
+        { "name": "Lucario", "pokedexId": 448 },
+        { "name": "Glaceon", "pokedexId": 471 }
+      ]
+    },
+    {
+      "id": "alder_pwt",
+      "name": "Alder",
+      "game": "PWT Champions Tournament",
+      "difficulty": "easy",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/alder.png",
+      "team": [
+        { "name": "Volcarona", "pokedexId": 637 },
+        { "name": "Conkeldurr", "pokedexId": 534 },
+        { "name": "Reuniclus", "pokedexId": 579 },
+        { "name": "Krookodile", "pokedexId": 553 },
+        { "name": "Chandelure", "pokedexId": 609 },
+        { "name": "Braviary", "pokedexId": 628 }
+      ]
+    }
   ]
 }

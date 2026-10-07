@@ -20,7 +20,7 @@ export function medalStage(count) {
   return STAGE_STARTS.findLastIndex(start => count >= start) + 1
 }
 
-// Main-series games by generation. Colosseum, XD, Battle Revolution, rom hacks, rematches and Challenge Mode have none.
+// Main-series games by generation. Colosseum, XD, Battle Revolution, rom hacks, rematches, PWT and Challenge Mode have none.
 const GEN_GAMES = [
   ['Red/Blue'],
   ['Gold/Silver'],

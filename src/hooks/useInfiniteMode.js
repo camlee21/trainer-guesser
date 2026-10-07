@@ -10,6 +10,7 @@ const EXTRAS_META = {
   romHacks: { key: 'romHacks', label: 'Rom Hacks', dataKey: 'hack-trainers' },
   challengeMode: { key: 'challengeMode', label: 'B2W2 Challenge Mode', dataKey: 'challenge-trainers' },
   rematches: { key: 'rematches', label: 'Rematches', dataKey: 'rematch-trainers' },
+  pwt: { key: 'pwt', label: 'B2W2 World Tournament', dataKey: 'pwt_trainers' },
 }
 
 function pickRandom(pool, excludeId = null) {
