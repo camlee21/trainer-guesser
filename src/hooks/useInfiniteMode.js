@@ -13,10 +13,15 @@ const EXTRAS_META = {
   pwt: { key: 'pwt', label: 'B2W2 World Tournament', dataKey: 'pwt_trainers' },
 }
 
-function pickRandom(pool, excludeId = null) {
-  const filtered = excludeId ? pool.filter(t => t.id !== excludeId) : pool
-  if (filtered.length === 0) return pool[Math.floor(Math.random() * pool.length)]
-  return filtered[Math.floor(Math.random() * filtered.length)]
+// Fisher-Yates. `avoidFirstId` stops a reshuffled list from repeating the trainer just played.
+function shuffle(pool, avoidFirstId = null) {
+  const list = [...pool]
+  for (let i = list.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[list[i], list[j]] = [list[j], list[i]]
+  }
+  if (list.length > 1 && list[0].id === avoidFirstId) [list[0], list[1]] = [list[1], list[0]]
+  return list
 }
 
 function scoreForRound(guesses, gameOver) {
@@ -39,7 +44,13 @@ export function useInfiniteMode() {
     lastSettings = { games: selectedGames, difficulties: selectedDifficulties, extras: enabledExtras }
   }, [selectedGames, selectedDifficulties, enabledExtras])
   const [rounds, setRounds] = useState([])
-  const [currentTrainer, setCurrentTrainer] = useState(() => pickRandom(trainers.trainers))
+  const [currentTrainer, setCurrentTrainer] = useState(() => shuffle(trainers.trainers)[0])
+  // The session walks a shuffled copy of the pool so every trainer comes up once before any repeat,
+  // then reshuffles. `poolCompletion` marks the first time the whole pool was played.
+  const queueRef = useRef([])
+  const queueIndexRef = useRef(0)
+  const roundEndedAtRef = useRef(0)
+  const [poolCompletion, setPoolCompletion] = useState(null)
   const [currentGuesses, setCurrentGuesses] = useState([])
   const [currentHints, setCurrentHints] = useState(0)
   const [currentGameOver, setCurrentGameOver] = useState(false)
@@ -99,8 +110,10 @@ export function useInfiniteMode() {
 
   const resetGame = useCallback(() => {
     const pool = activePool.length > 0 ? activePool : trainers.trainers
-    const next = pickRandom(pool)
-    setCurrentTrainer(next)
+    queueRef.current = shuffle(pool)
+    queueIndexRef.current = 0
+    setCurrentTrainer(queueRef.current[0])
+    setPoolCompletion(null)
     setRounds([])
     setCurrentGuesses([])
     setCurrentHints(0)
@@ -157,25 +170,27 @@ export function useInfiniteMode() {
     })
   }
 
+  function endRound(result) {
+    setCurrentGameOver(result)
+    setFinalRoundElapsedSeconds(roundElapsedSeconds)
+    roundEndedAtRef.current = totalElapsedSeconds
+  }
+
   function handleGuess(selected) {
     const isCorrect = selected.id === currentTrainer.id
     const newGuesses = [...currentGuesses, { ...selected, correct: isCorrect }]
     setCurrentGuesses(newGuesses)
 
     if (isCorrect) {
-      setCurrentGameOver('won')
       setCurrentHints(5)
-      setFinalRoundElapsedSeconds(roundElapsedSeconds)
+      endRound('won')
       return
     }
 
     const newHints = newGuesses.length
     setCurrentHints(newHints)
 
-    if (newGuesses.length >= MAX_GUESSES) {
-      setCurrentGameOver('lost')
-      setFinalRoundElapsedSeconds(roundElapsedSeconds)
-    }
+    if (newGuesses.length >= MAX_GUESSES) endRound('lost')
   }
 
   function handlePass() {
@@ -183,10 +198,7 @@ export function useInfiniteMode() {
     setCurrentGuesses(newGuesses)
     const newHints = newGuesses.length
     setCurrentHints(newHints)
-    if (newGuesses.length >= MAX_GUESSES) {
-      setCurrentGameOver('lost')
-      setFinalRoundElapsedSeconds(roundElapsedSeconds)
-    }
+    if (newGuesses.length >= MAX_GUESSES) endRound('lost')
   }
 
   const advanceRound = useCallback(() => {
@@ -201,9 +213,15 @@ export function useInfiniteMode() {
       elapsedSeconds: finalRoundElapsedSeconds ?? roundElapsedSeconds,
     }])
 
+    queueIndexRef.current++
+    if (queueIndexRef.current >= queueRef.current.length) {
+      if (!poolCompletion) setPoolCompletion({ afterRound: rounds.length + 1, seconds: roundEndedAtRef.current })
+      queueRef.current = shuffle(queueRef.current, currentTrainer.id)
+      queueIndexRef.current = 0
+    }
+    const next = queueRef.current[queueIndexRef.current]
+
     setTimeout(() => {
-      const pool = activePool.length > 0 ? activePool : trainers.trainers
-      const next = pickRandom(pool, currentTrainer.id)
       setCurrentTrainer(next)
       setCurrentGuesses([])
       setCurrentHints(0)
@@ -212,7 +230,7 @@ export function useInfiniteMode() {
       setRoundElapsedSeconds(0)
       setFinalRoundElapsedSeconds(null)
     }, 400)
-  }, [currentTrainer, currentGuesses, currentGameOver, currentHints, activePool, isTransitioning, roundElapsedSeconds, finalRoundElapsedSeconds])
+  }, [currentTrainer, currentGuesses, currentGameOver, currentHints, isTransitioning, roundElapsedSeconds, finalRoundElapsedSeconds, poolCompletion, rounds.length])
 
   return {
     allGames: ALL_GAMES,
@@ -228,6 +246,7 @@ export function useInfiniteMode() {
     toggleExtra,
     EXTRAS_META,
     rounds,
+    poolCompletion,
     currentTrainer,
     currentGuesses,
     currentHints,

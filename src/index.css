@@ -3751,3 +3751,29 @@ img {
     gap: 6px;
   }
 }
+
+/* ── Infinite: marks the first time every trainer in the pool has come up ── */
+.pool-complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: -16px 0 24px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pool-complete::before,
+.pool-complete::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--accent-border);
+}
+
+.pool-complete-time {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}

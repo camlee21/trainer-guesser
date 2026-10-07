@@ -1,5 +1,5 @@
 
-import { useState, useRef, useEffect } from 'react'
+import { Fragment, useState, useRef, useEffect } from 'react'
 import TeamGrid from '../components/TeamGrid'
 import GuessInput from '../components/GuessInput'
 import ShareButtons from '../components/ShareButtons'
@@ -576,7 +576,7 @@ function InfiniteMode({ onResetSession }) {
     allGames, selectedGames, setSelectedGames, selectAllGames, activePool,
     selectedDifficulties, toggleDifficulty, selectAllDifficulties,
     enabledExtras, toggleExtra, EXTRAS_META,
-    rounds,
+    rounds, poolCompletion,
     currentTrainer, currentGuesses, currentHints, currentGameOver, isTransitioning,
     handleGuess, handlePass, advanceRound, resetGame,
     MAX_GUESSES,
@@ -699,7 +699,14 @@ function InfiniteMode({ onResetSession }) {
       <div className="inf-layout-with-score">
         <div className="inf-scroll" ref={scrollRef}>
           {rounds.map((round, i) => (
-            <CompletedRound key={i} round={round} scoreForRound={scoreForRound} MAX_GUESSES={MAX_GUESSES} />
+            <Fragment key={i}>
+              <CompletedRound round={round} scoreForRound={scoreForRound} MAX_GUESSES={MAX_GUESSES} />
+              {poolCompletion?.afterRound === i + 1 && (
+                <div className="pool-complete" role="status">
+                  All trainers in this pool completed! <span className="pool-complete-time">{formatTime(poolCompletion.seconds)}</span>
+                </div>
+              )}
+            </Fragment>
           ))}
 
           <div

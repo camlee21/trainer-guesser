@@ -52,6 +52,8 @@ export const MEDAL_IDS = {
 }
 
 const GEN_TIERS = [['Trainer', 3], ['Ace Trainer', 7], ['Champion', 12]]
+// Gen Expert needs a pool this big, so a one-game pick like just Colosseum can't farm it
+const GEN_EXPERT_MIN_POOL = 10
 
 export const MEDALS = [
   { id: 1, mode: 'daily', name: 'Down to the Wire', description: 'Guess correctly on your 5th and final guess', target: 1, progress: s => s.daily.lastGuessWins },
@@ -99,7 +101,7 @@ export const MEDALS = [
     id: 48 + gen,
     mode: 'infinite',
     name: `Gen ${gen} Expert`,
-    description: `20 correct guesses in one session with only Gen ${gen} games selected (no extras)`,
+    description: `20 correct guesses in one session with only Gen ${gen} games selected (no extras, at least ${GEN_EXPERT_MIN_POOL} trainers in the pool)`,
     target: 20,
   })),
 
@@ -205,6 +207,8 @@ export function infiniteSessionProgress(log, { games, difficulties, extras }) {
   // Infinite's game select files spin-offs under their gen (Colosseum/XD in Gen 3, Battle Revolution in Gen 4), so those buttons still count as one gen
   const selectGen = game => genOf(game) ?? SPINOFF_GEN.get(game) ?? null
   const onlyGen = extras.size === 0 && games.size > 0 && new Set([...games].map(selectGen)).size === 1 ? selectGen([...games][0]) : null
+  const poolSize = trainerData.trainers.filter(t => games.has(t.game) && difficulties.has(t.difficulty)).length
+  const genExpert = poolSize >= GEN_EXPERT_MIN_POOL ? onlyGen : null
   const hardOnly = difficulties.size === 1 && difficulties.has('hard')
   const romHacksOnly = games.size === 0 && extras.size === 1 && extras.has('romHacks')
 
@@ -214,7 +218,7 @@ export function infiniteSessionProgress(log, { games, difficulties, extras }) {
     45: score, 46: score,
     47: challengeBeaten.size,
     48: rematches,
-    ...Object.fromEntries(GENS.map(gen => [48 + gen, onlyGen === gen ? wins : 0])),
+    ...Object.fromEntries(GENS.map(gen => [48 + gen, genExpert === gen ? wins : 0])),
     58: lightning,
     59: hardOnly ? bestStreak : 0,
     60: romHacksOnly ? bestStreak : 0,
