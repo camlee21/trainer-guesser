@@ -345,7 +345,7 @@ const GEN_MAP = {
   'Gen 1': ['Red/Blue'],
   'Gen 2': ['Gold/Silver'],
   'Gen 3': ['Ruby/Sapphire', 'Emerald', 'Colosseum', 'XD: Gale of Darkness'],
-  'Gen 4': ['HeartGold/SoulSilver', 'Platinum'],
+  'Gen 4': ['HeartGold/SoulSilver', 'Platinum', 'Battle Revolution'],
   'Gen 5': ['Black/White', 'Black2/White2'],
   'Gen 6': ['X/Y', 'Omega Ruby/Alpha Sapphire'],
   'Gen 7': ['Sun/Moon', 'Ultra Sun/Ultra Moon'],

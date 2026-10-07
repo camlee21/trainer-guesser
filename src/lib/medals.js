@@ -20,7 +20,7 @@ export function medalStage(count) {
   return STAGE_STARTS.findLastIndex(start => count >= start) + 1
 }
 
-// Main-series games by generation. Colosseum, XD, rom hacks, rematches and Challenge Mode have none.
+// Main-series games by generation. Colosseum, XD, Battle Revolution, rom hacks, rematches and Challenge Mode have none.
 const GEN_GAMES = [
   ['Red/Blue'],
   ['Gold/Silver'],
@@ -35,7 +35,7 @@ const GEN_GAMES = [
 const GEN_BY_GAME = new Map(GEN_GAMES.flatMap((games, i) => games.map(game => [game, i + 1])))
 const GENS = GEN_GAMES.map((_, i) => i + 1)
 
-const GEN3_SPINOFFS = new Set(['Colosseum', 'XD: Gale of Darkness'])
+const SPINOFF_GEN = new Map([['Colosseum', 3], ['XD: Gale of Darkness', 3], ['Battle Revolution', 4]])
 
 function genOf(game) {
   return GEN_BY_GAME.get(game) ?? null
@@ -202,8 +202,8 @@ export function infiniteSessionProgress(log, { games, difficulties, extras }) {
     if (round.totalSeconds <= 120) winsInTwoMinutes++
   }
 
-  // Infinite's game select files Colosseum and XD under Gen 3, so its Gen 3 button still counts as Gen 3 only
-  const selectGen = game => genOf(game) ?? (GEN3_SPINOFFS.has(game) ? 3 : null)
+  // Infinite's game select files spin-offs under their gen (Colosseum/XD in Gen 3, Battle Revolution in Gen 4), so those buttons still count as one gen
+  const selectGen = game => genOf(game) ?? SPINOFF_GEN.get(game) ?? null
   const onlyGen = extras.size === 0 && games.size > 0 && new Set([...games].map(selectGen)).size === 1 ? selectGen([...games][0]) : null
   const hardOnly = difficulties.size === 1 && difficulties.has('hard')
   const romHacksOnly = games.size === 0 && extras.size === 1 && extras.has('romHacks')

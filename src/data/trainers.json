@@ -936,6 +936,70 @@
       ]
     },
     {
+      "id": "joe",
+      "name": "Joe",
+      "game": "Battle Revolution",
+      "difficulty": "hard",
+      "type": "colosseum_master",
+      "trainerSpriteUrl": "/sprites/trainers/joe.png",
+      "team": [
+        { "name": "Spinda", "pokedexId": 327 },
+        { "name": "Drifloon", "pokedexId": 425 },
+        { "name": "Mudkip", "pokedexId": 258 },
+        { "name": "Torchic", "pokedexId": 255 },
+        { "name": "Treecko", "pokedexId": 252 },
+        { "name": "Delibird", "pokedexId": 225 }
+      ]
+    },
+    {
+      "id": "sashay",
+      "name": "Sashay",
+      "game": "Battle Revolution",
+      "difficulty": "hard",
+      "type": "colosseum_master",
+      "trainerSpriteUrl": "/sprites/trainers/sashay.png",
+      "team": [
+        { "name": "Plusle", "pokedexId": 311 },
+        { "name": "Minun", "pokedexId": 312 },
+        { "name": "Castform", "pokedexId": 351 },
+        { "name": "Cherrim", "pokedexId": 421 },
+        { "name": "Lopunny", "pokedexId": 428 },
+        { "name": "Shuckle", "pokedexId": 213 }
+      ]
+    },
+    {
+      "id": "mysterial",
+      "name": "Mysterial",
+      "game": "Battle Revolution",
+      "difficulty": "hard",
+      "type": "colosseum_master",
+      "trainerSpriteUrl": "/sprites/trainers/mysterial.png",
+      "team": [
+        { "name": "Golbat", "pokedexId": 42 },
+        { "name": "Dragonair", "pokedexId": 148 },
+        { "name": "Whiscash", "pokedexId": 340 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Kingler", "pokedexId": 99 },
+        { "name": "Chansey", "pokedexId": 113 }
+      ]
+    },
+    {
+      "id": "kruger",
+      "name": "Kruger",
+      "game": "Battle Revolution",
+      "difficulty": "hard",
+      "type": "colosseum_master",
+      "trainerSpriteUrl": "/sprites/trainers/kruger.png",
+      "team": [
+        { "name": "Gligar", "pokedexId": 207 },
+        { "name": "Pupitar", "pokedexId": 247 },
+        { "name": "Victreebel", "pokedexId": 71 },
+        { "name": "Gabite", "pokedexId": 444 },
+        { "name": "Swalot", "pokedexId": 317 },
+        { "name": "Hitmontop", "pokedexId": 237 }
+      ]
+    },
+    {
       "id": "chili",
       "name": "Chili",
       "game": "Black/White",
@@ -1046,6 +1110,19 @@
         { "name": "Vanillish", "pokedexId": 583 },
         { "name": "Cryogonal", "pokedexId": 615 },
         { "name": "Beartic", "pokedexId": 614 }
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "game": "Black/White",
+      "difficulty": "easy",
+      "type": "gym_leader",
+      "trainerSpriteUrl": "/sprites/trainers/iris.png",
+      "team": [
+        { "name": "Fraxure", "pokedexId": 611 },
+        { "name": "Druddigon", "pokedexId": 621 },
+        { "name": "Haxorus", "pokedexId": 612 }
       ]
     },
     {
@@ -1291,7 +1368,7 @@
       "name": "Shauntal",
       "game": "Black2/White2",
       "difficulty": "easy",
-      "type": "gym_leader",
+      "type": "elite_four",
       "trainerSpriteUrl": "/sprites/trainers/shauntal.png",
       "team": [
         { "name": "Cofagrigus", "pokedexId": 563 },
@@ -2077,6 +2154,22 @@
       ]
     },
     {
+      "id": "hop",
+      "name": "Hop",
+      "game": "Sword/Shield",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/hop.png",
+      "team": [
+        { "name": "Dubwool", "pokedexId": 832 },
+        { "name": "Corviknight", "pokedexId": 823 },
+        { "name": "Pincurchin", "pokedexId": 871 },
+        { "name": "Snorlax", "pokedexId": 143 },
+        { "name": "Cramorant", "pokedexId": 845 },
+        { "name": "Inteleon", "pokedexId": 818 }
+      ]
+    },
+    {
       "id": "volo",
       "name": "Volo",
       "game": "Legends Arceus",
@@ -2428,6 +2521,22 @@
       ]
     },
     {
+      "id": "arven",
+      "name": "Arven",
+      "game": "Scarlet/Violet",
+      "difficulty": "easy",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/arven.png",
+      "team": [
+        { "name": "Greedent", "pokedexId": 820 },
+        { "name": "Cloyster", "pokedexId": 91 },
+        { "name": "Scovillain", "pokedexId": 952 },
+        { "name": "Toedscruel", "pokedexId": 949 },
+        { "name": "Garganacl", "pokedexId": 934 },
+        { "name": "Mobosstiff", "pokedexId": 943 }
+      ]
+    },
+    {
       "id": "turo",
       "name": "Professor Turo",
       "game": "Violet",
@@ -2473,6 +2582,101 @@
         { "name": "Dusknoir", "pokedexId": 477 },
         { "name": "Pawmot", "pokedexId": 923 },
         { "name": "Skeledirge", "pokedexId": 911 }
+      ]
+    },
+    {
+      "id": "amarys",
+      "name": "Amarys",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/amarys.png",
+      "team": [
+        { "name": "Skarmory", "pokedexId": 227 },
+        { "name": "Dugtrio", "pokedexId": 51 },
+        { "name": "Scizor", "pokedexId": 212 },
+        { "name": "Reuniclus", "pokedexId": 579 },
+        { "name": "Empoleon", "pokedexId": 395 },
+        { "name": "Metagross", "pokedexId": 376 }
+      ]
+    },
+    {
+      "id": "crispin",
+      "name": "Crispin",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/crispin.png",
+      "team": [
+        { "name": "Rotom-Heat", "pokedexId": 10008 },
+        { "name": "Talonflame", "pokedexId": 663 },
+        { "name": "Exeggutor", "pokedexId": 103 },
+        { "name": "Camerupt", "pokedexId": 323 },
+        { "name": "Magmortar", "pokedexId": 467 },
+        { "name": "Blaziken", "pokedexId": 257 }
+      ]
+    },
+    {
+      "id": "drayton",
+      "name": "Drayton",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/drayton.png",
+      "team": [
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Flygon", "pokedexId": 330 },
+        { "name": "Haxorus", "pokedexId": 612 },
+        { "name": "Sceptile", "pokedexId": 254 },
+        { "name": "Kingdra", "pokedexId": 230 },
+        { "name": "Archaludon", "pokedexId": 1018 }
+      ]
+    },
+    {
+      "id": "lacey",
+      "name": "Lacey",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "elite_four",
+      "trainerSpriteUrl": "/sprites/trainers/lacey.png",
+      "team": [
+        { "name": "Whimsicott", "pokedexId": 547 },
+        { "name": "Granbull", "pokedexId": 210 },
+        { "name": "Primarina", "pokedexId": 730 },
+        { "name": "Galarian-Slowbro", "pokedexId": 10165 },
+        { "name": "Alcremie", "pokedexId": 86901 },
+        { "name": "Excadrill", "pokedexId": 530 }
+      ]
+    },
+    {
+      "id": "kieran",
+      "name": "Kieran",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/kieran.png",
+      "team": [
+        { "name": "Politoed", "pokedexId": 186 },
+        { "name": "Dragonite", "pokedexId": 149 },
+        { "name": "Grimmsnarl", "pokedexId": 861 },
+        { "name": "Porygon-Z", "pokedexId": 474 },
+        { "name": "Incineroar", "pokedexId": 727 },
+        { "name": "Hydrapple", "pokedexId": 1019 }
+      ]
+    },
+    {
+      "id": "carmine",
+      "name": "Carmine",
+      "game": "Scarlet/Violet",
+      "difficulty": "hard",
+      "type": "champion",
+      "trainerSpriteUrl": "/sprites/trainers/carmine.png",
+      "team": [
+        { "name": "Mightyena", "pokedexId": 262 },
+        { "name": "Morpeko", "pokedexId": 877 },
+        { "name": "Leavanny", "pokedexId": 542 },
+        { "name": "Ninetales", "pokedexId": 38 },
+        { "name": "Sinistcha", "pokedexId": 1013 }
       ]
     },
     {
@@ -2710,6 +2914,19 @@
         { "name": "Sneasel", "pokedexId": 215 },
         { "name": "Alakazam", "pokedexId": 65 },
         { "name": "Feraligatr", "pokedexId": 160 }
+      ]
+    },
+    {
+      "id": "eusine",
+      "name": "Eusine",
+      "game": "HeartGold/SoulSilver",
+      "difficulty": "hard",
+      "type": "rival",
+      "trainerSpriteUrl": "/sprites/trainers/eusine.png",
+      "team": [
+        { "name": "Drowzee", "pokedexId": 96 },
+        { "name": "Haunter", "pokedexId": 93 },
+        { "name": "Electrode", "pokedexId": 101 }
       ]
     },
     {
