@@ -90,6 +90,18 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--red', red)
   root.style.setProperty('--red-text', readableTextOn(red))
+  root.style.setProperty('--green-text', readableTextOn(green))
+
+  // Solid surfaces for the flat UI: cards a step off the page, wells a step into it, and the darker
+  // "lip" under pressable keys. Dark themes lift towards white; light themes use white cards on the page.
+  const page = `rgb(${r},${g},${b})`
+  const mix = (color, pct) => `color-mix(in srgb, ${color} ${pct}%, ${page})`
+  root.style.setProperty('--surface', dark ? mix('#ffffff', 6) : '#ffffff')
+  root.style.setProperty('--surface-2', dark ? mix('#ffffff', 11) : mix('#ffffff', 55))
+  root.style.setProperty('--sunken', dark ? mix('#000000', 22) : mix('#000000', 4))
+  root.style.setProperty('--line', dark ? mix('#ffffff', 15) : mix(text, 13))
+  root.style.setProperty('--line-strong', dark ? mix('#ffffff', 26) : mix(text, 24))
+  root.style.setProperty('--lip', dark ? mix('#000000', 45) : mix(text, 22))
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
 
   // Status badge tints are solid, so they read the same over the page, a panel or the background gradient.

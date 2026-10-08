@@ -194,22 +194,13 @@ export default function Stats() {
           </div>
 
           <div style={{ display: 'flex', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--panel-border)', flexShrink: 0 }}>
+            <div className="stats-field-switch">
               {['trainer', 'day', 'game', 'date'].map(field => (
                 <button
                   key={field}
                   onClick={() => { setSearchField(field); setSearch('') }}
-                  style={{
-                    padding: '8px 14px',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    fontFamily: 'inherit',
-                    border: 'none',
-                    cursor: 'pointer',
-                    background: searchField === field ? 'var(--accent)' : 'var(--chrome-bg)',
-                    color: searchField === field ? 'var(--accent-text)' : 'var(--text-dim)',
-                    transition: 'background 0.15s, color 0.15s',
-                  }}
+                  aria-pressed={searchField === field}
+                  className={searchField === field ? 'active' : ''}
                 >
                   {field.charAt(0).toUpperCase() + field.slice(1)}
                 </button>
