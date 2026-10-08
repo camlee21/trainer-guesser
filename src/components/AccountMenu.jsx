@@ -8,6 +8,9 @@ export default function AccountMenu({ user, onSignOut }) {
 
   const fullName = user.user_metadata?.full_name
   const firstName = fullName?.split(' ')[0] ?? user.email.split('@')[0]
+  // Google profile picture; the coloured initial stands in if there isn't one or it fails to load
+  const avatarUrl = user.user_metadata?.avatar_url ?? user.user_metadata?.picture
+  const [avatarFailed, setAvatarFailed] = useState(false)
 
   useEffect(() => {
     if (!open) return
@@ -38,7 +41,12 @@ export default function AccountMenu({ user, onSignOut }) {
         aria-label={`Account: ${firstName}`}
         onClick={() => setOpen(o => !o)}
       >
-        <span className="account-initial" aria-hidden="true">{firstName.charAt(0).toUpperCase()}</span>
+        {avatarUrl && !avatarFailed ? (
+          // no-referrer: Google isn't told which page it's on, and its image server refuses some referred requests
+          <img className="account-initial" src={avatarUrl} alt="" referrerPolicy="no-referrer" onError={() => setAvatarFailed(true)} />
+        ) : (
+          <span className="account-initial" aria-hidden="true">{firstName.charAt(0).toUpperCase()}</span>
+        )}
         <span className="topbar-btn-label account-name">{firstName}</span>
         <svg className="account-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M6 9l6 6 6-6" />

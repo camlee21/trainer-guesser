@@ -396,6 +396,11 @@ button.is-armed:hover {
   font-weight: 800;
 }
 
+img.account-initial {
+  object-fit: cover;
+  background: var(--sunken);
+}
+
 .account-name {
   max-width: 120px;
   overflow: hidden;
@@ -3403,12 +3408,30 @@ button.is-armed:hover {
   padding: 4px 0 16px;
 }
 
+/* Sits on the same rule as the home page's mode tabs, with the accent bar where the active tab's would be,
+   so every page reads banner → titled line → content */
 .static-page-title {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 4px 0 14px;
+  border-bottom: 2px solid var(--line);
   font-size: clamp(1.6rem, 4vw, 2.1rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
   text-align: center;
+}
+
+.static-page-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 96px;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--accent);
+  transform: translateX(-50%);
 }
 
 /* ~70 characters a line, so the longer paragraphs are comfortable to read */
