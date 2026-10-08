@@ -90,6 +90,18 @@ function applyBackground(hex, accentHex) {
   root.style.setProperty('--gold', gold)
   root.style.setProperty('--red', red)
   root.style.setProperty('--red-text', readableTextOn(red))
+  root.style.setProperty('--green-text', readableTextOn(green))
+
+  // Solid surfaces for the flat UI: cards a step off the page, wells a step into it, and the darker
+  // "lip" under pressable keys. Dark themes lift towards white; light themes use white cards on the page.
+  const page = `rgb(${r},${g},${b})`
+  const mix = (color, pct) => `color-mix(in srgb, ${color} ${pct}%, ${page})`
+  root.style.setProperty('--surface', dark ? mix('#ffffff', 6) : '#ffffff')
+  root.style.setProperty('--surface-2', dark ? mix('#ffffff', 11) : mix('#ffffff', 55))
+  root.style.setProperty('--sunken', dark ? mix('#000000', 22) : mix('#000000', 4))
+  root.style.setProperty('--line', dark ? mix('#ffffff', 15) : mix(text, 13))
+  root.style.setProperty('--line-strong', dark ? mix('#ffffff', 26) : mix(text, 24))
+  root.style.setProperty('--lip', dark ? mix('#000000', 45) : mix(text, 22))
   root.style.setProperty('--suggestions-bg', dark ? 'rgba(15,23,42,0.97)' : 'rgba(248,250,252,0.98)')
 
   // Status badge tints are solid, so they read the same over the page, a panel or the background gradient.
@@ -122,12 +134,12 @@ const DEFAULT_ACCENT = '#7ab8ff'
 // Every pairing keeps the accent clearly lighter/more saturated than its background for contrast.
 export const PRESETS = [
   { bg: '#16283f', accent: '#7ab8ff', label: 'Default' },
-  { bg: '#eef1f6', accent: '#3d63c9', label: 'Light' },
+  { bg: '#f4eff1', accent: '#b4306c', label: 'Pearl' },
   { bg: '#201f29', accent: '#f0b93d', label: 'Charcoal' },
-  { bg: '#0f2e63', accent: '#4fd1ff', label: 'Ocean' },
+  { bg: '#0b2a33', accent: '#3dd6c8', label: 'Mystic Water' },
   { bg: '#0b2f22', accent: '#34d399', label: 'Forest' },
-  { bg: '#4a1420', accent: '#ff8a3d', label: 'Crimson' },
-  { bg: '#3b2a12', accent: '#e0a458', label: 'Sepia' },
+  { bg: '#2c130b', accent: '#ff8b45', label: 'Fire Stone' },
+  { bg: '#32132a', accent: '#ff8fcb', label: 'Fairy' },
   { bg: '#22103f', accent: '#c084fc', label: 'Psychic' },
 ]
 

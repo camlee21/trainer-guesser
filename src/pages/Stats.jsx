@@ -124,9 +124,10 @@ export default function Stats() {
 
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingLeft: '1rem', listStyleType: 'disc' }}>
             <li>Record your guesses and results for every day's trainer</li>
-            <li>Build up streaks by attempting the trainer every day</li>
+            <li>Build up streaks by attempting the trainer and connections every day</li>
             <li>Track your total score and accuracy over time</li>
             <li>Search and filter through your full guess history</li>
+            <li>Earn medals for completing tasks and maintaining streaks</li>
             <li>Sync your progress across multiple devices</li>
           </ul>
         </div>
@@ -194,22 +195,13 @@ export default function Stats() {
           </div>
 
           <div style={{ display: 'flex', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--panel-border)', flexShrink: 0 }}>
+            <div className="stats-field-switch">
               {['trainer', 'day', 'game', 'date'].map(field => (
                 <button
                   key={field}
                   onClick={() => { setSearchField(field); setSearch('') }}
-                  style={{
-                    padding: '8px 14px',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    fontFamily: 'inherit',
-                    border: 'none',
-                    cursor: 'pointer',
-                    background: searchField === field ? 'var(--accent)' : 'var(--chrome-bg)',
-                    color: searchField === field ? 'var(--accent-text)' : 'var(--text-dim)',
-                    transition: 'background 0.15s, color 0.15s',
-                  }}
+                  aria-pressed={searchField === field}
+                  className={searchField === field ? 'active' : ''}
                 >
                   {field.charAt(0).toUpperCase() + field.slice(1)}
                 </button>

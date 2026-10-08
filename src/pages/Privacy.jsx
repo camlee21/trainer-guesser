@@ -5,7 +5,7 @@ export default function Privacy() {
 
       <div className="game-description" style={{ textAlign: 'left', maxWidth: '640px', margin: '0 auto' }}>
         <p style={{ marginBottom: '0.5rem', fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-          Last updated: September 2026
+          Last updated: October 2026
         </p>
 
         <Section title="Overview">
@@ -20,6 +20,7 @@ export default function Privacy() {
                 <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <li>• Your Google account display name</li>
                 <li>• Your Google account email address</li>
+                <li>• A link to your Google profile picture, shown only to you in the account menu (the image itself stays on Google's servers)</li>
                 <li>• A unique user ID assigned by our authentication provider</li>
                 </ul>
             </div>

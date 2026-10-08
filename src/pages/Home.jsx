@@ -61,6 +61,86 @@ function trainerAlt(hints, gameOver, trainer) {
   return hints >= 4 ? 'The mystery trainer' : "The mystery trainer's silhouette"
 }
 
+// Clues still to come stay on the board as locked rows, so the player can see what the next guess unlocks
+const CLUES = [
+  { at: 2, label: 'Game', value: t => t.game },
+  { at: 3, label: 'Type', value: t => toTitleCase(t.type) },
+]
+
+// The portrait, its difficulty and the written clues: the left column of every Daily and Infinite round
+function TrainerCard({ trainer, hints, gameOver, head = null, celebrate = true, children }) {
+  const showTrainer = hints >= 3
+  return (
+    <div className="trainer-panel">
+      <div className="trainer-card">
+        <div className="trainer-card-head">
+          {head}
+          <span className={`difficulty-badge ${trainer.difficulty}`} title="Difficulty">
+            {capitalise(trainer.difficulty)}
+          </span>
+        </div>
+        <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
+          {showTrainer ? (
+            <img
+              draggable="false"
+              src={trainer.trainerSpriteUrl}
+              alt={trainerAlt(hints, gameOver, trainer)}
+              className={`trainer-sprite ${celebrate && gameOver === 'won' ? 'trainer-sprite--celebrate' : ''}`}
+              style={{ filter: hints >= 4 ? 'none' : 'brightness(0) contrast(1)' }}
+            />
+          ) : (
+            <div className="trainer-placeholder" aria-hidden="true"><span>?</span></div>
+          )}
+        </div>
+      </div>
+      <dl className="trainer-info">
+        {CLUES.map(clue => {
+          const open = hints >= clue.at
+          return (
+            <div key={clue.label} className={`info-pill ${open ? '' : 'locked'}`}>
+              <dt>{clue.label}</dt>
+              <dd>{open ? clue.value(trainer) : `Unlocks after guess ${clue.at}`}</dd>
+            </div>
+          )
+        })}
+      </dl>
+      {children}
+    </div>
+  )
+}
+
+// One square per guess, filled in as they're used, like the rows of a Wordle board
+function GuessMeter({ guesses, max, showCount = false }) {
+  const left = max - guesses.length
+  return (
+    <div className="guess-meter">
+      <div className="daily-pips" role="img" aria-label={`${guesses.length} of ${max} guesses used`}>
+        {Array.from({ length: max }, (_, i) => {
+          const g = guesses[i]
+          const state = !g ? 'unused' : g.correct ? 'correct' : 'wrong'
+          return <span key={i} className={`daily-pip ${state}`} />
+        })}
+      </div>
+      {showCount && <span className="guess-meter-count">{left} guess{left !== 1 ? 'es' : ''} left</span>}
+    </div>
+  )
+}
+
+function GuessHistory({ guesses }) {
+  if (guesses.length === 0) return null
+  return (
+    <ol className="guess-history">
+      {guesses.map((g, i) => (
+        <li key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'} ${g.id === '__pass__' ? 'passed' : ''}`}>
+          <span className="guess-chip-num" aria-hidden="true">{i + 1}</span>
+          <span className="guess-chip-label">{g.label}</span>
+          <span className="guess-chip-mark">{g.correct ? '✓' : '✗'}</span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
 // The end of today's puzzle: who it was, how many guesses it took, and where to go next
 function DailyResult({ gameOver, guesses, trainer, maxGuesses, onPlayConnections }) {
   const won = gameOver === 'won'
@@ -71,13 +151,7 @@ function DailyResult({ gameOver, guesses, trainer, maxGuesses, onPlayConnections
     <div className={`daily-result ${gameOver}`}>
       <p className="daily-result-title">{title}</p>
       <p className="daily-result-name">It was <strong>{trainer.name}</strong> from {trainer.game}.</p>
-      <div className="daily-pips" role="img" aria-label={`${guesses.length} of ${maxGuesses} guesses used`}>
-        {Array.from({ length: maxGuesses }, (_, i) => {
-          const g = guesses[i]
-          const state = !g ? 'unused' : g.correct ? 'correct' : 'wrong'
-          return <span key={i} className={`daily-pip ${state}`} />
-        })}
-      </div>
+      <GuessMeter guesses={guesses} max={maxGuesses} />
       <div className="daily-result-actions">
         <ShareButtons primary gameOver={gameOver} guesses={guesses} dayNumber={trainer.dayNumber} />
         {onPlayConnections && (
@@ -155,9 +229,6 @@ function DailyMode({ onPlayConnections }) {
     }
   }
 
-  const trainerFilter = hintsRevealed >= 4 ? 'none' : 'brightness(0) contrast(1)'
-  const showTrainer = hintsRevealed >= 3
-
   // When the game ends (not when a finished game is reopened), make sure the result card is on screen;
   // on phones it would otherwise land below the fold
   const resultRef = useRef(null)
@@ -189,48 +260,25 @@ function DailyMode({ onPlayConnections }) {
         </div>
       )}
       <main className="main-layout">
-        <div className="trainer-panel">
-          <div className="trainer-frame-wrapper">
+        <TrainerCard
+          trainer={trainer}
+          hints={hintsRevealed}
+          gameOver={gameOver}
+          head={
             <DayBadge
               dayNumber={trainer.dayNumber}
               isProvided={trainer.isProvided}
               providedBy={trainer.providedBy}
               providedLink={trainer.providedLink}
             />
-            <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
-              {showTrainer ? (
-                <img
-                  draggable="false"
-                  src={trainer.trainerSpriteUrl}
-                  alt={trainerAlt(hintsRevealed, gameOver, trainer)}
-                  className={`trainer-sprite ${gameOver === 'won' ? 'trainer-sprite--celebrate' : ''}`}
-                  style={{ filter: trainerFilter }}
-                />
-              ) : (
-                <div className="trainer-placeholder" aria-hidden="true">
-                  <span>?</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="trainer-info">
-            <div className={`difficulty-badge ${trainer.difficulty}`}>
-              Difficulty: {trainer.difficulty.charAt(0).toUpperCase() + trainer.difficulty.slice(1)}
-            </div>
-            {hintsRevealed >= 2 && (
-              <div className="info-pill">Game: {trainer.game}</div>
-            )}
-            {hintsRevealed >= 3 && (
-              <div className="info-pill">Type: {toTitleCase(trainer.type)}</div>
-            )}
-          </div>
+          }
+        >
           {gameOver && (
             <div className="timer-desktop">
               <CountdownTimer />
             </div>
           )}
-        </div>
+        </TrainerCard>
 
         <div className="right-panel">
           <TeamGrid team={trainer.team} revealed={hintsRevealed >= 1} />
@@ -238,9 +286,7 @@ function DailyMode({ onPlayConnections }) {
           {!gameOver ? (
             <div className="guess-section">
               <GuessInput onGuess={handleGuess} onPass={handlePass} disabled={!!gameOver} />
-              <div className="guess-counter">
-                {MAX_GUESSES - guesses.length} guess{MAX_GUESSES - guesses.length !== 1 ? 'es' : ''} remaining
-              </div>
+              <GuessMeter guesses={guesses} max={MAX_GUESSES} showCount />
             </div>
           ) : (
             <div ref={resultRef}>
@@ -261,16 +307,7 @@ function DailyMode({ onPlayConnections }) {
             </div>
           )}
 
-          {guesses.length > 0 && (
-            <div className="guess-history">
-              {guesses.map((g, i) => (
-                <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
-                  <span>{g.correct ? '✓' : '✗'}</span>
-                  {g.label}
-                </div>
-              ))}
-            </div>
-          )}
+          <GuessHistory guesses={guesses} />
 
           {gameOver && (
             <div className="timer-mobile">
@@ -286,35 +323,12 @@ function DailyMode({ onPlayConnections }) {
 
 function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
   const { trainer, guesses, gameOver, hints, elapsedSeconds } = round
-  const trainerFilter = hints >= 4 ? 'none' : 'brightness(0) contrast(1)'
-  const showTrainer = hints >= 3
   const points = scoreForRound(guesses, gameOver)
 
   return (
-    <div className="inf-round inf-round--completed" style={{ marginBottom: '40px' }}>
+    <div className="inf-round inf-round--completed">
       <div className="inf-round-inner main-layout">
-        <div className="trainer-panel">
-          <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
-            {showTrainer ? (
-              <img
-                draggable="false"
-                src={trainer.trainerSpriteUrl}
-                alt={trainer.name}
-                className="trainer-sprite"
-                style={{ filter: trainerFilter }}
-              />
-            ) : (
-              <div className="trainer-placeholder" aria-hidden="true"><span>?</span></div>
-            )}
-          </div>
-          <div className="trainer-info">
-            <div className={`difficulty-badge ${trainer.difficulty}`}>
-              {trainer.difficulty.charAt(0).toUpperCase() + trainer.difficulty.slice(1)}
-            </div>
-            {hints >= 2 && <div className="info-pill">{trainer.game}</div>}
-            {hints >= 3 && <div className="info-pill">{toTitleCase(trainer.type)}</div>}
-          </div>
-        </div>
+        <TrainerCard trainer={trainer} hints={hints} gameOver={gameOver} celebrate={false} />
 
         <div className="right-panel">
           <TeamGrid team={trainer.team} revealed={hints >= 1} />
@@ -327,14 +341,7 @@ function CompletedRound({ round, scoreForRound, MAX_GUESSES }) {
               <div className="round-score-tag">{formatTime(elapsedSeconds)}</div>
             )}
           </div>
-          <div className="guess-history">
-            {guesses.map((g, i) => (
-              <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
-                <span>{g.correct ? '✓' : '✗'}</span>
-                {g.label}
-              </div>
-            ))}
-          </div>
+          <GuessHistory guesses={guesses} />
         </div>
       </div>
     </div>
@@ -635,9 +642,6 @@ function InfiniteMode({ onResetSession }) {
     if (typeof onResetSession === 'function') onResetSession()
   }
 
-  const trainerFilter = currentHints >= 4 ? 'none' : 'brightness(0) contrast(1)'
-  const showTrainer = currentHints >= 3
-
   if (!isPlaying) {
     const summary = poolSummary({ allGames, selectedGames, selectedDifficulties, enabledExtras, EXTRAS_META })
     return (
@@ -713,39 +717,12 @@ function InfiniteMode({ onResetSession }) {
             ref={currentRef}
             className={`inf-round inf-round--current ${isTransitioning ? 'inf-round--exiting' : 'inf-round--entering'}`}
           >
-            <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              margin: '32px 0 20px 0', position: 'relative'
-            }}>
-              <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', backgroundColor: 'var(--panel-border)' }} />
-              <span className="round-label">
-                Round {rounds.length + 1}
-              </span>
+            <div className="round-divider">
+              <span className="round-label">Round {rounds.length + 1}</span>
             </div>
 
             <div className="inf-round-inner main-layout">
-              <div className="trainer-panel">
-                <div className={`trainer-frame ${showTrainer ? '' : 'trainer-frame--empty'}`}>
-                  {showTrainer ? (
-                    <img
-                      draggable="false"
-                      src={currentTrainer.trainerSpriteUrl}
-                      alt={trainerAlt(currentHints, currentGameOver, currentTrainer)}
-                      className={`trainer-sprite ${currentGameOver === 'won' ? 'trainer-sprite--celebrate' : ''}`}
-                      style={{ filter: trainerFilter }}
-                    />
-                  ) : (
-                    <div className="trainer-placeholder" aria-hidden="true"><span>?</span></div>
-                  )}
-                </div>
-                <div className="trainer-info">
-                  <div className={`difficulty-badge ${currentTrainer.difficulty}`}>
-                    Difficulty: {currentTrainer.difficulty.charAt(0).toUpperCase() + currentTrainer.difficulty.slice(1)}
-                  </div>
-                  {currentHints >= 2 && <div className="info-pill">Game: {currentTrainer.game}</div>}
-                  {currentHints >= 3 && <div className="info-pill">Type: {toTitleCase(currentTrainer.type)}</div>}
-                </div>
-              </div>
+              <TrainerCard trainer={currentTrainer} hints={currentHints} gameOver={currentGameOver} />
 
               <div className="right-panel">
                 <TeamGrid team={currentTrainer.team} revealed={currentHints >= 1} />
@@ -759,9 +736,7 @@ function InfiniteMode({ onResetSession }) {
                       enabledExtras={enabledExtras}
                       extrasMeta={EXTRAS_META}
                     />
-                    <div className="guess-counter">
-                      {MAX_GUESSES - currentGuesses.length} guess{MAX_GUESSES - currentGuesses.length !== 1 ? 'es' : ''} remaining
-                    </div>
+                    <GuessMeter guesses={currentGuesses} max={MAX_GUESSES} showCount />
                   </div>
                 ) : (
                   <div className="inf-gameover-block">
@@ -786,16 +761,7 @@ function InfiniteMode({ onResetSession }) {
 
                 <GuessAnnouncer guesses={currentGuesses} gameOver={currentGameOver} trainer={currentTrainer} maxGuesses={MAX_GUESSES} />
 
-                {currentGuesses.length > 0 && (
-                  <div className="guess-history">
-                    {currentGuesses.map((g, i) => (
-                      <div key={i} className={`guess-chip ${g.correct ? 'correct' : 'wrong'}`}>
-                        <span>{g.correct ? '✓' : '✗'}</span>
-                        {g.label}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <GuessHistory guesses={currentGuesses} />
               </div>
             </div>
           </div>

@@ -23,7 +23,7 @@ export default function AuthModal({ onClose }) {
         <button className="auth-close" onClick={onClose} aria-label="Close">✕</button>
 
         <h2 id="auth-modal-title" style={{ fontFamily: 'inherit', fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'center' }}>
-          Sign in to save and view your stats!
+          Sign in to view your stats and earn medals!
         </h2>
 
         {error && <div className="form-status error" style={{ marginBottom: '1rem' }}>{error}</div>}

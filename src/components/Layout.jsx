@@ -5,6 +5,7 @@ import { useAuthContext } from '../contexts/AuthContext'
 import ColourPicker from './ColourPicker'
 import Footer from './Footer'
 import AuthModal from './AuthModal'
+import AccountMenu from './AccountMenu'
 import MedalBox from './MedalBox'
 import { useMedals } from '../contexts/MedalsContext'
 import { medalStage } from '../lib/medals'
@@ -19,18 +20,10 @@ export default function Layout({ children }) {
 
   return (
     <div className="app-root">
-      <div className="bg-overlay" />
-
-      <div className="content-wrapper">
-        <header className="site-header">
-
-          <h1 className="seo-heading">Who's That Trainer? — Daily Pokémon Trainer Guessing Game</h1>
-
-          <Link to="/" className="site-logo">
-            <img src="/banner.png" alt="Who's that Trainer?" />
-          </Link>
-
-          <div className="header-actions">
+      {/* A plain bar of controls along the top, like a daily-game header; the banner gets the stage below it */}
+      <div className="topbar">
+        <div className="topbar-inner">
+          <div className="topbar-group">
             <ColourPicker color={bgColor} accent={accentColor} onBgChange={handleBgChange} onAccentChange={handleAccentChange} />
             {/* Logged out, it stays reachable and offers the login that unlocks it */}
             <button
@@ -38,29 +31,34 @@ export default function Layout({ children }) {
               onClick={() => (user ? setMedalBoxOpen(true) : setModalOpen(true))}
               title={user ? 'Medal Box' : 'Log in to collect medals'}
               aria-label={user ? 'Medal Box' : 'Medal Box (log in to collect medals)'}
-              className={`kofi-btn medal-btn ${user ? '' : 'locked'}`}
+              className={`topbar-btn medal-btn ${user ? '' : 'locked'}`}
             >
               <img className="medal-img" src={user ? `/medal_imgs/medal-${medalStage(earnedCount)}.png` : '/medal_imgs/hint-medal.png'} alt="" />
-              <span>Medal Box</span>
+              <span className="topbar-btn-label">Medal Box</span>
             </button>
-            <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="kofi-btn" aria-label="Support me on Ko-fi">
+          </div>
+
+          <div className="topbar-group">
+            <a href="https://ko-fi.com/I8P7210YG4" target="_blank" rel="noopener noreferrer" className="topbar-btn kofi-btn" aria-label="Support me on Ko-fi">
               <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" />
               <span className="kofi-label-long">Support me on Ko-fi</span>
               <span className="kofi-label-short" aria-hidden="true">Ko-fi</span>
             </a>
-
-            <div className="header-auth">
-              {user ? (
-                <>
-                  <span className="auth-user-label">{user.user_metadata?.full_name?.split(' ')[0] ?? user.email.split('@')[0]}</span>
-                  <button onClick={signOut} className="auth-btn">Sign Out</button>
-                </>
-              ) : (
-                <button onClick={() => setModalOpen(true)} className="auth-btn accent">Log In</button>
-              )}
-            </div>
+            {user ? (
+              <AccountMenu user={user} onSignOut={signOut} />
+            ) : (
+              <button onClick={() => setModalOpen(true)} className="auth-btn accent">Log In</button>
+            )}
           </div>
+        </div>
+      </div>
 
+      <div className="content-wrapper">
+        <header className="site-header">
+          <h1 className="seo-heading">Who's That Trainer? — Daily Pokémon Trainer Guessing Game</h1>
+          <Link to="/" className="site-logo">
+            <img src="/banner.png" alt="Who's that Trainer?" />
+          </Link>
         </header>
 
         {children}
