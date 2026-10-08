@@ -124,9 +124,10 @@ export default function Stats() {
 
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingLeft: '1rem', listStyleType: 'disc' }}>
             <li>Record your guesses and results for every day's trainer</li>
-            <li>Build up streaks by attempting the trainer every day</li>
+            <li>Build up streaks by attempting the trainer and connections every day</li>
             <li>Track your total score and accuracy over time</li>
             <li>Search and filter through your full guess history</li>
+            <li>Earn medals for completing tasks and maintaining streaks</li>
             <li>Sync your progress across multiple devices</li>
           </ul>
         </div>

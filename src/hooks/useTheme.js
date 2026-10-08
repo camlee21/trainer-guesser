@@ -134,12 +134,12 @@ const DEFAULT_ACCENT = '#7ab8ff'
 // Every pairing keeps the accent clearly lighter/more saturated than its background for contrast.
 export const PRESETS = [
   { bg: '#16283f', accent: '#7ab8ff', label: 'Default' },
-  { bg: '#eef1f6', accent: '#3d63c9', label: 'Light' },
+  { bg: '#f4eff1', accent: '#b4306c', label: 'Pearl' },
   { bg: '#201f29', accent: '#f0b93d', label: 'Charcoal' },
-  { bg: '#0f2e63', accent: '#4fd1ff', label: 'Ocean' },
+  { bg: '#0b2a33', accent: '#3dd6c8', label: 'Mystic Water' },
   { bg: '#0b2f22', accent: '#34d399', label: 'Forest' },
-  { bg: '#4a1420', accent: '#ff8a3d', label: 'Crimson' },
-  { bg: '#3b2a12', accent: '#e0a458', label: 'Sepia' },
+  { bg: '#2c130b', accent: '#ff8b45', label: 'Fire Stone' },
+  { bg: '#32132a', accent: '#ff8fcb', label: 'Fairy' },
   { bg: '#22103f', accent: '#c084fc', label: 'Psychic' },
 ]
 
