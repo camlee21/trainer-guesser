@@ -29,3 +29,7 @@ download-sprites.mjs
 # tooling
 .impeccable/
 
+.claude/
+CLAUDE.md
+graphify-out/
+.graphifyignore
