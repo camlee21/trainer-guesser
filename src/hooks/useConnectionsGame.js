@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { getTrainer, findShortestRoute, pickRandomPair, getDailyPair, trainerUsesPokemon, TIME_LIMIT_MS } from '../lib/connectionsGraph'
 import { getDayNumber, dayNumberToUtcDateString } from '../lib/dailySchedule.js'
 import { supabase } from '../lib/supabaseClient'
+import { useResultSaver } from './useResultSaver'
 import { recordCompletion } from '../lib/completionCounter'
 import { useAuthContext } from '../contexts/AuthContext'
 import { useMedals } from '../contexts/MedalsContext'
@@ -13,9 +14,6 @@ const STORAGE_KEYS = { daily: 'wtt-connections-daily', custom: 'wtt-connections'
 const storageFor = kind => (kind === 'custom' ? sessionStorage : localStorage)
 // Finished daily puzzles are also saved to the signed-in account, like Daily mode's daily_results
 const RESULTS_TABLE = 'connections_results'
-// Same retry schedule as Daily mode. After these run out, the save is retried when the browser
-// comes back online or the page is next loaded.
-const RETRY_DELAYS_MS = [2000, 5000, 15000]
 
 function newGame(startId, goalId, phase) {
   // startedAt is set by the first Pokémon pick; elapsedMs once the game ends
@@ -108,13 +106,11 @@ export function useConnectionsGame(kind) {
   const [game, setGame] = useState(() => initialGame(kind))
   const { phase, startId, goalId, trainers, pokemon, undos, outcome } = game
   const dailyDay = game.dayNumber
-  // 'idle' | 'saving' | 'saved' | 'failed' (only used by the daily puzzle)
-  const [saveStatus, setSaveStatus] = useState('idle')
+  // saveStatus is only used by the daily puzzle
+  const { saveStatus, setSaveStatus, save: saveResult } = useResultSaver(RESULTS_TABLE)
   const userIdRef = useRef(userId)
-  const retryTimerRef = useRef(null)
 
   useEffect(() => { userIdRef.current = userId }, [userId])
-  useEffect(() => () => clearTimeout(retryTimerRef.current), [])
 
   useEffect(() => {
     try {
@@ -125,27 +121,14 @@ export function useConnectionsGame(kind) {
   }, [kind, game])
 
   // Uploads a finished daily puzzle to the signed-in account, retrying a few times if it fails
-  const saveDailyResult = useCallback(finished => {
-    async function attempt(n) {
+  const saveDailyResult = useCallback(finished => saveResult(
+    () => {
       const owner = userIdRef.current
-      if (!isDaily || !owner || finished.phase !== 'finished') return
-      clearTimeout(retryTimerRef.current)
-      setSaveStatus('saving')
-      const { error } = await supabase.from(RESULTS_TABLE).upsert(rowFromGame(finished, owner), { onConflict: 'user_id,date' })
-      if (!error) {
-        setSaveStatus('saved')
-        // Today's puzzle may have earned medals
-        refreshMedals()
-        return
-      }
-      console.error('Failed to save daily connections result', error)
-      setSaveStatus('failed')
-      if (n < RETRY_DELAYS_MS.length) {
-        retryTimerRef.current = setTimeout(() => attempt(n + 1), RETRY_DELAYS_MS[n])
-      }
-    }
-    return attempt(0)
-  }, [isDaily, refreshMedals])
+      return isDaily && owner && finished.phase === 'finished' ? rowFromGame(finished, owner) : null
+    },
+    // Today's puzzle may have earned medals
+    refreshMedals,
+  ), [isDaily, saveResult, refreshMedals])
 
   // On sign-in (and whenever the browser comes back online), line this device up with the account,
   // following the same rules as Daily mode
@@ -190,7 +173,7 @@ export function useConnectionsGame(kind) {
       cancelled = true
       window.removeEventListener('online', sync)
     }
-  }, [isDaily, userId, dailyDay, saveDailyResult])
+  }, [isDaily, userId, dailyDay, saveDailyResult, setSaveStatus])
 
   // Ends the game, and for the daily puzzle adds it to the anonymous count and saves it to the account straight away.
   // Daily puzzles count towards medals through connections_results; custom ones are saved as medal progress here.

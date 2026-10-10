@@ -1,13 +1,11 @@
-
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthContext } from '../contexts/AuthContext'
+import { getUtcDateString } from '../lib/dailySchedule.js'
+import { useResultSaver } from './useResultSaver'
 
 const STORAGE_VERSION = __APP_VERSION__
 const MAX_GUESSES = 5
-// Delays before retrying a failed save. After these run out, the save is
-// retried when the browser comes back online or the page is next loaded.
-const RETRY_DELAYS_MS = [2000, 5000, 15000]
 
 function readSavedGame(key) {
   try {
@@ -15,17 +13,12 @@ function readSavedGame(key) {
   } catch { return null }
 }
 
-function getTodayKey() {
-  const now = new Date()
-  const yyyy = now.getUTCFullYear()
-  const mm = String(now.getUTCMonth() + 1).padStart(2, '0')
-  const dd = String(now.getUTCDate()).padStart(2, '0')
-  return `wtt-game-${yyyy}-${mm}-${dd}`
+function getTodayDateString() {
+  return getUtcDateString(new Date())
 }
 
-function getTodayDateString() {
-  const now = new Date()
-  return `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-${String(now.getUTCDate()).padStart(2, '0')}`
+function getTodayKey() {
+  return `wtt-game-${getTodayDateString()}`
 }
 
 export function usePersistedGameState(trainer) {
@@ -48,15 +41,11 @@ export function usePersistedGameState(trainer) {
   const [hintsRevealed, setHintsRevealed] = useState(() => readSavedGame(key)?.hintsRevealed ?? 0)
   // Account that played today's saved game (null = played as a guest)
   const [ownerId, setOwnerId] = useState(() => readSavedGame(key)?.userId ?? null)
-  // 'idle' | 'saving' | 'saved' | 'failed'
-  const [saveStatus, setSaveStatus] = useState('idle')
-  const retryTimerRef = useRef(null)
+  const { saveStatus, setSaveStatus, save } = useResultSaver('daily_results')
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify({ guesses, gameOver, hintsRevealed, userId: ownerId }))
   }, [guesses, gameOver, hintsRevealed, ownerId])
-
-  useEffect(() => () => clearTimeout(retryTimerRef.current), [])
 
   useEffect(() => {
     Object.keys(localStorage)
@@ -119,42 +108,26 @@ export function usePersistedGameState(trainer) {
 
   // Explicit save function called directly when game ends
   // Uses passed values instead of state to avoid stale closure issues
-  async function saveResult(finalGuesses, finalGameOver, finalHints, attempt = 0) {
-    const currentUser = userRef.current
-    const currentTrainer = trainerRef.current
-    if (!currentUser || !currentTrainer) return
-    clearTimeout(retryTimerRef.current)
-    setOwnerId(currentUser.id)
-    setSaveStatus('saving')
-    const today = getTodayDateString()
-    const score = finalGameOver === 'won'
-      ? Math.max(0, MAX_GUESSES - (finalGuesses.length - 1))
-      : 0
-    const { error } = await supabase.from('daily_results').upsert({
-      user_id: currentUser.id,
-      date: today,
-      day_number: currentTrainer.dayNumber,
-      trainer_id: currentTrainer.id,
-      trainer_name: currentTrainer.name,
-      guesses_used: finalGuesses.length,
-      won: finalGameOver === 'won',
-      score,
-      guesses_json: JSON.stringify(finalGuesses),
-      hints_revealed: finalHints,
-    }, { onConflict: 'user_id,date' })
-
-    if (!error) {
-      setSaveStatus('saved')
-      return
-    }
-    console.error('Failed to save daily result', error)
-    setSaveStatus('failed')
-    if (attempt < RETRY_DELAYS_MS.length) {
-      retryTimerRef.current = setTimeout(
-        () => saveResult(finalGuesses, finalGameOver, finalHints, attempt + 1),
-        RETRY_DELAYS_MS[attempt]
-      )
-    }
+  async function saveResult(finalGuesses, finalGameOver, finalHints) {
+    if (!userRef.current || !trainerRef.current) return
+    setOwnerId(userRef.current.id)
+    await save(() => {
+      const currentUser = userRef.current
+      const currentTrainer = trainerRef.current
+      if (!currentUser || !currentTrainer) return null
+      return {
+        user_id: currentUser.id,
+        date: getTodayDateString(),
+        day_number: currentTrainer.dayNumber,
+        trainer_id: currentTrainer.id,
+        trainer_name: currentTrainer.name,
+        guesses_used: finalGuesses.length,
+        won: finalGameOver === 'won',
+        score: finalGameOver === 'won' ? Math.max(0, MAX_GUESSES - (finalGuesses.length - 1)) : 0,
+        guesses_json: JSON.stringify(finalGuesses),
+        hints_revealed: finalHints,
+      }
+    })
   }
 
   return { guesses, setGuesses, gameOver, setGameOver, hintsRevealed, setHintsRevealed, saveResult, saveStatus }
