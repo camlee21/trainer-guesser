@@ -118,7 +118,7 @@ function GuessMeter({ guesses, max, showCount = false }) {
       <div className="daily-pips" role="img" aria-label={`${guesses.length} of ${max} guesses used`}>
         {Array.from({ length: max }, (_, i) => {
           const g = guesses[i]
-          const state = !g ? 'unused' : g.correct ? 'correct' : 'wrong'
+          const state = !g ? 'unused' : g.correct ? 'correct' : g.id === PASS_GUESS.id ? 'passed' : 'wrong'
           return <span key={i} className={`daily-pip ${state}`} />
         })}
       </div>

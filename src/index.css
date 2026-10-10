@@ -1039,6 +1039,12 @@ img.account-initial {
   animation: pip-fill 320ms var(--ease-out);
 }
 
+.daily-pip.passed {
+  background: var(--text-dim);
+  border-color: var(--text-dim);
+  animation: pip-fill 320ms var(--ease-out);
+}
+
 .daily-pip.correct {
   background: var(--green);
   border-color: var(--green);
