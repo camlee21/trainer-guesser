@@ -3,9 +3,10 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuthContext } from '../contexts/AuthContext'
 import { getUtcDateString } from '../lib/dailySchedule.js'
 import { useResultSaver } from './useResultSaver'
+import { scoreForRound } from '../lib/scoring'
+import { DAILY_GAME_PREFIX, dailyGameKey } from '../lib/storageKeys'
 
 const STORAGE_VERSION = __APP_VERSION__
-const MAX_GUESSES = 5
 
 function readSavedGame(key) {
   try {
@@ -17,13 +18,9 @@ function getTodayDateString() {
   return getUtcDateString(new Date())
 }
 
-function getTodayKey() {
-  return `wtt-game-${getTodayDateString()}`
-}
-
 export function usePersistedGameState(trainer) {
   const { user } = useAuthContext()
-  const key = getTodayKey()
+  const key = dailyGameKey()
   const trainerRef = useRef(trainer)
   const userRef = useRef(user)
 
@@ -36,11 +33,12 @@ export function usePersistedGameState(trainer) {
     localStorage.setItem('wtt-version', STORAGE_VERSION)
   }
 
-  const [guesses, setGuesses] = useState(() => readSavedGame(key)?.guesses ?? [])
-  const [gameOver, setGameOver] = useState(() => readSavedGame(key)?.gameOver ?? false)
-  const [hintsRevealed, setHintsRevealed] = useState(() => readSavedGame(key)?.hintsRevealed ?? 0)
+  const [saved] = useState(() => readSavedGame(key))
+  const [guesses, setGuesses] = useState(saved?.guesses ?? [])
+  const [gameOver, setGameOver] = useState(saved?.gameOver ?? false)
+  const [hintsRevealed, setHintsRevealed] = useState(saved?.hintsRevealed ?? 0)
   // Account that played today's saved game (null = played as a guest)
-  const [ownerId, setOwnerId] = useState(() => readSavedGame(key)?.userId ?? null)
+  const [ownerId, setOwnerId] = useState(saved?.userId ?? null)
   const { saveStatus, setSaveStatus, save } = useResultSaver('daily_results')
 
   useEffect(() => {
@@ -49,7 +47,7 @@ export function usePersistedGameState(trainer) {
 
   useEffect(() => {
     Object.keys(localStorage)
-      .filter(k => k.startsWith('wtt-game-') && k !== key)
+      .filter(k => k.startsWith(DAILY_GAME_PREFIX) && k !== key)
       .forEach(k => localStorage.removeItem(k))
   }, [])
 
@@ -109,12 +107,11 @@ export function usePersistedGameState(trainer) {
   // Explicit save function called directly when game ends
   // Uses passed values instead of state to avoid stale closure issues
   async function saveResult(finalGuesses, finalGameOver, finalHints) {
-    if (!userRef.current || !trainerRef.current) return
-    setOwnerId(userRef.current.id)
     await save(() => {
       const currentUser = userRef.current
       const currentTrainer = trainerRef.current
       if (!currentUser || !currentTrainer) return null
+      setOwnerId(currentUser.id)
       return {
         user_id: currentUser.id,
         date: getTodayDateString(),
@@ -123,7 +120,7 @@ export function usePersistedGameState(trainer) {
         trainer_name: currentTrainer.name,
         guesses_used: finalGuesses.length,
         won: finalGameOver === 'won',
-        score: finalGameOver === 'won' ? Math.max(0, MAX_GUESSES - (finalGuesses.length - 1)) : 0,
+        score: scoreForRound(finalGuesses, finalGameOver),
         guesses_json: JSON.stringify(finalGuesses),
         hints_revealed: finalHints,
       }

@@ -11,10 +11,3 @@ export function AuthProvider({ children }) {
 export function useAuthContext() {
   return useContext(AuthContext)
 }
-
-async function signInWithGoogle() {
-  return supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin }
-  })
-}

@@ -19,7 +19,7 @@ import { LAUNCH_CYCLE } from '../data/launchCycle.js'
 
 // Day #1 is June 10th GMT+0
 const DAY_ONE_UTC = Date.UTC(2026, 5, 10) // year, month_num, day_num
-const DAY_MS = 86400000
+export const DAY_MS = 86400000
 
 // Number of trainers with no `addedOn` date. Only change this when removing
 // one of those trainers; new trainers should get an `addedOn` date instead.

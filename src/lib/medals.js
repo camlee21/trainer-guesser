@@ -255,7 +255,7 @@ export function countInfiniteRound() {
 }
 
 // Guesses a daily win took. Older rows may only have a score (5 for a first-guess win, down to 1), like on the Stats page.
-function guessesUsed(row) {
+export function guessesUsed(row) {
   return row.guesses_used ?? 6 - (row.score ?? 5)
 }
 

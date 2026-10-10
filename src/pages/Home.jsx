@@ -8,6 +8,7 @@ import GuessAnnouncer from '../components/GuessAnnouncer'
 import ConnectionsMode from '../components/ConnectionsMode'
 import { ScrollToTopButton, ScrollToBottomButton } from '../components/ScrollButtons'
 import { useDailyTrainer } from '../hooks/useDailyTrainer'
+import { MAX_GUESSES, PASS_GUESS } from '../lib/scoring'
 import { usePersistedGameState } from '../hooks/usePersistedGameState'
 import { useInfiniteMode } from '../hooks/useInfiniteMode'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -178,8 +179,6 @@ function DailyMode({ onPlayConnections }) {
     if (resultSaved) refreshMedals()
   }, [resultSaved, refreshMedals])
 
-  const MAX_GUESSES = 5
-
   useEffect(() => {
     if (!user) return
     async function fetchStreak() {
@@ -217,16 +216,9 @@ function DailyMode({ onPlayConnections }) {
     }
   }
 
-  async function handlePass() {
-    const newGuesses = [...guesses, { id: '__pass__', label: 'Passed', correct: false }]
-    setGuesses(newGuesses)
-    const newHints = newGuesses.length
-    setHintsRevealed(newHints)
-    if (newGuesses.length >= MAX_GUESSES) {
-      setGameOver('lost')
-      recordCompletion('trainer')
-      await saveResult(newGuesses, 'lost', newHints)
-    }
+  // A pass counts as a wrong guess
+  function handlePass() {
+    return handleGuess(PASS_GUESS)
   }
 
   // When the game ends (not when a finished game is reopened), make sure the result card is on screen;
@@ -285,7 +277,7 @@ function DailyMode({ onPlayConnections }) {
 
           {!gameOver ? (
             <div className="guess-section">
-              <GuessInput onGuess={handleGuess} onPass={handlePass} disabled={!!gameOver} />
+              <GuessInput onGuess={handleGuess} onPass={handlePass} />
               <GuessMeter guesses={guesses} max={MAX_GUESSES} showCount />
             </div>
           ) : (
@@ -368,19 +360,16 @@ const DIFFICULTY_STYLES = {
     active: 'var(--badge-green-bg)',
     activeBorder: 'var(--badge-green-border)',
     activeColor: 'var(--green)',
-    activeGlow: 'var(--badge-green-border)',
   },
   medium: {
     active: 'var(--badge-gold-bg)',
     activeBorder: 'var(--badge-gold-border)',
     activeColor: 'var(--gold)',
-    activeGlow: 'var(--badge-gold-border)',
   },
   hard: {
     active: 'var(--badge-red-bg)',
     activeBorder: 'var(--badge-red-border)',
     activeColor: 'var(--red)',
-    activeGlow: 'var(--badge-red-border)',
   },
 }
 
@@ -593,7 +582,6 @@ function InfiniteMode({ onResetSession }) {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
-  const scrollRef = useRef(null)
   const currentRef = useRef(null)
   const { save: saveMedals, refresh: refreshMedals } = useMedals()
   // Every round finished this session, for Infinite medals. Settings can't change mid-session.
@@ -633,13 +621,13 @@ function InfiniteMode({ onResetSession }) {
 
   const handleStartGame = () => {
     if (activePool.length === 0) return
-    if (typeof resetGame === 'function') resetGame()
+    resetGame()
     setIsPlaying(true)
   }
 
   const handleBackToFilters = () => {
     setIsPlaying(false)
-    if (typeof onResetSession === 'function') onResetSession()
+    onResetSession()
   }
 
   if (!isPlaying) {
@@ -701,7 +689,7 @@ function InfiniteMode({ onResetSession }) {
       </div>
 
       <div className="inf-layout-with-score">
-        <div className="inf-scroll" ref={scrollRef}>
+        <div className="inf-scroll">
           {rounds.map((round, i) => (
             <Fragment key={i}>
               <CompletedRound round={round} scoreForRound={scoreForRound} MAX_GUESSES={MAX_GUESSES} />
@@ -732,7 +720,6 @@ function InfiniteMode({ onResetSession }) {
                     <GuessInput
                       onGuess={handleGuess}
                       onPass={handlePass}
-                      disabled={!!currentGameOver}
                       enabledExtras={enabledExtras}
                       extrasMeta={EXTRAS_META}
                     />

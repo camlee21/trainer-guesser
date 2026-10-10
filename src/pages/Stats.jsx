@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { computeStreak } from '../lib/streakUtils'
+import { guessesUsed } from '../lib/medals'
 import trainersData from '../data/trainers.json'
 
 const PAGE_SIZE = 10
@@ -48,8 +49,7 @@ export default function Stats() {
   let failCount = 0
   results.forEach(r => {
     if (r.won) {
-      const guessesUsed = r.guesses_used ?? (6 - (r.score ?? 5))
-      const idx = Math.min(5, Math.max(1, guessesUsed)) - 1
+      const idx = Math.min(5, Math.max(1, guessesUsed(r))) - 1
       guessDistribution[idx]++
     } else {
       failCount++

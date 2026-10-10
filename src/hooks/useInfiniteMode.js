@@ -1,16 +1,16 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import trainers from '../data/trainers.json'
+import { MAX_GUESSES, PASS_GUESS, scoreForRound } from '../lib/scoring'
 
 const ALL_GAMES = [...new Set(trainers.trainers.map(t => t.game))]
 const ALL_DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
-const MAX_GUESSES = 5
 const MAX_TIMER_SECONDS = 3599
 
 const EXTRAS_META = {
-  romHacks: { key: 'romHacks', label: 'Rom Hacks', dataKey: 'hack-trainers' },
-  challengeMode: { key: 'challengeMode', label: 'B2W2 Challenge Mode', dataKey: 'challenge-trainers' },
-  rematches: { key: 'rematches', label: 'Rematches', dataKey: 'rematch-trainers' },
-  pwt: { key: 'pwt', label: 'B2W2 World Tournament', dataKey: 'pwt_trainers' },
+  romHacks: { label: 'Rom Hacks', dataKey: 'hack-trainers' },
+  challengeMode: { label: 'B2W2 Challenge Mode', dataKey: 'challenge-trainers' },
+  rematches: { label: 'Rematches', dataKey: 'rematch-trainers' },
+  pwt: { label: 'B2W2 World Tournament', dataKey: 'pwt_trainers' },
 }
 
 // Fisher-Yates. `avoidFirstId` stops a reshuffled list from repeating the trainer just played.
@@ -22,13 +22,6 @@ function shuffle(pool, avoidFirstId = null) {
   }
   if (list.length > 1 && list[0].id === avoidFirstId) [list[0], list[1]] = [list[1], list[0]]
   return list
-}
-
-function scoreForRound(guesses, gameOver) {
-  if (gameOver === 'won') {
-    return Math.max(0, MAX_GUESSES - (guesses.length - 1))
-  }
-  return 0
 }
 
 // The last game settings, kept in memory so "Back to Game Select" (which remounts Infinite mode)
@@ -66,21 +59,16 @@ export function useInfiniteMode() {
     currentGameOverRef.current = currentGameOver
   }, [currentGameOver])
 
-  const buildActivePool = useCallback(() => {
-    let base = trainers.trainers.filter(t =>
-      selectedGames.has(t.game) && selectedDifficulties.has(t.difficulty)
-    )
-    enabledExtras.forEach(key => {
-      const meta = EXTRAS_META[key]
-      if (meta && trainers[meta.dataKey]) {
-        const extra = trainers[meta.dataKey].filter(t => selectedDifficulties.has(t.difficulty))
-        base = [...base, ...extra]
-      }
-    })
-    return base
-  }, [selectedGames, selectedDifficulties, enabledExtras])
-
-  const activePool = buildActivePool()
+  let activePool = trainers.trainers.filter(t =>
+    selectedGames.has(t.game) && selectedDifficulties.has(t.difficulty)
+  )
+  enabledExtras.forEach(key => {
+    const meta = EXTRAS_META[key]
+    if (meta && trainers[meta.dataKey]) {
+      const extra = trainers[meta.dataKey].filter(t => selectedDifficulties.has(t.difficulty))
+      activePool = [...activePool, ...extra]
+    }
+  })
 
   // A finished round counts straight away, not only once "Next Round" moves it into `rounds`
   const currentFinished = currentGameOver && !isTransitioning
@@ -123,19 +111,6 @@ export function useInfiniteMode() {
     setRoundElapsedSeconds(0)
     setFinalRoundElapsedSeconds(null)
   }, [activePool])
-
-  function toggleGame(game) {
-    setSelectedGames(prev => {
-      const next = new Set(prev)
-      if (next.has(game)) {
-        if (next.size <= 1 && enabledExtras.size === 0) return prev
-        next.delete(game)
-      } else {
-        next.add(game)
-      }
-      return next
-    })
-  }
 
   function selectAllGames() {
     setSelectedGames(new Set(ALL_GAMES))
@@ -194,11 +169,7 @@ export function useInfiniteMode() {
   }
 
   function handlePass() {
-    const newGuesses = [...currentGuesses, { id: '__pass__', label: 'Passed', correct: false }]
-    setCurrentGuesses(newGuesses)
-    const newHints = newGuesses.length
-    setCurrentHints(newHints)
-    if (newGuesses.length >= MAX_GUESSES) endRound('lost')
+    handleGuess(PASS_GUESS)
   }
 
   const advanceRound = useCallback(() => {
@@ -235,7 +206,6 @@ export function useInfiniteMode() {
   return {
     allGames: ALL_GAMES,
     selectedGames,
-    toggleGame,
     setSelectedGames,
     selectAllGames,
     activePool,
@@ -265,6 +235,5 @@ export function useInfiniteMode() {
     finalRoundElapsedSeconds,
     startTimer,
     stopTimer,
-    isTimerRunning,
   }
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import { dailyGameKey, CONNECTIONS_KEYS } from '../lib/storageKeys'
 
 export function useAuth() {
   const [user, setUser] = useState(null)
@@ -29,13 +30,9 @@ export function useAuth() {
   }
 
   async function signOut() {
-    const now = new Date() // Guess data is reset on sign-out to not share account 1 guesses with account 2
-    const yyyy = now.getUTCFullYear()
-    const mm = String(now.getUTCMonth() + 1).padStart(2, '0')
-    const dd = String(now.getUTCDate()).padStart(2, '0')
-    const todayKey = `wtt-game-${yyyy}-${mm}-${dd}`
-    localStorage.removeItem(todayKey)
-    localStorage.removeItem('wtt-connections-daily') // Same for today's Connections puzzle
+    // Guess data is reset on sign-out to not share account 1 guesses with account 2
+    localStorage.removeItem(dailyGameKey())
+    localStorage.removeItem(CONNECTIONS_KEYS.daily) // Same for today's Connections puzzle
 
     await supabase.auth.signOut()
     window.location.href = '/' // Show clear data instantly, transports to home page to prevent errors with grabbing stats

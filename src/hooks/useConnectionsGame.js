@@ -3,6 +3,7 @@ import { getTrainer, findShortestRoute, pickRandomPair, getDailyPair, trainerUse
 import { getDayNumber, dayNumberToUtcDateString } from '../lib/dailySchedule.js'
 import { supabase } from '../lib/supabaseClient'
 import { useResultSaver } from './useResultSaver'
+import { CONNECTIONS_KEYS as STORAGE_KEYS } from '../lib/storageKeys'
 import { recordCompletion } from '../lib/completionCounter'
 import { useAuthContext } from '../contexts/AuthContext'
 import { useMedals } from '../contexts/MedalsContext'
@@ -10,7 +11,6 @@ import { connectionsFacts, customConnectionsProgress } from '../lib/medals'
 
 // Daily and custom games are saved separately, so playing one never disturbs the other.
 // A custom game only lasts for the browser tab (sessionStorage), so coming back later starts at trainer selection.
-const STORAGE_KEYS = { daily: 'wtt-connections-daily', custom: 'wtt-connections' }
 const storageFor = kind => (kind === 'custom' ? sessionStorage : localStorage)
 // Finished daily puzzles are also saved to the signed-in account, like Daily mode's daily_results
 const RESULTS_TABLE = 'connections_results'

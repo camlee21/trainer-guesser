@@ -1,9 +1,10 @@
+import { getUtcDateString, DAY_MS } from './dailySchedule.js'
+
 export function computeStreak(results) {
   if (!results || results.length === 0) return 0
 
   const now = new Date()
-  const pad = n => String(n).padStart(2, '0')
-  const todayStr = `${now.getUTCFullYear()}-${pad(now.getUTCMonth() + 1)}-${pad(now.getUTCDate())}`
+  const todayStr = getUtcDateString(now)
 
   const dates = new Set(results.map(r => r.date))
 
@@ -11,15 +12,12 @@ export function computeStreak(results) {
   let current = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
 
   if (!dates.has(todayStr)) {
-    current = new Date(current.getTime() - 86400000)
+    current = new Date(current.getTime() - DAY_MS)
   }
 
-  while (true) {
-    const d = current
-    const dateStr = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`
-    if (!dates.has(dateStr)) break
+  while (dates.has(getUtcDateString(current))) {
     streak++
-    current = new Date(current.getTime() - 86400000)
+    current = new Date(current.getTime() - DAY_MS)
   }
 
   return streak
